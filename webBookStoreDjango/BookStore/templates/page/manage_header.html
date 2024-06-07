@@ -1,0 +1,118 @@
+{% load static %}
+<header class="p-1 bg-info text-white fixed-top ">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="align-items-center mb-2 text-white text-decoration-none">
+                <img src="{% static 'images/background_book1.jpg' %}" width="50" height="50">
+<!--                <b >Sach3Goc</b>-->
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto p-2 justify-content-center mb-md-0">
+                <li class="nav-item mx-2"><a href="{% url 'home' %}" class="nav-link text-white"><b>Home</b></a></li>
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <b>Reports</b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'report-product' %}"><b>Product</b></a></li>
+                        <li><a class="dropdown-item" href="{% url 'report-customer' %}"><b>Customer</b></a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <b>Manage</b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9997/admin/user_model/" target= "_blank"><b>Users</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9999/admin/book/" target= "_blank"><b>Books</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9999/admin/mobile/" target= "_blank"><b>Mobiles</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9999/admin/clothes/" target= "_blank"><b>Clothes</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9995/admin/order/" target= "_blank"><b>Orders</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9995/admin/shipment/" target= "_blank"><b>Shipments</b></a></li>
+                        <li><a class="dropdown-item" href="http://127.0.0.1:9995/admin/payment/" target= "_blank"><b>Payments</b></a></li>
+                    </ul>
+                </li>
+                <li class="nav-item mx-2"><a href="#" class="nav-link text-white"><b>Orders</b></a>
+                </li>
+
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <b>Account</b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a class="nav-link dropdown-item" href="{% url 'informations-user' %}" role="button">
+                                <b>{{ request.session.account.username }} </b>
+                            </a>
+                        </li>
+
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout-user' %}">Log Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+</header>
+
+<script>
+    const recordingButton = document.getElementById('recording');
+    const imgVoice = document.getElementById('imgVoice');
+    const resultElement = document.getElementById('result');
+    const searchButton = document.getElementById('search');
+    let recognition;
+    var statusRecording = true;
+
+    recordingButton.addEventListener('click', checkStatusRecording);
+    searchButton.addEventListener('click', stopRecording);
+    function checkStatusRecording() {
+        if (statusRecording) {
+            startRecording();
+        }
+        else {
+            stopRecording();
+        }
+    }
+
+    function startRecording() {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function () {
+            console.log('Recording started');
+            statusRecording = false;
+            imgVoice.src = "{% static 'images/stop.png' %}"
+        };
+
+        recognition.onresult = function (event) {
+            let result = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                result += event.results[i][0].transcript;
+            }
+            resultElement.value = result;
+        };
+
+        recognition.onend = function () {
+            console.log('Recording ended');
+        };
+
+        recognition.start();
+    }
+    function stopRecording() {
+        if (recognition) {
+            recognition.stop();
+            statusRecording = true;
+            imgVoice.src = "{% static 'images/transcript.png' %}"
+        }
+    }
+
+
+</script>

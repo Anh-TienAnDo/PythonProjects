@@ -1,0 +1,132 @@
+{% load static %}
+{% load cart_tabs %}
+<header class="p-1 bg-info text-white fixed-top ">
+    <div class="container">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+            <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                <img src="{% static 'images/background_book1.jpg' %}" width="50" height="50">
+                <h3 class="mx-2">Sach3Goc</h3>
+            </a>
+
+            <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                <li class="nav-item mx-2"><a href="{% url 'home' %}" class="nav-link text-white"><b>Home</b></a></li>
+                <li class="nav-item mx-2"><a href="{% url 'categories' %}" class="nav-link text-white"><b>Categories</b></a>
+                </li>
+
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <b>Products</b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a class="dropdown-item" href="{% url 'products' %}">Books</a></li>
+                        <li><a class="dropdown-item" href="{% url 'mobiles' %}">Mobiles</a></li>
+                        <li><a class="dropdown-item" href="{% url 'clothes' %}">Clothes</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown mx-2">
+                    <a class="nav-link dropdown-toggle text-white" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        <b>Account</b>
+                    </a>
+                    {% if request.user.is_authenticated %}
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-item">
+                            <a class="nav-link dropdown-item" href="{% url 'informations-user' %}" role="button">
+                                <b>{{ request.user.username }} </b>
+                            </a>
+                        </li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="{% url 'logout-user' %}">Log Out</a></li>
+                    </ul>
+                    {% else %}
+                    <ul class="dropdown-menu">
+                        <li><a class="nav-item mx-2" href="{% url 'login-user' %}">Login</a></li>
+                        <li><a class="nav-item mx-2" href="{% url 'register' %}">Sign Up</a></li>
+                    </ul>
+                    {% endif %}
+                </li>
+            </ul>
+
+            <div class="d-flex col-12 col-lg-auto me-lg-auto mb-3 mb-lg-0">
+                <form class="d-flex" role="search" method="GET" action="{% url 'search' %}">
+                    <input class="form-control form-control-dark" type="search" placeholder="Search" aria-label="Search"
+                           name="keyword" id="result" value="">
+                    <button class="btn btn-outline-dark" type="submit" id="search">
+                        <img src="{% static '/images/search.png' %}" height="30" width="30">
+                    </button>
+                </form>
+
+                <button id="recording" class="btn btn-outline-dark">
+                    <img id="imgVoice" src="{% static '/images/transcript.png' %}" alt="voice" height="30"
+                         width="30"></button>
+            </div>
+
+            {% cart_box request %}
+
+
+            <!-- <div class="text-end">
+                <button type="button" class="btn btn-outline-light me-2">Login</button>
+                <button type="button" class="btn btn-warning">Sign-up</button>
+            </div> -->
+        </div>
+    </div>
+</header>
+
+<script>
+    const recordingButton = document.getElementById('recording');
+    const imgVoice = document.getElementById('imgVoice');
+    const resultElement = document.getElementById('result');
+    const searchButton = document.getElementById('search');
+    let recognition;
+    var statusRecording = true;
+
+    recordingButton.addEventListener('click', checkStatusRecording);
+    searchButton.addEventListener('click', stopRecording);
+    function checkStatusRecording() {
+        if (statusRecording) {
+            startRecording();
+        }
+        else {
+            stopRecording();
+        }
+    }
+
+    function startRecording() {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function () {
+            console.log('Recording started');
+            statusRecording = false;
+            imgVoice.src = "{% static 'images/stop.png' %}"
+        };
+
+        recognition.onresult = function (event) {
+            let result = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                result += event.results[i][0].transcript;
+            }
+            resultElement.value = result;
+        };
+
+        recognition.onend = function () {
+            console.log('Recording ended');
+        };
+
+        recognition.start();
+    }
+    function stopRecording() {
+        if (recognition) {
+            recognition.stop();
+            statusRecording = true;
+            imgVoice.src = "{% static 'images/transcript.png' %}"
+        }
+    }
+
+
+</script>

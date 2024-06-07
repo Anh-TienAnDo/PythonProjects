@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+  {{page_title}}
+{% endblock %}
+{%block header%}
+{% include 'page/product_header.html' %}
+{% endblock header%}
+{% block banner-slider%}
+  {% include 'slider.html' %}
+{% endblock banner-slider %}
+
+<!--main conten-->
+{% block main-content%}
+<div class="container--fluid">
+    <div class="row">
+      {% for product in products %}
+      <div class="col-lg-3 p-3">
+        <img class="thumbnail mx-auto d-block" src="{{product.image }}" style="margin-left: auto; margin-right: auto;" width="50%" height="50%" >
+        <div class="box-element">
+          <h4 class="nav-item"><strong>{{product.name}}</strong></h4>
+          <a class="btn btn-outline-warning add-cart nav-item" 
+          href="{% url 'add-cart' product.slug %}"><b>Add Cart</b></a>
+          <a class="btn btn-outline-success" href="{% url 'product' product.slug %}">View</a>
+          <h4><strong>{{product.price|intcomma}} VND</strong></h4>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock main-content %}

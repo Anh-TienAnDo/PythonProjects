@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {{page_title}}
+{% endblock %}
+
+{% block header%}
+  {% include 'header.html' %}
+{% endblock header %}
+
+{% block banner-slider%}
+  
+{% endblock banner-slider %}
+
+<!--main conten-->
+{% block main-content%}
+  <div class="container">
+        <div class="row text-center m-3 text-primary"><h2>Doctor Details</h2></div>
+        <div class="card">
+            <img class="card-img-top" src="{{ doctor.image }}" alt="{{ doctor.name.fullname }} ">
+            <div class="card-body">
+                <h5 class="card-title">{{ doctor.name.fullname }}</h5>
+                {% for specialties in doctor.specialties %}
+                  <p class="card-text">{{ specialties.name}}, </p>
+                {% endfor %}
+                <p class="card-text">Phone: {{ doctor.phone }}</p>
+                <p class="card-text">Email: {{ doctor.email }}</p>
+                <p class="card-text">Address: {{ doctor.address.street }}, {{ doctor.address.district }}, {{ doctor.address.city }}</p>
+                <p class="card-text">Year of Birth: {{ doctor.year_of_birth }}</p>
+                <p class="card-text">Level: {{ doctor.level.name }}</p>
+                <p class="card-text">Place of Work: {{ doctor.place_of_work.name }}</p>
+                <p class="card-text">Year of Work: {{ doctor.year_of_work }}</p>
+                <p class="card-text">Salary: {{ doctor.salary }}</p>
+                <p class="card-text">Description: {{ doctor.description }}</p>
+                <a href="{% url 'doctor:doctors' %}" class="btn btn-primary">Back to List</a>
+                <a href="{% url 'doctor:doctors' %}" class="btn btn-primary">View Appointments</a>
+                <a href="{% url 'patientln:history_medical_doctor' doctor.id%}" class="btn btn-primary">See Medical History</a>
+            </div>
+        </div>
+    </div>
+{% endblock main-content %}
+
+{% block footer %}
+  {% include 'footer.html' %}
+{% endblock footer %}

@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+{{page_title}}
+{% endblock %}
+
+{% block header%}
+{% include 'page/manage_header.html' %}
+{% endblock header %}
+
+{% block main-content%}
+{{content}}
+{% endblock main-content%}

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Books</title>
+</head>
+<body>
+<form method="get" action="{% url 'search_books' %}">
+  <input type="text" name="keyword" placeholder="Search products">
+    <button type="submit" >Search</button>
+</form>
+<br>
+<button><a href="{% url 'add_book' %}">Add a book</a></button>
+<h1>Total Books: {{count}}</h1>
+{% if books %}
+<table>
+    <tr>
+    <th>title</th>
+    <th>action</th>
+    </tr>
+    {% for book in books %}
+    <tr>
+        <td>{{ book.title }}</td>
+        <td><a href="details/{{book.id}}">details</a></td>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endif %}
+
+</body>
+</html>

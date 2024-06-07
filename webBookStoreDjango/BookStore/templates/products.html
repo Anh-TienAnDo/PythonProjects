@@ -1,0 +1,66 @@
+{% load static %}
+{% load humanize %}
+<H1>List Product!</H1>
+<div class="container--fluid">
+  <div class="row">
+
+    {% if products %}
+    <h3>Books</h3>
+      {% for product in products %}
+        <div class="col-lg-3 p-3">
+          <img class="thumbnail mx-auto d-block" src="{{product.image}}" style="margin-left: auto; margin-right: auto;" width="50%" height="50%" >
+          <div class="box-element p-5">
+            <h4 class="nav-item"><strong>{{product.name}}</strong></h4>
+            <a class="btn btn-outline-warning add-cart nav-item"
+            href="{% url 'add-cart' product.slug%}"><b>Add Cart</b></a>
+            <a class="btn btn-outline-success" href="{% url 'product' product.slug %}">View</a>
+            <h4><strong>{{product.price|intcomma}} VND</strong></h4>
+          </div>
+        </div>
+      {% endfor %}
+    <!-- { else }
+      <p class="text-danger">No results found.</p> -->
+      <hr>
+    {% endif %}
+  </div>
+
+
+  <div class="row">
+    {% if mobiles %}
+    <h3>Mobiles</h3>
+      {% for mobile in mobiles %}
+        <div class="col-lg-3 p-3">
+          <img class="thumbnail mx-auto d-block" src="{{mobile.image}}" style="margin-left: auto; margin-right: auto;" width="50%" height="50%" >
+          <div class="box-element p-5">
+            <h4 class="nav-item"><strong>{{mobile.name}}</strong></h4>
+            <a class="btn btn-outline-warning add-cart nav-item"
+            href="{% url 'add-mobile-to-cart' mobile.slug %}"><b>Add Cart</b></a>
+            <a class="btn btn-outline-success" href="{% url 'details-mobile' mobile.slug %}">View</a>
+            <h4><strong>{{mobile.price|intcomma}} VND</strong></h4>
+          </div>
+        </div>
+      {% endfor %}
+      <hr>
+    {% endif %}
+  </div>
+
+  <div class="row">
+    {% if clothes %}
+    <h3>Clothes</h3>
+      {% for c in clothes %}
+        <div class="col-lg-3 p-3">
+          <img class="thumbnail mx-auto d-block" src="{{c.image}}" style="margin-left: auto; margin-right: auto;" width="50%" height="50%" >
+          <div class="box-element p-5">
+            <h4 class="nav-item"><strong>{{c.name}}</strong></h4>
+            <a class="btn btn-outline-warning add-cart nav-item"
+            href="{% url 'add-clothes-to-cart' c.slug %}"><b>Add Cart</b></a>
+            <a class="btn btn-outline-success" href="{% url 'details-clothes' c.slug %}">View</a>
+            <h4><strong>{{c.price|intcomma}} VND</strong></h4>
+          </div>
+        </div>
+      {% endfor %}
+      <hr>
+    {% endif %}
+  </div>
+
+</div>

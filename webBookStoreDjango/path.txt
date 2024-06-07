@@ -1,0 +1,59 @@
+Server
+http://127.0.0.1:9998/
+
+User Service
+http://127.0.0.1:9997/
+path('users', views.get_users, name="users"),
+path('user/register', views.register, name="register"),
+path('user/login', views.login, name="login"),
+path('user/informations/<int:id>', views.informations, name="informations"),
+path('user/change-password/<int:id>', views.change_password, name="change-password"),
+
+Product Service
+http://127.0.0.1:9999/
+path('clothes/', include('clothes.urls')),
+    path('', ClothesListCreateView.as_view(), name='clothes-list-create'),
+    path('<int:id>/', ClothesRetrieveUpdateDestroyAPIViewID.as_view(), name='clothes-detail-id'),
+    path('slug/<slug:slug>/', ClothesRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='clothes-detail-slug'),
+    path('producers/', ProducerListCreateView.as_view(), name='clothes-producer-list-create'),
+    path('producers/<int:id>/', ProducerRetrieveUpdateDestroyAPIViewID.as_view(), name='clothes-producer-detail'),
+    path('producers/slug/<slug:slug>/', ProducerRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='clothes-producer-detail-slug'),
+    path('types/', TypeListCreateView.as_view(), name='clothes-type-list-create'),
+    path('types/<int:id>/', TypeRetrieveUpdateDestroyAPIViewID.as_view(), name='clothes-type-detail'),
+    path('types/slug/<slug:slug>/', TypeRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='clothes-type-detail-slug'),
+    path('clothes-by-type/<int:id>/', ShowAllClothesByType.as_view(), name='show-clothes-by-type'),
+    path('search/', ClothesSearchAPIView.as_view(), name='clothes-search'),
+
+path('mobiles/', include('mobile.urls')),
+    path('', PhoneListCreateView.as_view(), name='phone-list-create'),
+    path('<int:id>/', PhoneRetrieveUpdateDestroyAPIViewID.as_view(), name='phone-detail-id'),
+    path('slug/<slug:slug>/', PhoneRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='phone-detail-slug'),
+    path('producers/', ProducerListCreateView.as_view(), name='mobile-producer-list-create'),
+    path('producers/<int:id>/', ProducerRetrieveUpdateDestroyAPIViewID.as_view(), name='mobile-producer-detail'),
+    path('producers/slug/<slug:slug>/', ProducerRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='mobile-producer-detail-slug'),
+    path('types/', TypeListCreateView.as_view(), name='mobile-type-list-create'),
+    path('types/<int:id>/', TypeRetrieveUpdateDestroyAPIViewID.as_view(), name='mobile-type-detail'),
+    path('types/slug/<slug:slug>/', TypeRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='mobile-type-detail-slug'),
+    path('mobiles-by-type/<int:id>/', ShowAllMobilesByType.as_view(), name='show-mobiles-by-type'),
+    path('search/', MobileSearchAPIView.as_view(), name='mobile-search'),
+
+
+path('books/', include('book.urls')),
+    path('', BookListCreateView.as_view(), name='book-list-create'),
+    path('<int:id>/', BookRetrieveUpdateDestroyAPIViewID.as_view(), name='book-detail-id'),
+    path('slug/<slug:slug>/', BookRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='book-detail-slug'),
+    path('categories/', CategoryListCreateView.as_view(), name='book-category-list-create'),
+    path('categories/<int:id>/', CategoryRetrieveUpdateDestroyAPIViewID.as_view(), name='book-category-detail'),
+    path('categories/slug/<slug:slug>/', CategoryRetrieveUpdateDestroyAPIViewSLUG.as_view(), name='book-category-detail-slug'),
+    path('books-by-category/<int:id>/', ShowAllBookByCategory.as_view(), name='show-books-by-category'),
+    path('search/', BookSearchAPIView.as_view(), name='book-search'),
+
+Cart Service
+http://127.0.0.1:9995/
+path('carts/', include('cart.urls')),
+    path('api/cart/<int:user_id>/<slug:product_slug>', service.get_and_update_cart),
+    path('api/<int:user_id>/<slug:product_slug>/delete', service.delete_cart),
+    path('api/<int:user_id>/create', service.get_carts_and_create_cart),
+
+
+

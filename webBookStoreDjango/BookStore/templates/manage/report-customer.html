@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+Thu Vien 3 Goc
+{% endblock %}
+{%block header%}
+{% include page %}
+{% endblock header%}
+
+{% block main-content%}
+<div class="container">
+    <div class="row align-items-center justify-content-center mb-3">
+        <div class="row justify-content-center my-3">
+            <h5 class="col-2">Username</h5>
+            <h5 class="col-3">Email</h5>
+            <h5 class="col-2">Phone</h5>
+            <h5 class="col-3">Created at</h5>
+            <h5 class="col-2">Total</h5>
+        </div>
+        {% for r in result %}
+        <div class="row ">
+            <h5 class="col-2">{{r.user.username}}</h5>
+            <h5 class="col-3">{{r.user.email}}</h5>
+            <h5 class="col-2">{{r.user.phone}}</h5>
+            <h5 class="col-3">{{r.user.created_at|date:"D d/m/Y H:i:s"}}</h5>
+            <h5 class="col-2">{{r.total|intcomma}} VND</h5>
+        </div>
+        {%endfor%}
+
+    </div>
+
+</div>
+
+{% endblock main-content%}

@@ -1,0 +1,91 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block main-content%}
+<section class="text-primary p-3">
+    <div class="container--fluid">
+        <div class="row align-items-center">
+            <h3 class="text-center">Sign Up</h3>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6 p-3 ">
+                <form method="post" action="{% url 'register' %}">
+                    {% csrf_token %}
+                    <table>
+                            {% if notifications.username %}
+                            <p class="row text-danger"> {{notifications.username}}</p>
+                            {%endif%}
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>User name:</label></td>
+                                <td class="col-lg-8 p-3"><input type="text" value="{{content.username}}" name="username" required></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>First name:</label></td>
+                                <td class="col-lg-8 p-3"><input type="text" value="{{content.fname}}" name="first_name" required></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>Last name:</label></td>
+                                <td class="col-lg-8 p-3"><input type="text" value="{{content.lname}}" name="last_name" required></td>
+                            </div>
+                        </tr>
+                        {% if notifications.email %}
+                        <p class="row text-danger"> {{notifications.email}}</p>
+                        {%endif%}
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>Email:</label></td>
+                                <td class="col-lg-8 p-3"><input type="email" value="{{content.email}}" name="email" required></td>
+                            </div>
+                        </tr>
+                        {% if notifications.phone %}
+                        <p class="row text-danger"> {{notifications.phone}}</p>
+                        {%endif%}
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>Phone:</label></td>
+                                <td class="col-lg-8 p-3"><input type="text" value="{{content.phone}}" name="phone" maxlength="12" minlength="10" required></td>
+                            </div>
+                        </tr>
+                        {% if notifications.password %}
+                        <p class="row text-danger"> {{notifications.password}}</p>
+                        {%endif%}
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>Password:</label></td>
+                                <td class="col-lg-8 p-3"><input type="password" value="" name="password" required></td>
+                            </div>
+                        </tr>
+                        <tr>
+                            <div class="row align-items-center h5">
+                                <td class="col-lg-4 p-3"><label>Confirm Password:</label></td>
+                                <td class="col-lg-8 p-3"><input type="password" value="" name="confirm_password" required></td>
+                            </div>
+                        </tr>
+
+                    </table>
+                    <div class="row align-items-center">
+                        <div class="col-lg-3 p-3 text-center">
+                            <input class="btn btn-outline-success" type="submit" value="Register">
+                        </div>
+                        <div class="col-lg-3 p-3 text-center">
+                            <a class="btn btn-outline-success" href="{% url 'login-user' %}">Log in</a>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+            <div class="col-lg-6 p-3">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                     class="img-fluid" alt="Sample image">
+            </div>
+        </div>
+
+    </div>
+</section>
+{% endblock main-content%}

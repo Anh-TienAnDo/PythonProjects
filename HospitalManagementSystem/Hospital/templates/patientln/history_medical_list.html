@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}
+{{page_title}}
+{% endblock %}
+{% block header%}
+{% include 'header.html' %}
+{% endblock header %}
+{% block main-content %}
+<div class="container">
+    <div class="row text-center m-3 text-primary">
+        {% if doctor_id %}
+        <h2>Doctor {{doctor_id}}: Medical History </h2>
+        {%else%}
+        <h2>Medical History of Patient: {{patient_id}}</h2>
+        {%endif%}
+    </div>
+
+    <div class="row m-3">
+        <div class="col-md-4"><a href="#" class="btn btn-success">Add Medical History</a></div>
+        <div class="col-md-3">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search by doctor's name or patient's name" aria-label="Search">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-success">Search</button>
+        </div>
+    </div>
+
+    <div id="patients" class="row">
+        {% for history in history_medical_list %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Patient's Informations</h5>
+                    <h5 class="card-title">Name: {{ history.patient_information.name.fullname }}</h5>
+                    <p class="card-text">Phone: {{ history.patient_information.phone }}</p>
+                    <p class="card-text">Birth day: {{ history.patient_information.day_of_birth }}</p>
+                    <p class="card-text">Gender: {{ history.patient_information.gender }}</p>
+                    <a href="{% url 'patientln:history_medical_details' history.id %}" class="btn btn-success">Details</a>
+                    <a href="{% url 'patientln:history_medical_delete' history.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

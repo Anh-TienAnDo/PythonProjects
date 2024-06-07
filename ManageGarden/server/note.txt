@@ -1,0 +1,150 @@
+cài đặt các thư viện trong file requiments.txt: pip install -r requiments.txt
+django-admin startproject
+cd ManageGarden
+python manage.py startapp
+tạo db garden trong mongodb
+py manage.py makemigrations
+py manage.py migrate
+python manage.py createsuperuser
+
+{% extends 'base.html' %}
+{% load static %}
+{% load template_tags %}
+
+{% block title %}
+Thu Vien 3 Goc
+{% endblock %}
+
+{% block header%}
+{% include 'header.html' %}
+<script src="https://cdn.tailwindcss.com"></script>
+<style>
+	table {
+		border-collapse: collapse;
+	}
+
+	td {
+		padding: 5px 10px;
+	}
+
+	.border {
+		border: 1px solid black;
+	}
+
+	.right-align {
+		text-align: right;
+	}
+</style>
+{% endblock header %}
+
+{% block banner-slider%}
+
+{% endblock banner-slider %}
+
+<!--main conten-->
+{% block main-content%}
+
+<div class="px-6 py-6">
+	<div class="w-full my-6 mx-auto p-6 rounded-xl">
+		<h1 class="mb-6 text-3xl">
+			<b>Lịch sử mảnh đất {{land_id}}</b>
+		</h1>
+	</div>
+</div>
+<div>
+	<canvas id="sensor-chart"></canvas>
+</div>
+
+<div class="px-6 py-6">
+	<div class="w-full my-6 mx-auto p-6 rounded-xl">
+		<div>
+			<table class="mx-6 py-auto px-6">
+				<table class="mx-10 border border-dark">
+					<tr class="border border-dark">
+						<td class="font-bold left-align border border-dark">Nhiệt độ</td>
+						<td class="font-bold left-align border border-dark">Độ ẩm không khí</td>
+						<td class="font-bold left-align">Độ ẩm đất</td>
+						<td class="font-bold left-align border border-dark">Ánh sáng</td>
+						<td class="font-bold left-align border border-dark">Thời gian</td>
+					</tr>
+
+					{% for ls in ds_lichsu %}
+					<tr class="border border-dark">
+						<td class="left-align border border-dark">{{ ls.nhiet_do }}*C</td>
+						<td class="left-align border border-dark">{{ ls.do_am }}%</td>
+						<td class="left-align">{{ ls.do_am_dat }}%</td>
+						<td class="left-align border border-dark">{{ ls.anh_sang }} lux</td>
+						<td class="left-align border border-dark">{{ ls.created_at|custom_datetime_format }}</td>
+					</tr>
+					{% endfor %}
+				</table>
+				</tbody>
+			</table>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+	// Get the sensor data from the server
+	const sensorData = [
+		{% for ls in ds_lichsu %}
+		{
+			nhiet_do: {{ ls.nhiet_do }},
+			do_am: {{ ls.do_am }},
+			do_am_dat: {{ ls.do_am_dat }},
+			anh_sang: {{ ls.anh_sang }},
+			created_at: '{{ ls.created_at|custom_datetime_format }}'
+		},
+		{% endfor %}
+	];
+
+	// Extract the data for the line chart
+	const labels = sensorData.map(data => data.created_at);
+	const temperatureData = sensorData.map(data => data.nhiet_do);
+	const humidityData = sensorData.map(data => data.do_am);
+	const soilMoistureData = sensorData.map(data => data.do_am_dat);
+	const lightData = sensorData.map(data => data.anh_sang);
+
+	// Create the line chart
+	const ctx = document.getElementById('sensor-chart').getContext('2d');
+	new Chart(ctx, {
+		type: 'line',
+		data: {
+			labels: labels.slice(-30), // Only show the last 30 data points
+			datasets: [
+				{
+					label: 'Temperature',
+					data: temperatureData.slice(-30),
+					borderColor: 'red',
+					fill: false
+				},
+				{
+					label: 'Humidity',
+					data: humidityData.slice(-30),
+					borderColor: 'blue',
+					fill: false
+				},
+				{
+					label: 'Soil Moisture',
+					data: soilMoistureData.slice(-30),
+					borderColor: 'green',
+					fill: false
+				},
+				{
+					label: 'Light',
+					data: lightData.slice(-30),
+					borderColor: 'orange',
+					fill: false
+				}
+			]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: false
+		}
+	});
+</script>
+
+{% endblock main-content %}

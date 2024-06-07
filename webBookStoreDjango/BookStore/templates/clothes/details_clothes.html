@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% load static %}
+{% load humanize %}
+{% block title %}
+{{page_title}}
+{% endblock %}
+{%block header%}
+{% include 'page/header.html' %}
+{% endblock header%}
+{% block main-content %}
+
+<div class="m-3 text-success">
+    <img src="{{product.image}}">
+    <form method="Post" action="{% url 'add-clothes-to-cart' product.slug%}">
+        {% csrf_token %}
+        <h4>Name: {{product.name}}</h4>
+        <h4>Price: {{product.price|intcomma}} VND</h4>
+        <h5>Producer: {{product.producer_id}}</h5>
+        <h5>Type: {{product.type_id}}</h5>
+        <h5>Quantity: <input type="number" value="1" min="1" name="quantity"></h5>
+        <h5>
+            <button class="btn btn-outline-warning">
+                <b>Add Cart</b>
+            </button>
+        </h5>
+    </form>
+</div>
+
+<!--<a href="/customers">all customers</a>-->
+{% endblock %}

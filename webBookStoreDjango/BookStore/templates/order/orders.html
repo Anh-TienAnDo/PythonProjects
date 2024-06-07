@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}
+{{page_title}}
+{% endblock %}
+
+{% block header%}
+{% include 'page/header.html' %}
+{% endblock header %}
+
+{% block main-content%}
+<div class="container">
+    <!-- Thanh tìm kiếm -->
+<!--    <input type="text" id="search-input" placeholder="Search...">-->
+<!--    <button id="next-button">Next</button>-->
+
+    <div class="row align-items-center justify-content-center mb-3">
+        <h3 class="text-info text-center">Orders</h3>
+    </div>
+
+    <div class="row justify-content-left" id="content">
+        {% for r in result %}
+        <div class="col-lg-4 p-4">
+            <div class="row data"><h6>Date: <strong>{{r.order.date_order|date:"D d/m/Y H:i:s"}}</strong></h6></div>
+            <div class="row data"><h6>Bank: <strong>{{r.payment.bank}}</strong></h6></div>
+            <div class="row data"><h6>Total: <strong>{{r.order.total|intcomma}}</strong></h6></div>
+            <div class="row data"><h6>Paymented: <strong>{{r.payment.paymented|intcomma}}</strong></h6></div>
+            <div class="row data"><h6>Missing: <strong>{{r.payment.missing|intcomma}}</strong></h6></div>
+            {% if r.order.status == 1 %}
+            <div class="row data"><h6>Status: <strong>Submitted</strong></h6></div>
+            {% endif %}
+            {% if r.order.status == 2 %}
+            <div class="row data"><h6>Status: <strong>Processed</strong></h6></div>
+            {% endif %}
+            {% if r.order.status == 3 %}
+            <div class="row data"><h6>Status: <strong>Shipped</strong></h6></div>
+            {% endif %}
+            {% if r.order.status == 4 %}
+            <div class="row data"><h6>Status: <strong>Paymented</strong></h6></div>
+            {% endif %}
+            {% if r.order.status == 5 %}
+            <div class="row data"><h6>Status: <strong>Cancelled</strong></h6></div>
+            {% endif %}
+            <h6 class="row data">
+                {% if r.order.status > 1 and order.status < 5 %}
+                <style>
+                    .hidden-link {
+                      display: none;
+                    }
+
+                </style>
+                <a class="btn btn-outline-success hidden-link col-5" href="#"><b>""</b></a>
+                {% else %}
+                {% if r.order.status == 1 %}
+                <a class="btn btn-outline-danger col-5" href="{% url 'cancel-order' id=r.order.id %}"><b>Cancel</b></a>
+                {% endif %}
+                {% if r.order.status == 5 %}
+                <a class="btn btn-outline-success col-5" href="{% url 're-order' id=r.order.id %}"><b>Re-Order</b></a>
+                {% endif %}
+                {% endif %}
+                <p class="col-1"></p>
+                <a class="btn btn-outline-info col-5" href="{% url 'details-order' id=r.order.id%}"><b>Details</b></a>
+            </h6>
+        </div>
+        {%endfor%}
+    </div>
+
+</div>
+
+{% endblock main-content%}

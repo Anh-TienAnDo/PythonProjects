@@ -1,0 +1,83 @@
+<!-- register.html -->
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+{{page_title}}
+{% endblock %}
+{%block header%}
+{% include content.page %}
+{% endblock header%}
+{% block main-content %}
+<div class="container--fluid">
+    <div class="row align-items-center">
+        <h3 class="text-center"><a href="{% url 'home'%}">Home</a></h3>
+    </div>
+
+    <div class="row align-items-center">
+        <h3 class="text-center">Update Informations User</h3>
+    </div>
+
+    <form method="post" action="{% url 'update-user' %}">
+        {% csrf_token %}
+        <table>
+            {% if notifications.username %}
+            <p class="row text-danger"> {{notifications.username}}</p>
+            {%endif%}
+            <tr>
+                <div class="row align-items-center h5">
+                    <td class="col-lg-4 p-3"><label>User name:</label></td>
+                    <td class="col-lg-8 p-3"><input type="text" value="{{content.username}}" name="username" required>
+                    </td>
+                </div>
+            </tr>
+            {% if notifications.fname %}
+            <p class="row text-danger"> {{notifications.fname}}</p>
+            {%endif%}
+            <tr>
+                <div class="row align-items-center h5">
+                    <td class="col-lg-4 p-3"><label>First name:</label></td>
+                    <td class="col-lg-8 p-3"><input type="text" value="{{content.fname}}" name="first_name" required>
+                    </td>
+                </div>
+            </tr>
+            {% if notifications.lname %}
+            <p class="row text-danger"> {{notifications.lname}}</p>
+            {%endif%}
+            <tr>
+                <div class="row align-items-center h5">
+                    <td class="col-lg-4 p-3"><label>Last name:</label></td>
+                    <td class="col-lg-8 p-3"><input type="text" value="{{content.lname}}" name="last_name" required>
+                    </td>
+                </div>
+            </tr>
+            {% if notifications.email %}
+            <p class="row text-danger"> {{notifications.email}}</p>
+            {%endif%}
+            <tr>
+                <div class="row align-items-center h5">
+                    <td class="col-lg-4 p-3"><label>Email:</label></td>
+                    <td class="col-lg-8 p-3"><input type="email" value="{{content.email}}" name="email" required></td>
+                </div>
+            </tr>
+            {% if notifications.phone %}
+            <p class="row text-danger"> {{notifications.phone}}</p>
+            {%endif%}
+            <tr>
+                <div class="row align-items-center h5">
+                    <td class="col-lg-4 p-3"><label>Phone:</label></td>
+                    <td class="col-lg-8 p-3"><input type="text" value="{{content.phone}}" name="phone" maxlength="12"
+                                                    minlength="10" required></td>
+                </div>
+            </tr>
+
+        </table>
+        <div class="row align-items-center">
+            <div class="col-lg-3 p-3 text-center">
+                <input class="btn btn-outline-success" type="submit" value="Update">
+            </div>
+        </div>
+    </form>
+
+</div>
+
+{% endblock main-content %}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}
+{{page_title}}
+{% endblock %}
+{% block header%}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row text-center m-3 text-primary"><h2>Medical History Details</h2></div>
+    <div class="card">
+        <div class="card-body">
+            <p class="card-text">{{ history_medical.patient_information.name.fullname }}</p>
+            <p class="card-text">Day_of_birth: {{ history_medical.patient_information.day_of_birth }}</p>
+            <p class="card-text">Gender: {{ history_medical.patient_information.gender }}</p>
+            <p class="card-text">Address: {{ history_medical.patient_information.address.street }}, {{history_medical.patient_information.address.district }}, {{history_medical.patient_information.address.city }} </p>
+            <p class="card-text">Phone: {{ history_medical.patient_information.phone }}</p>
+
+            <p class="card-text">Doctor's name: {{ history_medical.doctor.name.fullname }}</p>
+            <p class="card-text">Place of Examination: {{ history_medical.place_of_examination }}</p>
+            <p class="card-text">Pathology: {{ history_medical.pathology }}</p>
+            <p class="card-text">Treatment: {{ history_medical.treatment }}</p>
+            <p class="card-text">Cost: {{ history_medical.cost }}</p>
+            <p class="card-text">Paymented: {{ history_medical.paymented }}</p>
+            <p class="card-text">Description: {{ history_medical.description }}</p>
+            <p class="card-text">Evaluation: {{ history_medical.evaluation }}</p>
+            <a href="{% url 'patientln:history_medical_list' history_medical.patient_information.id %}" class="btn btn-primary">Back to List</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

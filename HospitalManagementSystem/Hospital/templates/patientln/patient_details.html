@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}
+{{page_title}}
+{% endblock %}
+{% block header%}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block main-content %}
+<div class="container">
+    <div class="row text-center m-3 text-primary"><h2>Patient Details</h2></div>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ patient.name.fullname }}</h5>
+            <p class="card-text">Day of Birth: {{ patient.day_of_birth }}</p>
+            <p class="card-text">Gender: {{ patient.gender }}</p>
+            <p class="card-text">Address: {{ patient.address.street }}, {{ patient.address.district }}, {{ patient.address.city }}</p>
+            <p class="card-text">Phone: {{ patient.phone }}</p>
+            <a href="{% url 'patientln:patients' %}" class="btn btn-primary">Back to List</a>
+            <a href="{% url 'patientln:history_medical_list' patient.id %}" class="btn btn-primary">View Medical
+                History</a>
+            <a href="#" class="btn btn-primary">View Appointment</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
