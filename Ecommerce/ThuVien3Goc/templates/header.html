@@ -1,75 +1,163 @@
 {% load static %}
-<div class="header-top row">
-    <div class="col-8">khau hieu</div>
-    <div class="col-4">
-            {% if request.session.account %}
-            <h6>Hi {{ account.username }}</h6>
-            <a class="dropdown-toggle" href="#" id="dropdownMenuLink"
-                    data-bs-toggle="dropdown" aria-expanded="false">
-                    <img src="#" alt="image user" style="width: 10px; height: 10px;">
+<div class="header-top row justify-content-md-center align-items-center bg-light py-1">
+    <div class="col-9 text-success text-center"><b>SỐNG VÀ LAN TẢO ĐIỀU TỬ TẾ</b></div>
+    <div class="col-3">
+        {% if request.session.account %}
+        <div class="row">
+            <h6 class="col-4">Hi {{ request.session.account.username }}</h6>
+            <a class="col-6 dropdown-toggle" href="#" id="dropdownMenuLink" data-bs-toggle="dropdown"
+               aria-expanded="false">
+                <img src="{% static 'images/user.png' %}" alt="image user" style="width: 30px; height: 30px;">
             </a>
-
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                    <li><a class="dropdown-item" href="#">Informations</a></li>
-                    <li>
-                            <hr class="dropdown-divider">
-                    </li>
-                    <li><a class="dropdown-item" href="#">Logout</a></li>
+            <ul class="col-2 dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="#">Informations</a></li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li><a class="dropdown-item" href="{% url 'user:log-out' %}">Logout</a></li>
             </ul>
+        </div>
+        {% else %}
+        <div class="row">
+            <div class="col-2">
 
-            {% else %}
-            <div class="col-6">
-                    <a href="#">Đăng nhập</a>
             </div>
-            <div class="col-6">
-                    <a href="#">Đăng ký</a>
+            <div class="col-4">
+                <a href="{% url 'user:log-in' %}">Đăng nhập</a>
             </div>
-            {% endif %}
+            <div class="col-4">
+                <a href="{% url 'user:register' %}">Đăng ký</a>
+            </div>
+            <div class="col-2">
+
+            </div>
+        </div>
+
+        {% endif %}
 
     </div>
 </div>
-<div class="header-center row">
-    <div class="col-4">
-            <div class="col-3">
-                    <a href="{% url 'core:index' %}">
-                            <img src="{% static 'images/logo.png' %}" alt="logo">
-                    </a>
+
+<div class="header-center row justify-content-md-center align-items-center py-1">
+    <div class="col-3">
+        <div class="row justify-content-md-center align-items-center">
+            <div class="col-3 text-center">
+                <a href="{% url 'core:index' %}">
+                    <img src="{% static 'images/logo_thu_vien_3_goc.png' %}" alt="logo"
+                         style="width: 50px; height: 50px;">
+                </a>
             </div>
-            <div class="col-9">
-                    <h6>Thư Viện 3 Gốc</h6>
+            <div class="col-9 ">
+                <h6>Thư Viện 3 Gốc</h6>
             </div>
+        </div>
     </div>
-    <div class="col-7">
-            <form action="#" class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Search"
-                            aria-label="Search">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+    <div class="col-6">
+        <form class="d-flex" method="GET" action="{% url 'core:index' %}">
+            <input class="form-control form-control-dark bg-light" type="search" placeholder="Search" aria-label="Search"
+                   name="keyword" id="result" value="">
+            <button class="btn btn-outline-dark" type="submit" id="search">
+                <img src="{% static '/images/search.png' %}" height="30" width="30">
+            </button>
+            <i id="recording" class="btn btn-outline-dark">
+                <img id="imgVoice" src="{% static '/images/transcript.png' %}" alt="voice" height="30"
+                     width="30"></i>
+        </form>
     </div>
-    <div class="col-1">Cart</div>
+    <div class="col-3 text-end px-5">
+        <a href="{% url 'core:index' %}">
+            <img src="{% static 'images/cart.png' %}" alt="cart" style="width: 50px; height: 40px;">
+        </a>
+    </div>
 </div>
-<div class="header-bottom row justify-content-md-center">
-    <ul class="nav nav-pills">
+
+<div class="header-main row bg-light">
+    <div class="d-flex flex-wrap align-items-center justify-content-center align-items-center px-5">
+        <ul class="nav col-12 col-lg-auto me-lg-auto p-2 mb-md-0 px-5">
             <li class="nav-item">
-                    <a class="nav-link" href="#">Trang chủ</a>
+                <a class="nav-link" href="#">Trang chủ</a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link" href="#">Sách nói</a>
+                <a class="nav-link" href="#">Câu nói</a>
             </li>
             <li class="nav-item">
-                    <a class="nav-link" href="#">Video</a>
+                <a class="nav-link" href="#">Sách nói</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Video</a>
             </li>
             <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#"
-                            role="button" aria-expanded="false">Sản Phẩm Pháp Thoại</a>
-                    <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Thẻ Nhớ</a></li>
-                            <li><a class="dropdown-item" href="#">USB</a></li>
-                            <li><a class="dropdown-item" href="#">Loa Pháp Thoại</a></li>
-                    </ul>
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button"
+                   aria-expanded="false">Sản Phẩm
+                    Pháp Thoại</a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Thẻ Nhớ</a></li>
+                    <li><a class="dropdown-item" href="#">USB</a></li>
+                    <li><a class="dropdown-item" href="#">Loa Pháp Thoại</a>
+                    </li>
+                </ul>
             </li>
-    </ul>
+        </ul>
+
+    </div>
+
 </div>
-<div class="header-banner">
+
+<div class="header-banner row justify-content-md-center align-items-center">
     {% block header-banner %} {% endblock header-banner %}
 </div>
+
+<script>
+    const recordingButton = document.getElementById('recording');
+    const imgVoice = document.getElementById('imgVoice');
+    const resultElement = document.getElementById('result');
+    const searchButton = document.getElementById('search');
+    let recognition;
+    var statusRecording = true;
+
+    recordingButton.addEventListener('click', checkStatusRecording);
+    searchButton.addEventListener('click', stopRecording);
+    function checkStatusRecording() {
+        if (statusRecording) {
+            startRecording();
+        }
+        else {
+            stopRecording();
+        }
+    }
+
+    function startRecording() {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = true;
+        recognition.interimResults = true;
+
+        recognition.onstart = function () {
+            console.log('Recording started');
+            statusRecording = false;
+            imgVoice.src = "{% static 'images/stop.png' %}"
+        };
+
+        recognition.onresult = function (event) {
+            let result = '';
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                result += event.results[i][0].transcript;
+            }
+            resultElement.value = result;
+        };
+
+        recognition.onend = function () {
+            console.log('Recording ended');
+        };
+
+        recognition.start();
+    }
+    function stopRecording() {
+        if (recognition) {
+            recognition.stop();
+            statusRecording = true;
+            imgVoice.src = "{% static 'images/transcript.png' %}"
+        }
+    }
+
+
+</script>

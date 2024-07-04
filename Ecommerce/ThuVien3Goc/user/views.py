@@ -25,14 +25,16 @@ def register(request):
             'fname': fname,
             'lname': lname,
         }
+        print(content)
         result = create_user(data = content)
+        print(result)
         if result['status']=='Success':
             if 'message' in request.session:
                 request.session['message'] = "Đăng ký thành công. Bạn có thể đăng nhập ngay bây giờ."
             return redirect("user:log-in")
         else:
             notifications=result['message']
-            return render(request, 'user/register.html', {'context': content, 'notifications': notifications})
+            return render(request, 'user/register.html', {'content': content, 'notifications': notifications})
 
     return render(request, 'user/register.html', {'content': content, 'notifications': notifications})
 
@@ -47,7 +49,9 @@ def login_user(request):
             'username': username,
             'password': password,
         }
+        print(content)
         result = check_user_login(data=content)
+        print(result)
         if result['status']=='Success':
             request.session['account'] = result['account']
             request.session['message'] = "Đăng nhập thành công."

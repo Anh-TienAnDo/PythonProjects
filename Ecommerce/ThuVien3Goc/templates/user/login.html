@@ -1,0 +1,105 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'images/favicon-library.png' %}">
+    <title>{% block title %}{% endblock %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+
+    <!-- js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+        integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+        crossorigin="anonymous"></script>
+
+
+</head>
+
+<body>
+    <section class="text-primary p-3">
+        <div class="container--fluid">
+            <div class="row align-items-center">
+                <h3 class="text-center"><a href="{% url 'core:index'%}">Trang chủ</a></h3>
+            </div>
+
+            <div class="row align-items-center">
+                <h3 class="text-center">Đăng nhập</h3>
+            </div>
+
+            <div class="row align-items-center justify-content-center">
+                <div class="col-lg-6 p-3 ">
+                    <form method="post" action="{% url 'user:log-in' %}">
+                        {% csrf_token %}
+                        <table>
+                            <tr>
+                                <div class="text-danger px-3">{{ notifications.username }}</div>
+                            </tr>
+                            <tr>
+                                <div class="row align-items-center h5">
+                                    <td class="col-4 p-3"><label>Tên tài khoản:</label></td>
+                                    <td class="col-8 p-3"><input type="text" value="{{content.username}}" name="username" required></td>
+                                </div>
+                            </tr>
+                            <tr>
+                                <div class="text-danger px-3">{{ notifications.password }}</div>
+                            </tr>
+                            <tr>
+                                <div class="row align-items-center h5">
+                                    <td class="col-4 p-3"><label>Mật khẩu:</label></td>
+                                    <td class="col-8 p-3"><input type="password" value="{{content.password}}" name="password" required></td>
+                                </div>
+                            </tr>
+
+                        </table>
+                        <div class="row px-3">
+                            <a href="#">Bạn đã quên Mật Khẩu?</a>
+                        </div>
+                        <div class="row align-items-center">
+                            <div class="col-9 text-center p-3 ">
+                                <input class="btn btn-success text-center px-5" type="submit" value="Đăng nhập">
+                            </div>
+                        </div>
+                        <div class="row px-3 block">
+                            <p>Bạn chưa có Tài khoản?
+                                <a class="text-success" href="{% url 'user:register'%}">
+                                    <b>Đăng ký</b></a>
+                            </p>
+                        </div>
+                        <div class="row divider d-flex align-items-center">
+                            <p class="text-center fw-bold col-9 text-muted">OR</p>
+                        </div>
+                        <div class="row px-3 py-1">
+                            <a data-mdb-ripple-init class="col-9 btn btn-primary"
+                                style="background-color: #3b5998" href="#!" role="button">
+                                Continue with Facebook
+                            </a>
+                        </div>
+                        <div class="row px-3">
+                            <a data-mdb-ripple-init class="col-9 btn btn-primary"
+                            style="background-color: #ee7155" href="#!" role="button">
+                            Continue with Google</a>
+                        </div>
+                    </form>
+
+                </div>
+                <div class="col-lg-6 p-3">
+                    <img src="" class="img-fluid" alt="">
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>

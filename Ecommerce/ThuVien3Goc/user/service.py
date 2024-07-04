@@ -1,5 +1,6 @@
 import re
 from .models import Account, Address, Name, User
+from .serializers import UserSerializer, NameSerializer, AccountSerializer, AddressSerializer
 
 class UserValidation:
     def __init__(self, data):
@@ -14,6 +15,7 @@ class UserValidation:
             self.validation_errors['username'] = "Username phải bắt đầu bằng chữ cái và chỉ chứa chữ cái và số."
         
     def check_username_exist(self):
+        username = self.data.get('username')
         if Account.objects.filter(username=username).exists():
             self.validation_errors['username'] = "Username đã tồn tại."
         
@@ -25,6 +27,7 @@ class UserValidation:
             self.validation_errors['email'] = "Email không hợp lệ."
     
     def check_email_exist(self):
+        email = self.data.get('email')
         if Account.objects.filter(email=email).exists():
             self.validation_errors['email'] = "Email đã tồn tại."
 
@@ -65,8 +68,8 @@ class UserValidation:
     def check_old_password(self):
         username = self.data.get('username')
         old_password = self.data.get('old_password')
-        account = Account.objects.get(username=username, password=old_password)
-        if not account:
+        account = Account.objects.get(username=username)
+        if account.check_password(old_password) == False:
             self.validation_errors['old_password'] = "Old password không đúng."
 
     def validate_password(self):
@@ -132,8 +135,10 @@ def check_user_login(data):
                     'message'    : validation_errors
                 }
     else:
-        account = Account.objects.filter(username=data['username'], password=data['password'])
-        if len(account) == 0:
+        username = data['username']
+        password = data['password']
+        account = Account.objects.filter(username=username).first()
+        if account is None and account.check_password(password) == False:
             return {
                     'status'     : 'Failed',
                     'status_code': '400',
@@ -143,7 +148,7 @@ def check_user_login(data):
                     'status'     : 'Success',
                     'status_code': '200',
                     'message'    : 'Login successfully',
-                    'account'       :  account[0]
+                    'account'       :  AccountSerializer(account).data
                 }
     
 class UserAction():
@@ -160,9 +165,10 @@ class UserAction():
 
         account = Account.objects.create(
             username=username,
-            password=password,
             email=email,
-        ); account.save()
+        )
+        account.set_password(password)
+        account.save()
 
         name = Name.objects.create(
             fname=fname,
@@ -221,7 +227,7 @@ class UserAction():
         password = data.get('password')
 
         account = Account.objects.get(username=username)
-        account.password = password
+        account.set_password(password)
         account.save()
         return True
     

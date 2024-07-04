@@ -3,8 +3,7 @@ from djongo import models
 # Create your models here.
 class Category(models.Model):
     name = models.CharField(max_length=255)
-    slug = models.SlugField(max_length=255, unique=True,
-                            help_text='Unique value for product page URL, created from name.', null=True)
+    slug = models.SlugField(max_length=255, unique=True)
     description = models.TextField(null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)

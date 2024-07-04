@@ -5,5 +5,6 @@ from django.http import Http404
 
 # Create your views here.
 def index(request):
-     
-    return HttpResponse(request)
+    template = loader.get_template('core/index.html')
+    content = {}
+    return HttpResponse(template.render(content, request))

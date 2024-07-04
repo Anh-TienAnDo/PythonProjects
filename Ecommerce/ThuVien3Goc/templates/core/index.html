@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+{% load static %}
+{% load catalog_tabs %}
+
+
+{% block title %}Trang chủ{% endblock %}
+
+{% block body-content-category %}
+    {% catalog_box request %}
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+body-content-news-main
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+body-content-news-secondary
+{% endblock body-content-news-secondary %}

@@ -6,9 +6,9 @@ from .models import Address, Name, Account, User
 class UserAdmin(admin.ModelAdmin):
     # form = MobileAdminForm
     # Xác định các trường hiển thị trên danh sách các sản phẩm trong trang admin.
-    list_display = ('account', 'address', 'name', 'created_at', 'updated_at', )
+    list_display = ('account',  'name', 'created_at', 'updated_at', )
     # Chỉ định các trường liên kết từ danh sách đến trang chỉnh sửa chi tiết.
-    list_display_links = ('account', 'address', 'name',)
+    list_display_links = ('account', 'name',)
     # Số lượng sản phẩm được hiển thị trên mỗi trang danh sách
     list_per_page = 20
     # sắp xếp mặc định của danh sách sản phẩm.

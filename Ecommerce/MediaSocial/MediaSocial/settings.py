@@ -40,6 +40,9 @@ INSTALLED_APPS = [
     'audiobook',
     'movie',
     'sayings',
+    'category',
+    'author',
+    'producer',
     'rest_framework',
 ]
 
