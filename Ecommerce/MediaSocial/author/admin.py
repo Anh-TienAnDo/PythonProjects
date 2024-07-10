@@ -9,7 +9,7 @@ class AuthorAdmin(admin.ModelAdmin):
     list_display_links = ('name',)
     list_per_page = 20
     search_fields = ['name', 'slug', 'email']
-    exclude = ('created_at', 'updated_at',)
+    exclude = ('email', 'created_at', 'updated_at',)
     list_filter = ['is_active', 'created_at', 'updated_at']
     prepopulated_fields = {'slug': ('name',)}
     ordering = ['-created_at']

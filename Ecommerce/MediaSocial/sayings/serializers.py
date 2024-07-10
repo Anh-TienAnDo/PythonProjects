@@ -4,4 +4,4 @@ from .models import Saying
 class SayingSerializer(serializers.ModelSerializer):
     class Meta:
         model = Saying
-        fields = ['id', 'title', 'slug', 'text', 'view', 'author', 'category', 'image', 'is_active', 'created_at', 'updated_at']
+        fields = ['id', 'title', 'slug', 'text', 'view', 'author', 'categories', 'image', 'is_active', 'created_at', 'updated_at']

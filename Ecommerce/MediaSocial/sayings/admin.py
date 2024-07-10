@@ -11,7 +11,7 @@ class SayingAdmin(admin.ModelAdmin):
     search_fields = ('title', 'author')
     list_per_page = 20
     ordering = ('-created_at',)
-    exclude = ('created_at', 'updated_at',)
+    exclude = ('slug', 'created_at', 'updated_at',)
 
     def save_model(self, request, obj, form, change):
         obj.slug = slugify(obj.title)

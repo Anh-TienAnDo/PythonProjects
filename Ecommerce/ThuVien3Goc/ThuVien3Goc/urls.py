@@ -21,4 +21,5 @@ urlpatterns = [
     path('', include('core.urls')),
     path('user/', include('user.urls')),
     path('catalog/', include('catalog_media.urls')),
+    path('media/', include('media_social.urls')),
 ]

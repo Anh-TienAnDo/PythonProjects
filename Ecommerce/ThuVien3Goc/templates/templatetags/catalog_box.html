@@ -1,28 +1,27 @@
 {% load static %}
-
-<div class="catalog-box">
-    <div class="title row text-center bg-light">
+<div class="catalog-box bg-light">
+    <div class="title row text-center">
         <h6>Lọc theo thể loại và tác giả</h6>
     </div>
     <form action="" method="get">
         <!-- category select -->
         <div class="mb-3">
             <label for="categorySelect" class="form-label">Select category</label>
-            <select id="categorySelect" class="form-select">
-                <option selected>Tất cả</option>
+            <select id="categorySelect" class="form-select" name="category_slug">
+                <option value="all" selected>Tất cả</option>
                 {% for category in categories %}
-                    <option value="{{ category.slug }}">{{ category.name }}</option>
+                <option value="{{ category.slug }}">{{ category.name }}</option>
                 {% endfor %}
             </select>
         </div>
 
         <!-- author select -->
         <div class="mb-3">
-            <label for="authorSelect" class="form-label">Select author</label>
-            <select id="authorSelect" class="form-select">
-                <option selected>Tất cả</option>
+            <label for="authorSelect" class="form-label" >Select author</label>
+            <select id="authorSelect" class="form-select" name="author_slug">
+                <option value="all" selected>Tất cả</option>
                 {% for author in authors %}
-                    <option value="{{ author.slug }}">{{ author.name }}</option>
+                <option value="{{ author.slug }}">{{ author.name }}</option>
                 {% endfor %}
             </select>
         </div>

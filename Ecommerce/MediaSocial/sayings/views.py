@@ -21,12 +21,11 @@ def check_data_exists(data):
     return [True, None]
 
 def get_author_name(saying):
-    author = saying.author.name
-    author_data = AuthorSerializer(author).data
-    return author_data
+    author_name = str(saying.author.name)
+    return author_name
 
 def get_category_data(saying):
-    categories = saying.category.all()
+    categories = saying.categories.all()
     category_data = CategorySerializer(categories, many=True).data
     return category_data
 
@@ -70,8 +69,8 @@ class SayingView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SayingDetailView(APIView):
-    def get(self, request, id):
-        saying = Saying.objects.filter(id=id, is_active=True).first()
+    def get(self, request, slug):
+        saying = Saying.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(saying)
         if check[0] is False:
             return Response(check[1])
@@ -87,9 +86,9 @@ class SayingDetailView(APIView):
                 'data': saying_data
             })
     
-    def put(self, request, id):
+    def put(self, request, slug):
         try:
-            saying = Saying.objects.get(id=id)
+            saying = Saying.objects.get(slug=slug)
         except Saying.DoesNotExist:
             return Response({
                 'status': 'Failed',
@@ -103,9 +102,9 @@ class SayingDetailView(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, id):
+    def delete(self, request, slug):
         try:
-            saying = Saying.objects.get(id=id)
+            saying = Saying.objects.get(slug=slug)
         except Saying.DoesNotExist:
             return Response({
                 'status': 'Failed',
@@ -118,9 +117,9 @@ class SayingDetailView(APIView):
         return Response(status=status.HTTP_204_NO_CONTENT)
     
 class SayingByCategoryView(APIView):
-    def get(self, request, category_id):
+    def get(self, request, category_slug):
         start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(category__id=category_id, is_active=True).order_by('-created_at')[start:start+12]
+        sayings = Saying.objects.filter(categories__slug=category_slug, is_active=True).order_by('-created_at')[start:start+12]
         check = check_data_exists(sayings)
         if check[0] is False:
             return Response(check[1])
@@ -138,9 +137,9 @@ class SayingByCategoryView(APIView):
             })
     
 class SayingByAuthorView(APIView):
-    def get(self, request, author_id):
+    def get(self, request, author_slug):
         start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(author__id=author_id, is_active=True).order_by('-created_at')[start:start+12]
+        sayings = Saying.objects.filter(author__slug=author_slug, is_active=True).order_by('-created_at')[start:start+12]
         check = check_data_exists(sayings)
         if check[0] is False:
             return Response(check[1])
@@ -159,9 +158,9 @@ class SayingByAuthorView(APIView):
             })
     
 class SayingByCategoryAndAuthorView(APIView):
-    def get(self, request, category_id, author_id):
+    def get(self, request, category_slug, author_slug):
         start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(category__id=category_id, author__id=author_id, is_active=True).order_by('-created_at')[start:start+12] 
+        sayings = Saying.objects.filter(categories__slug=category_slug, author__slug=author_slug, is_active=True).order_by('-created_at')[start:start+12] 
         check = check_data_exists(sayings)
         if check[0] is False:
             return Response(check[1])   

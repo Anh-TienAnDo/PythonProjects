@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'loudspeaker',
     'memory_stick',
     'usb',
+    'producer',
+    'type',
     'rest_framework',
 ]
 

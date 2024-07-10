@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% load static %}
+{% load catalog_tabs %}
+
+{% block title %} {{page_title}} {% endblock %}
+
+{% block body-content-category %}
+
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+<div class="row justify-content-center">
+    <div class="card">
+        <img class="card-img-top" src="{{saying.image}}" alt="${saying.title}">
+        <div class="card-body">
+            <h6 class="card-title">Title: {{saying.title}}</h6>
+            <p class="card-subtitle ">Author: {{saying.author}}</p>
+            <p class="card-subtitle">View: {{saying.view}}</p>
+            <p class="card-subtitle">Created: {{saying.created_at}}</p>
+            <p class="card-text">Text: {{saying.text}}</p>
+        </div>
+    </div>
+</div>
+
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+body-content-news-secondary
+{% endblock body-content-news-secondary %}

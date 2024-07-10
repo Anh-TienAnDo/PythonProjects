@@ -2,17 +2,20 @@
 {% load static %}
 {% load catalog_tabs %}
 
-
-{% block title %}Trang chủ{% endblock %}
+{% block title %} {{page_title}} {% endblock %}
 
 {% block body-content-category %}
-    {% catalog_box request %}
+{% catalog_box request %}
 {% endblock body-content-category %}
 
 {% block body-content-news-main %}
-body-content-news-main
+<div class="sayings-container">
+    {% include 'core/components/sayings/index.html' %}
+</div>
+
 {% endblock body-content-news-main %}
 
 {% block body-content-news-secondary %}
 body-content-news-secondary
 {% endblock body-content-news-secondary %}
+

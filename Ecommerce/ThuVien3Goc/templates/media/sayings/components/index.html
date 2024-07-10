@@ -1,0 +1,67 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Những danh ngôn</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="sayings-data">
+    <!-- Sayings will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    <ul class="pagination justify-content-md-center bg-light">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const sayingsData = [
+        {% for saying in sayings %}
+        {
+            id: "{{ saying.id }}",
+            detail_url: "{% url 'media_social:detail_saying' slug=saying.slug %}",
+            title: "{{ saying.title }}",
+            author: "{{ saying.author }}",
+            view: "{{ saying.view }}",
+            image: "{{ saying.image }}"
+        },
+        {% endfor %}
+    ];
+    console.log(sayingsData);
+    const sayingsDataContainer = document.getElementById('sayings-data');
+
+    function renderSayings() {
+        for (let i = 0; i < sayingsData.length; i++) {
+            const saying = sayingsData[i];
+            const sayingElement = document.createElement('div');
+            sayingElement.classList.add('col-md-4');
+            sayingElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${saying.detail_url}".replace('saying-slug', saying.slug)><img class="card-img-top" src="${saying.image}" alt="${saying.title}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Title: ${saying.title}</h6>
+                        <p class="card-subtitle ">Author: ${saying.author}</p>
+                        <p class="card-subtitle">View: ${saying.view} </p>
+                    </div>
+                </div>
+            `;
+            sayingsDataContainer.appendChild(sayingElement);
+
+        }
+    }
+
+    renderSayings();
+
+</script>
+
