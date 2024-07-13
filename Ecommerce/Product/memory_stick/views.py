@@ -66,6 +66,8 @@ class MemoryStickDetailView(APIView):
         check = check_data_exists(memory_stick)
         if check[0] is False:
             return Response(check[1])
+        memory_stick.view += 1
+        memory_stick.save()
         memory_stick_serializer = MemoryStickSerializer(memory_stick).data
         memory_stick_serializer["producer"] = get_producer_name(memory_stick)
         memory_stick_serializer["type"] = get_type_name(memory_stick)

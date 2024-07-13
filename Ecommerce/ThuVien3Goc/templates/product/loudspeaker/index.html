@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block title %} {{page_title}} {% endblock %}
+
+{% block body-content-category %}
+
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+<div class="loudspeakers-container">
+    {% include 'product/loudspeaker/components/loudspeaker_list.html' %}
+</div>
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+
+{% endblock body-content-news-secondary %}
+

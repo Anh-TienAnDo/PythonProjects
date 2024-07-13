@@ -1,0 +1,113 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách Loa Pháp Thoại</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="loudspeakers-data">
+    <!-- Loudspeakers will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    <ul class="pagination justify-content-md-center bg-light">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const loudspeakerData = [
+    {% for loudspeaker in loudspeakers %}
+        {
+            detail_url: "",
+            name: "{{ loudspeaker.name }}",
+            producer: "{{ loudspeaker.producer }}",
+            view: "{{ loudspeaker.view }}",
+            image: "{{ loudspeaker.image }}",
+            price_new: "{{ loudspeaker.price_new }}",
+        },
+        {% endfor %}
+    ];
+    console.log(loudspeakerData);
+    const loudspeakersDataHtml = loudspeakerData.map(loudspeaker => `
+        <div class="col">
+            <div class="card h-100">
+                <img src="${loudspeaker.image}" class="card-img-top" alt="${loudspeaker.name}">
+                <div class="card-body">
+                    <h5 class="card-title">${loudspeaker.name}</h5>
+                    <p class="card-subtitle">Nhà sản xuất: ${loudspeaker.producer}</p>
+                    <p class="card-subtitle">Lượt xem: ${loudspeaker.view}</p>
+                    <p class="card-subtitle">Giá mới: ${loudspeaker.price_new}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="${loudspeaker.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    document.getElementById('loudspeakers-data').innerHTML = loudspeakersDataHtml;
+
+    // Get loudspeakers data from the server
+    // fetch('/api/loudspeakers/')
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         const loudspeakersData = data.results;
+    //         const loudspeakersDataHtml = loudspeakersData.map(loudspeaker => `
+    //             <div class="col">
+    //                 <div class="card h-100">
+    //                     <img src="${loudspeaker.image}" class="card-img-top" alt="${loudspeaker.title}">
+    //                     <div class="card-body">
+    //                         <h5 class="card-title">${loudspeaker.title}</h5>
+    //                         <p class="card-text">${loudspeaker.description}</p>
+    //                     </div>
+    //                     <div class="card-footer">
+    //                         <a href="${loudspeaker.url}" class="btn btn-primary">Xem chi tiết</a>
+    //                     </div>
+    //                 </div>
+    //             </div>
+    //         `).join('');
+    //         document.getElementById('loudspeakers-data').innerHTML = loudspeakersDataHtml;
+    //     });
+
+    // Pagination
+    // const pagination = document.querySelector('.pagination');
+
+    // pagination.addEventListener('click', (event) => {
+    //     event.preventDefault();
+    //     const target = event.target;
+    //     if (target.tagName === 'A') {
+    //         const page = target.textContent;
+    //         fetch(`/api/loudspeakers/?page=${page}`)
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 const loudspeakersData = data.results;
+    //                 const loudspeakersDataHtml = loudspeakersData.map(loudspeaker => `
+    //                     <div class="col">
+    //                         <div class="card h-100">
+    //                             <img src="${loudspeaker.image}" class="card-img-top" alt="${loudspeaker.title}">
+    //                             <div class="card-body">
+    //                                 <h5 class="card-title">${loudspeaker.title}</h5>
+    //                                 <p class="card-text">${loudspeaker.description}</p>
+    //                             </div>
+    //                             <div class="card-footer">
+    //                                 <a href="${loudspeaker.url}" class="btn btn-primary">Xem chi tiết</a>
+    //                             </div>
+    //                         </div>
+    //                     </div>
+    //                 `).join('');
+    //                 document.getElementById('loudspeakers-data').innerHTML = loudspeakersDataHtml;
+    //             });
+    //     }
+    // });
+
+</script>

@@ -1,2 +1,160 @@
 {% load static %}
 
+<div class="container">
+    <div class="row images-product">
+
+    </div>
+    <div class="row p-1 justify-content-center text-center">
+        <div class="col-4 col-md-6" id="loudspeakers-data">
+            <!-- Loudspeakers will be appended here by JavaScript -->
+        </div>
+        <div class="col-4 col-md-6" id="usbs-data">
+            <!-- USBs will be appended here by JavaScript -->
+        </div>
+        <div class="col-4 col-md-6" id="memory_sticks-data">
+            <!-- Memory Sticks will be appended here by JavaScript -->
+        </div>
+    </div>
+    <div class="row button show-more">
+        <button id="show-more" class="btn btn-primary" style="display: block;">Xem thêm</button>
+    </div>
+        
+</div>
+
+<script>
+    const loudspeakersData = [
+        {% for loudspeaker in loudspeakers %}
+        {
+            slug: "{{ loudspeaker.slug }}",
+            detail_url: "",
+            name: "{{ loudspeaker.name }}",
+            image: "{{ loudspeaker.image }}",
+            view: "{{ loudspeaker.view }}",
+            price_new: "{{ loudspeaker.price_new }}"
+        },
+        {% endfor %}
+    ];
+    const usbsData = [
+        {% for usb in usbs %}
+        {
+            slug: "{{ usb.slug }}",
+            detail_url: "",
+            name: "{{ usb.name }}",
+            image: "{{ usb.image }}",
+            view: "{{ usb.view }}",
+            price_new: "{{ usb.price_new }}"
+        },
+        {% endfor %}
+    ];
+    const memory_stichsData = [
+        {% for memory_stick in memory_sticks %}
+        {
+            slug: "{{ memory_stick.slug }}",
+            detail_url: "",
+            name: "{{ memory_stick.name }}",
+            image: "{{ memory_stick.image }}",
+            view: "{{ memory_stick.view }}",
+            price_new: "{{ memory_stick.price_new }}"
+        },
+        {% endfor %}
+    ];
+    console.log(loudspeakersData);
+    console.log(usbsData);
+    console.log(memory_stichsData);
+    
+    const loudspeakersDataContainer = document.getElementById('loudspeakers-data');
+    const usbsDataContainer = document.getElementById('usbs-data');
+    const memorySticksDataContainer = document.getElementById('memory_sticks-data');
+    const showMoreButton = document.getElementById("show-more");
+
+    let loudspeakersIndex = 0;
+    let usbsIndex = 0;
+    let memorySticksIndex = 0;
+
+    const productPerRow = 2;
+
+    function renderLoudspeakers() {
+        for (let i = 0; i < productPerRow; i++) {
+            if (loudspeakersIndex >= loudspeakersData.length) {
+                showMoreButton.style.display = "none";
+                return;
+            }
+            const loudspeaker = loudspeakersData[loudspeakersIndex];
+            const loudspeakerElement = document.createElement('div');
+            loudspeakerElement.classList.add('col-md-6 p-1');
+            loudspeakerElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Name: ${loudspeaker.name}</h6>
+                        <p class="card-title ">Price: ${loudspeaker.price_new} </p>
+                        <p class="card-subtitle ">View: ${loudspeaker.view} </p>
+                    </div>
+                </div>
+            `;
+            loudspeakersDataContainer.appendChild(loudspeakerElement);
+            loudspeakersIndex++;
+        }
+    }
+
+    function renderUsbs() {
+        for (let i = 0; i < productPerRow; i++) {
+            if (usbsIndex >= usbsData.length) {
+                showMoreButton.style.display = "none";
+                return;
+            }
+            const usb = usbsData[usbsIndex];
+            const usbElement = document.createElement('div');
+            usbElement.classList.add('col-md-6 p-1');
+            usbElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${usb.detail_url}"><img class="card-img-top" src="${usb.image}" alt="${usb.name}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Name: ${usb.name}</h6>
+                        <p class="card-title">Price: ${usb.price_new} </p>
+                        <p class="card-subtitle">View: ${usb.view} </p>
+                    </div>
+                </div>
+            `;
+            usbsDataContainer.appendChild(usbElement);
+            usbsIndex++;
+        }
+    }
+
+    function renderMemorySticks() {
+        for (let i = 0; i < productPerRow; i++) {
+            if (memorySticksIndex >= memory_stichsData.length) {
+                showMoreButton.style.display = "none";
+                return;
+            }
+            const memoryStick = memory_stichsData[memorySticksIndex];
+            const memoryStickElement = document.createElement('div');
+            memoryStickElement.classList.add('col-md-6 p-1');
+            memoryStickElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${memoryStick.detail_url}"><img class="card-img-top" src="${memoryStick.image}" alt="${memoryStick.name}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Name: ${memoryStick.name}</h6>
+                        <p class="card-title">Price: ${memoryStick.price_new} </p>
+                        <p class="card-subtitle">View: ${memoryStick.view} </p>
+                    </div>
+                </div>
+            `;
+            memorySticksDataContainer.appendChild(memoryStickElement);
+            memorySticksIndex++;
+        }
+    }
+
+    showMoreButton.addEventListener('click', () => {
+        renderLoudspeakers();
+        renderUsbs();
+        renderMemorySticks();
+    });
+
+    renderLoudspeakers();
+    renderUsbs();
+    renderMemorySticks();
+
+</script>
+
+

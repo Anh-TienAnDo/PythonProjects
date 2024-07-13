@@ -1,8 +1,14 @@
 {%extends 'base.html'%}
 {% load static %}
-{% load catalog_tabs %}
+{% load catalog_tags %}
+{% load banner_tag %}
 
 {% block title %} {{page_title}} {% endblock %}
+
+{% block header-banner %} 
+{% banner_box request %}
+anh banner
+{% endblock header-banner %}
 
 {% block body-content-category %}
 {% catalog_box request %}

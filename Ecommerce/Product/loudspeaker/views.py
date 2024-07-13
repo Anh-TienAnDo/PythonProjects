@@ -66,6 +66,8 @@ class LoudspeakerDetailView(APIView):
         check = check_data_exists(loudspeaker)
         if check[0] is False:
             return Response(check[1])
+        loudspeaker.view += 1
+        loudspeaker.save()
         loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
         loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
         loudspeaker_serializer["type"] = get_type_name(loudspeaker)

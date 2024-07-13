@@ -66,6 +66,8 @@ class USBDetailView(APIView):
         check = check_data_exists(usb)
         if check[0] is False:
             return Response(check[1])
+        usb.view += 1
+        usb.save()
         usb_serializer = USBSerializer(usb).data
         usb_serializer["producer"] = get_producer_name(usb)
         usb_serializer["type"] = get_type_name(usb)

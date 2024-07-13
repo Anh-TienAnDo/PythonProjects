@@ -1,0 +1,19 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block title %} {{page_title}} {% endblock %}
+
+{% block body-content-category %}
+
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+<div class="usbs-container">
+    {% include 'product/usb/components/usb_list.html' %}
+</div>
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+
+{% endblock body-content-news-secondary %}
+

@@ -1,0 +1,61 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách Thẻ Nhớ</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="memory_sticks-data">
+    <!-- memory_sticks will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    <ul class="pagination justify-content-md-center bg-light">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const memory_stickData = [
+    {% for memory_stick in memory_sticks %}
+        {
+            detail_url: "",
+            name: "{{ memory_stick.name }}",
+            producer: "{{ memory_stick.producer }}",
+            view: "{{ memory_stick.view }}",
+            image: "{{ memory_stick.image }}",
+            price_new: "{{ memory_stick.price_new }}",
+        },
+        {% endfor %}
+    ];
+    console.log(memory_stickData);
+    const memory_sticksDataHtml = memory_stickData.map(memory_stick => `
+        <div class="col">
+            <div class="card h-100">
+                <img src="${memory_stick.image}" class="card-img-top" alt="${memory_stick.name}">
+                <div class="card-body">
+                    <h5 class="card-title">${memory_stick.name}</h5>
+                    <p class="card-subtitle">Nhà sản xuất: ${memory_stick.producer}</p>
+                    <p class="card-subtitle">Lượt xem: ${memory_stick.view}</p>
+                    <p class="card-subtitle">Giá mới: ${memory_stick.price_new}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="${memory_stick.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    document.getElementById('memory_sticks-data').innerHTML = memory_sticksDataHtml;
+
+ 
+</script>

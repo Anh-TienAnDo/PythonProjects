@@ -143,3 +143,30 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PRODUCT_TYPE = {
+    'USB': 'USB',
+    'MEMORY_STICK': 'MemoryStick',
+    'LOUDSPEAKER': 'Loudspeaker',        
+}
+
+CART_SESSION_ID = 'cart'
+
+SESSION_COOKIE_AGE = 60 * 60 * 24
+SESSION_COOKIE_NAME = 'sessionid'
+SESSION_COOKIE_DOMAIN = None
+SESSION_COOKIE_SECURE = False
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'lea81807@gmail.com'
+EMAIL_HOST_PASSWORD = 'fnvx lqhj cywo qqos'
+
+PAYPAL = {
+    'CLIENT_ID': 'AfDPoHI56R2XNvxJrjVwg7I70dUedQj3M-c2eQdMF6np8iSd4qHhJ0PECb1bGC7X71GwBA1jDd4HhCtf',
+    'CLIENT_SECRET': 'EFJxZgsb2kLXFya29eoKhvVK8MFaYV0QOYm8jQ2w0mc6GT7CiugBvwKPS-MaYYhU6oIkFIZ6ioZsMWYa',
+}

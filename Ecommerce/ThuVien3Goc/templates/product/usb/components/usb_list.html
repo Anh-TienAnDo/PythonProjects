@@ -1,0 +1,61 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách USB</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="usbs-data">
+    <!-- usbs will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    <ul class="pagination justify-content-md-center bg-light">
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<script>
+    const usbData = [
+    {% for usb in usbs %}
+        {
+            detail_url: "",
+            name: "{{ usb.name }}",
+            producer: "{{ usb.producer }}",
+            view: "{{ usb.view }}",
+            image: "{{ usb.image }}",
+            price_new: "{{ usb.price_new }}",
+        },
+        {% endfor %}
+    ];
+    console.log(usbData);
+    const usbsDataHtml = usbData.map(usb => `
+        <div class="col">
+            <div class="card h-100">
+                <img src="${usb.image}" class="card-img-top" alt="${usb.name}">
+                <div class="card-body">
+                    <h5 class="card-title">${usb.name}</h5>
+                    <p class="card-subtitle">Nhà sản xuất: ${usb.producer}</p>
+                    <p class="card-subtitle">Lượt xem: ${usb.view}</p>
+                    <p class="card-subtitle">Giá mới: ${usb.price_new}</p>
+                </div>
+                <div class="card-footer">
+                    <a href="${usb.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                </div>
+            </div>
+        </div>
+    `).join('');
+    document.getElementById('usbs-data').innerHTML = usbsDataHtml;
+
+ 
+</script>

@@ -5,7 +5,7 @@ from .product import ProductService
 
 class LoudspeakerService():
     def __init__(self):
-        self.url = "http://localhost:9998/api/loudspeakers/"
+        self.url = "http://127.0.0.1:9998/api/loudspeakers/"
         self.header = {
             "Content-Type": "application/json"
         }
