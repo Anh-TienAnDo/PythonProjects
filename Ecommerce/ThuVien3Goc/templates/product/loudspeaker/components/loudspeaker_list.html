@@ -29,20 +29,21 @@
     const loudspeakerData = [
     {% for loudspeaker in loudspeakers %}
         {
-            detail_url: "",
+            detail_url: "{% url 'product-loudspeaker:detail' slug=loudspeaker.slug %}",
             name: "{{ loudspeaker.name }}",
-            producer: "{{ loudspeaker.producer }}",
-            view: "{{ loudspeaker.view }}",
             image: "{{ loudspeaker.image }}",
+            view: "{{ loudspeaker.view }}",
             price_new: "{{ loudspeaker.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}"
         },
         {% endfor %}
     ];
     console.log(loudspeakerData);
+
     const loudspeakersDataHtml = loudspeakerData.map(loudspeaker => `
         <div class="col">
             <div class="card h-100">
-                <img src="${loudspeaker.image}" class="card-img-top" alt="${loudspeaker.name}">
+                <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" ></a>
                 <div class="card-body">
                     <h5 class="card-title">${loudspeaker.name}</h5>
                     <p class="card-subtitle">Nhà sản xuất: ${loudspeaker.producer}</p>
@@ -51,6 +52,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="${loudspeaker.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                    <a href="${loudspeaker.add_cart}" class="btn btn-warning"><b>Add to cart</b></a>
                 </div>
             </div>
         </div>

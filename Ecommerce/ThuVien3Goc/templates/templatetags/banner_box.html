@@ -4,74 +4,79 @@
     <div class="row images-product">
 
     </div>
-    <div class="row p-1 justify-content-center text-center">
-        <div class="col-4 col-md-6" id="loudspeakers-data">
-            <!-- Loudspeakers will be appended here by JavaScript -->
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="row" id="loudspeakers-data">
+                <!-- Loudspeakers will be appended here by JavaScript -->
+            </div>
         </div>
-        <div class="col-4 col-md-6" id="usbs-data">
-            <!-- USBs will be appended here by JavaScript -->
+        <div class="col-4">
+            <div class="row" id="usbs-data">
+                <!-- USBs will be appended here by JavaScript -->
+            </div>
         </div>
-        <div class="col-4 col-md-6" id="memory_sticks-data">
-            <!-- Memory Sticks will be appended here by JavaScript -->
+        <div class="col-4">
+            <div class="row" id="memory_sticks-data">
+                <!-- Memory Sticks will be appended here by JavaScript -->
+            </div>
         </div>
     </div>
-    <div class="row button show-more">
-        <button id="show-more" class="btn btn-primary" style="display: block;">Xem thêm</button>
+    <div class="row m-3 justify-content-center">
+        <button id="show-more" class="btn btn-primary w-50" style="display: block;">Xem thêm</button>
     </div>
         
 </div>
-
 <script>
     const loudspeakersData = [
         {% for loudspeaker in loudspeakers %}
         {
-            slug: "{{ loudspeaker.slug }}",
-            detail_url: "",
+            detail_url: "{% url 'product-loudspeaker:detail' slug=loudspeaker.slug %}",
             name: "{{ loudspeaker.name }}",
             image: "{{ loudspeaker.image }}",
             view: "{{ loudspeaker.view }}",
-            price_new: "{{ loudspeaker.price_new }}"
-        },
-        {% endfor %}
-    ];
-    const usbsData = [
-        {% for usb in usbs %}
-        {
-            slug: "{{ usb.slug }}",
-            detail_url: "",
-            name: "{{ usb.name }}",
-            image: "{{ usb.image }}",
-            view: "{{ usb.view }}",
-            price_new: "{{ usb.price_new }}"
-        },
-        {% endfor %}
-    ];
-    const memory_stichsData = [
-        {% for memory_stick in memory_sticks %}
-        {
-            slug: "{{ memory_stick.slug }}",
-            detail_url: "",
-            name: "{{ memory_stick.name }}",
-            image: "{{ memory_stick.image }}",
-            view: "{{ memory_stick.view }}",
-            price_new: "{{ memory_stick.price_new }}"
+            price_new: "{{ loudspeaker.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}"
         },
         {% endfor %}
     ];
     console.log(loudspeakersData);
+
+    const usbsData = [
+        {% for usb in usbs %}
+        {
+            detail_url: "{% url 'product-usb:detail' slug=usb.slug %}",
+            name: "{{ usb.name }}",
+            image: "{{ usb.image }}",
+            view: "{{ usb.view }}",
+            price_new: "{{ usb.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=usb.slug product_type='USB' %}"
+        },
+        {% endfor %}
+    ];
     console.log(usbsData);
-    console.log(memory_stichsData);
-    
-    const loudspeakersDataContainer = document.getElementById('loudspeakers-data');
-    const usbsDataContainer = document.getElementById('usbs-data');
-    const memorySticksDataContainer = document.getElementById('memory_sticks-data');
-    const showMoreButton = document.getElementById("show-more");
+
+    const memory_sticksData = [
+        {% for memory_stick in memory_sticks %}
+        {
+            detail_url: "{% url 'product-memory_stick:detail' slug=memory_stick.slug %}",
+            name: "{{ memory_stick.name }}",
+            image: "{{ memory_stick.image }}",
+            view: "{{ memory_stick.view }}",
+            price_new: "{{ memory_stick.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=memory_stick.slug product_type='MemoryStick' %}"
+        },
+        {% endfor %}
+    ];
+    console.log(memory_sticksData);
 
     let loudspeakersIndex = 0;
     let usbsIndex = 0;
     let memorySticksIndex = 0;
-
     const productPerRow = 2;
+    const loudspeakersDataContainer = document.getElementById('loudspeakers-data');
+    const usbsDataContainer = document.getElementById('usbs-data');
+    const memorySticksDataContainer = document.getElementById('memory_sticks-data');
+    const showMoreButton = document.getElementById("show-more");
 
     function renderLoudspeakers() {
         for (let i = 0; i < productPerRow; i++) {
@@ -81,14 +86,17 @@
             }
             const loudspeaker = loudspeakersData[loudspeakersIndex];
             const loudspeakerElement = document.createElement('div');
-            loudspeakerElement.classList.add('col-md-6 p-1');
+            loudspeakerElement.classList.add('col-md-6');
             loudspeakerElement.innerHTML = `
                 <div class="card height-60">
-                    <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" width="80px" height="140px"></a>
+                    <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" ></a>
                     <div class="card-body">
                         <h6 class="card-title">Name: ${loudspeaker.name}</h6>
-                        <p class="card-title ">Price: ${loudspeaker.price_new} </p>
-                        <p class="card-subtitle ">View: ${loudspeaker.view} </p>
+                        <h6 class="card-title ">Price: ${loudspeaker.price_new} </h6>
+                        <h6 class="card-subtitle ">View: ${loudspeaker.view} </h6>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${loudspeaker.add_cart}" class="w-100 btn btn-warning"><b>Add to cart</b></a>
                     </div>
                 </div>
             `;
@@ -105,14 +113,17 @@
             }
             const usb = usbsData[usbsIndex];
             const usbElement = document.createElement('div');
-            usbElement.classList.add('col-md-6 p-1');
+            usbElement.classList.add('col-md-6');
             usbElement.innerHTML = `
                 <div class="card height-60">
-                    <a href="${usb.detail_url}"><img class="card-img-top" src="${usb.image}" alt="${usb.name}" width="80px" height="140px"></a>
+                    <a href="${usb.detail_url}"><img class="card-img-top" src="${usb.image}" alt="${usb.name}"></a>
                     <div class="card-body">
                         <h6 class="card-title">Name: ${usb.name}</h6>
-                        <p class="card-title">Price: ${usb.price_new} </p>
-                        <p class="card-subtitle">View: ${usb.view} </p>
+                        <h6 class="card-title">Price: ${usb.price_new} </h6>
+                        <h6 class="card-subtitle">View: ${usb.view} </h6>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${usb.add_cart}" class="w-100 btn btn-warning"><b>Add to cart</b></a>
                     </div>
                 </div>
             `;
@@ -123,20 +134,23 @@
 
     function renderMemorySticks() {
         for (let i = 0; i < productPerRow; i++) {
-            if (memorySticksIndex >= memory_stichsData.length) {
+            if (memorySticksIndex >= memory_sticksData.length) {
                 showMoreButton.style.display = "none";
                 return;
             }
-            const memoryStick = memory_stichsData[memorySticksIndex];
+            const memoryStick = memory_sticksData[memorySticksIndex];
             const memoryStickElement = document.createElement('div');
-            memoryStickElement.classList.add('col-md-6 p-1');
+            memoryStickElement.classList.add('col-md-6');
             memoryStickElement.innerHTML = `
                 <div class="card height-60">
-                    <a href="${memoryStick.detail_url}"><img class="card-img-top" src="${memoryStick.image}" alt="${memoryStick.name}" width="80px" height="140px"></a>
+                    <a href="${memoryStick.detail_url}"><img class="card-img-top" src="${memoryStick.image}" alt="${memoryStick.name}"></a>
                     <div class="card-body">
                         <h6 class="card-title">Name: ${memoryStick.name}</h6>
-                        <p class="card-title">Price: ${memoryStick.price_new} </p>
-                        <p class="card-subtitle">View: ${memoryStick.view} </p>
+                        <h6 class="card-title">Price: ${memoryStick.price_new} </h6>
+                        <h6 class="card-subtitle">View: ${memoryStick.view} </h6>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${memoryStick.add_cart}" class="w-100 btn btn-warning"><b>Add to cart</b></a>
                     </div>
                 </div>
             `;
@@ -155,6 +169,6 @@
     renderUsbs();
     renderMemorySticks();
 
-</script>
 
+</script>
 

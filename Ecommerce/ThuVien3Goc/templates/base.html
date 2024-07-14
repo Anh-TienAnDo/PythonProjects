@@ -25,13 +25,16 @@
 
 
 </head>
-<!-- <div class="row row-cols-3"></div>, <div class="row justify-content-md-center"></div> -->
+<!-- <div class="row row-cols-3"></div>, <div class="row justify-content-md-center"></div> font-weight-bold -->
 <!-- https://getbootstrap.com/docs/5.0/components/carousel/ -->
 <body>
         <div class="container-fluid ">
 
                 <div class="header">
                         {% include "header.html" %}
+                </div>
+                <div class="header-banner row justify-content-md-center align-items-center my-5 bg-light p-3">
+                        {% block header-banner %} {% endblock header-banner %}
                 </div>
 
                 <div class="body-content row">

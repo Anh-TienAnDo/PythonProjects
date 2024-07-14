@@ -5,6 +5,6 @@ app_name = 'product-usb'
 
 urlpatterns = [
     path('', USBView.as_view(), name='usbs'),
-    path('search/', USBSearchView.as_view(), name='usb_search'),
-    path('<slug:slug>/', USBDetailView.as_view(), name='usb_detail'),
+    path('search/', USBSearchView.as_view(), name='search'),
+    path('<slug:slug>/', USBDetailView.as_view(), name='detail'),
 ]

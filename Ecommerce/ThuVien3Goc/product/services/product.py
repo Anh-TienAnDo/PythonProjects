@@ -8,7 +8,8 @@ class ProductService():
     def check_and_get_data(self):
         try:
             response = self.response.json()
-            print(response)
+            print("-------------------Product----------------------")
+            print(str(response))
             if response.get('status') == 'Success':
                 return response.get('data')
             else:

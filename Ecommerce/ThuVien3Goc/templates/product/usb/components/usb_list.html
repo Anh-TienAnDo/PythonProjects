@@ -29,12 +29,12 @@
     const usbData = [
     {% for usb in usbs %}
         {
-            detail_url: "",
+            detail_url: "{% url 'product-usb:detail' slug=usb.slug %}",
             name: "{{ usb.name }}",
-            producer: "{{ usb.producer }}",
-            view: "{{ usb.view }}",
             image: "{{ usb.image }}",
+            view: "{{ usb.view }}",
             price_new: "{{ usb.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=usb.slug product_type='USB' %}"
         },
         {% endfor %}
     ];
@@ -51,6 +51,7 @@
                 </div>
                 <div class="card-footer">
                     <a href="${usb.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                    <a href="${usb.add_cart}" class="btn btn-warning"><b>Add to cart</b></a>
                 </div>
             </div>
         </div>

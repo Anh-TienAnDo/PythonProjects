@@ -11,7 +11,8 @@ class ServiceSayings(ServiceMediaSocial):
         response = requests.get(self.url + f'?start={start}', headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
+            print("-------------------Media----------------------")
+            print(str(response)[0:200])
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -24,7 +25,8 @@ class ServiceSayings(ServiceMediaSocial):
         response = requests.get(self.url + str(slug) + '/', headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
+            print("-------------------Media----------------------")
+            print(str(response)[0:200])
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -37,7 +39,8 @@ class ServiceSayings(ServiceMediaSocial):
         response = requests.get(self.url + 'category/' + category_slug + '/', f'?start={start}', headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
+            print("-------------------Media----------------------")
+            print(str(response)[0:200])
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -50,7 +53,8 @@ class ServiceSayings(ServiceMediaSocial):
         response = requests.get(self.url + 'author/' + author_slug + '/', f'?start={start}', headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
+            print("-------------------Media----------------------")
+            print(str(response)[0:200])
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -63,7 +67,8 @@ class ServiceSayings(ServiceMediaSocial):
         response = requests.get(self.url + 'category/' + category_slug + '/author/' + author_slug + '/', f'?start={start}', headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
+            print("-------------------Media----------------------")
+            print(str(response)[0:200])
             if response.get('status') == 'Success':
                 return response.get('data')
             else:

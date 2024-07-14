@@ -9,7 +9,7 @@ class LoudspeakerService():
         self.header = {
             "Content-Type": "application/json"
         }
-
+        
     def get_all_loudspeaker(self, start=0, limit=12):
         url = f"{self.url}?_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.header, timeout=5)

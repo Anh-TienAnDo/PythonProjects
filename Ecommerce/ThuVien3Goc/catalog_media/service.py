@@ -11,7 +11,7 @@ class ServiceMediaSocial():
     
 class ServiceCategory(ServiceMediaSocial):
     def __init__(self):
-        self.url = 'http://127.0.0.1:9999/api/category/'
+        self.url = 'http://127.0.0.1:9999/api/categories/'
         self.headers = {'Content-Type': 'application/json'}
 
     def get_list_categories(self):
@@ -42,7 +42,7 @@ class ServiceCategory(ServiceMediaSocial):
     
 class ServiceAuthor(ServiceMediaSocial):
     def __init__(self):
-        self.url = 'http://127.0.0.1:9999/api/author/'
+        self.url = 'http://127.0.0.1:9999/api/authors/'
         self.headers = {'Content-Type': 'application/json'}
 
     def get_list_authors(self):
@@ -73,7 +73,7 @@ class ServiceAuthor(ServiceMediaSocial):
     
 class ServiceProducer(ServiceMediaSocial):
     def __init__(self):
-        self.url = 'http://127.0.0.1:9999/api/producer/'
+        self.url = 'http://127.0.0.1:9999/api/producers/'
         self.headers = {'Content-Type': 'application/json'}
 
     def get_list_producers(self):

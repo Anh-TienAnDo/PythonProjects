@@ -5,6 +5,20 @@ from product.services.usb import *
 from abc import ABC, abstractmethod
 from .models import CartItems
 
+def get_product(product_slug, product_type):
+    if product_type == 'Loudspeaker':
+        loudspeaker_service = LoudspeakerService()
+        product = loudspeaker_service.get_loudspeaker_by_slug(slug=product_slug)
+    elif product_type == 'USB':
+        usb_service = USBService()
+        product = usb_service.get_usb_by_slug(slug=product_slug)
+    elif product_type == 'MemoryStick':
+        memotystick_service = MemoryStickService()
+        product = memotystick_service.get_memory_stick_by_slug(slug=product_slug)
+    else:
+        product = None
+    return product
+
 class CartService(ABC):
     def __init__(self, request):
         self.session = request.session
@@ -39,7 +53,7 @@ class CartService(ABC):
     
     @abstractmethod
     def get_cart_items_count(self):
-        pass         
+        pass               
     
 class CartServiceNotLogged(CartService):
     def __init__(self, request):
@@ -56,14 +70,7 @@ class CartServiceNotLogged(CartService):
     def add(self, product_slug, product_type, quantity=1):
         product_slug = str(product_slug)
         if product_slug not in self.cart:
-            if product_type == 'Loudspeaker':
-                product = LoudspeakerService.get_loudspeaker_by_slug(slug=product_slug)
-            elif product_type == 'USB':
-                product = USBService.get_usb_by_slug(slug=product_slug)
-            elif product_type == 'MemoryStick':
-                product = MemoryStickService.get_memory_stick_by_slug(slug=product_slug)
-            else:
-                product = None
+            product = get_product(product_slug, product_type)
             self.cart[product_slug] = {'product_type': product_type, 'quantity': 0, 'price': int(product.get('price_new')), 'image': product.get('image'), 'name': product.get('name')}
         self.cart[product_slug]['quantity'] += quantity
         self.save()
@@ -94,13 +101,24 @@ class CartServiceNotLogged(CartService):
     def get_total_quantity(self):
         return sum(item['quantity'] for item in self.cart.values())
     
-    def get_cart_items(self):
-        return self.cart.values()
+    def get_cart_items(self) -> list:
+        cart_items = []
+        for key, item in self.cart.items():
+                price_of_item = int(item.get('price')) * int(item.get('quantity'))
+                cart_items.append({
+                    'product_slug': key,
+                    'product_type': item.get('product_type'),
+                    'quantity': item.get('quantity'),
+                    'price': item.get('price'),
+                    'price_of_item': price_of_item,
+                    'name': item.get('name'),
+                    'image': item.get('image'),
+                })
+        return cart_items
     
     def get_cart_items_count(self):
         return len(self.cart)
-    
-    
+       
 class CartServiceLogged(CartService):
     
     def __init__(self, request):
@@ -113,21 +131,14 @@ class CartServiceLogged(CartService):
     
     def add(self, product_slug, product_type, quantity=1):
         product_slug = str(product_slug)
-        item = CartItems.objects.filter(user=self.user_id, product_slug=product_slug)
-        if item.exists():
+        item = CartItems.objects.filter(user_id=self.user_id, product_slug=product_slug).first()
+        if item:
             item.quantity += quantity
             item.save()
             return 
         else:
-            if product_type == 'Loudspeaker':
-                product = LoudspeakerService.get_loudspeaker_by_slug(slug=product_slug)
-            elif product_type == 'USB':
-                product = USBService.get_usb_by_slug(slug=product_slug)
-            elif product_type == 'MemoryStick':
-                product = MemoryStickService.get_memory_stick_by_slug(slug=product_slug)
-            else:
-                product = None
-            item = CartItems(user=self.user_id, product_slug=product_slug, product_type=product_type, price=int(product.get('price_new')), quantity=quantity)
+            product = get_product(product_slug, product_type)
+            item = CartItems(user_id=self.user_id, product_slug=product_slug, product_type=product_type, price=int(product.get('price_new')), quantity=quantity)
             item.save()
             return
         
@@ -140,8 +151,8 @@ class CartServiceLogged(CartService):
             return
         
     def update(self, product_slug, action=None):
-        item = CartItems.objects.filter(user=self.user_id, product_slug=product_slug)
-        if item.exists():
+        item = CartItems.objects.filter(user_id=self.user_id, product_slug=product_slug).first()
+        if item:
             if action == 'up':
                 item.quantity += 1
             elif action == 'down':
@@ -154,24 +165,18 @@ class CartServiceLogged(CartService):
             return
         
     def get_total_price(self):
-        return sum(int(item.price) * item.quantity for item in CartItems.objects.filter(user=self.user_id))
+        return sum(int(item.price) * item.quantity for item in CartItems.objects.filter(user_id=self.user_id))
     
     def get_total_quantity(self):
-        return sum(item.quantity for item in CartItems.objects.filter(user=self.user_id))
+        return sum(item.quantity for item in CartItems.objects.filter(user_id=self.user_id))
     
     def get_cart_items(self) -> list:
-        items = CartItems.objects.filter(user=self.user_id)
+        items = CartItems.objects.filter(user_id=self.user_id)
         result = []
         for item in items:
             product_type = item.product_type
-            if product_type == 'Loudspeaker':
-                product = LoudspeakerService.get_loudspeaker_by_slug(slug=item.product_slug)
-            elif product_type == 'USB':
-                product = USBService.get_usb_by_slug(slug=item.product_slug)
-            elif product_type == 'MemoryStick':
-                product = MemoryStickService.get_memory_stick_by_slug(slug=item.product_slug)
-            else:
-                product = None
+            product_slug = item.product_slug
+            product = get_product(product_slug, product_type)
             result.append(
                 {
                     'product_type': product_type,
@@ -180,10 +185,24 @@ class CartServiceLogged(CartService):
                     'price': item.price,
                     'image': product.get('image'),
                     'name': product.get('name'),
+                    'price_of_item': int(item.price) * item.quantity,
                 })
         return result
                 
     def get_cart_items_count(self):
-        return CartItems.objects.filter(user=self.user_id).count() 
+        return CartItems.objects.filter(user_id=self.user_id).count() 
+    
+    def get_cart_in_session_on_db(self):
+        items_in_session = self.session.get(settings.CART_SESSION_ID)
+        for product_slug, item in items_in_session.items():
+            cart_item = CartItems.objects.filter(user_id=self.user_id, product_slug=product_slug).first()
+            if cart_item:
+                cart_item.quantity += item['quantity']
+                cart_item.save()
+            else:
+                cart_item = CartItems(user_id=self.user_id, product_slug=product_slug, product_type=item['product_type'], price=item['price'], quantity=item['quantity'])
+                cart_item.save()
+        del self.session[settings.CART_SESSION_ID]
+        self.session.modified = True
             
         

@@ -65,7 +65,7 @@
         </form>
     </div>
     <div class="col-3 text-end px-5">
-        <a href="{% url 'core:index' %}">
+        <a href="{% url 'cart:index' %}">
             <img src="{% static 'images/cart.png' %}" alt="cart" style="width: 50px; height: 40px;">
         </a>
     </div>
@@ -100,10 +100,6 @@
         </ul>
 
     </div>
-</div>
-
-<div class="header-banner row justify-content-md-center align-items-center">
-    {% block header-banner %} {% endblock header-banner %}
 </div>
 
 <script>
