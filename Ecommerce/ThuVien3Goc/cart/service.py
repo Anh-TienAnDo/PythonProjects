@@ -143,7 +143,7 @@ class CartServiceLogged(CartService):
             return
         
     def remove(self, product_slug):
-        item = CartItems.objects.filter(user=self.user_id, product_slug=product_slug)
+        item = CartItems.objects.filter(user_id=self.user_id, product_slug=product_slug)
         if item.exists():
             item.delete()
             return
@@ -155,11 +155,11 @@ class CartServiceLogged(CartService):
         if item:
             if action == 'up':
                 item.quantity += 1
+                item.save()
             elif action == 'down':
                 item.quantity -= 1
                 if item.quantity <= 0:
                     item.delete()
-            item.save()
             return
         else:
             return
@@ -195,6 +195,7 @@ class CartServiceLogged(CartService):
     def get_cart_in_session_on_db(self):
         items_in_session = self.session.get(settings.CART_SESSION_ID)
         for product_slug, item in items_in_session.items():
+            print(product_slug, item)
             cart_item = CartItems.objects.filter(user_id=self.user_id, product_slug=product_slug).first()
             if cart_item:
                 cart_item.quantity += item['quantity']

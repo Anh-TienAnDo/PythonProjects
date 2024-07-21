@@ -6,7 +6,7 @@ class CartItems(models.Model):
     
     id = models.CharField(max_length=50, primary_key=True)
     user_id = models.BigIntegerField(default=1)
-    product_slug = models.SlugField(null=True)
+    product_slug = models.SlugField(max_length=255, null=True)
     product_type = models.CharField(max_length=20, default='USB')
     price = models.BigIntegerField(default=0)
     quantity = models.IntegerField(default=1)

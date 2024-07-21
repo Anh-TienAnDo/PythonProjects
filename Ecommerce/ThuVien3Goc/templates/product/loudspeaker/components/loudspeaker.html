@@ -1,0 +1,23 @@
+
+<div class="row justify-content-center">
+    <div class="col-4 p-3">
+        <img class="card-img-top" src="{{loudspeaker.image}}" alt="${loudspeaker.name}">
+    </div>
+    <div class="col-8 p-3">
+        <div class="card">  
+            <div class="card-body">
+                <h6 class="card-title">Name: {{loudspeaker.name}}</h6>
+                <p class="card-subtitle ">Type: {{loudspeaker.type}}</p>
+                <p class="card-subtitle ">Producer: {{loudspeaker.producer}}</p>
+                <p class="card-subtitle">View: {{loudspeaker.view}}</p>
+                <p class="card-subtitle">Power: {{loudspeaker.power}}</p>
+                <p class="card-subtitle">Price old: {{loudspeaker.price_old}}</p>
+                <p class="card-subtitle">Price new: {{loudspeaker.price_new}}</p>
+                <div class="card-subtitle">
+                    <a href="{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}" class="btn btn-warning"><b>Add to cart</b></a>
+                </div>
+                <p class="card-text">Description: {{loudspeaker.description}}</p>
+            </div>
+        </div>
+    </div>
+</div>

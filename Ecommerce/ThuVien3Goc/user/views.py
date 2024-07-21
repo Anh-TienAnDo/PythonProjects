@@ -4,6 +4,7 @@ from django.template import loader
 from django.shortcuts import redirect
 from .service import *
 from .models import *
+from cart.service import CartServiceLogged, CartServiceNotLogged
 
 # Create your views here.
 def register(request):
@@ -55,6 +56,8 @@ def login_user(request):
         if result['status']=='Success':
             request.session['account'] = result['account']
             request.session['message'] = "Đăng nhập thành công."
+            cart_service = CartServiceLogged(request)
+            cart_service.get_cart_in_session_on_db()
             return redirect("core:index")
         else:
             notifications=result['message']

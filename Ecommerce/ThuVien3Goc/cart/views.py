@@ -23,8 +23,8 @@ def get_all_item(request):
         'total_quantity': total_quantity,
         'page_title': 'Giỏ hàng',
     }
-    return JsonResponse(content)
-    # return render(request, 'cart/index.html', content)
+    # return JsonResponse(content)
+    return render(request, 'cart/index.html', content)
 
 def add_item(request, product_slug, product_type):
     if 'account' in request.session:

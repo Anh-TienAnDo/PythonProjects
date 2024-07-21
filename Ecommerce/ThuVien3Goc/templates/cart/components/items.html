@@ -1,3 +1,5 @@
+{% load humanize %}
+{% load static %}
 <div class="cart-container">
     <div class="row align-items-center justify-content-center mb-3">
         <div class="col-lg-auto">
@@ -11,7 +13,7 @@
         <h6 class="col-1"><a class="btn btn-outline-success" href=""><b>Checkout</b></a></h6>
     </div>
     <hr>
-    <div class="row justify-content-center my-3">
+    <div class="row justify-content-center my-3 bg-light">
         <h5 class="col-3"></h5>
         <h5 class="col-2">Item</h5>
         <h5 class="col-2">Price</h5>
@@ -25,15 +27,15 @@
             <img class="thumbnail mx-auto d-block" src="{{item.image}}" width="50%" height="75%">
         </div>
         <h5 class="col-2">{{item.name}}</h5>
-        <h5 class="col-2">{{item.price|intcomma}} VND</h5>
+        <h5 class="col-2">{{ item.price|intcomma }} VND</h5>
         <div class="col-2">
             <div class="row">
                 <h5 class="col-lg-8">{{item.quantity}}</h5>
                 <div class="col-lg-4">
                     <a class="btn btn-outline-secondary" href="{% url 'cart:update-item' product_slug=item.product_slug action='up' %}">
-                        <img class="thumbnail mx-auto d-block" src="{% static  'images/arrow-up.png' %}" width="100%" height="100%"></a>
+                        <img class="thumbnail mx-auto d-block" src="{% static  'images/arrow-up.png' %}" width="30%" height="30%"></a>
                     <a class="btn btn-outline-secondary" href="{% url 'cart:update-item' product_slug=item.product_slug action='down' %}">
-                        <img class="thumbnail mx-auto d-block" src="{% static  'images/arrow-down.png' %}" width="100%" height="100%"></a>
+                        <img class="thumbnail mx-auto d-block" src="{% static  'images/arrow-down.png' %}" width="30%" height="30%"></a>
                 </div>
             </div>
 
