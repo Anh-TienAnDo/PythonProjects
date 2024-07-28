@@ -1,10 +1,89 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{%extends 'base.html'%}
+{% load static %}
 
-</body>
-</html>
+{% block header-banner %} 
+
+{% endblock header-banner %}
+
+{% block body-content-category %}
+
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách USB</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="usbs-data">
+    <!-- usbs will be appended here by JavaScript -->
+</div>
+
+<div class="row text-center justify-content-md-center align-items-center p-3">
+    <button id="usbs-load-more" class="view-more btn btn-primary w-25" style="display:block;">Xem thêm</button>
+    <a href="{% url 'product-usb:usbs' %}" id="usbs-view-all" class="view-all btn btn-secondary w-25" style="display:none;">Xem tất cả</a>
+</div>
+
+<script>
+    const usbData = [
+    {% for usb in usbs %}
+        {
+            detail_url: "{% url 'product-usb:detail' slug=usb.slug %}",
+            name: "{{ usb.name }}",
+            image: "{{ usb.image }}",
+            producer: "{{ usb.producer }}",
+            view: "{{ usb.view }}",
+            price_new: "{{ usb.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=usb.slug product_type='USB' %}"
+        },
+        {% endfor %}
+    ];
+    console.log(usbData);
+
+    let usbsIndex = 0;
+    const usbsPerPage = 3;
+    const usbsDataContainer = document.getElementById('usbs-data');
+    const usbsLoadMore = document.getElementById('usbs-load-more');
+    const usbsViewAll = document.getElementById('usbs-view-all');
+
+    function renderUSB() {
+        for (let i = 0; i < usbsPerPage; i++) {
+            if (usbsIndex >= usbData.length) {
+                usbsLoadMore.style.display = 'none';
+                usbsViewAll.style.display = 'block';
+                break;
+            }
+
+            const usb = usbData[usbsIndex];
+            const usbElement = document.createElement('div');
+            usbElement.classList.add('col');
+            usbElement.innerHTML = `
+                <div class="card h-100">
+                    <img src="${usb.image}" class="card-img-top" alt="${usb.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${usb.name}</h5>
+                        <p class="card-subtitle">Nhà sản xuất: ${usb.producer}</p>
+                        <p class="card-subtitle">Lượt xem: ${usb.view}</p>
+                        <p class="card-subtitle">Giá mới: ${usb.price_new}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${usb.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="${usb.add_cart}" class="btn btn-warning"><b>Add to cart</b></a>
+                    </div>
+                </div>
+            `;
+            usbsDataContainer.appendChild(usbElement);
+            usbsIndex++;
+        }
+    }
+
+    renderUSB();
+    usbsLoadMore.addEventListener('click', renderUSB);
+
+</script>
+
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+
+{% endblock body-content-news-secondary %}

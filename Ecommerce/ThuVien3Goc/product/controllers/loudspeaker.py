@@ -5,9 +5,12 @@ from product.services.loudspeaker import *
 
 class LoudSpeakerView(View):
     def get(self, request):
-        loudspeaker_service = LoudspeakerService()
-        loudspeakers_data = loudspeaker_service.get_all_loudspeaker(start=0, limit=12)
-        loudspeakers = loudspeakers_data.get('loudspeakers')
+        loudspeakers_filter_service = LoudspeakerFilterService()
+        producer = request.GET.get('producer', 'all')
+        type = request.GET.get('type', 'all')
+        price = request.GET.get('price', 'all')
+        loudspeakers = dict(loudspeakers_filter_service.filter(producer=producer, type=type, price=price, start=0, limit=12))
+        loudspeakers = loudspeakers.get('loudspeakers', [])
         content = {
             'loudspeakers': loudspeakers,
             'page_title': 'Loa nghe nhạc'
@@ -35,8 +38,15 @@ class LoudSpeakerDetailView(View):
     
 class LoudSpeakerSearchView(View):
     def get(self, request):
-        loudspeaker_service = LoudspeakerService()
-        loudspeakers = loudspeaker_service.get_all_loudspeaker(start=0, limit=12)
+        query = str(request.GET.get('query')).lower()
+        loudspeaker_search_service = LoudspeakerSearchService()
+        loudspeaker_by_producer = loudspeaker_search_service.search_loudspeaker_by_producer(query=query, start=0, limit=12)
+        loudspeaker_by_name = loudspeaker_search_service.search_loudspeaker_by_name(query=query, start=0, limit=12)
+        if loudspeaker_by_producer is None:
+            loudspeaker_by_producer = []
+        if loudspeaker_by_name is None:
+            loudspeaker_by_name = []
+        loudspeakers = loudspeaker_by_producer + loudspeaker_by_name
         content = {
             'loudspeakers': loudspeakers,
             'page_title': 'Tìm kiếm loa nghe nhạc'

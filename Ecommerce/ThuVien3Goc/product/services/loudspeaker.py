@@ -2,7 +2,8 @@ import requests
 import json
 from .product import ProductService
 
-
+# b1 làm template tags -> gắn vào html -> tạo view trong product type và producer -> call api từ sẻvice product
+# b2: taọ các filter trong product sẻvice -> call api từ product service trong service product
 class LoudspeakerService():
     def __init__(self):
         self.url = "http://127.0.0.1:9998/api/loudspeakers/"
@@ -13,12 +14,41 @@ class LoudspeakerService():
     def get_all_loudspeaker(self, start=0, limit=12):
         url = f"{self.url}?_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.header, timeout=5)
-        return ProductService(response).check_and_get_data()
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
 
     def get_loudspeaker_by_slug(self, slug):
-        url = f"{self.url}{slug}"
+        url = f"{self.url}detail/{slug}"
         response = requests.get(url, headers=self.header, timeout=5)
-        return ProductService(response).check_and_get_data()
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
+    
+class LoudspeakerSearchService(LoudspeakerService):
+    def __init__(self):
+        super().__init__()
+    
+    def search_loudspeaker_by_producer(self, query, start=0, limit=12):
+        url = f"{self.url}search-by-producer/?_query={query}&_start={start}&_limit={limit}"
+        response = requests.get(url, headers=self.header, timeout=5)
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
+    
+    def search_loudspeaker_by_name(self, query, start=0, limit=12):
+        url = f"{self.url}search-by-name/?_query={query}&_start={start}&_limit={limit}"
+        response = requests.get(url, headers=self.header, timeout=5)
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
+    
+class LoudspeakerFilterService(LoudspeakerService):
+    def __init__(self):
+        super().__init__()
+        
+    def filter(self, producer, type, price, start=0, limit=12):
+        url = f"{self.url}filter/?_producer={producer}&_type={type}&_price={price}&_start={start}&_limit={limit}"
+        response = requests.get(url, headers=self.header, timeout=5)
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
+
 
     # def create_loudspeaker(self, data):
     #     response = requests.post(self.url, json=data)

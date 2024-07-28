@@ -5,19 +5,32 @@ from type.models import Type
 
 # Create your models here.
 class MemoryStick(models.Model):
-    MEMORY = {
-        "1": "1GB",
-        "2": "2GB",
-        "4": "4GB",
-        "8": "8GB",
-        "16": "16GB",
-        "32": "32GB",
-        "64": "64GB",
-        "128": "128GB",
-        "256": "256GB",
-        "512": "512GB",
-        "1024": "1024GB",
-    }
+    # MEMORY = {
+    #     "1": "1GB",
+    #     "2": "2GB",
+    #     "4": "4GB",
+    #     "8": "8GB",
+    #     "16": "16GB",
+    #     "32": "32GB",
+    #     "64": "64GB",
+    #     "128": "128GB",
+    #     "256": "256GB",
+    #     "512": "512GB",
+    #     "1024": "1024GB",
+    # }
+    MEMORY_SIZE = (
+        ("1", "1GB"),
+        ("2", "2GB"),
+        ("4", "4GB"),
+        ("8", "8GB"),
+        ("16", "16GB"),
+        ("32", "32GB"),
+        ("64", "64GB"),
+        ("128", "128GB"),
+        ("256", "256GB"),
+        ("512", "512GB"),
+        ("1024", "1024GB"),
+    )
     name = models.CharField(max_length=255, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     view = models.IntegerField(default=0)
@@ -27,7 +40,7 @@ class MemoryStick(models.Model):
     price_old = models.IntegerField(default=0)
     price_new = models.IntegerField(default=0)
     is_active = models.BooleanField(default=True)
-    memory = models.CharField(max_length=10, choices=MEMORY, default="16")
+    memory = models.CharField(max_length=10, choices=MEMORY_SIZE, default="16")
     description = models.TextField(null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

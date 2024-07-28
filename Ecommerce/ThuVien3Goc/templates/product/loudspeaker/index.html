@@ -1,10 +1,14 @@
 {%extends 'base.html'%}
 {% load static %}
+{% load product_filter_tag %}
 
 {% block title %} {{page_title}} {% endblock %}
 
 {% block body-content-category %}
-
+<div class="search-container">
+    {% include 'product/loudspeaker/components/search-form.html' %}
+</div>
+{% filter_box request %}
 {% endblock body-content-category %}
 
 {% block body-content-news-main %}

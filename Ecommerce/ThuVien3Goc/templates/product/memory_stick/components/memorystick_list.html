@@ -32,6 +32,7 @@
             detail_url: "{% url 'product-memory_stick:detail' slug=memory_stick.slug %}",
             name: "{{ memory_stick.name }}",
             image: "{{ memory_stick.image }}",
+            producer: "{{ memory_stick.producer }}",
             view: "{{ memory_stick.view }}",
             price_new: "{{ memory_stick.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=memory_stick.slug product_type='MemoryStick' %}"

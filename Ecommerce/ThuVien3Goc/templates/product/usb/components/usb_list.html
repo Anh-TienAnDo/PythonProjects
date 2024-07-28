@@ -32,6 +32,7 @@
             detail_url: "{% url 'product-usb:detail' slug=usb.slug %}",
             name: "{{ usb.name }}",
             image: "{{ usb.image }}",
+            producer: "{{ usb.producer }}",
             view: "{{ usb.view }}",
             price_new: "{{ usb.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=usb.slug product_type='USB' %}"

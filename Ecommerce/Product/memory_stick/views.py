@@ -102,3 +102,47 @@ class MemoryStickDetailView(APIView):
             'data': None
         })
     
+class MemoryStickSearchByProducerView(APIView):
+    def get(self, request):
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        query = str(request.GET.get('_query', ''))
+        memory_sticks = MemoryStick.objects.filter(producer__name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
+        check = check_data_exists(memory_sticks)
+        if check[0] is False:
+            return Response(check[1])
+        data = []
+        for memory_stick in memory_sticks:
+            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
+            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
+            memory_stick_serializer["type"] = get_type_name(memory_stick)
+            data.append(memory_stick_serializer)
+        return Response({
+            'status': 'Success',
+            'status_code': status.HTTP_200_OK,
+            'message': 'Data retrieved successfully',
+            'data': data
+        })
+
+class MemoryStickSearchByNameView(APIView):
+    def get(self, request):
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        query = str(request.GET.get('_query', ''))
+        memory_sticks = MemoryStick.objects.filter(name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
+        check = check_data_exists(memory_sticks)
+        if check[0] is False:
+            return Response(check[1])
+        data = []
+        for memory_stick in memory_sticks:
+            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
+            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
+            memory_stick_serializer["type"] = get_type_name(memory_stick)
+            data.append(memory_stick_serializer)
+        return Response({
+            'status': 'Success',
+            'status_code': status.HTTP_200_OK,
+            'message': 'Data retrieved successfully',
+            'data': data
+        })
+

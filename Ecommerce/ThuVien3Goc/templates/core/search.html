@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% load static %}
+
+{% block header-banner %} 
+
+{% endblock header-banner %}
+
+{% block body-content-category %}
+
+{% endblock body-content-category %}
+
+{% block body-content-news-main %}
+<div class="sayings-container">
+    {% include 'core/components/sayings/index.html' %}
+</div>
+<div class="loudspeakers-container">
+    {% include 'core/components/loudspeaker/index.html' %}
+</div>
+<div class="memory_sticks-container">
+    {% include 'core/components/memory_stick/index.html' %}
+</div>
+<div class="usbs-container">
+    {% include 'core/components/usb/index.html' %}
+</div>
+{% endblock body-content-news-main %}
+
+{% block body-content-news-secondary %}
+
+{% endblock body-content-news-secondary %}

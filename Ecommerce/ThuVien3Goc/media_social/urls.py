@@ -6,4 +6,5 @@ app_name = 'media_social'
 urlpatterns = [
     path('sayings/', get_sayings, name='sayings'),
     path('sayings/<slug:slug>/', get_detail_saying, name='detail_saying'),
+    path('sayings/search/', search_sayings, name='search_sayings'),
 ]

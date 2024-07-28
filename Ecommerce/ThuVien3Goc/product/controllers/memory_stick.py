@@ -35,8 +35,15 @@ class MemoryStickDetailView(View):
     
 class MemoryStickSearchView(View):
     def get(self, request):
-        memory_stick_service = MemoryStickService()
-        memory_sticks = memory_stick_service.get_all_memory_stick(start=0, limit=12)
+        query = str(request.GET.get('_query', '')).lower()
+        memory_stick_search_service = MemoryStickSearchService()
+        memory_stick_by_producer = memory_stick_search_service.search_memory_stick_by_producer(query=query, start=0, limit=12)
+        memory_stick_by_name = memory_stick_search_service.search_memory_stick_by_name(query=query, start=0, limit=12)
+        if memory_stick_by_producer is None:
+            memory_stick_by_producer = []
+        if memory_stick_by_name is None:
+            memory_stick_by_name = []
+        memory_sticks = memory_stick_by_name + memory_stick_by_producer
         content = {
             'memory_sticks': memory_sticks,
             'page_title': 'Tìm kiếm Memory Stick'

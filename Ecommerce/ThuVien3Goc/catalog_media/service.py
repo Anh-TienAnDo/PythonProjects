@@ -5,6 +5,19 @@ class ServiceMediaSocial():
     def __init__(self):
         self.url = 'http://127.0.0.1:9999/api/'
         self.headers = {'Content-Type': 'application/json'}
+        
+    def check_and_get_data(self, response):
+        try:
+            response = response.json()
+            print("-------------------Product----------------------")
+            print(str(response))
+            if response.get('status') == 'Success':
+                return response.get('data')
+            else:
+                return None
+        except json.decoder.JSONDecodeError:
+            print('Error: JSONDecodeError. Please check the response. The response is not JSON format.')
+            return response.text
 
     def __str__(self) -> str:
         return self.url

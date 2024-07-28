@@ -102,4 +102,49 @@ class USBDetailView(APIView):
             'data': None
         })
     
+class USBSearchByProducerView(APIView):
+    def get(self, request):
+        query = str(request.GET.get('_query')).lower()
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        usbs = USB.objects.filter(producer__name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
+        check = check_data_exists(usbs)
+        if check[0] is False:
+            return Response(check[1])
+        data = []
+        for usb in usbs:
+            usb_serializer = USBSerializer(usb).data
+            usb_serializer["producer"] = get_producer_name(usb)
+            usb_serializer["type"] = get_type_name(usb)
+            data.append(usb_serializer)
+        
+        return Response({
+            'status': 'Success',
+            'status_code': status.HTTP_200_OK,
+            'message': 'Data retrieved successfully',
+            'data': data
+        })
+        
+class USBSearchByNameView(APIView):
+    def get(self, request):
+        query = str(request.GET.get('_query')).lower()
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        usbs = USB.objects.filter(name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
+        check = check_data_exists(usbs)
+        if check[0] is False:
+            return Response(check[1])
+        data = []
+        for usb in usbs:
+            usb_serializer = USBSerializer(usb).data
+            usb_serializer["producer"] = get_producer_name(usb)
+            usb_serializer["type"] = get_type_name(usb)
+            data.append(usb_serializer)
+        
+        return Response({
+            'status': 'Success',
+            'status_code': status.HTTP_200_OK,
+            'message': 'Data retrieved successfully',
+            'data': data
+        })
 

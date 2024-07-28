@@ -3,8 +3,8 @@ import json
 from catalog_media.service import ServiceMediaSocial
     
 class ServiceSayings(ServiceMediaSocial):
-    def __init__(self):
-        self.url = 'http://127.0.0.1:9999/api/sayings/'
+    def __init__(self, url='http://127.0.0.1:9999/api/sayings/'):
+        self.url = url
         self.headers = {'Content-Type': 'application/json'}
 
     def get_list_sayings(self, start):
@@ -97,3 +97,24 @@ class SayingsFilter:
             sayings = service.get_list_sayings(start=start)
         return sayings
     
+class SayingsSearchService(ServiceSayings):
+    def __init__(self):
+        super().__init__()
+        
+    def search_by_title(self, query, start=0, limit=12):
+        url = self.url + 'search-by-title/'
+        response = requests.get(url + f'?_query={query}&_start={start}&_limit={limit}', headers=self.headers, timeout=5)
+        return self.check_and_get_data(response)
+    
+    def search_by_content(self, query, start=0, limit=12):
+        url = self.url + 'search-by-content/'
+        response = requests.get(url + f'?_query={query}&_start={start}&_limit={limit}', headers=self.headers, timeout=5)
+        return self.check_and_get_data(response)
+    
+    def search_by_author(self, query, start=0, limit=12):
+        url = self.url + 'search-by-author/'
+        response = requests.get(url + f'?_query={query}&_start={start}&_limit={limit}', headers=self.headers, timeout=5)
+        return self.check_and_get_data(response)
+        
+        
+        

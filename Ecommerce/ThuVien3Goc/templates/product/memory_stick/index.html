@@ -4,7 +4,9 @@
 {% block title %} {{page_title}} {% endblock %}
 
 {% block body-content-category %}
-
+<div class="search-container">
+    {% include 'product/memory_stick/components/search-form.html' %}
+</div>
 {% endblock body-content-category %}
 
 {% block body-content-news-main %}

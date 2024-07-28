@@ -36,8 +36,15 @@ class USBDetailView(View):
     
 class USBSearchView(View):
     def get(self, request):
-        usb_service = USBService()
-        usbs = usb_service.get_all_usb(start=0, limit=12)
+        query = str(request.GET.get('_query')).lower()
+        usb_search_service = USBSearchService()
+        usbs_by_producer = usb_search_service.search_usb_by_producer(query, start=0, limit=12)
+        usbs_by_name = usb_search_service.search_usb_by_name(query, start=0, limit=12)
+        if usbs_by_producer is None:
+            usbs_by_producer = []
+        if usbs_by_name is None:
+            usbs_by_name = []
+        usbs = usbs_by_producer + usbs_by_name
         content = {
             'usbs': usbs,
             'page_title': 'Tìm kiếm USB'

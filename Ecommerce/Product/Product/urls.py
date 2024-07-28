@@ -19,8 +19,8 @@ from django.urls import path, include
 # localhost:9998/api/...
 urlpatterns = [
     path('admin/', admin.site.urls),
-    # path('api/producers/', include('producer.urls')),
-    # path('api/types/', include('type.urls')),
+    path('api/producers/', include('producer.urls')),
+    path('api/types/', include('type.urls')),
     path('api/loudspeakers/', include('loudspeaker.urls')),
     path('api/usbs/', include('usb.urls')),
     path('api/memory_sticks/', include('memory_stick.urls')),

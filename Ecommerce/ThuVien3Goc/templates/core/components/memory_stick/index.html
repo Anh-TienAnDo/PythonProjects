@@ -1,0 +1,72 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách Thẻ Nhớ</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="memory_sticks-data">
+    <!-- memory_sticks will be appended here by JavaScript -->
+</div>
+
+<div class="row text-center justify-content-md-center align-items-center p-3">
+    <button id="memory_sticks-load-more" class="view-more btn btn-primary w-25" style="display:block;">Xem thêm</button>
+    <a href="{% url 'product-memory_stick:memory_sticks' %}" id="memory_sticks-view-all" class="view-all btn btn-secondary w-25" style="display:none;">Xem tất cả</a>
+</div>
+
+<script>
+    const memory_stickData = [
+    {% for memory_stick in memory_sticks %}
+        {
+            detail_url: "{% url 'product-memory_stick:detail' slug=memory_stick.slug %}",
+            name: "{{ memory_stick.name }}",
+            image: "{{ memory_stick.image }}",
+            producer: "{{ memory_stick.producer }}",
+            view: "{{ memory_stick.view }}",
+            price_new: "{{ memory_stick.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=memory_stick.slug product_type='MemoryStick' %}"
+        },
+        {% endfor %}
+    ];
+    console.log(memory_stickData);
+
+    let memory_sticksIndex = 0;
+    const memory_sticksPerPage = 3;
+    const memory_sticksDataContainer = document.getElementById('memory_sticks-data');
+    const memory_sticksLoadMore = document.getElementById('memory_sticks-load-more');
+    const memory_sticksViewAll = document.getElementById('memory_sticks-view-all');
+
+    function renderMemorySticks() {
+        for (let i = 0; i < memory_sticksPerPage; i++) {
+            if (memory_sticksIndex >= memory_stickData.length) {
+                memory_sticksLoadMore.style.display = 'none';
+                memory_sticksViewAll.style.display = 'block';
+                break;
+            }
+
+            const memory_stick = memory_stickData[memory_sticksIndex];
+            const memory_stickElement = document.createElement('div');
+            memory_stickElement.classList.add('col');
+            memory_stickElement.innerHTML = `
+                <div class="card h-100">
+                    <img src="${memory_stick.image}" class="card-img-top" alt="${memory_stick.name}">
+                    <div class="card-body">
+                        <h5 class="card-title">${memory_stick.name}</h5>
+                        <p class="card-subtitle">Nhà sản xuất: ${memory_stick.producer}</p>
+                        <p class="card-subtitle">Lượt xem: ${memory_stick.view}</p>
+                        <p class="card-subtitle">Giá mới: ${memory_stick.price_new}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${memory_stick.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="${memory_stick.add_cart}" class="btn btn-warning"><b>Add to cart</b></a>
+                    </div>
+                </div>
+            `;
+            memory_sticksDataContainer.appendChild(memory_stickElement);
+            memory_sticksIndex++;
+        }
+    }
+
+    memory_sticksLoadMore.addEventListener('click', renderMemorySticks);
+    renderMemorySticks();
+
+</script>
+

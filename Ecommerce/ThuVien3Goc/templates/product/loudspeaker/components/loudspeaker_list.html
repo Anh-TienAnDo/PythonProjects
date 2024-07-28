@@ -32,6 +32,7 @@
             detail_url: "{% url 'product-loudspeaker:detail' slug=loudspeaker.slug %}",
             name: "{{ loudspeaker.name }}",
             image: "{{ loudspeaker.image }}",
+            producer: "{{ loudspeaker.producer }}",
             view: "{{ loudspeaker.view }}",
             price_new: "{{ loudspeaker.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}"

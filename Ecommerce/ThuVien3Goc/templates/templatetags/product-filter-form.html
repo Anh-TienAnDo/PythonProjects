@@ -1,0 +1,45 @@
+{% load static %}
+<div class="filter-box bg-light">
+    <div class="title row text-center">
+        <h6>Lọc theo loại, nhà sản xuất và giá</h6>
+    </div>
+    <form action="" method="get">
+        <!-- producer select -->
+        <div class="mb-3">
+            <label for="producerSelect" class="form-label">Select producer</label>
+            <select id="producerSelect" class="form-select" name="producer">
+                <option value="all" selected>Tất cả</option>
+                {% for producer in producers %}
+                <option value="{{ producer.slug }}">{{ producer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- type select -->
+        <div class="mb-3">
+            <label for="typeSelect" class="form-label" >Select type</label>
+            <select id="typeSelect" class="form-select" name="type">
+                <option value="all" selected>Tất cả</option>
+                {% for type in types %}
+                <option value="{{ type.slug }}">{{ type.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- price select -->
+        <div class="mb-3">
+            <label for="authorSelect" class="form-label" >Select price</label>
+            <select id="authorSelect" class="form-select" name="price">
+                <option value="all" selected>Tất cả</option>
+                <option value="0-1000000">0 - 1.000.000</option>
+                <option value="1000000-2000000">1.000.000 - 2.000.000</option>
+                
+            </select>
+        </div>
+
+        <!-- submit button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+</div>

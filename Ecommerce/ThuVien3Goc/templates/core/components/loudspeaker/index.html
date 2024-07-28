@@ -1,0 +1,71 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Danh sách Loa Pháp Thoại</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="loudspeakers-data">
+    <!-- Loudspeakers will be appended here by JavaScript -->
+</div>
+
+<div class="row text-center justify-content-md-center align-items-center p-3">
+    <button id="loudspeakers-load-more" class="view-more btn btn-primary w-25" style="display:block;">Xem thêm</button>
+    <a href="{% url 'product-loudspeaker:loudspeakers' %}" id="loudspeakers-view-all" class="view-all btn btn-secondary w-25" style="display:none;">Xem tất cả</a>
+</div>
+
+<script>
+    const loudspeakerData = [
+    {% for loudspeaker in loudspeakers %}
+        {
+            detail_url: "{% url 'product-loudspeaker:detail' slug=loudspeaker.slug %}",
+            name: "{{ loudspeaker.name }}",
+            image: "{{ loudspeaker.image }}",
+            producer: "{{ loudspeaker.producer }}",
+            view: "{{ loudspeaker.view }}",
+            price_new: "{{ loudspeaker.price_new }}",
+            add_cart: "{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}"
+        },
+        {% endfor %}
+    ];
+    console.log(loudspeakerData);
+    
+    let loudspeakersIndex = 0;
+    const loudspeakersPerPage = 3;
+    const loudspeakersDataContainer = document.getElementById('loudspeakers-data');
+    const loudspeakersLoadMore = document.getElementById('loudspeakers-load-more');
+    const loudspeakersViewAll = document.getElementById('loudspeakers-view-all');
+
+    function renderLoudspeakers() {
+        for (let i = 0; i < loudspeakersPerPage; i++) {
+            if (loudspeakersIndex >= loudspeakerData.length) {
+                loudspeakersLoadMore.style.display = 'none';
+                loudspeakersViewAll.style.display = 'block';
+                break;
+            }
+
+            const loudspeaker = loudspeakerData[loudspeakersIndex];
+            const loudspeakerElement = document.createElement('div');
+            loudspeakerElement.classList.add('col');
+            loudspeakerElement.innerHTML = `
+                <div class="card h-100">
+                    <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" ></a>
+                    <div class="card-body">
+                        <h5 class="card-title">${loudspeaker.name}</h5>
+                        <p class="card-subtitle">Nhà sản xuất: ${loudspeaker.producer}</p>
+                        <p class="card-subtitle">Lượt xem: ${loudspeaker.view}</p>
+                        <p class="card-subtitle">Giá mới: ${loudspeaker.price_new}</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="${loudspeaker.detail_url}" class="btn btn-primary">Xem chi tiết</a>
+                        <a href="${loudspeaker.add_cart}" class="btn btn-warning"><b>Add to cart</b></a>
+                    </div>
+                </div>
+            `;
+            loudspeakersDataContainer.appendChild(loudspeakerElement);
+            loudspeakersIndex++;
+        }
+    }
+
+    renderLoudspeakers();
+    loudspeakersLoadMore.addEventListener('click', renderLoudspeakers);
+
+</script>

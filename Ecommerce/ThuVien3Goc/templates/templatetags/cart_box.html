@@ -1,0 +1,5 @@
+{% load static %}
+<a href="{% url 'cart:index' %}" class="position-relative">
+    <img src="{% static 'images/cart.png' %}" alt="cart" style="width: 50px; height: 40px;">
+    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-primary">{{cart_quantity}}</span>
+</a>

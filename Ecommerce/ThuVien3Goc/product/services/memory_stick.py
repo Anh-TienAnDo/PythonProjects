@@ -12,13 +12,30 @@ class MemoryStickService():
     def get_all_memory_stick(self, start=0, limit=12):
         url = f"{self.url}?_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.header, timeout=5)
-        return ProductService(response).check_and_get_data()
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
 
     def get_memory_stick_by_slug(self, slug):
         url = f"{self.url}{slug}"
         response = requests.get(url, headers=self.header, timeout=5)
-        return ProductService(response).check_and_get_data()
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
 
+class MemoryStickSearchService(MemoryStickService):
+    def __init__(self):
+        super().__init__()
+        
+    def search_memory_stick_by_producer(self, query, start=0, limit=12):
+        url = f"{self.url}search-by-producer/?_query={query}&_start={start}&_limit={limit}"
+        response = requests.get(url, headers=self.header, timeout=5)
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
+    
+    def search_memory_stick_by_name(self, query, start=0, limit=12):
+        url = f"{self.url}search-by-name/?_query={query}&_start={start}&_limit={limit}"
+        response = requests.get(url, headers=self.header, timeout=5)
+        product_service = ProductService(response)
+        return product_service.check_and_get_data()
 
     # def create_memory_stick(self, data):
     #     response = requests.post(self.url, json=data)
