@@ -29,6 +29,7 @@ class CartItems(models.Model):
         return cart_id
     
     def save(self, *args, **kwargs):
-        self.id = self.generate_cart_id()
+        if not self.id:
+            self.id = self.generate_cart_id()
         super(CartItems, self).save(*args, **kwargs)
 

@@ -301,3 +301,46 @@ def delete_user(user_id):
                 }
     
 
+import jwt
+from ThuVien3Goc.settings import SIMPLE_JWT as sj
+from datetime import datetime, timedelta
+
+class JWTUserMiddleware:
+    def __init__(self) -> None:
+        pass
+    
+    def authenticate(self, request):
+        token = request.headers.get('Authorization')
+        if token is None:
+            return None
+        try:
+            user = jwt.decode(jwt=token, key=sj.get('SIGNING_KEY'), algorithms=[sj.get("ALGORITHM")])
+            return user
+        except jwt.ExpiredSignatureError:
+            return None
+        except jwt.InvalidTokenError:
+            return None
+        
+    def create_token(self, data: dict) -> str:
+        if data.get('is_superuser'):
+            role = 'admin'
+        elif data.get('is_staff'):
+            role = 'staff'
+        else:
+            role = 'user'
+        payload = {
+                'id': data.get('id'),
+                'exp': datetime.utcnow() + timedelta(hours=1),
+                'iat': datetime.utcnow(),
+                'role': role,
+            }
+        token = jwt.encode(payload=payload, key=sj.get('SIGNING_KEY'), algorithm=sj.get('ALGORITHM'))
+        return token
+    
+    def get_token_in_request(self, request):
+        try:
+            token = str(request.COOKIES.get('token'))
+        except KeyError:
+            token = None
+        return token
+

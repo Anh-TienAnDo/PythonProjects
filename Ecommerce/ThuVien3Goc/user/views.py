@@ -58,7 +58,14 @@ def login_user(request):
             request.session['message'] = "Đăng nhập thành công."
             cart_service = CartServiceLogged(request)
             cart_service.get_cart_in_session_on_db()
-            return redirect("core:index")
+            
+            jwt_user_service = JWTUserMiddleware()
+            user_information = result['account']
+            token = jwt_user_service.create_token(data=user_information)
+            response = HttpResponse("Đăng nhập thành công. Token: " + token)
+            response.set_cookie('token', token)
+            return response
+            # return redirect("core:index")
         else:
             notifications=result['message']
             return render(request, 'user/login.html', {'content': content, 'notifications': notifications})
@@ -139,3 +146,29 @@ def change_password(request):
             return render(request, 'user/change_password.html', {'content': content, 'notifications': notifications})
 
     return render(request, 'user/change_password.html', {'content': content, 'notifications': notifications}) 
+
+def login_user_ordered(request):
+    content = {}
+    notifications = {}
+    method = request.method
+    if method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        content = {
+            'username': username,
+            'password': password,
+        }
+        print(content)
+        result = check_user_login(data=content)
+        print(result)
+        if result['status']=='Success':
+            request.session['account'] = result['account']
+            request.session['message'] = "Đăng nhập thành công."
+            cart_service = CartServiceLogged(request)
+            cart_service.get_cart_in_session_on_db()
+            return redirect("order:checkout")
+        else:
+            notifications=result['message']
+            return render(request, 'user/login_ordered.html', {'content': content, 'notifications': notifications})
+        
+    return render(request, 'user/login_ordered.html', {'content': content, 'notifications': notifications})

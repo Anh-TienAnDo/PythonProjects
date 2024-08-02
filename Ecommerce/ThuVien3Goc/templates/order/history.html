@@ -1,0 +1,56 @@
+{%extends 'base.html'%}
+{% load static %}
+{% load humanize %}
+
+{% block title %} {{page_title}} {% endblock %}
+
+{% block body-content-order %}
+
+<div class="container">
+    <div class="py-5 text-center">
+        <h1>Order History</h1>
+    </div>
+    <div class="row">
+        {% for order in orders %}
+            <div class="col-md-3 p-3">
+                <div class="card-body mb-2">
+                    <h6 class="card-title">Mã đặt hàng: {{order.code}}</h6>
+                    <p class="card-subtitle">Người nhận: {{order.person_name}}</p>
+                    <p class="card-subtitle">Số điện thoại: {{order.phone}}</p>
+                    <p class="card-subtitle">Email: {{order.email}}</p>
+                    <p class="card-subtitle">Địa chỉ: {{order.number_house}} {{order.street}}, {{order.district}}, {{order.city}}</p>
+                    <p class="card-subtitle">
+                        {% if order.status == '1' %}
+                            Trạng thái: Đang chờ xử lý
+                        {% elif order.status == '2' %}
+                            Trạng thái: Đang giao hàng
+                        {% elif order.status == '3' %}
+                            Trạng thái: Đã giao hàng
+                        {% elif order.status == '4' %}
+                            Trạng thái: Đã hủy bỏ
+                        {% endif %}
+                    </h6>
+                    <h6 class="card-title">Tổng tiền: {{order.total|intcomma}} VND</h6>
+                    <h6 class="card-subtitle">Thời gian: {{order.date_order}}</h6>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="btn-group">
+                        <a href="{% url 'order:orderitems' order.id %}" class="btn btn-secondary">Chi tiết</a>
+                        {% if order.status == '1' %}
+                            <a href="{% url 'order:cancel' order.id %}" class="btn btn-warning">Hủy đơn hàng</a>
+                        {% endif %}
+                        {% if order.status == '4' %}
+                            <a href="{% url 'order:re-cancel' order.id %}" class="btn btn-secondary">tiếp tục đơn hàng</a>
+                        {% endif%}
+                    </div>
+                    
+                </div>
+            </div>
+        {% endfor %}
+
+    </div>
+  
+</div>
+
+{% endblock body-content-order %}

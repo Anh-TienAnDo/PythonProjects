@@ -3,7 +3,7 @@ from .models import Checkout, OrderItems
 
 # Register your models here.
 class CheckoutAdmin(admin.ModelAdmin):
-    list_display = ['code', 'person_name', 'address', 'phone', 'email', 'total', 'status', 'date_order']
+    list_display = ['code', 'person_name', 'phone', 'email', 'total', 'status', 'date_order']
     list_display_links = ['code', 'person_name']
     list_per_page = 20
     ordering = ('-date_order',)

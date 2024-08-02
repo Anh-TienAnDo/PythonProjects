@@ -8,9 +8,9 @@ register = template.Library()
 
 @register.inclusion_tag('templatetags/banner_box.html')
 def banner_box(request):
-    loudspeaker_service = LoudspeakerService()
-    usb_service = USBService()
-    memory_stick_service = MemoryStickService()
+    loudspeaker_service = LoudspeakerService(request=request)
+    usb_service = USBService(request=request)
+    memory_stick_service = MemoryStickService(request=request)
     
     loudspeakers_data = loudspeaker_service.get_all_loudspeaker(start=0, limit=6)
     usbs_data = usb_service.get_all_usb(start=0, limit=6)

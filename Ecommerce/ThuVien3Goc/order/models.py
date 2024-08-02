@@ -15,7 +15,10 @@ class Checkout(models.Model):
     code = models.CharField(max_length=20, unique=True)
     user_id = models.BigIntegerField(default=1)
     person_name = models.CharField(max_length=255, null=True)
-    address = models.TextField()
+    number_house = models.CharField(max_length=255, null=True)
+    street = models.CharField(max_length=255, null=True)
+    district = models.CharField(max_length=255, null=True)
+    city = models.CharField(max_length=255, null=True)
     phone = models.CharField(max_length=12, null=True)
     email = models.EmailField(max_length=255, null=True)
     total = models.BigIntegerField(default=0)
@@ -35,7 +38,8 @@ class Checkout(models.Model):
         return code
     
     def save(self, *args, **kwargs):
-        self.code = self.generate_code()
+        if not self.code:
+            self.code = self.generate_code()
         super(Checkout, self).save(*args, **kwargs)
 
     class Meta:
@@ -43,7 +47,7 @@ class Checkout(models.Model):
 
 class OrderItems(models.Model):
     id = models.CharField(max_length=50, primary_key=True)
-    product_slug = models.SlugField(null=True)
+    product_slug = models.SlugField(max_length=255, null=True)
     price = models.BigIntegerField(default=0)
     quantity = models.IntegerField(default=1, blank=True)
     checkout = models.ForeignKey(Checkout, on_delete=models.SET_NULL, null=True)

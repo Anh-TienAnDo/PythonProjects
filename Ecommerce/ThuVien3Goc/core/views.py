@@ -28,7 +28,7 @@ def search(request):
         sayings_by_author = []
     sayings = sayings_by_title + sayings_by_content + sayings_by_author
     
-    loudspeaker_search_service = LoudspeakerSearchService()
+    loudspeaker_search_service = LoudspeakerSearchService(request=request)
     loudspeaker_by_producer = loudspeaker_search_service.search_loudspeaker_by_producer(query=query, start=0, limit=3)
     loudspeaker_by_name = loudspeaker_search_service.search_loudspeaker_by_name(query=query, start=0, limit=3)
     if loudspeaker_by_producer is None:
@@ -37,7 +37,7 @@ def search(request):
         loudspeaker_by_name = []
     loudspeakers = loudspeaker_by_producer + loudspeaker_by_name
     
-    memory_stick_search_service = MemoryStickSearchService()
+    memory_stick_search_service = MemoryStickSearchService(request=request)
     memory_stick_by_producer = memory_stick_search_service.search_memory_stick_by_producer(query=query, start=0, limit=3)
     memory_stick_by_name = memory_stick_search_service.search_memory_stick_by_name(query=query, start=0, limit=3)
     if memory_stick_by_producer is None:
@@ -46,7 +46,7 @@ def search(request):
         memory_stick_by_name = []
     memory_sticks = memory_stick_by_name + memory_stick_by_producer
     
-    usb_search_service = USBSearchService()
+    usb_search_service = USBSearchService(request=request)
     usbs_by_producer = usb_search_service.search_usb_by_producer(query, start=0, limit=3)
     usbs_by_name = usb_search_service.search_usb_by_name(query, start=0, limit=3)
     if usbs_by_producer is None:

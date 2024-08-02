@@ -6,9 +6,12 @@ from product.services.usb import *
 
 class USBView(View):
     def get(self, request):
-        usb_service = USBService()
-        usbs_data = usb_service.get_all_usb(start=0, limit=12)
-        usbs = usbs_data.get('usbs')
+        usb_filter_service = USBFilterService(request)
+        producer = request.GET.get('producer', 'all')
+        type_usb = request.GET.get('type', 'all')
+        price = request.GET.get('price', 'all')
+        usbs = dict(usb_filter_service.filter(producer=producer, type_usb=type_usb, price=price, start=0, limit=12))
+        usbs = usbs.get('usbs', [])
         content = {
             'usbs': usbs,
             'page_title': 'USB'
@@ -20,7 +23,7 @@ class USBView(View):
     
 class USBDetailView(View):
     def get(self, request, slug):
-        usb_service = USBService()
+        usb_service = USBService(request)
         usb = usb_service.get_usb_by_slug(slug)
         content = {
             'usb': usb,
@@ -37,7 +40,7 @@ class USBDetailView(View):
 class USBSearchView(View):
     def get(self, request):
         query = str(request.GET.get('_query')).lower()
-        usb_search_service = USBSearchService()
+        usb_search_service = USBSearchService(request)
         usbs_by_producer = usb_search_service.search_usb_by_producer(query, start=0, limit=12)
         usbs_by_name = usb_search_service.search_usb_by_name(query, start=0, limit=12)
         if usbs_by_producer is None:

@@ -5,12 +5,15 @@ from product.services.memory_stick import *
 
 class MemoryStickView(View):
     def get(self, request):
-        memory_stick_service = MemoryStickService()
-        memory_sticks_data = memory_stick_service.get_all_memory_stick(start=0, limit=12)
-        memory_sticks = memory_sticks_data.get('memory_sticks')
+        memory_stick_filter_service = MemoryStickFilterService(request)
+        producer = request.GET.get('producer', 'all')
+        type_memorystick = request.GET.get('type', 'all')
+        price = request.GET.get('price', 'all')
+        memory_sticks = dict(memory_stick_filter_service.filter(producer=producer, type_memorystick=type_memorystick, price=price, start=0, limit=12))
+        memory_sticks = memory_sticks.get('memory_sticks', [])
         content = {
             'memory_sticks': memory_sticks,
-            'page_title': 'Memory Stick'
+            'page_title': 'Thẻ nhớ'
         }
         return render(request, 'product/memory_stick/index.html', content)
     
@@ -19,7 +22,7 @@ class MemoryStickView(View):
     
 class MemoryStickDetailView(View):
     def get(self, request, slug):
-        memory_stick_service = MemoryStickService()
+        memory_stick_service = MemoryStickService(request)
         memory_stick = memory_stick_service.get_memory_stick_by_slug(slug)
         content = {
             'memory_stick': memory_stick,
@@ -36,7 +39,7 @@ class MemoryStickDetailView(View):
 class MemoryStickSearchView(View):
     def get(self, request):
         query = str(request.GET.get('_query', '')).lower()
-        memory_stick_search_service = MemoryStickSearchService()
+        memory_stick_search_service = MemoryStickSearchService(request)
         memory_stick_by_producer = memory_stick_search_service.search_memory_stick_by_producer(query=query, start=0, limit=12)
         memory_stick_by_name = memory_stick_search_service.search_memory_stick_by_name(query=query, start=0, limit=12)
         if memory_stick_by_producer is None:

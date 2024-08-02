@@ -97,6 +97,11 @@
                     </li>
                 </ul>
             </li>
+            {% if request.session.account.id %} 
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'order:history' %}">Lịch sử đặt hàng</a>
+            </li>
+            {% endif %}
         </ul>
 
     </div>

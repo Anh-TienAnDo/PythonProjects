@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os.path
 from datetime import timedelta, datetime
+import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -193,4 +194,35 @@ EMAIL_HOST_PASSWORD = 'fnvx lqhj cywo qqos'
 PAYPAL = {
     'CLIENT_ID': 'AfDPoHI56R2XNvxJrjVwg7I70dUedQj3M-c2eQdMF6np8iSd4qHhJ0PECb1bGC7X71GwBA1jDd4HhCtf',
     'CLIENT_SECRET': 'EFJxZgsb2kLXFya29eoKhvVK8MFaYV0QOYm8jQ2w0mc6GT7CiugBvwKPS-MaYYhU6oIkFIZ6ioZsMWYa',
+}
+
+time = datetime.now()
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '{levelname} {asctime} {module} {message}',
+            'style': '{',
+        },
+        'simple': {
+            'format': '{levelname} {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'file': {
+            'level': 'DEBUG',
+            'class': 'logging.FileHandler',
+            'filename': f'debug_{time}.log',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['file'],
+            'level': 'DEBUG',
+            'propagate': True,
+        },
+    },
 }

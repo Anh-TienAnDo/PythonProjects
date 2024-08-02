@@ -119,7 +119,7 @@ SIMPLE_JWT = {
     # xác minh RSA không đối xứng, có thể sử dụng các thuật toán sau: 'RS256', 'RS384', 'RS512'. Khi thuật toán RSA được chọn, cài đặt SIGNING_KEY phải được đặt thành chuỗi chứa khóa riêng RSA
     "ALGORITHM": "HS256",
     # Khóa ký được sử dụng để ký nội dung của mã thông báo được tạo
-    "SIGNING_KEY": "BAT_CHANH_DAO",
+    "SECRET_KEY": "BAT_CHANH_DAO",
 }
 
 # Internationalization
