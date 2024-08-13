@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views.generic import View
 from product.services.loudspeaker import *
+from ThuVien3Goc.settings import ITEMS_PER_PAGE
 
 class LoudSpeakerView(View):
     def get(self, request):
@@ -9,11 +10,27 @@ class LoudSpeakerView(View):
         producer = request.GET.get('producer', 'all')
         type_loudspeaker = request.GET.get('type', 'all')
         price = request.GET.get('price', 'all')
-        loudspeakers = dict(loudspeakers_filter_service.filter(producer=producer, type_loudspeaker=type_loudspeaker, price=price, start=0, limit=12))
+        
+        page = request.GET.get('page', 1)
+        # items_per_page = request.GET.get('items_per_page', ITEMS_PER_PAGE)
+        items_per_page = ITEMS_PER_PAGE
+        start = (int(page) - 1) * int(items_per_page)
+        limit = int(items_per_page)
+        loudspeakers = dict(loudspeakers_filter_service.filter(producer=producer, type_loudspeaker=type_loudspeaker, price=price, start=start, limit=limit))
+        
+        total_items = loudspeakers.get('total', 0)
         loudspeakers = loudspeakers.get('loudspeakers', [])
+        
         content = {
             'loudspeakers': loudspeakers,
-            'page_title': 'Loa nghe nhạc'
+            'page_title': 'Loa nghe nhạc',
+            
+            'page': page,
+            'items_per_page': items_per_page,
+            'total_items': total_items,
+            'producer': producer,
+            'type': type_loudspeaker,
+            'price': price,
         }
         return render(request, 'product/loudspeaker/index.html', content)
     
@@ -38,7 +55,7 @@ class LoudSpeakerDetailView(View):
     
 class LoudSpeakerSearchView(View):
     def get(self, request):
-        query = str(request.GET.get('query')).lower()
+        query = str(request.GET.get('query'))
         loudspeaker_search_service = LoudspeakerSearchService(request)
         loudspeaker_by_producer = loudspeaker_search_service.search_loudspeaker_by_producer(query=query, start=0, limit=12)
         loudspeaker_by_name = loudspeaker_search_service.search_loudspeaker_by_name(query=query, start=0, limit=12)
@@ -49,7 +66,8 @@ class LoudSpeakerSearchView(View):
         loudspeakers = loudspeaker_by_producer + loudspeaker_by_name
         content = {
             'loudspeakers': loudspeakers,
-            'page_title': 'Tìm kiếm loa nghe nhạc'
+            'page_title': 'Tìm kiếm loa nghe nhạc',
+            'query': query  
         }
         return render(request, 'product/loudspeaker/search.html', content)
     

@@ -187,27 +187,27 @@ class LoudspeakerFilterView(View):
         limit = int(request.GET.get('_limit', 12))
         print(producer, type_loudspeaker, price_new)
         if producer != "all" and type_loudspeaker != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != "all" and type_loudspeaker != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, is_active=True).order_by('-created_at')
         elif producer != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif type_loudspeaker != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, is_active=True).order_by('-created_at')
         elif type_loudspeaker != "all":
-            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, is_active=True).order_by('-created_at')
         elif price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         else:
-            loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-created_at')[start:start+limit]
+            loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-created_at')
         check = check_data_exists(loudspeakers)
         if check[0] is False:
             return JsonResponse(check[1])
         total = len(loudspeakers)
         data = []
-        for loudspeaker in loudspeakers:
+        for loudspeaker in loudspeakers[start:start+limit]:
             loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
             loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
             loudspeaker_serializer["type"] = get_type_name(loudspeaker)

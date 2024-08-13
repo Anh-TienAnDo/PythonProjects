@@ -162,26 +162,27 @@ class USBFilterView(APIView):
         if "-" in price_new:
             price_range = price_new.split("-")
         if producer != 'all' and type_USB != 'all' and price_new != 'all':
-            usbs = USB.objects.filter(producer__name__icontains=producer, type__name__icontains=type_USB, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(producer__name__icontains=producer, type__name__icontains=type_USB, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != 'all' and type_USB != 'all':
-            usbs = USB.objects.filter(producer__name__icontains=producer, type__name__icontains=type_USB, is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(producer__name__icontains=producer, type__name__icontains=type_USB, is_active=True).order_by('-created_at')
         elif producer != 'all' and price_new != 'all':
-            usbs = USB.objects.filter(producer__name__icontains=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(producer__name__icontains=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif type_USB != 'all' and price_new != 'all':
-            usbs = USB.objects.filter(type__name__icontains=type_USB, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(type__name__icontains=type_USB, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != 'all':
-            usbs = USB.objects.filter(producer__name__icontains=producer, is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(producer__name__icontains=producer, is_active=True).order_by('-created_at')
         elif type_USB != 'all':
-            usbs = USB.objects.filter(type__name__icontains=type_USB, is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(type__name__icontains=type_USB, is_active=True).order_by('-created_at')
         elif price_new != 'all':
-            usbs = USB.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         else:
-            usbs = USB.objects.filter(is_active=True).order_by('-created_at')[start:start+limit]
+            usbs = USB.objects.filter(is_active=True).order_by('-created_at')
         check = check_data_exists(usbs)
         if check[0] is False:
             return Response(check[1])
+        total = len(usbs)
         data = []
-        for usb in usbs:
+        for usb in usbs[start:start+limit]:
             usb_serializer = USBSerializer(usb).data
             usb_serializer["producer"] = get_producer_name(usb)
             usb_serializer["type"] = get_type_name(usb)
@@ -191,7 +192,7 @@ class USBFilterView(APIView):
             'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': {
-                    'total': 0,
+                    'total': total,
                     'usbs': data
                 }
         })

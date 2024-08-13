@@ -9,15 +9,15 @@
 
 <div class="row text-center justify-content-md-center align-items-center p-3">
     <button id="sayings-load-more" class="view-more btn btn-primary w-25" style="display:block;">Xem thêm</button>
-    <a href="{% url 'media_social:sayings' %}" id="sayings-view-all" class="view-all btn btn-secondary w-25" style="display:none;">Xem tất cả</a>
+    <a href="{% url 'media_social-sayings:sayings' %}" id="sayings-view-all" class="view-all btn btn-secondary w-25" style="display:none;">Xem tất cả</a>
 </div>
 
 <script>
     const sayingsData = [
-        {% for saying in content.sayings %}
+        {% for saying in sayings %}
         {
             id: {{ saying.id }},
-            detail_url: "{% url 'media_social:detail_saying' slug=saying.slug %}",
+            detail_url: "{% url 'media_social-sayings:detail' slug=saying.slug %}",
             title: "{{ saying.title }}",
             author: "{{ saying.author }}",
             view: {{ saying.view }},

@@ -17,9 +17,7 @@ def authenticate_user(view_func):
                 'message': 'Authentication token is missing',
             })
         try:
-            payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']])
-            print(payload)
-            print(type(payload)) # -> dict
+            payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']]) # -> dict
             if payload['role'] not in MEMBER:
                 return JsonResponse({
                     'status': 'Failed',
@@ -53,8 +51,6 @@ def authenticate_staff(view_func):
             })
         try:
             payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']])
-            print(payload)
-            print(type(payload))
             if payload['role'] not in STAFF:
                 return JsonResponse({
                     'status': 'Failed',
@@ -87,9 +83,7 @@ def authenticate_admin(view_func):
                 'message': 'Authentication token is missing',
             })
         try:
-            payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']])
-            print(payload)
-            print(type(payload)) # -> dict
+            payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']]) # -> dict
             if payload['role'] not in ADMIN:
                 return JsonResponse({
                     'status': 'Failed',

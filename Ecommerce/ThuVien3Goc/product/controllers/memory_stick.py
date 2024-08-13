@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django. shortcuts import render, redirect
 from django.views.generic import View
 from product.services.memory_stick import *
+from ThuVien3Goc.settings import ITEMS_PER_PAGE
 
 class MemoryStickView(View):
     def get(self, request):
@@ -9,11 +10,26 @@ class MemoryStickView(View):
         producer = request.GET.get('producer', 'all')
         type_memorystick = request.GET.get('type', 'all')
         price = request.GET.get('price', 'all')
-        memory_sticks = dict(memory_stick_filter_service.filter(producer=producer, type_memorystick=type_memorystick, price=price, start=0, limit=12))
+        
+        page = request.GET.get('page', 1)
+        # items_per_page = request.GET.get('items_per_page', ITEMS_PER_PAGE)
+        items_per_page = ITEMS_PER_PAGE
+        start = (int(page) - 1) * int(items_per_page)
+        limit = int(items_per_page)
+        memory_sticks = dict(memory_stick_filter_service.filter(producer=producer, type_memorystick=type_memorystick, price=price, start=start, limit=limit))
+        
+        total_items = memory_sticks.get('total', 0)
         memory_sticks = memory_sticks.get('memory_sticks', [])
         content = {
             'memory_sticks': memory_sticks,
-            'page_title': 'Thẻ nhớ'
+            'page_title': 'Thẻ nhớ',
+            
+            'page': page,
+            'items_per_page': items_per_page,
+            'total_items': total_items,
+            'producer': producer,
+            'type': type_memorystick,
+            'price': price,
         }
         return render(request, 'product/memory_stick/index.html', content)
     
@@ -38,7 +54,7 @@ class MemoryStickDetailView(View):
     
 class MemoryStickSearchView(View):
     def get(self, request):
-        query = str(request.GET.get('_query', '')).lower()
+        query = str(request.GET.get('_query', ''))
         memory_stick_search_service = MemoryStickSearchService(request)
         memory_stick_by_producer = memory_stick_search_service.search_memory_stick_by_producer(query=query, start=0, limit=12)
         memory_stick_by_name = memory_stick_search_service.search_memory_stick_by_name(query=query, start=0, limit=12)
@@ -49,7 +65,8 @@ class MemoryStickSearchView(View):
         memory_sticks = memory_stick_by_name + memory_stick_by_producer
         content = {
             'memory_sticks': memory_sticks,
-            'page_title': 'Tìm kiếm Memory Stick'
+            'page_title': 'Tìm kiếm Memory Stick',
+            'query': query
         }
         return render(request, 'product/memory_stick/search.html', content)
     

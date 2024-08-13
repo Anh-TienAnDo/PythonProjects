@@ -1,12 +1,15 @@
 from django import template
 from django.http import HttpResponse
-from catalog_media.service import ServiceCategory, ServiceAuthor
+from catalog_media.services import ServiceCategory, ServiceAuthor
 
 register = template.Library()
 
 @register.inclusion_tag('templatetags/catalog_box.html')
 def catalog_box(request):
-    categories = ServiceCategory().get_list_categories()
-    authors = ServiceAuthor().get_list_authors()
+    categories_service = ServiceCategory(request=request)
+    authors_service = ServiceAuthor(request=request)
+    
+    categories = categories_service.get_list_categories()
+    authors = authors_service.get_list_authors()
     return {'categories': categories, 'authors': authors}
 

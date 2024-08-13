@@ -1,10 +1,7 @@
-from django.urls import path
-from .views import *
 
-app_name = 'media_social'
+from django.urls import path, include
 
 urlpatterns = [
-    path('sayings/', get_sayings, name='sayings'),
-    path('sayings/<slug:slug>/', get_detail_saying, name='detail_saying'),
-    path('sayings/search/', search_sayings, name='search_sayings'),
+    path('sayings/', include('media_social.paths.sayings')),
+    path('audio-books/', include('media_social.paths.audio_book')),
 ]

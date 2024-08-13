@@ -32,11 +32,14 @@ def get_category_data(saying):
 
 class SayingView(APIView):
     def get(self, request):
-        start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(is_active=True).order_by('-created_at')[start:start+12]
+        print("GET SAYINGS")
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        sayings = Saying.objects.filter(is_active=True).order_by('-created_at')
         check = check_data_exists(sayings)
         if check[0] is False:
             return Response(check[1])
+        total = sayings.count()
         data = []
         for saying in sayings:
             saying_data = SayingSerializer(saying).data  # Get saying data
@@ -47,10 +50,13 @@ class SayingView(APIView):
                 'status': 'Success',
                 'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
-                'data': data
+                'data': {
+                    'total': total,
+                    'sayings': data
+                }
             })
 
-    @csrf_exempt
+    # @csrf_exempt
     def post(self, request):
         data = json.loads(request.body)
         serializer = SayingSerializer(data=data)
@@ -61,6 +67,7 @@ class SayingView(APIView):
 
 class SayingDetailView(APIView):
     def get(self, request, slug):
+        print("GET SAYING DETAIL")
         saying = Saying.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(saying)
         if check[0] is False:
@@ -106,14 +113,26 @@ class SayingDetailView(APIView):
         saying.is_active = False
         saying.save()
         return Response(status=status.HTTP_204_NO_CONTENT)
-    
-class SayingByCategoryView(APIView):
-    def get(self, request, category_slug):
-        start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(categories__slug=category_slug, is_active=True).order_by('-created_at')[start:start+12]
+
+class SayingFilterView(APIView):
+    def get(self, request):
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        author_slug = str(request.GET.get('_author_slug', 'all'))
+        category_slug = str(request.GET.get('_category_slug', 'all'))
+        if author_slug != 'all' and category_slug != 'all':
+            sayings = Saying.objects.filter(author__slug=author_slug, categories__slug=category_slug, is_active=True).order_by('-created_at')
+        elif author_slug != 'all':
+            sayings = Saying.objects.filter(author__slug=author_slug, is_active=True).order_by('-created_at')
+        elif category_slug != 'all':
+            sayings = Saying.objects.filter(categories__slug=category_slug, is_active=True).order_by('-created_at')
+        else:
+            sayings = Saying.objects.filter(is_active=True).order_by('-created_at')
         check = check_data_exists(sayings)
         if check[0] is False:
             return Response(check[1])
+        total = sayings.count()
+        sayings = sayings[start:start+limit]
         data = []
         for saying in sayings:
             saying_data = SayingSerializer(saying).data  # Get saying data
@@ -124,50 +143,12 @@ class SayingByCategoryView(APIView):
                 'status': 'Success',
                 'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
-                'data': data
-            })
-    
-class SayingByAuthorView(APIView):
-    def get(self, request, author_slug):
-        start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(author__slug=author_slug, is_active=True).order_by('-created_at')[start:start+12]
-        check = check_data_exists(sayings)
-        if check[0] is False:
-            return Response(check[1])
-        data = []
-        for saying in sayings:
-            saying_data = SayingSerializer(saying).data  # Get saying data
-            saying_data['categories'] = get_category_data(saying)  # Add categories to the saying data
-            saying_data['author'] = get_author_name(saying)  # Add author to the saying data
-            data.append(saying_data)  # Add the saying with categories to the data list
-        
-        return Response({
-                'status': 'Success',
-                'status_code': status.HTTP_200_OK,
-                'message': 'Data retrieved successfully',
-                'data': data
-            })
-    
-class SayingByCategoryAndAuthorView(APIView):
-    def get(self, request, category_slug, author_slug):
-        start = int(request.query_params.get('start', 0))
-        sayings = Saying.objects.filter(categories__slug=category_slug, author__slug=author_slug, is_active=True).order_by('-created_at')[start:start+12] 
-        check = check_data_exists(sayings)
-        if check[0] is False:
-            return Response(check[1])   
-        data = []
-        for saying in sayings:
-            saying_data = SayingSerializer(saying).data  # Get saying data
-            saying_data['categories'] = get_category_data(saying)  # Add categories to the saying data
-            saying_data['author'] = get_author_name(saying)  # Add author to the saying data
-            data.append(saying_data)  # Add the saying with categories to the data list
-        return Response({
-                'status': 'Success',
-                'status_code': status.HTTP_200_OK,
-                'message': 'Data retrieved successfully',
-                'data': data
-            })
-        
+                'data': {
+                    'total': total,
+                    'sayings': data
+                }
+            })    
+          
 class SayingSearchByTitleView(APIView):
     def get(self, request):
         start = int(request.GET.get('_start', 0))

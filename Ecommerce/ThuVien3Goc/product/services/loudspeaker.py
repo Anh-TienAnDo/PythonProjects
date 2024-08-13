@@ -10,20 +10,20 @@ class LoudspeakerService():
         self.url = "http://127.0.0.1:9998/api/loudspeakers/"
         jwt_user_service = JWTUserMiddleware()
         token = jwt_user_service.get_token_in_request(request)
-        self.header = {
+        self.headers = {
             "Content-Type": "application/json",
             "Authorization": token,
         }
         
     def get_all_loudspeaker(self, start=0, limit=12):
         url = f"{self.url}?_start={start}&_limit={limit}"
-        response = requests.get(url, headers=self.header, timeout=5)
+        response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)
         return product_service.check_and_get_data()
 
     def get_loudspeaker_by_slug(self, slug):
         url = f"{self.url}detail/{slug}"
-        response = requests.get(url, headers=self.header, timeout=5)
+        response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)
         return product_service.check_and_get_data()
     
@@ -33,13 +33,13 @@ class LoudspeakerSearchService(LoudspeakerService):
     
     def search_loudspeaker_by_producer(self, query, start=0, limit=12):
         url = f"{self.url}search-by-producer/?_query={query}&_start={start}&_limit={limit}"
-        response = requests.get(url, headers=self.header, timeout=5)
+        response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)
         return product_service.check_and_get_data()
     
     def search_loudspeaker_by_name(self, query, start=0, limit=12):
         url = f"{self.url}search-by-name/?_query={query}&_start={start}&_limit={limit}"
-        response = requests.get(url, headers=self.header, timeout=5)
+        response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)
         return product_service.check_and_get_data()
     
@@ -49,7 +49,7 @@ class LoudspeakerFilterService(LoudspeakerService):
         
     def filter(self, producer, type_loudspeaker, price, start=0, limit=12):
         url = f"{self.url}filter/?_producer={producer}&_type={type_loudspeaker}&_price={price}&_start={start}&_limit={limit}"
-        response = requests.get(url, headers=self.header, timeout=5)
+        response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)
         return product_service.check_and_get_data()
 

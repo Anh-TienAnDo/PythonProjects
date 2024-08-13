@@ -15,8 +15,6 @@ def authenticate_user(view_func):
             })
         try:
             payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']])
-            print(payload)
-            print(type(payload))
         except jwt.ExpiredSignatureError:
             return JsonResponse({
                 'status': 'Failed',
@@ -44,8 +42,6 @@ def authenticate_staff(view_func):
             })
         try:
             payload = jwt.decode(token, SIMPLE_JWT['SECRET_KEY'], algorithms=[SIMPLE_JWT['ALGORITHM']])
-            print(payload)
-            print(type(payload))
         except jwt.ExpiredSignatureError:
             return JsonResponse({
                 'status': 'Failed',

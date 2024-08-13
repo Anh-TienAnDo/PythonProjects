@@ -13,10 +13,10 @@ def get_product(request, product_slug, product_type):
         loudspeaker_service = LoudspeakerService(request=request)
         product = loudspeaker_service.get_loudspeaker_by_slug(slug=product_slug)
     elif product_type == 'USB':
-        usb_service = USBService()
+        usb_service = USBService(request=request)
         product = usb_service.get_usb_by_slug(slug=product_slug)
     elif product_type == 'MemoryStick':
-        memotystick_service = MemoryStickService()
+        memotystick_service = MemoryStickService(request=request)
         product = memotystick_service.get_memory_stick_by_slug(slug=product_slug)
     else:
         product = None

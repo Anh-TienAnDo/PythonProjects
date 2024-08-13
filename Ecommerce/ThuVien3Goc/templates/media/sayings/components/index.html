@@ -8,21 +8,7 @@
 </div>
 
 <div class="row align-items-center p-3">
-    <ul class="pagination justify-content-md-center bg-light">
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-                <span aria-hidden="true">&laquo;</span>
-            </a>
-        </li>
-        <li class="page-item"><a class="page-link" href="#">1</a></li>
-        <li class="page-item"><a class="page-link" href="#">2</a></li>
-        <li class="page-item"><a class="page-link" href="#">3</a></li>
-        <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-                <span aria-hidden="true">&raquo;</span>
-            </a>
-        </li>
-    </ul>
+    {% include 'media/sayings/components/pagination.html' %}
 </div>
 
 <script>
@@ -30,7 +16,7 @@
         {% for saying in sayings %}
         {
             id: "{{ saying.id }}",
-            detail_url: "{% url 'media_social:detail_saying' slug=saying.slug %}",
+            detail_url: "{% url 'media_social-sayings:detail' slug=saying.slug %}",
             title: "{{ saying.title }}",
             author: "{{ saying.author }}",
             view: "{{ saying.view }}",

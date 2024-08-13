@@ -1,0 +1,57 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h2>Kho Sách Nói</h2>
+</div>
+
+<div class="row row-cols-3 px-1" id="audiobooks-data">
+    <!-- Audiobooks will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    {% include 'media/audiobook/components/pagination.html' %}
+</div>
+
+<script>
+    const audiobooksData = [
+        {% for audiobook in audio_books %}
+        {
+            id: "{{ audiobook.id }}",
+            detail_url: "{% url 'media_social-audio_book:detail' slug=audiobook.slug %}",
+            title: "{{ audiobook.title }}",
+            author: "{{ audiobook.author }}",
+            producer: "{{ audiobook.producer }}",
+            view: "{{ audiobook.view }}",
+            time_total: "{{ audiobook.time_total }}",
+            image: "{{ audiobook.image }}"
+        },
+        {% endfor %}
+    ];
+    console.log(audiobooksData);
+    const audiobooksDataContainer = document.getElementById('audiobooks-data');
+
+    function renderAudioBooks() {
+        for (let i = 0; i < audiobooksData.length; i++) {
+            const audiobook = audiobooksData[i];
+            const audiobookElement = document.createElement('div');
+            audiobookElement.classList.add('col-md-4');
+            audiobookElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${audiobook.detail_url}"><img class="card-img-top" src="${audiobook.image}" alt="${audiobook.title}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Title: ${audiobook.title}</h6>
+                        <p class="card-subtitle ">Author: ${audiobook.author}</p>
+                        <p class="card-subtitle">Producer: ${audiobook.producer}</p>
+                        <p class="card-subtitle">View: ${audiobook.view} </p>
+                        <p class="card-subtitle">Total time: ${audiobook.time_total} </p>
+                    </div>
+                </div>
+            `;
+            audiobooksDataContainer.appendChild(audiobookElement);
+
+        }
+    }
+
+    renderAudioBooks();
+
+</script>
+

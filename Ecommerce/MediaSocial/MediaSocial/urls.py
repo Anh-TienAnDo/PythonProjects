@@ -22,4 +22,5 @@ urlpatterns = [
     path('api/authors/', include('author.urls')),
     path('api/producers/', include('producer.urls')),
     path('api/sayings/', include('sayings.urls')),
+    path('api/audio_books/', include('audiobook.urls')),
 ]

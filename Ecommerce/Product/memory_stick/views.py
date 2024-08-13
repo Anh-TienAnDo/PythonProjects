@@ -163,26 +163,27 @@ class MemoryStickFilterView(APIView):
         price_new = str(request.GET.get('_price', 'all'))
         price_range = price_new.split("-")
         if producer != 'all' and type_memorystick != 'all' and price != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != 'all' and type_memorystick != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')
         elif producer != 'all' and price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif type_memorystick != 'all' and price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         elif producer != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, is_active=True).order_by('-created_at')
         elif type_memorystick != 'all':
-            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')
         elif price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
         else:
-            memory_sticks = MemoryStick.objects.filter(is_active=True).order_by('-created_at')[start:start+limit]
+            memory_sticks = MemoryStick.objects.filter(is_active=True).order_by('-created_at')
         check = check_data_exists(memory_sticks)
         if check[0] is False:
             return Response(check[1])
+        total = len(memory_sticks)
         data = []
-        for memory_stick in memory_sticks:
+        for memory_stick in memory_sticks[start:start+limit]:
             memory_stick_serializer = MemoryStickSerializer(memory_stick).data
             memory_stick_serializer["producer"] = get_producer_name(memory_stick)
             memory_stick_serializer["type"] = get_type_name(memory_stick)
@@ -192,7 +193,7 @@ class MemoryStickFilterView(APIView):
             'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': {
-                    'total': 0,
+                    'total': total,
                     'memory_sticks': data
                 }
         })
