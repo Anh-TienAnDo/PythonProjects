@@ -30,7 +30,7 @@ class ProductTypeService():
         product_service = ProductService(response)
         return product_service.check_and_get_data()
 
-class ProdcutProducerService():
+class ProductProducerService():
     def __init__(self):
         self.url = "http://127.0.0.1:9998/api/producers/"
         self.header = {

@@ -7,7 +7,7 @@ from product.services.loudspeaker import *
 from product.services.memory_stick import *
 from product.services.usb import *
 import json
-from django_ratelimit.decorators import ratelimit
+# from django_ratelimit.decorators import ratelimit
 # from django.utils.decorators import method_decorator
 # class MyView(View):
 #     @method_decorator(ratelimit(key='ip', rate='1/m', method='GET'))
@@ -15,7 +15,7 @@ from django_ratelimit.decorators import ratelimit
 #         pass
 
 # Create your views here.
-@ratelimit(key='ip', rate='10/m', method='GET', block=False)
+# @ratelimit(key='ip', rate='10/m', method='GET', block=False)
 def index(request):
     sayings_filter_service = SayingsFilter(request=request)
     author_slug = str(request.GET.get('author_slug', 'all'))
@@ -24,15 +24,15 @@ def index(request):
     limit = 12
     
     sayings = sayings_filter_service.filter(author_slug=author_slug, category_slug=category_slug, start=start, limit=limit)
-    total_items = sayings.get('total', 0)
+    # total_items = sayings.get('total', 0)
     sayings = sayings.get('sayings', [])
     content = {
         'sayings': sayings,
         'page_title': 'Trang chủ',
-        'total_items': total_items,
+        # 'total_items': total_items,
         'author_slug': author_slug,
         'category_slug': category_slug,
-        'meta': json.dumps(request.META)
+        # 'meta': json.dumps(request.META)
     }
     return render(request, 'core/index.html', content)
 

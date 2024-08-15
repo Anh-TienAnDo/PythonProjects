@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'notification',
     'search',
     'rest_framework',
-    'ratelimit',
+    # 'ratelimit',
 ]
 
 MIDDLEWARE = [
@@ -98,6 +98,12 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ThuVien3Goc.wsgi.application'
 
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "thuvien3goc_cache_table",  # Tên của bảng trong cơ sở dữ liệu
+    }
+}
 
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
@@ -240,3 +246,4 @@ PAYPAL = {
 # }
 
 ITEMS_PER_PAGE = 1
+ITEMS_LIMIT = 48

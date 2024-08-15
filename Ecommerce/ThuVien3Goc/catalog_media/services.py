@@ -21,7 +21,6 @@ class ServiceCategory():
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -57,7 +56,6 @@ class ServiceAuthor():
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
@@ -93,7 +91,6 @@ class ServiceProducer():
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            print(response)
             if response.get('status') == 'Success':
                 return response.get('data')
             else:

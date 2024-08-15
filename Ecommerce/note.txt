@@ -37,3 +37,92 @@ LOGIN_URL¶
 Mặc định:'/accounts/login/'
 
 URL hoặc mẫu URL được đặt tên trong đó các yêu cầu được chuyển hướng để đăng nhập khi sử dụng login_required()trình trang trí
+
+
+Các trường hợp nên sử dụng Memcached:
+Cache các trang sản phẩm:
+
+Các trang sản phẩm thường có nhiều truy vấn cơ sở dữ liệu (để lấy thông tin sản phẩm, giá, tồn kho, đánh giá khách hàng). Caching trang sản phẩm giúp giảm số lượng truy vấn và tăng tốc độ tải trang.
+Ví dụ: Cache kết quả truy vấn sản phẩm dựa trên ID sản phẩm hoặc slug.
+Cache danh sách sản phẩm:
+
+Các trang danh mục, kết quả tìm kiếm, hoặc các danh sách sản phẩm bán chạy thường được truy cập thường xuyên. Bạn có thể cache kết quả của các danh sách này.
+Ví dụ: Cache danh sách sản phẩm trong một danh mục cụ thể hoặc các sản phẩm nổi bật.
+Cache giỏ hàng:
+
+Giỏ hàng của người dùng thường xuyên được cập nhật, nhưng có thể cache trong thời gian ngắn để giảm tải cho cơ sở dữ liệu.
+Ví dụ: Cache nội dung giỏ hàng của người dùng trong vài phút.
+Cache dữ liệu người dùng:
+
+Cache dữ liệu người dùng như hồ sơ cá nhân, lịch sử mua hàng để tránh truy vấn lặp lại cơ sở dữ liệu.
+Ví dụ: Cache hồ sơ người dùng khi họ đăng nhập.
+Cache kết quả tính toán phức tạp:
+
+Nếu trang web của bạn có các thao tác phức tạp, chẳng hạn như tính toán giảm giá, khuyến mãi, bạn có thể cache kết quả của các tính toán này.
+Ví dụ: Cache kết quả tính toán tổng số tiền đơn hàng sau khi áp dụng mã giảm giá.
+
+
+Database Caching trong Django là một cách để lưu trữ dữ liệu cache trong cơ sở dữ liệu. Điều này giúp bạn tận dụng cơ sở dữ liệu có sẵn mà không cần phải thiết lập thêm các dịch vụ như Memcached hoặc Redis. Đây là cách triển khai và sử dụng Database Caching trong Django:
+
+1. Cấu hình Database Caching
+Trước tiên, bạn cần cấu hình Django để sử dụng Database Caching bằng cách thêm các thiết lập vào file settings.py.
+
+Mở file settings.py trong dự án Django của bạn.
+Thêm cấu hình cho CACHES như sau:
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.db.DatabaseCache",
+        "LOCATION": "my_cache_table",  # Tên của bảng trong cơ sở dữ liệu
+    }
+}
+Giải thích:
+
+"BACKEND": "django.core.cache.backends.db.DatabaseCache": Đây là backend mà Django sử dụng cho cache, trong trường hợp này là DatabaseCache.
+"LOCATION": "my_cache_table": Đây là tên của bảng trong cơ sở dữ liệu mà bạn muốn sử dụng để lưu trữ dữ liệu cache. Bạn có thể đặt tên tùy ý, miễn là nó là một tên bảng hợp lệ.
+2. Tạo bảng cache trong cơ sở dữ liệu
+Sau khi cấu hình, bạn cần tạo bảng cache trong cơ sở dữ liệu. Django cung cấp một lệnh tiện ích để làm điều này.
+
+Chạy lệnh sau trong terminal:
+python manage.py createcachetable
+Giải thích:
+Lệnh này sẽ tạo ra một bảng trong cơ sở dữ liệu của bạn với tên mà bạn đã chỉ định trong LOCATION ở bước trước (my_cache_table trong ví dụ này).
+Bảng này sẽ được sử dụng để lưu trữ các mục cache.
+
+3. Sử dụng Database Cache trong các view hoặc hàm
+Sau khi cấu hình và tạo bảng cache, bạn có thể bắt đầu sử dụng cache trong các view hoặc hàm của mình giống như khi bạn sử dụng các backend cache khác.
+
+a. Caching dữ liệu trong view:
+from django.core.cache import cache
+from django.shortcuts import render
+
+def my_view(request):
+    # Kiểm tra xem dữ liệu đã có trong cache chưa
+    data = cache.get('my_data')
+    
+    if not data:
+        # Nếu không có, thực hiện các tính toán hoặc truy vấn database
+        data = "Kết quả sau khi tính toán hoặc truy vấn"
+        
+        # Lưu dữ liệu vào cache với thời gian hết hạn là 5 phút (300 giây)
+        cache.set('my_data', data, timeout=300)
+    
+    # Trả về dữ liệu (có thể đã được cache hoặc mới tạo)
+    return render(request, 'my_template.html', {'data': data})
+
+b. Caching toàn bộ view:
+Bạn có thể cache toàn bộ kết quả trả về của một view:
+from django.views.decorators.cache import cache_page
+
+@cache_page(60 * 15)  # Cache view này trong 15 phút
+def my_view(request):
+    # Mã của view
+    return render(request, 'my_template.html')
+
+4. Quản lý và kiểm soát cache
+Bạn có thể quản lý cache trực tiếp bằng cách thêm, cập nhật, hoặc xóa các mục cache:
+
+Xóa một mục khỏi cache:
+cache.delete('my_data')
+
+Xóa toàn bộ cache:
+cache.clear()

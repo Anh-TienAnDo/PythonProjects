@@ -14,7 +14,7 @@ class ServiceMediaSocial():
         try:
             response = self.response.json()
             logger.info("Media response: %s", str(response))
-            print(response)
+            # print(response)
             if response.get('status') == 'Success':
                 return response.get('data')
             else:
