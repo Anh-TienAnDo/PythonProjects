@@ -17,9 +17,9 @@ click ip -> http://127.0.0.1:<<port>>/admin
 enter: ctrl + c - thoát server
 -------------------------------------------
 các các db tương ứng trong các file settings.py
-chạy cổng 9995 với BookStore
-chạy cổng 9997 với UserService
-chạy cổng 9999 với Product
+chạy cổng 8000 với ThuVien3Goc
+chạy cổng 9998 với Product
+chạy cổng 9999 với MediaSocial
 -------------------------------------------
 chú ý khi user đăng nhập sẽ có Token trong 1h
 
