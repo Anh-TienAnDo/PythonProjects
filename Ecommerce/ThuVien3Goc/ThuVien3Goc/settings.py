@@ -193,6 +193,8 @@ PRODUCT_TYPE = {
     'LOUDSPEAKER': 'Loudspeaker',        
 }
 
+MEDIASOCIAL_TYPE = ['sayings', 'audio-book', 'video']
+
 CART_SESSION_ID = 'cart'
 
 SESSION_COOKIE_AGE = 60 * 60 * 24
@@ -245,5 +247,5 @@ PAYPAL = {
 #     },
 # }
 
-ITEMS_PER_PAGE = 1
+ITEMS_PER_PAGE = 6
 ITEMS_LIMIT = 48

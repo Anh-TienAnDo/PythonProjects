@@ -7,7 +7,7 @@ from user.service import JWTUserMiddleware
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
     
-class ServiceCategory():
+class CategoryService():
     def __init__(self, url='http://127.0.0.1:9999/api/categories/', request=None):
         self.url = url
         jwt_user_service = JWTUserMiddleware()
@@ -17,11 +17,11 @@ class ServiceCategory():
             "Authorization": token,
         }
 
-    def get_list_categories(self):
+    def get_list_category(self):
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            if response.get('status') == 'Success':
+            if response.get('status') == 'Success' and len(response.get('data')) > 0:
                 return response.get('data')
             else:
                 return None
@@ -29,21 +29,9 @@ class ServiceCategory():
             print('Error: JSONDecodeError at get_list_categories. Please check the response. The response is not JSON format.')
             return response.text
 
-    # def get_detail_category(self, id):
-    #     response = requests.get(self.url + str(id) + '/', headers=self.headers, timeout=5)
-    #     try:
-    #         response = response.json()
-    #         print(response)
-    #         if response.get('status') == 'Success':
-    #             return response.get('data')
-    #         else:
-    #             return None
-    #     except json.decoder.JSONDecodeError:
-    #         print('Error: JSONDecodeError at get_detail_category. Please check the response. The response is not JSON format.')
-    #         return response.text
     
-class ServiceAuthor():
-    def __init__(self, url='http://127.0.0.1:9999/api/authors/', request=None):
+class AuthorService():
+    def __init__(self, url='http://127.0.0.1:9999/api/authors', request=None):
         self.url = url
         jwt_user_service = JWTUserMiddleware()
         token = jwt_user_service.get_token_in_request(request)
@@ -52,32 +40,22 @@ class ServiceAuthor():
             "Authorization": token,
         }
 
-    def get_list_authors(self):
+    def get_list_author(self):
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            if response.get('status') == 'Success':
+            print("--------------")
+            print(response)
+            if response.get('status') == 'Success' and len(response.get('data')) > 0:
                 return response.get('data')
             else:
                 return None
         except json.decoder.JSONDecodeError:
             print('Error: JSONDecodeError at get_list_authors. Please check the response. The response is not JSON format.')
             return response.text
+
     
-    # def get_detail_author(self, id):
-    #     response = requests.get(self.url + str(id) + '/', headers=self.headers, timeout=5)
-    #     try:
-    #         response = response.json()
-    #         print(response)
-    #         if response.get('status') == 'Success':
-    #             return response.get('data')
-    #         else:
-    #             return None
-    #     except json.decoder.JSONDecodeError:
-    #         print('Error: JSONDecodeError at get_detail_author. Please check the response. The response is not JSON format.')
-    #         return response.text
-    
-class ServiceProducer():
+class ProducerService():
     def __init__(self, url='http://127.0.0.1:9999/api/producers/', request=None):
         self.url = url
         jwt_user_service = JWTUserMiddleware()
@@ -87,11 +65,11 @@ class ServiceProducer():
             "Authorization": token,
         }
 
-    def get_list_producers(self):
+    def get_list_producer(self):
         response = requests.get(self.url, headers=self.headers, timeout=5)
         try:
             response = response.json()
-            if response.get('status') == 'Success':
+            if response.get('status') == 'Success' and len(response.get('data')) > 0:
                 return response.get('data')
             else:
                 return None

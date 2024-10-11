@@ -1,80 +1,70 @@
-# import logging
-# from django.shortcuts import render
-# from django.http import HttpResponse
-# from .service import ServiceSayings, SayingsFilter, SayingsSearchService
+from django.shortcuts import render, HttpResponse
+from django.http import JsonResponse
+from django.views.generic import View
+from media_social.service import *
+from ThuVien3Goc.settings import ITEMS_PER_PAGE
+import logging
 
-# # Configure logging
-# logging.basicConfig(level=logging.INFO)
-# logger = logging.getLogger(__name__)
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-# # Create your views here.
-# def get_sayings(request):
-#     logger.info("Received request to get sayings")
-#     saying_filter_service = SayingsFilter(request)
-#     sayings = saying_filter_service.filter_sayings()
-#     page_title = 'sayings'
-#     logger.info("Rendering sayings page with %d sayings", len(sayings) if sayings else 0)
-#     return render(request, 'media/sayings/index.html', {'sayings': sayings, 'page_title': page_title})
-
-# def get_detail_saying(request, slug):
-#     logger.info("Received request to get detail for saying with slug: %s", slug)
-#     saying_service = ServiceSayings()
-#     saying = saying_service.get_detail_sayings(slug)
-#     page_title = 'detail_saying'
-#     logger.info("Rendering detail page for saying with slug: %s", slug)
-#     return render(request, 'media/sayings/detail.html', {'saying': saying, 'page_title': page_title})
-
-# def search_sayings(request):
-#     query = request.GET.get('query')
-#     logger.info("Received search request with query: %s", query)
-#     saying_search_service = SayingsSearchService()
-#     sayings_by_title = saying_search_service.search_by_title(query)
-#     sayings_by_author = saying_search_service.search_by_author(query)
-#     sayings_by_content = saying_search_service.search_by_content(query)
+def get_all_by_type(request, _type):
+    service = MediaSocialFilterService(request=request)
     
-#     if sayings_by_title is None:
-#         sayings_by_title = []
-#     if sayings_by_content is None:
-#         sayings_by_content = []
-#     if sayings_by_author is None:
-#         sayings_by_author = []
+    page = request.GET.get('page', 1)
+    items_per_page = ITEMS_PER_PAGE
+    start = (int(page) - 1) * int(items_per_page)
+    limit = int(items_per_page)
     
-#     sayings = sayings_by_title + sayings_by_author + sayings_by_content
-#     page_title = 'search_sayings'
-#     logger.info("Rendering search results page with %d sayings", len(sayings))
-#     return render(request, 'media/sayings/search.html', {'sayings': sayings, 'page_title': page_title})
+    media_socials = dict(service.filter(_type=_type, start=start, limit=limit))
+    
+    total_items = media_socials.get('total_items', 0)
+    media_socials = media_socials.get('data', [])
+    
+    content = {
+        'media_socials': media_socials,
+        'page_title': 'Danh sách media social',
+        
+        'page': page,
+        'items_per_page': items_per_page,
+        'total_items': total_items,
+        '_type': _type,
+    }
+    return JsonResponse(data=content)
+    # return render(request, 'media_social/index.html', content)
 
+def get_detail(request, _type, slug):
+    service = MediaSocialService(request=request)
+    media_social = service.get_detail(_type=_type, slug=slug)
+    media_social = media_social.get('data', None)
+    content = {
+        'media_social': media_social,
+        'page_title': 'Chi tiết media social'
+    }
+    return JsonResponse(data=content)
+    # return render(request, 'media_social/detail.html', content)
 
-# # from django.shortcuts import render
-# # from django.http import HttpResponse
-# # from .service import ServiceSayings, SayingsFilter, SayingsSearchService
+def search_and_filter(request):
+    service = MediaSocialSearchAndFilterService(request=request)
 
-# # # Create your views here.
-# # def get_sayings(request):
-# #     saying_filter_service = SayingsFilter(request)
-# #     sayings = saying_filter_service.filter_sayings()
-# #     page_title = 'sayings'
-# #     return render(request, 'media/sayings/index.html', {'sayings': sayings, 'page_title': page_title})
+    page = request.GET.get('page', 1)
+    items_per_page = ITEMS_PER_PAGE
+    start = (int(page) - 1) * int(items_per_page)
+    limit = int(items_per_page)
 
-# # def get_detail_saying(request, slug):
-# #     saying_service = ServiceSayings()
-# #     saying = saying_service.get_detail_sayings(slug)
-# #     page_title = 'detail_saying'
-# #     return render(request, 'media/sayings/detail.html', {'saying': saying, 'page_title': page_title})
+    media_socials = service.search_and_filter(start=start, limit=limit)
 
-# # def search_sayings(request):
-# #     query = request.GET.get('query')
-# #     saying_search_service = SayingsSearchService()
-# #     sayings_by_title = saying_search_service.search_by_title(query)
-# #     sayings_by_author = saying_search_service.search_by_author(query)
-# #     sayings_by_content = saying_search_service.search_by_content(query)
-# #     if sayings_by_title is None:
-# #         sayings_by_title = []
-# #     if sayings_by_content is None:
-# #         sayings_by_content = []
-# #     if sayings_by_author is None:
-# #         sayings_by_author = []
-# #     sayings = sayings_by_title + sayings_by_author + sayings_by_content
-# #     page_title = 'search_sayings'
-# #     return render(request, 'media/sayings/search.html', {'sayings': sayings, 'page_title': page_title})
+    total_items = media_socials.get('total_items', 0)
+    media_socials = media_socials.get('data', [])
 
+    content = {
+        'media_socials': media_socials,
+        'page_title': 'Tìm kiếm media social',
+
+        'page': page,
+        'items_per_page': items_per_page,
+        'total_items': total_items,
+    }
+    return JsonResponse(data=content)
+    # return render(request, 'media_social/search.html', content)

@@ -1,6 +1,6 @@
 from django import template
 from django.http import HttpResponse
-from catalog_media.services import ServiceAuthor, ServiceCategory, ServiceProducer
+from catalog_media.services import *
 from django.core.cache import cache
 
 register = template.Library()
@@ -12,14 +12,14 @@ def filter_box(request):
     
     if cached_data:
         return cached_data
-    
-    author_service = ServiceAuthor(request=request)
-    category_service = ServiceCategory(request=request)
-    producer_service = ServiceProducer(request=request)
-    
-    authors = author_service.get_list_authors()
-    categories = category_service.get_list_categories()
-    producers = producer_service.get_list_producers()
+
+    categories_service = CategoryService(request=request)
+    authors_service = AuthorService(request=request)
+    producers_service = ProducerService(request=request)
+
+    categories = categories_service.get_list_category()
+    authors = authors_service.get_list_author()
+    producers = producers_service.get_list_producer()
     
     data = {
         'authors': authors,
