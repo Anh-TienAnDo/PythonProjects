@@ -1,16 +1,16 @@
 {%extends 'base.html'%}
 {% load static %}
-{% load mediasocial_filter_tags %}
+{% load mediasocial_search_and_filter_tags %}
 
 {% block title %} {{page_title}} {% endblock %}
 
 {% block body-content-category %}
-{% filter_box request %}
+    {% filter_box request query %}
 {% endblock body-content-category %}
 
 {% block body-content-news-main %}
-<div class="audiobooks-container">
-    {% include 'media/audiobook/components/index.html' %}
+<div class="mediasocials-container">
+    {% include 'media/components/index.html' %}
 </div>
 {% endblock body-content-news-main %}
 

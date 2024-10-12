@@ -5,26 +5,31 @@ from django.core.cache import cache
 
 register = template.Library()
 
-@register.inclusion_tag('templatetags/catalog_box.html')
-def catalog_box(request):
-    cache_key = 'catalog_box_cache'
+
+@register.inclusion_tag('templatetags/mediasocial-filter-form.html')
+def filter_box(request, type_media):
+    cache_key = 'mediasocial_filter_box_cache'
     cached_data = cache.get(cache_key)
-    
+
     if cached_data:
-        return cached_data
-    
+        data = cached_data
+        data['type_media'] = type_media
+        return data
+
     categories_service = CategoryService(request=request)
     authors_service = AuthorService(request=request)
-    
+    producers_service = ProducerService(request=request)
+
     categories = categories_service.get_list_category()
     authors = authors_service.get_list_author()
-    
+    producers = producers_service.get_list_producer()
+
     data = {
+        'authors': authors,
         'categories': categories,
-        'authors': authors
+        'producers': producers
     }
-    
-    cache.set(cache_key, data, timeout=60*3)
-    
+    cache.set(cache_key, data, timeout=60 * 3)
+    data['type_media'] = type_media
     return data
 

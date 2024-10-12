@@ -6,16 +6,16 @@
 {% block title %} {{page_title}} {% endblock %}
 
 {% block header-banner %} 
-{% banner_box request %}
+    {% banner_box request %}
 {% endblock header-banner %}
 
 {% block body-content-category %}
-{% catalog_box request %}
+    {% catalog_box request %}
 {% endblock body-content-category %}
 
 {% block body-content-news-main %}
-<div class="sayings-container">
-    {% include 'core/components/sayings/index.html' %}
+<div class="mediaSocials-container">
+    {% include 'core/components/media/index.html' %}
 </div>
 <!-- <h6>{{meta}}</h6> -->
 {% endblock body-content-news-main %}

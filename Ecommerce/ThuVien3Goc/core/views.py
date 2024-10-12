@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from django.http import Http404
-from media_social.services.sayings import *
+from media_social.service import *
 from product.services.loudspeaker import *
 from product.services.memory_stick import *
 from product.services.usb import *
@@ -17,38 +17,32 @@ import json
 # Create your views here.
 # @ratelimit(key='ip', rate='10/m', method='GET', block=False)
 def index(request):
-    sayings_filter_service = SayingsFilter(request=request)
-    author_slug = str(request.GET.get('author_slug', 'all'))
-    category_slug = str(request.GET.get('category_slug', 'all'))
+    service = MediaSocialFilterService(request=request)
+    # author_name = str(request.GET.get('author_name', ''))
+    # category_name = str(request.GET.get('category_name', ''))
     start = 0
     limit = 12
     
-    sayings = sayings_filter_service.filter(author_slug=author_slug, category_slug=category_slug, start=start, limit=limit)
-    # total_items = sayings.get('total', 0)
-    sayings = sayings.get('sayings', [])
+    media_socials = dict(service.filter(type_media="", start=start, limit=limit))
+    
+    total_items = media_socials.get('total_items', 0)
+    media_socials = media_socials.get('data', [])
+    
     content = {
-        'sayings': sayings,
+        'media_socials': media_socials,
         'page_title': 'Trang chủ',
-        # 'total_items': total_items,
-        'author_slug': author_slug,
-        'category_slug': category_slug,
-        # 'meta': json.dumps(request.META)
+        
+        'total_items': total_items,
+    #     'author_name': author_name,
+    #     'category_name': category_name,
     }
     return render(request, 'core/index.html', content)
 
 def search(request):
-    query = str(request.GET.get('query'))
-    sayings_search_service = SayingsSearchService(request=request)
-    sayings_by_title = sayings_search_service.search_by_title(query, start=0, limit=3)
-    sayings_by_content = sayings_search_service.search_by_content(query, start=0, limit=3)
-    sayings_by_author = sayings_search_service.search_by_author(query, start=0, limit=3)
-    if sayings_by_title is None:
-        sayings_by_title = []
-    if sayings_by_content is None:
-        sayings_by_content = []
-    if sayings_by_author is None:
-        sayings_by_author = []
-    sayings = sayings_by_title + sayings_by_content + sayings_by_author
+    query = str(request.GET.get('_query'))
+    service = MediaSocialSearchAndFilterService(request=request)
+    media_socials = service.search_and_filter(start=0, limit=12)
+    media_socials = media_socials.get('data', [])
     
     loudspeaker_search_service = LoudspeakerSearchService(request=request)
     loudspeaker_by_producer = loudspeaker_search_service.search_loudspeaker_by_producer(query=query, start=0, limit=3)
@@ -78,7 +72,7 @@ def search(request):
     usbs = usbs_by_producer + usbs_by_name
     content = {
         'usbs': usbs,
-        'sayings': sayings,
+        'media_socials': media_socials,
         'loudspeakers': loudspeakers,
         'memory_sticks': memory_sticks,
         'page_title': 'Tìm kiếm'

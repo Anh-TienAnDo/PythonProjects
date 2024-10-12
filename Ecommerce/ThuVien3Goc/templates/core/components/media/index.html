@@ -1,0 +1,70 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    <h6>Media Socials</h6>
+</div>
+
+<div class="row row-cols-3 px-1" id="mediasocials-data">
+    <!-- mediasocials will be appended here by JavaScript -->
+</div>
+
+<div class="row text-center justify-content-md-center align-items-center p-3">
+    <button id="mediasocials-load-more" class="view-more btn btn-primary w-25" style="display:block;">Xem thêm</button>
+</div>
+
+<script>
+    const mediaSocialsData = [
+        {% for media_social in media_socials %}
+            {
+                id: "{{ media_social.id }}",
+                detail_url: "{% url 'media_social:media_social' type_media=media_social.type slug=media_social.slug %}",
+                title: "{{ media_social.title }}",
+                author: "{{ media_social.detail.author }}",
+                categories: "{{ media_social.detail.categories }}",
+                producer: "{{ media_social.detail.producer }}",
+                view: "{{ media_social.view }}",
+                time_total: "{{ media_social.time_total }}",
+                image: "{{ media_social.detail.image }}"
+            },
+        {% endfor %}
+    ];
+    console.log(mediaSocialsData);
+    const mediaSocialsLoadMore = document.getElementById('mediasocials-load-more');
+    const mediaSocialsViewAll = document.getElementById('mediasocial-view-all');
+    const mediaSocialsDataContainer = document.getElementById('mediasocials-data');
+
+    let mediaSocialsIndex = 0;
+    const mediaSocialsPerPage = 3;
+
+    function renderMediaSocials() {
+        for (let i = 0; i < mediaSocialsPerPage; i++) {
+            if (mediaSocialsIndex >= mediaSocialsData.length) {
+                mediaSocialsLoadMore.style.display = 'none';
+                mediaSocialsViewAll.style.display = 'block';
+                break;
+            }
+
+            const mediaSocial = mediaSocialsData[mediaSocialsIndex];
+            const mediaSocialElement = document.createElement('div');
+            mediaSocialElement.classList.add('col-md-4');
+            mediaSocialElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${mediaSocial.detail_url}"><img class="card-img-top" src="${mediaSocial.image}" alt="${mediaSocial.title}"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Title: ${mediaSocial.title}</h6>
+                        <h6 class="card-subtitle">Categories: ${mediaSocial.categories}</h6>
+                        <h6 class="card-subtitle ">Author: ${mediaSocial.author}</h6>
+                        <h6 class="card-subtitle">View: ${mediaSocial.view} </h6>
+                    </div>
+                </div>
+            `;
+            mediaSocialsDataContainer.appendChild(mediaSocialElement);
+            mediaSocialsIndex++;
+        }
+    }
+
+    renderMediaSocials();
+
+    mediaSocialsLoadMore.addEventListener('click', renderMediaSocials);
+
+</script>
+

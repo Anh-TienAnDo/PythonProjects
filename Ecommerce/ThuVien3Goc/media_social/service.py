@@ -30,9 +30,9 @@ class MediaSocialService:
             logger.error('JSONDecodeError. Please check the response. The response is not JSON format.')
             return response.text
         
-    def get_detail(self, _type, slug):
+    def get_detail(self, type_media, slug):
         logger.info("Fetching details for media social with slug: %s", slug)
-        url = self.url + 'details/' + str(_type) + '/' + str(slug)
+        url = self.url + 'details/' + str(type_media) + '/' + str(slug)
         response = requests.get(url, headers=self.headers, timeout=5)
         return self.check_and_get_data(response=response)
 
@@ -53,27 +53,28 @@ class MediaSocialService:
 class MediaSocialFilterService(MediaSocialService):
     def __init__(self, url='http://127.0.0.1:9999/api/media-socials/filter', request=None):
         super().__init__(url, request)
-        self.author_name = str(request.GET.get('_author_name', ''))
-        self.category_name = str(request.GET.get('_category_name', ''))
-        self.producer_name = str(request.GET.get('_producer_name', ''))
-
+        self.author_name = str(request.GET.get('author_name', ''))
+        self.category_name = str(request.GET.get('category_name', ''))
+        self.producer_name = str(request.GET.get('producer_name', ''))
+        self.time_total = str(request.GET.get('time_total', 0))
     
-    def filter(self, _type, start=0, limit=12):
-        url = f"{self.url}?_type={_type}&_author_name={self.author_name}&_category_name={self.category_name}&_producer_name={self.producer_name}&_start={start}&_limit={limit}"
+    def filter(self, type_media, start=0, limit=12):
+        url = f"{self.url}?_type={type_media}&_author_name={self.author_name}&_category_name={self.category_name}&_producer_name={self.producer_name}&_time_total={self.time_total}&_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.headers, timeout=5)
         return self.check_and_get_data(response=response)
 
 class MediaSocialSearchAndFilterService(MediaSocialService):
     def __init__(self, url='http://127.0.0.1:9999/api/media-socials/search-filter', request=None):
         super().__init__(url, request)
-        self.query = str(request.GET.get('_query', ''))
-        self.author_name = str(request.GET.get('_author_name', ''))
-        self.category_name = str(request.GET.get('_category_name', ''))
-        self.producer_name = str(request.GET.get('_producer_name', ''))
-        self._type = str(request.GET.get('_type', ''))
+        self.query = str(request.GET.get('query', ''))
+        self.author_name = str(request.GET.get('author_name', ''))
+        self.category_name = str(request.GET.get('category_name', ''))
+        self.producer_name = str(request.GET.get('producer_name', ''))
+        self.type_media = str(request.GET.get('type_media', ''))
+        self.time_total = str(request.GET.get('time_total', 0))
         
     def search_and_filter(self, start=0, limit=12):
-        url = f"{self.url}?_query={self.query}&_author_name={self.author_name}&_category_name={self.category_name}&_producer_name={self.producer_name}&_type={self._type}&_start={start}&_limit={limit}"
+        url = f"{self.url}?_query={self.query}&_author_name={self.author_name}&_category_name={self.category_name}&_producer_name={self.producer_name}&_type={self.type_media}&_time_total={self.time_total}&_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.headers, timeout=5)
         return self.check_and_get_data(response=response)
 

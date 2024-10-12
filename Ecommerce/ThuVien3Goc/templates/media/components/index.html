@@ -1,0 +1,65 @@
+{% load static %}
+<div class="row text-center p-1 text-primary">
+    {% if type_media == 'sayings' %}
+        <h6>Quotes</h6>
+    {% elif type_media == 'audio-book' %}
+        <h6>Audiobooks</h6>
+    {% elif type_media == 'video' %}
+        <h6>Videos</h6>
+    {% endif %}
+</div>
+
+<div class="row row-cols-3 px-1" id="mediasocials-data">
+    <!-- Mediasocials will be appended here by JavaScript -->
+</div>
+
+<div class="row align-items-center p-3">
+    {% include 'media/components/pagination.html' %}
+</div>
+
+<script>
+    const mediaSocialsData = [
+        {% for media_social in media_socials %}
+        {
+            id: "{{ media_social.id }}",
+            detail_url: "{% url 'media_social:media_social' type_media=media_social.type slug=media_social.slug %}",
+            title: "{{ media_social.title }}",
+            author: "{{ media_social.detail.author }}",
+            categories: "{{ media_social.detail.categories }}",
+            producer: "{{ media_social.detail.producer }}",
+            view: "{{ media_social.view }}",
+            time_total: "{{ media_social.time_total }}",
+            image: "{{ media_social.detail.image }}"
+        },
+        {% endfor %}
+    ];
+    console.log(mediaSocialsData);
+    const mediaSocialsDataContainer = document.getElementById('mediasocials-data');
+
+    function renderMediaSocials() {
+        for (let i = 0; i < mediaSocialsData.length; i++) {
+            const mediaSocial = mediaSocialsData[i];
+            const mediaSocialElement = document.createElement('div');
+            mediaSocialElement.classList.add('col-md-4');
+            mediaSocialElement.innerHTML = `
+                <div class="card height-60">
+                    <a href="${mediaSocial.detail_url}"><img class="card-img-top" src="${mediaSocial.image}" alt="${mediaSocial.title}" width="80px" height="140px"></a>
+                    <div class="card-body">
+                        <h6 class="card-title">Title: ${mediaSocial.title}</h6>
+                        <p class="card-subtitle ">Author: ${mediaSocial.author}</p>
+                        <p class="card-subtitle">Categories: ${mediaSocial.categories}</p>
+                        <p class="card-subtitle">Producer: ${mediaSocial.producer}</p>
+                        <p class="card-subtitle">View: ${mediaSocial.view} </p>
+                        <p class="card-subtitle">Total time: ${mediaSocial.time_total} </p>
+                    </div>
+                </div>
+            `;
+            mediaSocialsDataContainer.appendChild(mediaSocialElement);
+
+        }
+    }
+
+    renderMediaSocials();
+
+</script>
+

@@ -1,0 +1,76 @@
+{% load static %}
+<!-- sayings: authors, categories -->
+ <!-- audio-book: authors, categories, producers, time_total -->
+  <!-- video: authors, categories, producers, time_total -->
+<div class="filter-box bg-light">
+    <div class="title row text-center">
+        <h6>Filter By Category, Producer, Author, Type, Time</h6>
+    </div>
+    <form action="" method="get">
+        <div class="mb-3">
+            <input type="text" class="form-control" name="query" value="{{ query }}" disabled>
+        </div>
+
+        <!-- category select -->
+        <div class="mb-3">
+            <label for="categorySelect" class="form-label" >Select category</label>
+            <select id="categorySelect" class="form-select" name="category_name">
+                <option value="" selected>Tất cả</option>
+                {% for category in categories %}
+                <option value="{{ category.name }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <!-- author select -->
+        <div class="mb-3">
+            <label for="authorSelect" class="form-label" >Select author</label>
+            <select id="authorSelect" class="form-select" name="author_name">
+                <option value="" selected>Tất cả</option>
+                {% for author in authors %}
+                <option value="{{ author.name }}">{{ author.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        
+        <!-- producer select -->
+        <div class="mb-3">
+            <label for="producerSelect" class="form-label">Select producer</label>
+            <select id="producerSelect" class="form-select" name="producer_name">
+                <option value="" selected>Tất cả</option>
+                {% for producer in producers %}
+                <option value="{{ producer.name }}">{{ producer.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <!-- type select -->
+        <div class="mb-3">
+            <label for="typeSelect" class="form-label" >Select type</label>
+            <select id="typeSelect" class="form-select" name="type_media">
+                <option value="" selected>Tất cả</option>
+                <option value="audio-book">Audio Book</option>
+                <option value="video">Video</option>
+                <option value="sayings">Sayings</option>
+            </select>
+        </div>
+
+        <!-- time select -->
+        <div class="mb-3">
+            <label for="timeSelect" class="form-label" >Select time</label>
+            <select id="timeSelect" class="form-select" name="time_total">
+                <option value="0" selected>Tất cả</option>
+                <option value="2"> >= 2 giờ</option>
+                <option value="4"> >= 4 giờ</option>
+                <option value="6"> >= 6 giờ</option>
+                <option value="10"> >= 10 giờ</option>
+                <option value="24"> >= 24 giờ</option>
+            </select>
+        </div>
+
+        <!-- submit button -->
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Lọc</button>
+        </div>
+    </form>
+</div>

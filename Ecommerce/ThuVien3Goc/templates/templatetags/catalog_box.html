@@ -7,10 +7,10 @@
         <!-- category select -->
         <div class="mb-3">
             <label for="categorySelect" class="form-label">Select category</label>
-            <select id="categorySelect" class="form-select" name="category_slug">
-                <option value="all" selected>Tất cả</option>
+            <select id="categorySelect" class="form-select" name="category_name">
+                <option value="" selected>Tất cả</option>
                 {% for category in categories %}
-                <option value="{{ category.slug }}">{{ category.name }}</option>
+                <option value="{{ category.name }}">{{ category.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -18,10 +18,10 @@
         <!-- author select -->
         <div class="mb-3">
             <label for="authorSelect" class="form-label" >Select author</label>
-            <select id="authorSelect" class="form-select" name="author_slug">
-                <option value="all" selected>Tất cả</option>
+            <select id="authorSelect" class="form-select" name="author_name">
+                <option value="" selected>Tất cả</option>
                 {% for author in authors %}
-                <option value="{{ author.slug }}">{{ author.name }}</option>
+                <option value="{{ author.name }}">{{ author.name }}</option>
                 {% endfor %}
             </select>
         </div>
