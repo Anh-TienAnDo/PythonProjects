@@ -323,13 +323,13 @@ class JWTUserMiddleware:
         
     def create_token(self, data: dict) -> str:
         if data.get('is_superuser'):
-            role = 'admin'
+            role = 'ROLE_ADMIN'
         elif data.get('is_staff'):
-            role = 'staff'
+            role = 'ROLE_STAFF'
         else:
-            role = 'user'
+            role = 'ROLE_USER'
         payload = {
-                'id': data.get('id'),
+                'username': data.get('username'),
                 'exp': datetime.utcnow() + timedelta(hours=1),
                 'iat': datetime.utcnow(),
                 'role': role,

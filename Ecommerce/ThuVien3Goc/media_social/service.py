@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 class MediaSocialService:
-    def __init__(self, url='http://127.0.0.1:9999/api/media-socials/', request=None):
+    def __init__(self, url='http://127.0.0.1:9999/api/media-socials', request=None):
         self.url = url
         jwt_user_service = JWTUserMiddleware()
         token = jwt_user_service.get_token_in_request(request)

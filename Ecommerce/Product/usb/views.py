@@ -13,7 +13,6 @@ def check_data_exists(data):
     if not data:
         return [False, {
             'status': 'Failed',
-            'status_code': status.HTTP_404_NOT_FOUND,
             'message': 'Data not found',
             'data': None
         }]
@@ -45,13 +44,12 @@ class USBView(APIView):
 
         return Response({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
                     'usbs': data
                 }
-            })
+            }, status=status.HTTP_200_OK)
         
     @authenticate_staff
     def post(self, request):
@@ -74,10 +72,9 @@ class USBDetailView(APIView):
         usb_serializer["type"] = get_type_name(usb)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': usb_serializer
-        })
+        }, status=status.HTTP_200_OK)
 
     @authenticate_staff
     def put(self, request, id):
@@ -100,10 +97,9 @@ class USBDetailView(APIView):
         usb.is_active = False
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data deleted successfully',
             'data': None
-        })
+        }, status=status.HTTP_200_OK)
     
 class USBSearchByProducerView(APIView):
     def get(self, request):
@@ -123,10 +119,9 @@ class USBSearchByProducerView(APIView):
         
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': data
-        })
+        }, status=status.HTTP_200_OK)
         
 class USBSearchByNameView(APIView):
     def get(self, request):
@@ -146,10 +141,9 @@ class USBSearchByNameView(APIView):
         
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': data
-        })
+        }, status=status.HTTP_200_OK)
         
 class USBFilterView(APIView):
     def get(self, request):
@@ -189,11 +183,10 @@ class USBFilterView(APIView):
             data.append(usb_serializer)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': {
                     'total': total,
                     'usbs': data
                 }
-        })
+        }, status=status.HTTP_200_OK)
 

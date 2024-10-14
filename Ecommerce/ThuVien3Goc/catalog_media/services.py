@@ -26,7 +26,7 @@ class CategoryService():
             else:
                 return None
         except json.decoder.JSONDecodeError:
-            print('Error: JSONDecodeError at get_list_categories. Please check the response. The response is not JSON format.')
+            print('Error: JSONDecodeError at get_list_categorie. Please check the response. The response is not JSON format.')
             return response.text
 
     
@@ -51,7 +51,7 @@ class AuthorService():
             else:
                 return None
         except json.decoder.JSONDecodeError:
-            print('Error: JSONDecodeError at get_list_authors. Please check the response. The response is not JSON format.')
+            print('Error: JSONDecodeError at get_list_author. Please check the response. The response is not JSON format.')
             return response.text
 
     

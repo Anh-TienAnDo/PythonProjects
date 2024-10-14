@@ -4,7 +4,13 @@
   <!-- video: authors, categories, producers, time_total -->
 <div class="filter-box bg-light">
     <div class="title row text-center">
-        <h6>Filter By Category, Producer, Author, Type, Time</h6>
+        {% if type_media == 'sayings' %}
+            <h6>Filter By Category, Author</h6>
+        {% elif type_media == 'audio-book' %}
+            <h6>Filter By Category, Producer, Author, Time</h6>
+        {% elif type_media == 'video' %}
+            <h6>Filter By Category, Producer, Author, Time</h6>
+        {% endif %}
     </div>
     <form action="" method="get">
         <div class="mb-3">
@@ -33,6 +39,7 @@
             </select>
         </div>
         
+        {% if type_media == 'audio-book' or type_media == 'video' %}
         <!-- producer select -->
         <div class="mb-3">
             <label for="producerSelect" class="form-label">Select producer</label>
@@ -41,17 +48,6 @@
                 {% for producer in producers %}
                 <option value="{{ producer.name }}">{{ producer.name }}</option>
                 {% endfor %}
-            </select>
-        </div>
-
-        <!-- type select -->
-        <div class="mb-3">
-            <label for="typeSelect" class="form-label" >Select type</label>
-            <select id="typeSelect" class="form-select" name="type_media">
-                <option value="" selected>Tất cả</option>
-                <option value="audio-book">Audio Book</option>
-                <option value="video">Video</option>
-                <option value="sayings">Sayings</option>
             </select>
         </div>
 
@@ -67,6 +63,7 @@
                 <option value="24"> >= 24 giờ</option>
             </select>
         </div>
+        {% endif %}
 
         <!-- submit button -->
         <div class="text-center">

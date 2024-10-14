@@ -15,7 +15,6 @@ def check_data_exists(data):
     if not data:
         return [False, {
             'status': 'Failed',
-            'status_code': status.HTTP_404_NOT_FOUND,
             'message': 'Data not found',
             'data': None
         }]
@@ -49,13 +48,12 @@ class LoudspeakerView(View):
 
         return JsonResponse({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
                     'loudspeakers': data
                 }
-            })
+            }, safe=False, status=status.HTTP_200_OK)
         
     @authenticate_staff
     def post(self, request):
@@ -135,10 +133,9 @@ class LoudspeakerSearchByProducerView(View):
 
         return JsonResponse({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': data
-            })
+            }, safe=False, status=status.HTTP_200_OK)
         
     def post(self, request):
         pass
@@ -166,10 +163,9 @@ class LoudspeakerSearchByNameView(View):
 
         return JsonResponse({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': data
-            })
+            }, safe=False, status=status.HTTP_200_OK)
         
     def post(self, request):
         pass
@@ -215,13 +211,12 @@ class LoudspeakerFilterView(View):
 
         return JsonResponse({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
                     'loudspeakers': data
                 }
-            })
+            }, safe=False, status=status.HTTP_200_OK)
         
     def post(self, request):
         pass

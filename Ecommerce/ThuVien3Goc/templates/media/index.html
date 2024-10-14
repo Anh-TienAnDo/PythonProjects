@@ -5,6 +5,10 @@
 {% block title %} {{page_title}} {% endblock %}
 
 {% block body-content-category %}
+    <div class="search-container">
+        {% include 'media/components/search-form.html' %}
+    </div>
+
     {% filter_box request type_media %}
 {% endblock body-content-category %}
 

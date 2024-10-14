@@ -9,5 +9,5 @@ urlpatterns = [
 
     path('all/<str:type_media>', get_all_by_type, name='media_socials'),
     path('details/<str:type_media>/<slug:slug>', get_detail, name='media_social'),
-    path('search', search_and_filter, name='search_media_social'),
+    path('search', search_and_filter, name='search'),
 ]

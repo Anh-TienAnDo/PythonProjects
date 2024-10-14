@@ -13,7 +13,6 @@ def check_data_exists(data):
     if not data:
         return [False, {
             'status': 'Failed',
-            'status_code': status.HTTP_404_NOT_FOUND,
             'message': 'Data not found',
             'data': None
         }]
@@ -46,13 +45,12 @@ class MemoryStickView(APIView):
 
         return Response({
                 'status': 'Success',
-                'status_code': status.HTTP_200_OK,
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
                     'memory_sticks': data
                 }
-            })
+            }, status=status.HTTP_200_OK)
         
     @authenticate_staff
     def post(self, request):
@@ -76,10 +74,9 @@ class MemoryStickDetailView(APIView):
         memory_stick_serializer["type"] = get_type_name(memory_stick)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': memory_stick_serializer
-        })
+        }, status=status.HTTP_200_OK)
 
     @authenticate_staff
     def put(self, request, slug):
@@ -102,10 +99,9 @@ class MemoryStickDetailView(APIView):
         memory_stick.is_active = False
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data deleted successfully',
             'data': None
-        })
+        }, status=status.HTTP_200_OK)
     
 class MemoryStickSearchByProducerView(APIView):
     def get(self, request):
@@ -125,10 +121,9 @@ class MemoryStickSearchByProducerView(APIView):
             data.append(memory_stick_serializer)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': data
-        })
+        }, status=status.HTTP_200_OK)
 
 class MemoryStickSearchByNameView(APIView):
     def get(self, request):
@@ -148,10 +143,9 @@ class MemoryStickSearchByNameView(APIView):
             data.append(memory_stick_serializer)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': data
-        })
+        }, status=status.HTTP_200_OK)
         
 class MemoryStickFilterView(APIView):
     def get(self, request):
@@ -190,11 +184,10 @@ class MemoryStickFilterView(APIView):
             data.append(memory_stick_serializer)
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': {
                     'total': total,
                     'memory_sticks': data
                 }
-        })
+        }, status=status.HTTP_200_OK)
 

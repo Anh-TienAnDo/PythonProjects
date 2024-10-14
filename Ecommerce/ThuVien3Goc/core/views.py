@@ -39,7 +39,7 @@ def index(request):
     return render(request, 'core/index.html', content)
 
 def search(request):
-    query = str(request.GET.get('_query'))
+    query = str(request.GET.get('query'))
     service = MediaSocialSearchAndFilterService(request=request)
     media_socials = service.search_and_filter(start=0, limit=12)
     media_socials = media_socials.get('data', [])

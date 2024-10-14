@@ -3,9 +3,9 @@ from .settings import SIMPLE_JWT
 from functools import wraps
 from django.http import JsonResponse
 
-MEMBER = ['user', 'admin', 'staff']
-STAFF = ['admin', 'staff']
-ADMIN = ['admin']
+MEMBER = ['ROLE_USER', 'ROLE_STAFF', 'ROLE_ADMIN']
+STAFF = ['ROLE_STAFF', 'ROLE_ADMIN']
+ADMIN = ['ROLE_ADMIN']
 def authenticate_user(view_func):
     @wraps(view_func)
     def _wrapped_view(view, request, *args, **kwargs):
