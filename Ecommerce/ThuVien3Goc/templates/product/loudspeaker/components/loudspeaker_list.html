@@ -8,7 +8,11 @@
 </div>
 
 <div class="row align-items-center p-3">
-    {% include 'product/components/pagination.html' %}
+    {% if query %}
+        {% include 'product/components/pagination-search.html' %}
+    {% else %}
+        {% include 'product/components/pagination.html' %}
+    {% endif %}
 </div>
 
 <script>
@@ -18,7 +22,6 @@
             detail_url: "{% url 'product-loudspeaker:detail' slug=loudspeaker.slug %}",
             name: "{{ loudspeaker.name }}",
             image: "{{ loudspeaker.image }}",
-            producer: "{{ loudspeaker.producer }}",
             view: "{{ loudspeaker.view }}",
             price_new: "{{ loudspeaker.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=loudspeaker.slug product_type='Loudspeaker' %}"
@@ -33,7 +36,6 @@
                 <a href="${loudspeaker.detail_url}"><img class="card-img-top" src="${loudspeaker.image}" alt="${loudspeaker.name}" ></a>
                 <div class="card-body">
                     <h5 class="card-title">${loudspeaker.name}</h5>
-                    <p class="card-subtitle">Nhà sản xuất: ${loudspeaker.producer}</p>
                     <p class="card-subtitle">Lượt xem: ${loudspeaker.view}</p>
                     <p class="card-subtitle">Giá mới: ${loudspeaker.price_new}</p>
                 </div>

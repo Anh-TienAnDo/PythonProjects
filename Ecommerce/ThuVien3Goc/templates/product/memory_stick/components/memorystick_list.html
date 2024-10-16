@@ -8,7 +8,11 @@
 </div>
 
 <div class="row align-items-center p-3">
-    {% include 'product/components/pagination.html' %}
+    {% if query %}
+        {% include 'product/components/pagination-search.html' %}
+    {% else %}
+        {% include 'product/components/pagination.html' %}
+    {% endif %}
 </div>
 
 <script>
@@ -18,7 +22,6 @@
             detail_url: "{% url 'product-memory_stick:detail' slug=memory_stick.slug %}",
             name: "{{ memory_stick.name }}",
             image: "{{ memory_stick.image }}",
-            producer: "{{ memory_stick.producer }}",
             view: "{{ memory_stick.view }}",
             price_new: "{{ memory_stick.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=memory_stick.slug product_type='MemoryStick' %}"
@@ -32,7 +35,6 @@
                 <a href="${memory_stick.detail_url}"><img src="${memory_stick.image}" class="card-img-top" alt="${memory_stick.name}"></a>
                 <div class="card-body">
                     <h5 class="card-title">${memory_stick.name}</h5>
-                    <p class="card-subtitle">Nhà sản xuất: ${memory_stick.producer}</p>
                     <p class="card-subtitle">Lượt xem: ${memory_stick.view}</p>
                     <p class="card-subtitle">Giá mới: ${memory_stick.price_new}</p>
                 </div>

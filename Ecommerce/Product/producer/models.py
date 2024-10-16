@@ -1,9 +1,10 @@
 from django.db import models
-from django.utils.text import slugify
+from Product.utils import slugify
 
 # Create your models here.
 class Producer(models.Model):
     name = models.CharField(max_length=255, null=True)
+    # type_product = models.CharField(max_length=255, default='loudspeaker') # loudspeaker, memory_stick, usb, book
     email = models.EmailField(max_length=255, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)

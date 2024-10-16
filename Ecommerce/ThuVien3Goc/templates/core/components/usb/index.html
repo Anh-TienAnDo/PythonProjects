@@ -19,7 +19,6 @@
             detail_url: "{% url 'product-usb:detail' slug=usb.slug %}",
             name: "{{ usb.name }}",
             image: "{{ usb.image }}",
-            producer: "{{ usb.producer }}",
             view: "{{ usb.view }}",
             price_new: "{{ usb.price_new }}",
             add_cart: "{% url 'cart:add-item' product_slug=usb.slug product_type='USB' %}"
@@ -50,7 +49,6 @@
                     <img src="${usb.image}" class="card-img-top" alt="${usb.name}">
                     <div class="card-body">
                         <h5 class="card-title">${usb.name}</h5>
-                        <p class="card-subtitle">Nhà sản xuất: ${usb.producer}</p>
                         <p class="card-subtitle">Lượt xem: ${usb.view}</p>
                         <p class="card-subtitle">Giá mới: ${usb.price_new}</p>
                     </div>

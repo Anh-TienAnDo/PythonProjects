@@ -1,4 +1,3 @@
-tags -> html index -> html search core -> html media social
 
 python3 -m venv tutorial-env
 Kích hoạt môi trường ảo. Trên Windows, bạn có thể sử dụng lệnh sau1:

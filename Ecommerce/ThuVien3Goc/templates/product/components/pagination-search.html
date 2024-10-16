@@ -44,6 +44,7 @@
     const producer = '{{ producer }}';
     const type_item = '{{ type }}';
     const price = '{{ price }}';
+    const query = '{{ query }}';
 
     console.log("items_per_page: " + items_per_page);
     console.log("total_items: " + total_items);
@@ -57,11 +58,11 @@
         page_previous.style.display = 'none';
         page_before.style.display = 'none';
         page_current.innerHTML = page;
-        page_current.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
+        page_current.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
         page_after.innerHTML = page + 1;
-        page_after.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
-        page_next.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
-        page_last.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${total_pages}`;
+        page_after.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
+        page_next.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
+        page_last.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${total_pages}`;
     }
     else{
         if(page == total_pages){
@@ -69,23 +70,23 @@
             page_next.style.display = 'none';
             page_after.style.display = 'none';
             page_current.innerHTML = page;
-            page_current.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
+            page_current.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
             page_before.innerHTML = page - 1;
-            page_before.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
-            page_previous.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
-            page_first.href = `?producer=${producer}&type=${type_item}&price=${price}&page=1`;
+            page_before.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
+            page_previous.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
+            page_first.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=1`;
         }
         else{
             page_current.innerHTML = page;
-            page_current.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
+            page_current.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page}`;
             page_before.innerHTML = page - 1;
-            page_before.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
+            page_before.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
             page_after.innerHTML = page + 1;
-            page_after.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
-            page_previous.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
-            page_next.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
-            page_first.href = `?producer=${producer}&type=${type_item}&price=${price}&page=1`;
-            page_last.href = `?producer=${producer}&type=${type_item}&price=${price}&page=${total_pages}`;
+            page_after.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
+            page_previous.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page-1}`;
+            page_next.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${page+1}`;
+            page_first.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=1`;
+            page_last.href = `?&query=${query}&producer=${producer}&type=${type_item}&price=${price}&page=${total_pages}`;
         }
     }
 

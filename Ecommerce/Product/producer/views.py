@@ -10,7 +10,6 @@ def check_data_exists(data):
     if not data:
         return [False, {
             'status': 'Failed',
-            'status_code': status.HTTP_404_NOT_FOUND,
             'message': 'Data not found',
             'data': None
         }]
@@ -25,10 +24,9 @@ class ProducerView(APIView):
         data = ProducerSerializer(producers, many=True).data
         return Response({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': data
-        })
+        }, status=status.HTTP_200_OK)
 
     def post(self, request):
         serializer = ProducerSerializer(data=request.data)
@@ -36,3 +34,17 @@ class ProducerView(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+# class ProducerByTypeView(APIView):
+#     def get(self, request):
+#         type_product = request.GET.get('type_product', 'loudspeaker')
+#         producers = Producer.objects.filter(type_product=type_product, is_active=True)
+#         check = check_data_exists(producers)
+#         if check[0] is False:
+#             return Response(check[1])
+#         data = ProducerSerializer(producers, many=True).data
+#         return Response({
+#             'status': 'Success',
+#             'message': 'Data retrieved successfully',
+#             'data': data
+#         }, status=status.HTTP_200_OK)

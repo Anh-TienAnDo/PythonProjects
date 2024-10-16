@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework.views import APIView
-import json
+from django.views.generic import View
+from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from .models import MemoryStick
 from .serializers import MemoryStickSerializer
 from Product.decorators import authenticate_user, authenticate_staff, authenticate_admin
+from Product.utils import slugify
 
 # Create your views here.
 def check_data_exists(data):
@@ -26,168 +27,134 @@ def get_type_name(memory_stick):
     type_name = str(memory_stick.type.name)
     return type_name
 
-class MemoryStickView(APIView):
+class MemoryStickView(View):
+    # @authenticate_user
     def get(self, request):
-        print("Getting all memory sticks")
+        print("Getting all memory_sticks")
         start = int(request.GET.get('_start', 0))
         limit = int(request.GET.get('_limit', 12))
-        memory_sticks = MemoryStick.objects.filter(is_active=True)
+        memory_sticks = MemoryStick.objects.filter(is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(memory_sticks)
         if check[0] is False:
-            return Response(check[1])
-        total = len(memory_sticks)
-        data = []
-        for memory_stick in memory_sticks[start:start + limit]:
-            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
-            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
-            memory_stick_serializer["type"] = get_type_name(memory_stick)
-            data.append(memory_stick_serializer)
+            return JsonResponse(check[1])
+        
+        total =  MemoryStick.objects.filter(is_active=True).count()
+        memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
 
-        return Response({
+        return JsonResponse({
                 'status': 'Success',
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
-                    'memory_sticks': data
+                    'memory_sticks': memory_sticks_serializer
                 }
-            }, status=status.HTTP_200_OK)
+            }, safe=False, status=status.HTTP_200_OK)
         
     @authenticate_staff
     def post(self, request):
         serializer = MemoryStickSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class MemoryStickDetailView(APIView):
+class MemoryStickDetailView(View):
+    # @authenticate_user
     def get(self, request, slug):
-        print("Getting memory stick by slug")
-        memory_stick = MemoryStick.objects.filter(slug=slug).first()
+        print("Getting memory_stick by slug")
+        memory_stick = MemoryStick.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
-            return Response(check[1])
+            return JsonResponse(check[1])
         memory_stick.view += 1
         memory_stick.save()
         memory_stick_serializer = MemoryStickSerializer(memory_stick).data
         memory_stick_serializer["producer"] = get_producer_name(memory_stick)
         memory_stick_serializer["type"] = get_type_name(memory_stick)
-        return Response({
+        return JsonResponse({
             'status': 'Success',
             'message': 'Data retrieved successfully',
             'data': memory_stick_serializer
         }, status=status.HTTP_200_OK)
 
     @authenticate_staff
-    def put(self, request, slug):
-        memory_stick = MemoryStick.objects.filter(slug=slug).first()
+    def put(self, request, id):
+        memory_stick = MemoryStick.objects.filter(id=id, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
             return Response(check[1])
         serializer = MemoryStickSerializer(memory_stick, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
+        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     @authenticate_staff
     def delete(self, request, id):
-        memory_stick = MemoryStick.objects.filter(id=id).first()
+        memory_stick = MemoryStick.objects.filter(id=id, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
-            return Response(check[1])
+            return JsonResponse(check[1])
         memory_stick.is_active = False
-        return Response({
+        memory_stick.save()
+        return JsonResponse({
             'status': 'Success',
+            'status_code': status.HTTP_200_OK,
             'message': 'Data deleted successfully',
             'data': None
-        }, status=status.HTTP_200_OK)
-    
-class MemoryStickSearchByProducerView(APIView):
-    def get(self, request):
-        print("Searching memory stick by producer")
-        start = int(request.GET.get('_start', 0))
-        limit = int(request.GET.get('_limit', 12))
-        query = str(request.GET.get('_query', ''))
-        memory_sticks = MemoryStick.objects.filter(producer__name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
-        check = check_data_exists(memory_sticks)
-        if check[0] is False:
-            return Response(check[1])
-        data = []
-        for memory_stick in memory_sticks:
-            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
-            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
-            memory_stick_serializer["type"] = get_type_name(memory_stick)
-            data.append(memory_stick_serializer)
-        return Response({
-            'status': 'Success',
-            'message': 'Data retrieved successfully',
-            'data': data
-        }, status=status.HTTP_200_OK)
-
-class MemoryStickSearchByNameView(APIView):
-    def get(self, request):
-        print("Searching memory stick by name")
-        start = int(request.GET.get('_start', 0))
-        limit = int(request.GET.get('_limit', 12))
-        query = str(request.GET.get('_query', ''))
-        memory_sticks = MemoryStick.objects.filter(name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
-        check = check_data_exists(memory_sticks)
-        if check[0] is False:
-            return Response(check[1])
-        data = []
-        for memory_stick in memory_sticks:
-            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
-            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
-            memory_stick_serializer["type"] = get_type_name(memory_stick)
-            data.append(memory_stick_serializer)
-        return Response({
-            'status': 'Success',
-            'message': 'Data retrieved successfully',
-            'data': data
-        }, status=status.HTTP_200_OK)
+        })
         
-class MemoryStickFilterView(APIView):
+class MemoryStickSearchAndFilterView(View):
+    # @authenticate_user
     def get(self, request):
-        print("Filtering memory stick")
+        print('Looking for memory_sticks by name')
+        query = str(request.GET.get('query', ""))
+        query = slugify(query)
+        producer = str(request.GET.get('producer', ""))
+        type_memory_stick = str(request.GET.get('type_memory', ""))
+        price_new = int(request.GET.get('price', 0))
         start = int(request.GET.get('_start', 0))
         limit = int(request.GET.get('_limit', 12))
-        producer = str(request.GET.get('_producer', 'all'))
-        type_memorystick = str(request.GET.get('_type', 'all'))
-        price_new = str(request.GET.get('_price', 'all'))
-        price_range = price_new.split("-")
-        if producer != 'all' and type_memorystick != 'all' and price != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif producer != 'all' and type_memorystick != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')
-        elif producer != 'all' and price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif type_memorystick != 'all' and price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif producer != 'all':
-            memory_sticks = MemoryStick.objects.filter(producer__name__icontains=producer, is_active=True).order_by('-created_at')
-        elif type_memorystick != 'all':
-            memory_sticks = MemoryStick.objects.filter(type__name__icontains=type_memorystick, is_active=True).order_by('-created_at')
-        elif price_new != 'all':
-            memory_sticks = MemoryStick.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        else:
-            memory_sticks = MemoryStick.objects.filter(is_active=True).order_by('-created_at')
+        memory_sticks = MemoryStick.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(memory_sticks)
         if check[0] is False:
-            return Response(check[1])
-        total = len(memory_sticks)
-        data = []
-        for memory_stick in memory_sticks[start:start+limit]:
-            memory_stick_serializer = MemoryStickSerializer(memory_stick).data
-            memory_stick_serializer["producer"] = get_producer_name(memory_stick)
-            memory_stick_serializer["type"] = get_type_name(memory_stick)
-            data.append(memory_stick_serializer)
-        return Response({
-            'status': 'Success',
-            'message': 'Data retrieved successfully',
-            'data': {
+            return JsonResponse(check[1])
+        total = MemoryStick.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).count()
+        memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
+        
+        return JsonResponse({
+                'status': 'Success',
+                'message': 'Data retrieved successfully',
+                'data': {
                     'total': total,
-                    'memory_sticks': data
+                    'memory_sticks': memory_sticks_serializer
                 }
-        }, status=status.HTTP_200_OK)
+            }, safe=False, status=status.HTTP_200_OK)
+        
+  
+class MemoryStickFilterView(View):
+    # @authenticate_user
+    def get(self, request):
+        print("Filtering memory_sticks")
+        producer = str(request.GET.get('producer', ""))
+        type_memory_stick = str(request.GET.get('type_memory', ""))
+        price_new = int(request.GET.get('price', 0))
+        start = int(request.GET.get('_start', 0))
+        limit = int(request.GET.get('_limit', 12))
+        
+        memory_sticks = MemoryStick.objects.filter(producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
+        check = check_data_exists(memory_sticks)
+        if check[0] is False:
+            return JsonResponse(check[1])
+        total = MemoryStick.objects.filter(producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).count()
+        memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
 
+        return JsonResponse({
+                'status': 'Success',
+                'message': 'Data retrieved successfully',
+                'data': {
+                    'total': total,
+                    'memory_sticks': memory_sticks_serializer
+                }
+            }, safe=False, status=status.HTTP_200_OK)
+   

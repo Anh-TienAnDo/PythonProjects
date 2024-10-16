@@ -4,6 +4,11 @@
         <h6>Lọc theo loại, nhà sản xuất và giá</h6>
     </div>
     <form action="" method="get">
+        <!-- search input -->
+        <div class="mb-3">
+            <input type="text" class="form-control" id="searchInput" name="query" value="{{ query }}" required>
+        </div>
+        
         <!-- producer select -->
         <div class="mb-3">
             <label for="producerSelect" class="form-label">Select producer</label>

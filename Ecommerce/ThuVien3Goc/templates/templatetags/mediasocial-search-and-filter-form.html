@@ -14,7 +14,11 @@
     </div>
     <form action="" method="get">
         <div class="mb-3">
-            <input type="text" class="form-control" name="query" value="{{ query }}" disabled>
+            <input type="text" class="form-control" name="query" value="{{ query }}" required>
+        </div>
+
+        <div class="mb-3">
+            <input type="hidden" class="form-control" name="type_media" value="{{ type_media }}" >
         </div>
 
         <!-- category select -->

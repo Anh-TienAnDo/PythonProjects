@@ -247,5 +247,5 @@ PAYPAL = {
 #     },
 # }
 
-ITEMS_PER_PAGE = 3
+ITEMS_PER_PAGE = 1
 ITEMS_LIMIT = 48

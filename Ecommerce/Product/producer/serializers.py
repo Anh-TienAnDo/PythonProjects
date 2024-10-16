@@ -4,4 +4,4 @@ from .models import Producer
 class ProducerSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producer
-        fields = ['id', 'name', 'email', 'slug', 'is_active']
+        fields = ['id', 'name', 'email', 'slug']

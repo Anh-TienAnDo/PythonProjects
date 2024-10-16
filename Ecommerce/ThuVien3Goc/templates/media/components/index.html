@@ -14,7 +14,11 @@
 </div>
 
 <div class="row align-items-center p-3">
-    {% include 'media/components/pagination.html' %}
+    {% if query %}
+        {% include 'media/components/pagination-search.html' %}
+    {% else %}
+        {% include 'media/components/pagination.html' %}
+    {% endif %}
 </div>
 
 <script>

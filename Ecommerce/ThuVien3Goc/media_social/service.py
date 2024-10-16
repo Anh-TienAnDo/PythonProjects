@@ -30,6 +30,11 @@ class MediaSocialService:
             logger.error('JSONDecodeError. Please check the response. The response is not JSON format.')
             return response.text
         
+    def get_all(self, start=0, limit=12):
+        logger.info("Fetching list of media social starting from %s", start)
+        response = requests.get(self.url + f'?_start={start}&_limit={limit}', headers=self.headers, timeout=5)
+        return self.check_and_get_data(response=response)
+        
     def get_detail(self, type_media, slug):
         logger.info("Fetching details for media social with slug: %s", slug)
         url = self.url + 'details/' + str(type_media) + '/' + str(slug)

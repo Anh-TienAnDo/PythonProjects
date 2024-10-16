@@ -6,13 +6,14 @@ register = template.Library()
 
 
 @register.inclusion_tag('templatetags/mediasocial-search-and-filter-form.html')
-def filter_box(request, _query):
+def filter_box(request, query, type_media):
     cache_key = 'mediasocial_filter_box_cache'
     cached_data = cache.get(cache_key)
 
     if cached_data:
         data = cached_data
-        data['_query'] = _query
+        data['query'] = query
+        data['type_media'] = type_media
         return data
 
     categories_service = CategoryService(request=request)
@@ -29,6 +30,7 @@ def filter_box(request, _query):
         'producers': producers
     }
     cache.set(cache_key, data, timeout=60 * 3)
-    data['_query'] = _query
+    data['query'] = query
+    data['type_media'] = type_media
     return data
 

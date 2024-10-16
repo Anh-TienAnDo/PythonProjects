@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from .models import LoudSpeaker
 from .serializers import LoudspeakerSerializer
 from Product.decorators import authenticate_user, authenticate_staff, authenticate_admin
+from Product.utils import slugify
 
 # Create your views here.
 def check_data_exists(data):
@@ -34,24 +35,20 @@ class LoudspeakerView(View):
         print("Getting all loudspeakers")
         start = int(request.GET.get('_start', 0))
         limit = int(request.GET.get('_limit', 12))
-        loudspeakers = LoudSpeaker.objects.filter(is_active=True)
+        loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
             return JsonResponse(check[1])
-        total = len(loudspeakers)
-        data = []
-        for loudspeaker in loudspeakers[start:start + limit]:
-            loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
-            loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
-            loudspeaker_serializer["type"] = get_type_name(loudspeaker)
-            data.append(loudspeaker_serializer)
+        
+        total =  LoudSpeaker.objects.filter(is_active=True).count()
+        loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
 
         return JsonResponse({
                 'status': 'Success',
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
-                    'loudspeakers': data
+                    'loudspeakers': loudspeakers_serializer
                 }
             }, safe=False, status=status.HTTP_200_OK)
         
@@ -78,10 +75,9 @@ class LoudspeakerDetailView(View):
         loudspeaker_serializer["type"] = get_type_name(loudspeaker)
         return JsonResponse({
             'status': 'Success',
-            'status_code': status.HTTP_200_OK,
             'message': 'Data retrieved successfully',
             'data': loudspeaker_serializer
-        })
+        }, status=status.HTTP_200_OK)
 
     @authenticate_staff
     def put(self, request, id):
@@ -109,114 +105,58 @@ class LoudspeakerDetailView(View):
             'message': 'Data deleted successfully',
             'data': None
         })
-
-class LoudspeakerSearchByProducerView(View):
-    # @authenticate_user
-    def get(self, request):
-        print("Looking for loudspeakers by producer")
-        query = request.GET.get('_query', "all")
-        start = int(request.GET.get('_start', 0))
-        limit = int(request.GET.get('_limit', 12))
-        if query == "all":
-            loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-created_at')[start:start+limit]
-        else:
-            loudspeakers = LoudSpeaker.objects.filter(name__icontains=query, is_active=True).order_by('-created_at')[start:start+limit]
-        check = check_data_exists(loudspeakers)
-        if check[0] is False:
-            return JsonResponse(check[1])
-        data = []
-        for loudspeaker in loudspeakers:
-            loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
-            loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
-            loudspeaker_serializer["type"] = get_type_name(loudspeaker)
-            data.append(loudspeaker_serializer)
-
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': data
-            }, safe=False, status=status.HTTP_200_OK)
         
-    def post(self, request):
-        pass
-        
-class LoudspeakerSearchByNameView(View):
+class LoudspeakerSearchAndFilterView(View):
     # @authenticate_user
     def get(self, request):
         print('Looking for loudspeakers by name')
-        query = str(request.GET.get('_query', "all"))
+        query = str(request.GET.get('query', ""))
+        query = slugify(query)
+        producer = str(request.GET.get('producer', ""))
+        type_loudspeaker = str(request.GET.get('type_loudspeaker', ""))
+        price_new = int(request.GET.get('price', 0))
         start = int(request.GET.get('_start', 0))
         limit = int(request.GET.get('_limit', 12))
-        if query == "all":
-            loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-created_at')
-        else:
-            loudspeakers = LoudSpeaker.objects.filter(name__icontains=query, is_active=True).order_by('-created_at')
+        loudspeakers = LoudSpeaker.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
             return JsonResponse(check[1])
-        data = []
-        for loudspeaker in loudspeakers:
-            loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
-            loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
-            loudspeaker_serializer["type"] = get_type_name(loudspeaker)
-            data.append(loudspeaker_serializer)
-
+        total = LoudSpeaker.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).count()
+        loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
+        
         return JsonResponse({
                 'status': 'Success',
                 'message': 'Data retrieved successfully',
-                'data': data
+                'data': {
+                    'total': total,
+                    'loudspeakers': loudspeakers_serializer
+                }
             }, safe=False, status=status.HTTP_200_OK)
         
-    def post(self, request):
-        pass
   
 class LoudspeakerFilterView(View):
     # @authenticate_user
     def get(self, request):
         print("Filtering loudspeakers")
-        producer = request.GET.get('_producer', "all")
-        type_loudspeaker = request.GET.get('_type', "all")
-        price_new = request.GET.get('_price', "all")
-        if "-" in price_new:
-            price_range = price_new.split("-")
+        producer = str(request.GET.get('producer', ""))
+        type_loudspeaker = str(request.GET.get('type_loudspeaker', ""))
+        price_new = int(request.GET.get('price', 0))
         start = int(request.GET.get('_start', 0))
         limit = int(request.GET.get('_limit', 12))
-        print(producer, type_loudspeaker, price_new)
-        if producer != "all" and type_loudspeaker != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif producer != "all" and type_loudspeaker != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, type__slug=type_loudspeaker, is_active=True).order_by('-created_at')
-        elif producer != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif type_loudspeaker != "all" and price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        elif producer != "all":
-            loudspeakers = LoudSpeaker.objects.filter(producer__slug=producer, is_active=True).order_by('-created_at')
-        elif type_loudspeaker != "all":
-            loudspeakers = LoudSpeaker.objects.filter(type__slug=type_loudspeaker, is_active=True).order_by('-created_at')
-        elif price_new != "all":
-            loudspeakers = LoudSpeaker.objects.filter(price_new__gte=price_range[0], price_new__lte=price_range[1], is_active=True).order_by('-created_at')
-        else:
-            loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-created_at')
+        
+        loudspeakers = LoudSpeaker.objects.filter(producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
             return JsonResponse(check[1])
-        total = len(loudspeakers)
-        data = []
-        for loudspeaker in loudspeakers[start:start+limit]:
-            loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
-            loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
-            loudspeaker_serializer["type"] = get_type_name(loudspeaker)
-            data.append(loudspeaker_serializer)
+        total = LoudSpeaker.objects.filter(producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).count()
+        loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
 
         return JsonResponse({
                 'status': 'Success',
                 'message': 'Data retrieved successfully',
                 'data': {
                     'total': total,
-                    'loudspeakers': data
+                    'loudspeakers': loudspeakers_serializer
                 }
             }, safe=False, status=status.HTTP_200_OK)
-        
-    def post(self, request):
-        pass
+   
