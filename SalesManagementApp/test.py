@@ -15,6 +15,7 @@ frame2 = Frame(root, bg="lightgreen", width=400, height=600)
 frame1.pack(side="left", fill="both", expand=True)
 frame2.pack(side="right", fill="both", expand=True)
 
+
 # Create a StringVar to associate with the label
 text_var = StringVar()
 text_var.set("Hello, World! anhdsdfhhuiu")

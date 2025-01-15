@@ -32,6 +32,18 @@ NCC_ID_PREFIX = 'NCC'
 CHI_PHI_ID_LENGTH = 10
 CHI_PHI_ID_PREFIX = 'CP'
 
+#  --- Title ---
+TITLE_APP = 'Sales Management System'
+TITLE_MAT_HANG = 'Quản lý mặt hàng'
+TITLE_NHAP_HANG = 'Quản lý nhập hàng'
+TITLE_BAN_HANG = 'Quản lý bán hàng'
+TITLE_CHI_PHI = 'Quản lý chi phí'
+TITLE_KHACH_HANG = 'Quản lý khách hàng'
+TITLE_NCC = 'Quản lý nhà cung cấp'
+TITLE_BAO_CAO = 'Báo cáo'
+
+# --- srceen ---
+SCREEN_SIZE = "1920x1080"
 
 # --- CSS ---
 FAMILY_FONT = 'Arial'
@@ -48,6 +60,15 @@ BG_COLOR_GRAY = 'gray'
 BG_COLORLIGHT_GRAY = 'lightgray'
 BG_COLOR_ORANGE = 'orange'
 
+BG_COLOR_FRAME_MAIN = 'white'
+BG_COLOR_FRAME_MAT_HANG = 'white'
+BG_COLOR_FRAME_NHAP_HANG = 'white'
+BG_COLOR_FRAME_BAN_HANG = 'white'
+BG_COLOR_FRAME_CHI_PHI = 'white'
+BG_COLOR_FRAME_KHACH_HANG = 'white'
+BG_COLOR_FRAME_NCC = 'white'
+BG_COLOR_FRAME_BAO_CAO = 'white'
+
 TEXT_COLOR = 'black'
 TEXT_COLOR_RED = 'red'
 TEXT_COLOR_GREEN = 'green'
@@ -57,6 +78,7 @@ TEXT_COLOR_WHITE = 'white'
 TEXT_COLOR_LIGHT_BLUE = 'lightblue'
 TEXT_COLOR_ORANGE = 'orange'
 
+# --- button ---
 WARP_LENGTH = 300
 BUTTON_WARP_LENGTH = 300
 BUTTON_BD = 3
