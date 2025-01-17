@@ -5,6 +5,8 @@ DATABASE_NAME = 'sales_management.db'
 DATABASE_PATH = os.path.join(CURRENT_WORKING_DIRECTORY, 'database', DATABASE_NAME)
 LOGGING_NAME = 'app.log'
 LOGGING_PATH = os.path.join(CURRENT_WORKING_DIRECTORY, LOGGING_NAME)
+WHOOSH_INDEX_DIR = 'indexdir'
+WHOOSH_PATH = os.path.join(CURRENT_WORKING_DIRECTORY, WHOOSH_INDEX_DIR)
 MAT_HANG_TABLE = 'MatHang'
 BAN_HANG_TABLE = 'BanHang'
 NHAP_HANG_TABLE = 'NhapHang'
@@ -61,8 +63,8 @@ MAT_HANG_SORT_OPTIONS = {
     'Số lượng nhiều - ít': 'so_luong desc',
     'Giá thấp - cao': 'gia_le asc',
     'Giá cao - thấp': 'gia_le desc',
-    'Ngày tạo mới - cũ': 'ngay_tao asc',
-    'Ngày tạo cũ - mới': 'ngay_tao desc'
+    'Ngày tạo mới - cũ': 'ngay_tao desc',
+    'Ngày tạo cũ - mới': 'ngay_tao asc'
 }
   
 
@@ -83,6 +85,7 @@ BG_COLOR_BLACK = 'black'
 BG_COLOR_GRAY = 'gray'
 BG_COLOR_LIGHT_GRAY = 'lightgray'
 BG_COLOR_ORANGE = 'orange'
+BG_COLOR_BROWN = 'brown'
 
 BG_COLOR_FRAME_MAIN = 'white'
 BG_COLOR_FRAME_MAT_HANG = 'white'
@@ -103,6 +106,7 @@ TEXT_COLOR_YELLOW = 'yellow'
 TEXT_COLOR_WHITE = 'white'
 TEXT_COLOR_LIGHT_BLUE = 'lightblue'
 TEXT_COLOR_ORANGE = 'orange'
+TEXT_COLOR_BROWN = 'brown'
 
 # --- button ---
 WARP_LENGTH = 300

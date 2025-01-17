@@ -1,11 +1,10 @@
 from tkinter import Tk, Frame, Menu
-from whoosh.index import create_in
-from whoosh.fields import Schema, TEXT, NUMERIC, ID
 import os
 import logging
 from contants import *
 from src.config.database import Database
 from src.config.log import LogConfig
+from src.config.search_whoosh import SearchWhooshMatHang
 from static.css.FontType import FontType
 from src.controller.MatHangController import MatHangController
 from src.controller.NhapHangController import NhapHangController
@@ -30,20 +29,10 @@ def setup_logging():
 # id trùng thì sinh id mới
 
 def setup_search_index():
-    if not os.path.exists("indexdir"):
-        os.mkdir("indexdir")
-    schema = Schema(
-        id=ID(stored=True, unique=True),
-        ten_hang=TEXT(stored=True),
-        ten_ncc=TEXT(stored=True),
-        ten_khach_hang=TEXT(stored=True),
-        ten_chi_phi=TEXT(stored=True)
-    )
-    create_in("indexdir", schema)
+    search_whoosh_mat_hang = SearchWhooshMatHang()
+    search_whoosh_mat_hang.create_document_ix()
 
 # Tkinter GUI Setup
-
-
 class SalesManagementApp:
     def __init__(self, root):
         self.root = root
@@ -76,23 +65,23 @@ class SalesManagementApp:
     # tạo menu chính
     def create_menu(self):
         menu_bar = Menu(self.root)
-        nav_menu = Menu(menu_bar, tearoff=0)
-        nav_menu.add_command(label=TITLE_MAT_HANG, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_mat_hang))
-        nav_menu.add_command(label=TITLE_NHAP_HANG, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_nhap_hang))
-        nav_menu.add_command(label=TITLE_BAN_HANG, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_ban_hang))
-        nav_menu.add_command(label=TITLE_CHI_PHI, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_chi_phi))
-        nav_menu.add_command(label=TITLE_KHACH_HANG, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_khach_hang))
-        nav_menu.add_command(label=TITLE_NCC, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_ncc))
-        nav_menu.add_command(label=TITLE_BAO_CAO, font=FontType.normal(
-        ), command=lambda: self.show_frame(self.frame_bao_cao))
-        menu_bar.add_cascade(label="Điều hướng", menu=nav_menu)
+        nav_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
+        nav_menu.add_command(label=TITLE_MAT_HANG, command=lambda: self.show_frame(self.frame_mat_hang))
+        nav_menu.add_command(label=TITLE_NHAP_HANG, command=lambda: self.show_frame(self.frame_nhap_hang))
+        nav_menu.add_command(label=TITLE_BAN_HANG, command=lambda: self.show_frame(self.frame_ban_hang))
+        nav_menu.add_command(label=TITLE_CHI_PHI, command=lambda: self.show_frame(self.frame_chi_phi))
+        nav_menu.add_command(label=TITLE_KHACH_HANG, command=lambda: self.show_frame(self.frame_khach_hang))
+        nav_menu.add_command(label=TITLE_NCC, command=lambda: self.show_frame(self.frame_ncc))
+        menu_bar.add_cascade(label="Chức Năng Quản Lý", menu=nav_menu)
         self.root.config(menu=menu_bar)
+        
+        bao_cao_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
+        bao_cao_menu.add_command(label="Báo cáo tồn kho")
+        bao_cao_menu.add_command(label="Báo cáo doanh thu")
+        bao_cao_menu.add_command(label="Báo cáo lợi nhuận")
+        bao_cao_menu.add_command(label="Báo cáo chi phí")
+        bao_cao_menu.add_command(label="Báo cáo công nợ")
+        menu_bar.add_cascade(label="Báo Cáo", menu=bao_cao_menu)
 
     def frame_content(self):
         # MatHangController(self.frame_main)
@@ -121,5 +110,5 @@ if __name__ == "__main__":
     setup_logging()
     logging.info('Starting Sales Management System')
     setup_database()
-    # setup_search_index()
+    setup_search_index()
     init_template()

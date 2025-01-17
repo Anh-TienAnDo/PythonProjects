@@ -42,3 +42,8 @@ class ButtonType:
   def dark(frame, text, font=FontType.normal(), activeforeground=TEXT_COLOR, text_color=TEXT_COLOR_WHITE, bg_color=BG_COLOR_BLACK, bd=BUTTON_BD, cursor=BUTTON_CURSOR, overrelief=BUTTON_RELIEF, warp_length=BUTTON_WARP_LENGTH):
     button = Button(frame, text=text, font=font, activeforeground=activeforeground, fg=text_color, bg=bg_color, bd=bd, cursor=cursor, overrelief=overrelief, wraplength=warp_length)
     return button
+  
+  @staticmethod
+  def brown(frame, text, font=FontType.normal(), activeforeground=TEXT_COLOR_BROWN, text_color=TEXT_COLOR_WHITE, bg_color=BG_COLOR_BROWN, bd=BUTTON_BD, cursor=BUTTON_CURSOR, overrelief=BUTTON_RELIEF, warp_length=BUTTON_WARP_LENGTH):
+    button = Button(frame, text=text, font=font, activeforeground=activeforeground, fg=text_color, bg=bg_color, bd=bd, cursor=cursor, overrelief=overrelief, wraplength=warp_length)
+    return button
