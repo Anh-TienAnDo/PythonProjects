@@ -27,7 +27,7 @@ def setup_logging():
     log.setup_logging()
 
 # Whoosh Index setup
-
+# id trùng thì sinh id mới
 
 def setup_search_index():
     if not os.path.exists("indexdir"):
@@ -70,8 +70,8 @@ class SalesManagementApp:
         # Nội dung của các Frame
         self.frame_content()
 
-        # Hiển thị các Frame
-        self.show_frame(self.frame_main)
+        # Hiển thị các Frame 
+        self.show_frame(self.frame_mat_hang) # Mặc định hiển thị frame_mat_hang
 
     # tạo menu chính
     def create_menu(self):
@@ -95,7 +95,7 @@ class SalesManagementApp:
         self.root.config(menu=menu_bar)
 
     def frame_content(self):
-        MatHangController(self.frame_main)
+        # MatHangController(self.frame_main)
         MatHangController(self.frame_mat_hang)
         NhapHangController(self.frame_nhap_hang)
         BanHangController(self.frame_ban_hang)
@@ -123,33 +123,3 @@ if __name__ == "__main__":
     setup_database()
     # setup_search_index()
     init_template()
-
-#     Label(root, text="Sales Management System", font=("Arial", 20)).pack()
-#     Button(root, text="Manage Products", command=self.manage_products).pack(pady=10)
-#     Button(root, text="Manage Sales", command=self.manage_sales).pack(pady=10)
-#     Button(root, text="Manage Purchases", command=self.manage_purchases).pack(pady=10)
-#     Button(root, text="Manage Expenses", command=self.manage_expenses).pack(pady=10)
-#     Button(root, text="Reports", command=self.view_reports).pack(pady=10)
-
-# def manage_products(self):
-#     self.open_window("Manage Products")
-
-# def manage_sales(self):
-#     self.open_window("Manage Sales")
-
-# def manage_purchases(self):
-#     self.open_window("Manage Purchases")
-
-# def manage_expenses(self):
-#     self.open_window("Manage Expenses")
-
-# def view_reports(self):
-#     self.open_window("Reports")
-
-# def open_window(self, title):
-#     window = Toplevel(self.root)
-#     window.title(title)
-#     window.geometry("600x400")
-#     Label(window, text=title, font=("Arial", 16)).pack()
-#     # Placeholder for each section functionality
-#     Label(window, text="Functionality coming soon...", font=("Arial", 12)).pack()

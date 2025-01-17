@@ -1,3 +1,9 @@
+# delete 
+# gen id
+# view add product
+# get all + sort
+# nháy chuột và copy
+
 from tkinter import *
 from static.css.ButtonType import ButtonType
 from static.css.LabelType import LabelType

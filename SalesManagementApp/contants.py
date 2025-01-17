@@ -42,6 +42,30 @@ TITLE_KHACH_HANG = 'Quản lý khách hàng'
 TITLE_NCC = 'Quản lý nhà cung cấp'
 TITLE_BAO_CAO = 'Báo cáo'
 
+# template: 'Tên cột': 'Tên cột hiển thị'
+MAT_HANG_COLUMN_NAMES = {
+    'id': 'Mã hàng',
+    'ten_hang': 'Tên hàng',
+    'don_vi': 'Đơn vị',
+    'so_luong': 'Số lượng',
+    'gia_le': 'Giá lẻ',
+    'gia_si': 'Giá sỉ',
+    'ngay_tao': 'Ngày tạo',
+    'is_active': 'Trạng thái'
+}
+#  sort_option: 'Tên cột': 'Tên cột hiển thị'
+MAT_HANG_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_hang asc',
+    'Tên Z-A': 'ten_hang desc',
+    'Số lượng ít - nhiều': 'so_luong asc',
+    'Số lượng nhiều - ít': 'so_luong desc',
+    'Giá thấp - cao': 'gia_le asc',
+    'Giá cao - thấp': 'gia_le desc',
+    'Ngày tạo mới - cũ': 'ngay_tao asc',
+    'Ngày tạo cũ - mới': 'ngay_tao desc'
+}
+  
+
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"
 
@@ -57,7 +81,7 @@ BG_COLOR_YELLOW = 'yellow'
 BG_COLOR_WHITE = 'white'
 BG_COLOR_BLACK = 'black'
 BG_COLOR_GRAY = 'gray'
-BG_COLORLIGHT_GRAY = 'lightgray'
+BG_COLOR_LIGHT_GRAY = 'lightgray'
 BG_COLOR_ORANGE = 'orange'
 
 BG_COLOR_FRAME_MAIN = 'white'
@@ -68,6 +92,8 @@ BG_COLOR_FRAME_CHI_PHI = 'white'
 BG_COLOR_FRAME_KHACH_HANG = 'white'
 BG_COLOR_FRAME_NCC = 'white'
 BG_COLOR_FRAME_BAO_CAO = 'white'
+
+BG_COLOR_FRAME_WHITE = 'white'
 
 TEXT_COLOR = 'black'
 TEXT_COLOR_RED = 'red'
@@ -88,6 +114,9 @@ BUTTON_PADX = 5
 BUTTON_PADY = 5
 BUTTON_RELIEF = 'raised'
 BUTTON_CURSOR = 'hand2'
+
+#  --- Entry ---
+ENTRY_BD = 3
 
 
 

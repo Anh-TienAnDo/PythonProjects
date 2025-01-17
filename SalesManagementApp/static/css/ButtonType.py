@@ -34,7 +34,7 @@ class ButtonType:
     return button
   
   @staticmethod
-  def light(frame, text, font=FontType.normal(), activeforeground=TEXT_COLOR, text_color=TEXT_COLOR, bg_color=BG_COLORLIGHT_GRAY, bd=BUTTON_BD, cursor=BUTTON_CURSOR, overrelief=BUTTON_RELIEF, warp_length=BUTTON_WARP_LENGTH):
+  def light(frame, text, font=FontType.normal(), activeforeground=TEXT_COLOR, text_color=TEXT_COLOR, bg_color=BG_COLOR_LIGHT_GRAY, bd=BUTTON_BD, cursor=BUTTON_CURSOR, overrelief=BUTTON_RELIEF, warp_length=BUTTON_WARP_LENGTH):
     button = Button(frame, text=text, font=font, activeforeground=activeforeground, fg=text_color, bg=bg_color, bd=bd, cursor=cursor, overrelief=overrelief, wraplength=warp_length)
     return button
   
