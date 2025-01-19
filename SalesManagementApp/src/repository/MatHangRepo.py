@@ -7,7 +7,6 @@ from src.entity.MatHangEntity import MatHang
 class MatHangRepo:
     def __init__(self):
         logging.info('---MatHangRepo initializing---')
-        logging.info('Connecting to database %s', DATABASE_PATH)
         self.db_name = DATABASE_PATH
         self.connection = sqlite3.connect(self.db_name)
         self.cursor = self.connection.cursor()

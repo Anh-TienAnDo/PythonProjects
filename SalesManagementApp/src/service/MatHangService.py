@@ -23,7 +23,6 @@ class MatHangService:
         keyword = TextNormalization.remove_special_characters(keyword)
         results = self.search_whoosh.search(keyword)
         id_list = [result['id'] for result in results]
-        
         where = f'id IN ({",".join(["?"] * len(id_list))})'
         return self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
 
@@ -33,16 +32,26 @@ class MatHangService:
     def create(self, mat_hang: MatHang) -> bool:
         while self.mat_hang_repo.check_exist_id(mat_hang.id):
             mat_hang.id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
+        if not self.mat_hang_repo.create(mat_hang):
+            return False
         self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
-        return self.mat_hang_repo.create(mat_hang)
+        return True
 
     def update(self, mat_hang_id, mat_hang: MatHang) -> bool:
+        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            return False
+        if not self.mat_hang_repo.update(mat_hang_id, mat_hang):
+            return False
         self.search_whoosh.add_or_update_document_ix(mat_hang_id, mat_hang.ten_hang)
-        return self.mat_hang_repo.update(mat_hang_id, mat_hang)
+        return True
       
     def delete(self, mat_hang_id) -> bool:
+        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            return False
+        if not self.mat_hang_repo.delete(mat_hang_id):
+            return False
         self.search_whoosh.delete_document_ix(mat_hang_id)
-        return self.mat_hang_repo.delete(mat_hang_id)
+        return True
     
     def get_mat_hang_sort_keys(self):
         return tuple([key for key in MAT_HANG_SORT_OPTIONS.keys()])

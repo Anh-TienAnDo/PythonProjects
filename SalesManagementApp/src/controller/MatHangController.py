@@ -9,6 +9,7 @@ from static.css.FontType import FontType
 from static.css.LabelType import LabelType
 from src.entity.MatHangEntity import MatHang
 from src.service.MatHangService import MatHangService
+from src.utils.TextNormalization import TextNormalization
 from functools import partial
 
 
@@ -21,17 +22,15 @@ class MatHangController: # lấy data rồi đưa vào template
         self.search_var = StringVar()
         self.suggestions = []
         
-        # Tạo các Frame con
-        self.init_sub_frame()
+        self.init_sub_frame() # ---Tạo các Frame con---
+        self.init_table_data() # ---Tạo bảng dữ liệu---
         
         # ---- head_frame ----
-        # Tạo Label trong head_frame
-        head_label = LabelType.h1(self.head_frame, TITLE_MAT_HANG)
-        head_label.grid(row=0, column=0, columnspan=2)
-        
+        head_label = LabelType.h1(self.head_frame, TITLE_MAT_HANG) # Label trong head_frame
+        head_label.grid(row=0, column=0)
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm
         search_input_box = EntryType.blue(self.head_frame, text_var=self.search_var)
-        search_input_box.grid(row=0, column=2, sticky="E")
+        search_input_box.grid(row=0, column=1, sticky="E")
         search_input_box.bind("<KeyRelease>", self.on_search) # Liên kết sự kiện nhập văn bản với hàm xử lý
         
         # Tạo Combobox cho gợi ý từ khóa
@@ -41,16 +40,16 @@ class MatHangController: # lấy data rồi đưa vào template
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
         search_button.config(command=partial(self.on_search_button_click))
-        search_button.grid(row=0, column=3, sticky="W")
+        search_button.grid(row=0, column=2, sticky="W")
         
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=4, sticky="W")
+        refresh_button.grid(row=0, column=2, sticky="E")
         
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
-        self.suggestion_box.grid(row=1, column=2, sticky="E")
+        self.suggestion_box.grid(row=1, column=1, sticky="E")
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
         
         
@@ -61,12 +60,12 @@ class MatHangController: # lấy data rồi đưa vào template
         
         # Tạo Combobox cho chức năng sắp xếp
         label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=2, sticky="E")
+        label_sort.grid(row=2, column=1, sticky="nw")
         self.sort_var = StringVar()
         sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
         sort_combobox['values'] = self.mat_hang_service.get_mat_hang_sort_keys()
         sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=3, sticky="W")
+        sort_combobox.grid(row=2, column=1, sticky="W")
         # Liên kết sự kiện chọn mục với hàm xử lý
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
         
@@ -74,10 +73,9 @@ class MatHangController: # lấy data rồi đưa vào template
         self.coloumn_title = list(MAT_HANG_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
         
-        self.init_table_data()
         self.refresh_mat_hang_list()
 
-# chech search, filter -> refresh data -> get data
+    # chech search, filter -> refresh data -> get data
     def get_all(self) -> list[MatHang]:
         logging.info("Get all MatHang")
         try:
@@ -191,12 +189,12 @@ class MatHangController: # lấy data rồi đưa vào template
         print(f"Sắp xếp theo: {sort_option}")
         self.refresh_mat_hang_list()
         
-        
-    # --- các hàm giao diện ---
+    # Làm mới thanh tìm kiếm
     def refresh_entry_search(self):
         self.search_var.set("")
         self.refresh_mat_hang_list()
         
+    # --- các hàm giao diện ---
     def refresh_mat_hang_list(self):
         '''Lấy dữ liệu từ database và cập nhật giao diện: list mặt hàng, tổng số mặt hàng, tổng số lượng'''
         # Thêm nội dung vào frame2 với Scrollbar
@@ -227,7 +225,7 @@ class MatHangController: # lấy data rồi đưa vào template
                 value = mat_hang[key]
                 if key == "is_active":
                     value = "Còn bán" if value else "Không bán"
-                label = LabelType.normal(self.scrollable_frame, text=value)
+                label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(value))
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
 
@@ -241,7 +239,7 @@ class MatHangController: # lấy data rồi đưa vào template
 
             # Thêm nút "Xóa"
             delete_button = ButtonType.danger(self.scrollable_frame, text="Xóa")
-            delete_button.config(command=partial(self.delete, mat_hang_id=mat_hang['id']))
+            delete_button.config(command=partial(self.view_delete_item, mat_hang=mat_hang))
             delete_button.grid(row=row, column=coloumn+1, padx=5, pady=5)
             
             row += 1
@@ -282,24 +280,25 @@ class MatHangController: # lấy data rồi đưa vào template
         self.head_frame.grid_rowconfigure(0, weight=1)
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
-        self.head_frame.grid_columnconfigure(0, weight=4)
+        self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
         self.head_frame.grid_columnconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(4, weight=1)
         self.head_frame.grid_columnconfigure(5, weight=1)
-        self.head_frame.grid_columnconfigure(6, weight=1)
         
     def show_column_title(self):
         for j in self.coloumn_title:
-            label = LabelType.h4(self.scrollable_frame, text=j)
-            label.grid(row=0, column=self.coloumn_title.index(j))
+            label = LabelType.title(self.scrollable_frame, text=j)
+            label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
             
     def show_total_label(self, total_item, total_quantity):
-        total_item_label = LabelType.normal_blue_white(self.head_frame, f"Tổng số mặt hàng: {total_item}")
-        total_quantity_label = LabelType.normal_blue_white(self.head_frame, f"Tổng số lượng: {total_quantity}")
-        total_item_label.grid(row=2, column=4)
-        total_quantity_label.grid(row=2, column=5)
+        total_item = TextNormalization.format_number(total_item)
+        total_quantity = TextNormalization.format_number(total_quantity)
+        total_item_label = LabelType.h4(self.head_frame, f"Tổng mặt hàng: {total_item}", text_color=TEXT_COLOR_BLUE)
+        total_quantity_label = LabelType.h4(self.head_frame, f"Tổng số lượng: {total_quantity}", text_color=TEXT_COLOR_BLUE)
+        total_item_label.grid(row=2, column=2, sticky="nw")
+        total_quantity_label.grid(row=2, column=2, sticky="w")
         
     def view_edit_item(self, mat_hang: MatHang):
         mat_hang = mat_hang.to_dict()
@@ -360,18 +359,18 @@ class MatHangController: # lấy data rồi đưa vào template
         button_exit.config(command=partial(self.view_new_top_window.destroy))
         button_exit.grid(row=row+1, column=2, padx=5, pady=5)
         
-    def view_delete_item(self, mat_hang: MatHang):
+    def view_delete_item(self, mat_hang: dict):
         self.view_new_top_window = Toplevel(self.frame)
         self.view_new_top_window.title('Xóa mặt hàng')
         
-        LabelType.h3(self.view_new_top_window, text=mat_hang.ten_hang).grid(row=0, column=0, padx=5, pady=5)
-        LabelType.h4(self.view_new_top_window, text="Bạn có chắc chắn muốn xóa mặt hàng này?").grid(row=1, column=0, padx=5, pady=5)
+        LabelType.h3(self.view_new_top_window, text=mat_hang['ten_hang']).grid(row=0, column=0, padx=5, pady=5)
+        LabelType.normal(self.view_new_top_window, text="Bạn có chắc chắn muốn xóa mặt hàng này?").grid(row=1, column=0, padx=5, pady=5)
 
         button_delete = ButtonType.danger(self.view_new_top_window, text="Xóa")
         button_delete.config(command=partial(self.delete, mat_hang_id=mat_hang["id"]))
         button_delete.grid(row=2, column=0, padx=5, pady=5)
         
-        button_exit = ButtonType.normal(self.view_new_top_window, text="Thoát")
+        button_exit = ButtonType.info(self.view_new_top_window, text="Thoát")
         button_exit.config(command=partial(self.view_new_top_window.destroy))
         button_exit.grid(row=2, column=1, padx=5, pady=5)
         

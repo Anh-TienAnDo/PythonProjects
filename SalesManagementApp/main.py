@@ -73,7 +73,6 @@ class SalesManagementApp:
         nav_menu.add_command(label=TITLE_KHACH_HANG, command=lambda: self.show_frame(self.frame_khach_hang))
         nav_menu.add_command(label=TITLE_NCC, command=lambda: self.show_frame(self.frame_ncc))
         menu_bar.add_cascade(label="Chức Năng Quản Lý", menu=nav_menu)
-        self.root.config(menu=menu_bar)
         
         bao_cao_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
         bao_cao_menu.add_command(label="Báo cáo tồn kho")
@@ -82,6 +81,8 @@ class SalesManagementApp:
         bao_cao_menu.add_command(label="Báo cáo chi phí")
         bao_cao_menu.add_command(label="Báo cáo công nợ")
         menu_bar.add_cascade(label="Báo Cáo", menu=bao_cao_menu)
+        
+        self.root.config(menu=menu_bar)
 
     def frame_content(self):
         # MatHangController(self.frame_main)

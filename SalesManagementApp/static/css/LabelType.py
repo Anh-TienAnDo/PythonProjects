@@ -10,13 +10,13 @@ class LabelType:
         return label
 
     @staticmethod
-    def h1(frame, text, font=FontType.h1(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
-        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
+    def h1(frame, text, font=FontType.h1(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE):
+        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color)
         return label
 
     @staticmethod
-    def h2(frame, text, font=FontType.h2(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
-        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
+    def h2(frame, text, font=FontType.h2(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE):
+        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color)
         return label
 
     @staticmethod
@@ -27,6 +27,11 @@ class LabelType:
     @staticmethod
     def h4(frame, text, font=FontType.h4(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
         label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
+        return label
+    
+    @staticmethod
+    def title(frame, text, font=FontType.h4(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH, bd=1, relief='solid'):
+        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength, bd=bd, relief=relief)
         return label
     
     @staticmethod

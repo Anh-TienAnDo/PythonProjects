@@ -55,6 +55,28 @@ MAT_HANG_COLUMN_NAMES = {
     'ngay_tao': 'Ngày tạo',
     'is_active': 'Trạng thái'
 }
+
+KHACH_HANG_COLUMN_NAMES = {
+    'id': 'Mã khách hàng',
+    'ten_khach_hang': 'Tên khách hàng',
+    'dien_thoai': 'Điện thoại',
+    'email': 'Email',
+    'dia_chi': 'Địa chỉ',
+    'ghi_chu': 'Ghi chú',
+    'ngay_tao': 'Ngày tạo',
+    'is_active': 'Trạng thái'
+}
+
+NCC_COLUMN_NAMES = {
+    'id': 'Mã nhà cung cấp',
+    'ten_ncc': 'Tên nhà cung cấp',
+    'dien_thoai': 'Điện thoại',
+    'email': 'Email',
+    'dia_chi': 'Địa chỉ',
+    'ghi_chu': 'Ghi chú',
+    'ngay_tao': 'Ngày tạo',
+    'is_active': 'Trạng thái'
+}
 #  sort_option: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_SORT_OPTIONS = {
     'Tên A-Z': 'ten_hang asc',
@@ -66,7 +88,20 @@ MAT_HANG_SORT_OPTIONS = {
     'Ngày tạo mới - cũ': 'ngay_tao desc',
     'Ngày tạo cũ - mới': 'ngay_tao asc'
 }
-  
+
+KHACH_HANG_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_khach_hang asc',
+    'Tên Z-A': 'ten_khach_hang desc',
+    'Ngày tạo mới - cũ': 'ngay_tao desc',
+    'Ngày tạo cũ - mới': 'ngay_tao asc'
+}
+
+NCC_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_ncc asc',
+    'Tên Z-A': 'ten_ncc desc',
+    'Ngày tạo mới - cũ': 'ngay_tao desc',
+    'Ngày tạo cũ - mới': 'ngay_tao asc'
+}
 
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"
@@ -109,8 +144,8 @@ TEXT_COLOR_ORANGE = 'orange'
 TEXT_COLOR_BROWN = 'brown'
 
 # --- button ---
-WARP_LENGTH = 300
-BUTTON_WARP_LENGTH = 300
+WARP_LENGTH = 200
+BUTTON_WARP_LENGTH = 200
 BUTTON_BD = 3
 BUTTON_HEIGHT = 3
 BUTTON_WIDTH = 30
