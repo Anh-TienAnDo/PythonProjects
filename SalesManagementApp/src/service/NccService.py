@@ -57,7 +57,10 @@ class NCCService:
         return tuple([key for key in NCC_SORT_OPTIONS.keys()])
     
     def get_ncc_sort_by_key(self, sort_key):
-        return NCC_SORT_OPTIONS[sort_key]
+        value = NCC_SORT_OPTIONS.get(sort_key)
+        if value is None:
+            return NCC_SORT_OPTIONS.get('Tên A-Z')
+        return value
     
     def get_suggestions(self, keyword):
         try:

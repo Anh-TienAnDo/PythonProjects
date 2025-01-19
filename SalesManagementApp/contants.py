@@ -77,6 +77,14 @@ NCC_COLUMN_NAMES = {
     'ngay_tao': 'Ngày tạo',
     'is_active': 'Trạng thái'
 }
+
+CHI_PHI_COLUMN_NAMES = {
+    'id': 'Mã chi phí',
+    'ten_chi_phi': 'Tên chi phí',
+    'gia_chi_phi': 'Giá chi phí',
+    'ghi_chu': 'Ghi chú',
+    'ngay_tao': 'Ngày tạo'
+}
 #  sort_option: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_SORT_OPTIONS = {
     'Tên A-Z': 'ten_hang asc',
@@ -99,6 +107,15 @@ KHACH_HANG_SORT_OPTIONS = {
 NCC_SORT_OPTIONS = {
     'Tên A-Z': 'ten_ncc asc',
     'Tên Z-A': 'ten_ncc desc',
+    'Ngày tạo mới - cũ': 'ngay_tao desc',
+    'Ngày tạo cũ - mới': 'ngay_tao asc'
+}
+
+CHI_PHI_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_chi_phi asc',
+    'Tên Z-A': 'ten_chi_phi desc',
+    'Giá thấp - cao': 'gia_chi_phi asc',
+    'Giá cao - thấp': 'gia_chi_phi desc',
     'Ngày tạo mới - cũ': 'ngay_tao desc',
     'Ngày tạo cũ - mới': 'ngay_tao asc'
 }

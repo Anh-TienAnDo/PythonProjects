@@ -37,3 +37,8 @@ class EntryType:
   def green(frame, text_var, font=FontType.normal(), text_color=TEXT_COLOR_GREEN, bg_color=BG_COLOR_WHITE, bd=ENTRY_BD):
     entry = Entry(frame, textvariable=text_var, font=font, fg=text_color, bg=bg_color, bd=bd)
     return entry
+  
+  @staticmethod
+  def blue_day(frame, text_var, font=FontType.normal(), text_color=TEXT_COLOR_BLUE, bg_color=BG_COLOR_WHITE, bd=ENTRY_BD, width=5):
+    entry = Entry(frame, textvariable=text_var, font=font, fg=text_color, bg=bg_color, bd=bd, width=width)
+    return entry

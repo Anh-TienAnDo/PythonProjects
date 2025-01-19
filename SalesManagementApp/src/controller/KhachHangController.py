@@ -36,7 +36,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2, sticky="e")
+        refresh_button.grid(row=0, column=2)
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
         self.suggestion_box.grid(row=1, column=1, sticky="E")
@@ -113,7 +113,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         khach_hang = KhachHang(**khach_hang_data)
         try: 
             self.khach_hang_service.update(khach_hang_id, khach_hang)
-            print(f"Update KhachHang with", khach_hang.to_list())
+            print("Update KhachHang with", khach_hang.to_list())
             self.view_new_top_window.destroy()
             self.khach_hang_vars.clear()
             self.refresh_khach_hang_list()
@@ -125,6 +125,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         try:
             self.khach_hang_service.delete(khach_hang_id)
             print(f"Delete KhachHang with id: {khach_hang_id}")
+            self.view_new_top_window.destroy()
             self.refresh_khach_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
@@ -149,8 +150,6 @@ class KhachHangController: # lấy data rồi đưa vào template
         
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
-        search_text = self.search_var.get()
-        print(f"Nút tìm kiếm được nhấn. Tìm kiếm: {search_text}")
         self.refresh_khach_hang_list()
         
     # Làm mới danh sách khách hàng
@@ -289,11 +288,11 @@ class KhachHangController: # lấy data rồi đưa vào template
 
         button_delete = ButtonType.danger(self.view_new_top_window, text="Xóa")
         button_delete.config(command=partial(self.delete, khach_hang_id=khach_hang["id"]))
-        button_delete.grid(row=2, column=0, padx=5, pady=5)
+        button_delete.grid(row=2, column=0, padx=5, pady=5, sticky="W")
         
         button_exit = ButtonType.info(self.view_new_top_window, text="Thoát")
         button_exit.config(command=partial(self.view_new_top_window.destroy))
-        button_exit.grid(row=2, column=1, padx=5, pady=5)
+        button_exit.grid(row=2, column=0, padx=5, pady=5, sticky="E")
     
     def show_column_title(self):
         for j in self.coloumn_title:

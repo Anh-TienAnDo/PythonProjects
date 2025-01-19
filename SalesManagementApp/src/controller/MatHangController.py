@@ -45,7 +45,7 @@ class MatHangController: # lấy data rồi đưa vào template
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2, sticky="E")
+        refresh_button.grid(row=0, column=2)
         
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
@@ -128,7 +128,7 @@ class MatHangController: # lấy data rồi đưa vào template
         mat_hang = MatHang(**mat_hang_data)
         try: 
             self.mat_hang_service.update(mat_hang_id, mat_hang)
-            print(f"Update MatHang with", mat_hang.to_list())
+            print("Update MatHang with", mat_hang.to_list())
             self.view_new_top_window.destroy()
             self.mat_hang_vars.clear()
             self.refresh_mat_hang_list()
@@ -138,8 +138,9 @@ class MatHangController: # lấy data rồi đưa vào template
     def delete(self, mat_hang_id: str):
         logging.info("Delete MatHang with id: %s", mat_hang_id)
         try:
-            # self.mat_hang_service.delete(mat_hang_id)
+            self.mat_hang_service.delete(mat_hang_id)
             print(f"Delete MatHang with id: {mat_hang_id}")
+            self.view_new_top_window.destroy()
             self.refresh_mat_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
@@ -153,8 +154,6 @@ class MatHangController: # lấy data rồi đưa vào template
 
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
-        search_text = self.search_var.get()
-        print(f"Nút tìm kiếm được nhấn. Tìm kiếm: {search_text}")
         self.refresh_mat_hang_list()
         
     # Cập nhật danh sách gợi ý khi người dùng nhập từ khóa
@@ -368,10 +367,10 @@ class MatHangController: # lấy data rồi đưa vào template
 
         button_delete = ButtonType.danger(self.view_new_top_window, text="Xóa")
         button_delete.config(command=partial(self.delete, mat_hang_id=mat_hang["id"]))
-        button_delete.grid(row=2, column=0, padx=5, pady=5)
+        button_delete.grid(row=2, column=0, padx=5, pady=5, sticky="W")
         
         button_exit = ButtonType.info(self.view_new_top_window, text="Thoát")
         button_exit.config(command=partial(self.view_new_top_window.destroy))
-        button_exit.grid(row=2, column=1, padx=5, pady=5)
+        button_exit.grid(row=2, column=0, padx=5, pady=5, sticky="E")
         
         

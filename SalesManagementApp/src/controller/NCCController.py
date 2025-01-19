@@ -36,7 +36,7 @@ class NCCController:
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2, sticky="e")
+        refresh_button.grid(row=0, column=2)
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
         self.suggestion_box.grid(row=1, column=1, sticky="e")
@@ -113,7 +113,7 @@ class NCCController:
         ncc = NCC(**ncc_data)
         try: 
             self.ncc_service.update(ncc_id, ncc)
-            print(f"Update NCC with", ncc.to_list())
+            print("Update NCC with", ncc.to_list())
             self.view_new_top_window.destroy()
             self.ncc_vars.clear()
             self.refresh_ncc_list()
@@ -125,6 +125,7 @@ class NCCController:
         try:
             self.ncc_service.delete(ncc_id)
             print(f"Delete NCC with id: {ncc_id}")
+            self.view_new_top_window.destroy()
             self.refresh_ncc_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
@@ -149,8 +150,6 @@ class NCCController:
         
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
-        search_text = self.search_var.get()
-        print(f"Nút tìm kiếm được nhấn. Tìm kiếm: {search_text}")
         self.refresh_ncc_list()
         
     # Làm mới danh sách ncc
@@ -289,11 +288,11 @@ class NCCController:
 
         button_delete = ButtonType.danger(self.view_new_top_window, text="Xóa")
         button_delete.config(command=partial(self.delete, ncc_id=ncc["id"]))
-        button_delete.grid(row=2, column=0, padx=5, pady=5)
+        button_delete.grid(row=2, column=0, padx=5, pady=5, sticky="W")
         
         button_exit = ButtonType.info(self.view_new_top_window, text="Thoát")
         button_exit.config(command=partial(self.view_new_top_window.destroy))
-        button_exit.grid(row=2, column=1, padx=5, pady=5)
+        button_exit.grid(row=2, column=0, padx=5, pady=5, sticky="E")
     
     def show_column_title(self):
         for j in self.coloumn_title:

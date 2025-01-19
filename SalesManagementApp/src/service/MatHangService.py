@@ -57,7 +57,10 @@ class MatHangService:
         return tuple([key for key in MAT_HANG_SORT_OPTIONS.keys()])
     
     def get_mat_hang_sort_by_key(self, sort_key):
-        return MAT_HANG_SORT_OPTIONS[sort_key]
+        value = MAT_HANG_SORT_OPTIONS.get(sort_key)
+        if value is None:
+            return MAT_HANG_SORT_OPTIONS.get('Tên A-Z')
+        return value
     
     def get_suggestions(self, keyword):
         try:

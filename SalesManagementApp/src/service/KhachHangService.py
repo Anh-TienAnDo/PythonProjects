@@ -57,7 +57,10 @@ class KhachHangService:
         return tuple([key for key in KHACH_HANG_SORT_OPTIONS.keys()])
     
     def get_khach_hang_sort_by_key(self, sort_key):
-        return KHACH_HANG_SORT_OPTIONS[sort_key]
+        value = KHACH_HANG_SORT_OPTIONS.get(sort_key)
+        if value is None:
+            return KHACH_HANG_SORT_OPTIONS.get('Tên A-Z')
+        return value
     
     def get_suggestions(self, keyword):
         try:
