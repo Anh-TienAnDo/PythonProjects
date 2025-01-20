@@ -13,6 +13,7 @@ class MatHangService:
         self.search_whoosh = SearchWhooshMatHang()
 
     def get_all(self, sort: str, keyword: str) -> list[MatHang]:
+        sort = sort.strip()
         if sort not in self.get_mat_hang_sort_keys() or sort == '' or sort is None:
             sort = 'Tên A-Z'
         sort_by = self.get_mat_hang_sort_by_key(sort)

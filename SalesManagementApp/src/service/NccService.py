@@ -13,6 +13,7 @@ class NCCService:
         self.search_whoosh = SearchWhooshNCC()
 
     def get_all(self, sort: str, keyword: str) -> list[NCC]:
+        sort = sort.strip()
         if sort not in self.get_ncc_sort_keys() or sort == '' or sort is None:
             sort = 'Tên A-Z'
         sort_by = self.get_ncc_sort_by_key(sort)

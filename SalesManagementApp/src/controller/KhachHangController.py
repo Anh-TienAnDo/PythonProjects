@@ -20,6 +20,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         self.khach_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
+        self.total_item_label = None
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
         # ---- head_frame ----
@@ -179,6 +180,11 @@ class KhachHangController: # lấy data rồi đưa vào template
         else:
             self.destroy_table_data()
             self.init_table_data()
+        if self.total_item_label is None:
+            self.show_total_label()
+        else:
+            self.destroy_total_label()
+            self.show_total_label()
             
         khach_hang_list = self.get_all()
         total_item = len(khach_hang_list)
@@ -299,10 +305,12 @@ class KhachHangController: # lấy data rồi đưa vào template
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
             
-    def show_total_label(self, total_item):
-        total_item = TextNormalization.format_number(total_item)
-        total_item_label = LabelType.h4(self.head_frame, f"Tổng khách hàng: {total_item}", text_color=TEXT_COLOR_BLUE)
-        total_item_label.grid(row=2, column=2, sticky="W")
+    def show_total_label(self, total_item=0):
+        self.total_item_label = LabelType.h4(self.head_frame, f"Tổng khách hàng: {TextNormalization.format_number(total_item)}", text_color=TEXT_COLOR_BLUE)
+        self.total_item_label.grid(row=2, column=2, sticky="W")
+        
+    def destroy_total_label(self):
+        self.total_item_label.destroy()
         
     def init_sub_frame(self):
         self.head_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")

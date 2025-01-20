@@ -20,6 +20,7 @@ class NCCController:
         self.ncc_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
+        self.total_item_label = None
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
         # ---- head_frame ----
@@ -299,10 +300,12 @@ class NCCController:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
             
-    def show_total_label(self, total_item):
-        total_item = TextNormalization.format_number(total_item)
-        total_item_label = LabelType.h4(self.head_frame, f"Tổng nhà cung cấp: {total_item}", text_color=TEXT_COLOR_BLUE)
-        total_item_label.grid(row=2, column=2, sticky="W")
+    def show_total_label(self, total_item=0):
+        self.total_item_label = LabelType.h4(self.head_frame, f"Tổng nhà cung cấp: {TextNormalization.format_number(total_item)}", text_color=TEXT_COLOR_BLUE)
+        self.total_item_label.grid(row=2, column=2, sticky="W")
+    
+    def destroy_total_label(self):
+        self.total_item_label.destroy
         
     # --- khởi tạo các frame con ---
     def init_sub_frame(self):

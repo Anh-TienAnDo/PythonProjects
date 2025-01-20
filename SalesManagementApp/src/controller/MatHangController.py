@@ -21,6 +21,8 @@ class MatHangController: # lấy data rồi đưa vào template
         self.mat_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
+        self.total_item_label = None
+        self.total_quantity_label = None
         
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
@@ -73,6 +75,7 @@ class MatHangController: # lấy data rồi đưa vào template
         self.coloumn_title = list(MAT_HANG_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
         
+        self.show_total_label()
         self.refresh_mat_hang_list()
 
     # chech search, filter -> refresh data -> get data
@@ -191,6 +194,7 @@ class MatHangController: # lấy data rồi đưa vào template
     # Làm mới thanh tìm kiếm
     def refresh_entry_search(self):
         self.search_var.set("")
+        self.suggestion_box.delete(0, END)
         self.refresh_mat_hang_list()
         
     # --- các hàm giao diện ---
@@ -202,8 +206,12 @@ class MatHangController: # lấy data rồi đưa vào template
         else:
             self.destroy_table_data()
             self.init_table_data()
+        if self.total_item_label is None:
+            self.show_total_label()
+        else:
+            self.desloy_total_label()
+            self.show_total_label()
             
-        
         mat_hang_list = self.get_all()
         total_item = len(mat_hang_list)
         total_quantity = 0
@@ -291,13 +299,16 @@ class MatHangController: # lấy data rồi đưa vào template
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
             
-    def show_total_label(self, total_item, total_quantity):
-        total_item = TextNormalization.format_number(total_item)
-        total_quantity = TextNormalization.format_number(total_quantity)
-        total_item_label = LabelType.h4(self.head_frame, f"Tổng mặt hàng: {total_item}", text_color=TEXT_COLOR_BLUE)
-        total_quantity_label = LabelType.h4(self.head_frame, f"Tổng số lượng: {total_quantity}", text_color=TEXT_COLOR_BLUE)
-        total_item_label.grid(row=2, column=2, sticky="nw")
-        total_quantity_label.grid(row=2, column=2, sticky="w")
+    def show_total_label(self, total_item=0, total_quantity=0):
+        self.total_item_label = LabelType.h4(self.head_frame, f"Tổng mặt hàng: {TextNormalization.format_number(total_item)}", text_color=TEXT_COLOR_BLUE)
+        self.total_quantity_label = LabelType.h4(self.head_frame, f"Tổng số lượng: {TextNormalization.format_number(total_quantity)}", text_color=TEXT_COLOR_BLUE)
+        self.total_item_label.grid(row=2, column=2, sticky="nw")
+        self.total_quantity_label.grid(row=2, column=2, sticky="w")
+            
+    def desloy_total_label(self):
+        self.total_item_label.destroy()
+        self.total_quantity_label.destroy()
+        
         
     def view_edit_item(self, mat_hang: MatHang):
         mat_hang = mat_hang.to_dict()

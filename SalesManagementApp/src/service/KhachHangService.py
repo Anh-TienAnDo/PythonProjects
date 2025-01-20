@@ -13,6 +13,7 @@ class KhachHangService:
         self.search_whoosh = SearchWhooshKhachHang()
 
     def get_all(self, sort: str, keyword: str) -> list[KhachHang]:
+        sort = sort.strip()
         if sort not in self.get_khach_hang_sort_keys() or sort == '' or sort is None:
             sort = 'Tên A-Z'
         sort_by = self.get_khach_hang_sort_by_key(sort)

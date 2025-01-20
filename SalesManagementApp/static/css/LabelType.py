@@ -25,7 +25,7 @@ class LabelType:
         return label
 
     @staticmethod
-    def h4(frame, text, font=FontType.h4(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
+    def h4(frame, text, font=FontType.h4(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=0):
         label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
         return label
     

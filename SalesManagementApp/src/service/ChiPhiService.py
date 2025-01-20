@@ -11,6 +11,7 @@ class ChiPhiService:
         self.chi_phi_repo = ChiPhiRepo()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[ChiPhi]:
+        sort = sort.strip()
         if sort not in self.get_chi_phi_sort_keys() or sort == '' or sort is None:
             sort = 'Tên A-Z'
         sort_by = self.get_chi_phi_sort_by_key(sort)

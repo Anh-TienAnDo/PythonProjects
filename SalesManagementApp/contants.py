@@ -85,6 +85,19 @@ CHI_PHI_COLUMN_NAMES = {
     'ghi_chu': 'Ghi chú',
     'ngay_tao': 'Ngày tạo'
 }
+
+NHAP_HANG_COLUMN_NAMES = {
+    'id': 'Mã nhập hàng',
+    'id_mat_hang': 'Mã hàng',
+    'ten_hang': 'Tên hàng',
+    'don_vi': 'Đơn vị',
+    'so_luong': 'Số lượng',
+    'gia_nhap': 'Giá nhập',
+    'nha_cung_cap': 'Nhà cung cấp',
+    'thanh_tien': 'Thành tiền',
+    'ngay_nhap': 'Ngày nhập',
+    'ghi_chu': 'Ghi chú'
+}
 #  sort_option: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_SORT_OPTIONS = {
     'Tên A-Z': 'ten_hang asc',
@@ -118,6 +131,19 @@ CHI_PHI_SORT_OPTIONS = {
     'Giá cao - thấp': 'gia_chi_phi desc',
     'Ngày tạo mới - cũ': 'ngay_tao desc',
     'Ngày tạo cũ - mới': 'ngay_tao asc'
+}
+
+NHAP_HANG_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_hang asc',
+    'Tên Z-A': 'ten_hang desc',
+    'Số lượng ít - nhiều': 'so_luong asc',
+    'Số lượng nhiều - ít': 'so_luong desc',
+    'Giá thấp - cao': 'gia_nhap asc',
+    'Giá cao - thấp': 'gia_nhap desc',
+    'Thành tiền ít - nhiều': 'thanh_tien asc',
+    'Thành tiền nhiều - ít': 'thanh_tien desc',
+    'Ngày nhập mới - cũ': 'ngay_nhap desc',
+    'Ngày nhập cũ - mới': 'ngay_nhap asc'
 }
 
 # --- srceen ---

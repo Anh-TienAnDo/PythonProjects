@@ -18,6 +18,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.frame = frame
         self.chi_phi_service = ChiPhiService() # -------
         self.chi_phi_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
+        self.total_chi_phi_label = None
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
         # ---- head_frame ----
@@ -75,7 +76,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
             self.chi_phi_service.create(chi_phi)
-            print("Create ChiPhi:", chi_phi.to_list())
+            # print("Create ChiPhi:", chi_phi.to_list())
             self.view_new_top_window.destroy()
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
@@ -124,15 +125,13 @@ class ChiPhiController: # lấy data rồi đưa vào template
     def on_search_button_click(self):
         self.refresh_chi_phi_list()
         
-    # Làm mới danh sách chi phí
+    # Làm mới thanh tìm kiếm
     def refresh_entry_search(self):
         self.init_search_date()
         self.refresh_chi_phi_list()
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
-        sort_option = self.sort_var.get()
-        print(f"Sắp xếp theo: {sort_option}")
         self.refresh_chi_phi_list()
         
     # --- Các hàm giao diện  ---
@@ -144,6 +143,11 @@ class ChiPhiController: # lấy data rồi đưa vào template
         else:
             self.destroy_table_data()
             self.init_table_data()
+        if self.total_chi_phi_label is None:
+            self.show_total_label()
+        else:
+            self.desloy_total_label()
+            self.show_total_label()
             
         chi_phi_list = self.get_all()
         # add title for table
@@ -261,10 +265,12 @@ class ChiPhiController: # lấy data rồi đưa vào template
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
             
-    def show_total_label(self, total_chi_phi):
-        total_chi_phi = TextNormalization.format_number(total_chi_phi)
-        total_chi_phi_label = LabelType.h4(self.head_frame, f"Tổng chi phí: {total_chi_phi} VNĐ", text_color=TEXT_COLOR_BLUE)
-        total_chi_phi_label.grid(row=2, column=2, sticky="W")
+    def show_total_label(self, total_chi_phi=0):
+        self.total_chi_phi_label = LabelType.h4(self.head_frame, f"Tổng chi phí: {TextNormalization.format_number(total_chi_phi)} VNĐ", text_color=TEXT_COLOR_BLUE)
+        self.total_chi_phi_label.grid(row=2, column=2, sticky="W")
+        
+    def desloy_total_label(self):
+        self.total_chi_phi_label.destroy()
     
     def init_sub_frame(self):
         self.head_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
