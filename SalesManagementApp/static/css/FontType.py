@@ -19,7 +19,7 @@ class FontType:
 
     @staticmethod
     def normal():
-        return (FAMILY_FONT, 12)
+        return (FAMILY_FONT, 12, "bold")
     
     @staticmethod
     def mini():

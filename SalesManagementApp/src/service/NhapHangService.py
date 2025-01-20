@@ -1,5 +1,7 @@
 from src.entity.NhapHangEntity import NhapHang
 from src.repository.NhapHangRepo import NhapHangRepo
+from src.repository.MatHangRepo import MatHangRepo
+from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshNCC
 from src.utils.GenerationId import GenerationId
 import logging
 from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH
@@ -9,6 +11,9 @@ class NhapHangService:
     def __init__(self):
         logging.info('---NhapHangService initializing---')
         self.nhap_hang_repo = NhapHangRepo()
+        self.mat_hang_search = SearchWhooshMatHang()
+        self.ncc_search = SearchWhooshNCC()
+        self.mat_hang_repo = MatHangRepo()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[NhapHang]:
         sort = sort.strip()
@@ -66,3 +71,32 @@ class NhapHangService:
             'month': str(now.month),
             'year': str(now.year)
         }
+    
+    def search_mat_hang(self, keyword) -> list[dict]:
+        try:
+            results = self.mat_hang_search.search(keyword.strip())
+            mat_hang_list = []
+            if len(results) == 0:
+                return []
+            if len(results) > 15:
+                results = results[0:15]
+            for result in results:
+                mat_hang = self.mat_hang_repo.get_by_id(result['id'])
+                if mat_hang is not None:
+                    mat_hang_list.append(mat_hang.to_dict())
+            return mat_hang_list
+        except Exception as e:
+            logging.error('Error when search mat hang')
+    
+    def search_ncc(self, keyword) -> list[str]:
+        try:
+            results = self.ncc_search.search(keyword.strip())
+            if len(results) == 0:
+                return []
+            if len(results) > 15:
+                results = results[0:15]
+            return [suggestion['ten_ncc'] for suggestion in results]
+        except Exception as e:  
+            logging.error('Error when search ncc')
+    
+    

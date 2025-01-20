@@ -200,6 +200,8 @@ BUTTON_CURSOR = 'hand2'
 #  --- Entry ---
 ENTRY_BD = 3
 
+MONEY_UNIT = 'VNĐ'
+
 
 
 

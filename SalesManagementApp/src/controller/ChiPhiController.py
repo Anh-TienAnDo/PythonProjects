@@ -18,31 +18,19 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.frame = frame
         self.chi_phi_service = ChiPhiService() # -------
         self.chi_phi_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
-        self.total_chi_phi_label = None
-        self.init_sub_frame() # ---Tạo các Frame con---
-        self.init_table_data() # ---Tạo bảng dữ liệu---
-        # ---- head_frame ----
-        head_label = LabelType.h1(self.head_frame, TITLE_CHI_PHI) # Label trong head_frame
-        head_label.grid(row=0, column=0)
-        
-        self.init_search_date()
-        # button add
-        button_add = ButtonType.success(self.head_frame, "Thêm chi phí")
-        button_add.config(command=partial(self.view_add_item))
-        button_add.grid(row=2, column=0)
-        # Tạo Combobox cho chức năng sắp xếp
-        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
-        self.sort_var = StringVar()
-        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
-        sort_combobox['values'] = self.chi_phi_service.get_chi_phi_sort_keys()
-        sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
-        # Liên kết sự kiện chọn mục với hàm xử lý
-        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
-        # ---- content_frame ----
+        self.total_chi_phi = StringVar()
+        self.total_quantity = StringVar()
         self.coloumn_title = list(CHI_PHI_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
+        self.date = self.chi_phi_service.get_day_month_year()
+        self.search_var_dict = {
+            'day': StringVar(value=""),
+            'month': StringVar(value=self.date.get('month')),
+            'year': StringVar(value=self.date.get('year')),
+        }
+        self.init_sub_frame() # ---Tạo các Frame con---
+        self.init_table_data() # ---Tạo bảng dữ liệu---
+        self.init_components() # ---Tạo các thành phần giao diện---
         
         self.refresh_chi_phi_list()
 
@@ -53,9 +41,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
             day = self.search_var_dict.get('day').get()
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            print(f"sort: {sort}, day: {day}, month: {month}, year: {year}")
             chi_phi_list = self.chi_phi_service.get_all(sort=sort, day=day, month=month, year=year)
-            print(chi_phi_list)
             return chi_phi_list
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
@@ -76,7 +62,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
             self.chi_phi_service.create(chi_phi)
-            # print("Create ChiPhi:", chi_phi.to_list())
             self.view_new_top_window.destroy()
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
@@ -89,7 +74,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         chi_phi = ChiPhi(**chi_phi_data)
         try:
             self.chi_phi_service.create(chi_phi)
-            print("Create and continue ChiPhi:", chi_phi.to_list())
             self.view_new_top_window.destroy()
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
@@ -103,7 +87,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
             self.chi_phi_service.update(chi_phi_id, chi_phi)
-            print("Update ChiPhi with", chi_phi.to_list())
             self.view_new_top_window.destroy()
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
@@ -114,7 +97,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         logging.info("Delete ChiPhi with id: %s", chi_phi_id)
         try:
             self.chi_phi_service.delete(chi_phi_id)
-            print(f"Delete ChiPhi with id: {chi_phi_id}")
             self.view_new_top_window.destroy()
             self.refresh_chi_phi_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
@@ -127,7 +109,9 @@ class ChiPhiController: # lấy data rồi đưa vào template
         
     # Làm mới thanh tìm kiếm
     def refresh_entry_search(self):
-        self.init_search_date()
+        self.search_var_dict['day'].set("")
+        self.search_var_dict['month'].set(self.date.get('month'))
+        self.search_var_dict['year'].set(self.date.get('year'))
         self.refresh_chi_phi_list()
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
@@ -143,11 +127,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         else:
             self.destroy_table_data()
             self.init_table_data()
-        if self.total_chi_phi_label is None:
-            self.show_total_label()
-        else:
-            self.desloy_total_label()
-            self.show_total_label()
             
         chi_phi_list = self.get_all()
         # add title for table
@@ -155,6 +134,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         # Thêm các Label và Button vào scrollable_frame
         row = 1
         total_chi_phi = 0
+        total_quantity = len(chi_phi_list)
         for chi_phi in chi_phi_list:
             total_chi_phi += chi_phi.gia_chi_phi
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
@@ -188,7 +168,8 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
 
-        self.show_total_label(total_chi_phi)
+        self.total_chi_phi.set(TextNormalization.format_number(total_chi_phi) + f" {MONEY_UNIT}")
+        self.total_quantity.set(TextNormalization.format_number(total_quantity))
         
     def view_edit_item(self, chi_phi: ChiPhi):
         chi_phi = chi_phi.to_dict()
@@ -264,13 +245,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         for j in self.coloumn_title:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
-            
-    def show_total_label(self, total_chi_phi=0):
-        self.total_chi_phi_label = LabelType.h4(self.head_frame, f"Tổng chi phí: {TextNormalization.format_number(total_chi_phi)} VNĐ", text_color=TEXT_COLOR_BLUE)
-        self.total_chi_phi_label.grid(row=2, column=2, sticky="W")
-        
-    def desloy_total_label(self):
-        self.total_chi_phi_label.destroy()
     
     def init_sub_frame(self):
         self.head_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
@@ -294,6 +268,37 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.head_frame.grid_columnconfigure(4, weight=1)
         self.head_frame.grid_columnconfigure(5, weight=1)
         
+    def init_components(self):
+        # ---- head_frame ----
+        head_label = LabelType.h1(self.head_frame, TITLE_CHI_PHI) # Label trong head_frame
+        head_label.grid(row=0, column=0)
+        
+        self.init_search_date()
+        # button add
+        button_add = ButtonType.success(self.head_frame, "Thêm chi phí")
+        button_add.config(command=partial(self.view_add_item))
+        button_add.grid(row=2, column=0)
+        # Tạo Combobox cho chức năng sắp xếp
+        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
+        label_sort.grid(row=2, column=1, sticky="nw")
+        self.sort_var = StringVar()
+        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
+        sort_combobox['values'] = self.chi_phi_service.get_chi_phi_sort_keys()
+        sort_combobox.current(0)
+        sort_combobox.grid(row=2, column=1, sticky="W")
+        # Liên kết sự kiện chọn mục với hàm xử lý
+        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
+        # total chi phi
+        total_chi_phi = LabelType.h4(self.head_frame, "Tổng chi phí:", text_color=TEXT_COLOR_BLUE)
+        total_chi_phi.grid(row=2, column=2, sticky="nw")
+        total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
+        total_chi_phi_value.grid(row=2, column=2, sticky="ne")
+        
+        total_quantity_label = LabelType.h4(self.head_frame, "Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
+        total_quantity_label.grid(row=2, column=2, sticky="w")
+        total_quantity_value = EntryType.view(self.head_frame, text_var=self.total_quantity)
+        total_quantity_value.grid(row=2, column=2, sticky="e")
+        
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
         self.canvas = data_table.get_canvas()
@@ -308,12 +313,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.scrollable_frame.destroy()
         
     def init_search_date(self):
-        date = self.chi_phi_service.get_day_month_year()
-        self.search_var_dict = {
-            'day': StringVar(value=""),
-            'month': StringVar(value=date.get('month')),
-            'year': StringVar(value=date.get('year')),
-        }
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm
         LabelType.h2(self.head_frame, "Tìm theo ngày/tháng/năm:").grid(row=0, column=1, sticky="e", padx=5) #--set ngay thang nam
         LabelType.normal(self.head_frame, "Ngày:").grid(row=1, column=1, sticky="n")

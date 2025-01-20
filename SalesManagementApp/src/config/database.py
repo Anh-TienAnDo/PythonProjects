@@ -40,6 +40,7 @@ class Database:
             ngay_ban DATE DEFAULT CURRENT_DATE
         )''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS ban_hang_idx_id ON {BAN_HANG_TABLE} (id)''')
+        self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS ban_hang_idx_id_mat_hang ON {BAN_HANG_TABLE} (id_mat_hang)''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS ban_hang_idx_year ON {BAN_HANG_TABLE} (strftime('%Y', ngay_ban))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS ban_hang_idx_year_month ON {BAN_HANG_TABLE} (strftime('%Y-%m', ngay_ban))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS ban_hang_idx_year_month_day ON {BAN_HANG_TABLE} (strftime('%Y-%m-%d', ngay_ban))''')
@@ -58,6 +59,7 @@ class Database:
             ngay_nhap DATE DEFAULT CURRENT_DATE
         )''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS nhap_hang_idx_id ON {NHAP_HANG_TABLE} (id)''')
+        self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS nhap_hang_idx_id_mat_hang ON {NHAP_HANG_TABLE} (id_mat_hang)''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS nhap_hang_idx_year ON {NHAP_HANG_TABLE} (strftime('%Y', ngay_nhap))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS nhap_hang_idx_year_month ON {NHAP_HANG_TABLE} (strftime('%Y-%m', ngay_nhap))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS nhap_hang_idx_year_month_day ON {NHAP_HANG_TABLE} (strftime('%Y-%m-%d', ngay_nhap))''')

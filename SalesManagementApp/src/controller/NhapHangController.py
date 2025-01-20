@@ -18,34 +18,21 @@ class NhapHangController:
         logging.info("NhapHang Controller")
         self.nhap_hang_service = NhapHangService() # -------
         self.nhap_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
-        self.total_nhap_hang_label = None
-        self.total_so_luong_label = None
-        self.total_thanh_tien_label = None
-        self.init_sub_frame() # ---Tạo các Frame con---
-        self.init_table_data() # ---Tạo bảng dữ liệu---
-        # ---- head_frame ----
-        head_label = LabelType.h1(self.head_frame, TITLE_NHAP_HANG) # Label trong head_frame
-        head_label.grid(row=0, column=0)
-        
-        self.init_search_date()
-        # button add
-        button_add = ButtonType.success(self.head_frame, "Thêm nhập hàng")
-        # button_add.config(command=partial(self.view_add_item))
-        button_add.grid(row=2, column=0)
-        # Tạo Combobox cho chức năng sắp xếp
-        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
-        self.sort_var = StringVar()
-        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
-        sort_combobox['values'] = self.nhap_hang_service.get_nhap_hang_sort_keys()
-        sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
-        # Liên kết sự kiện chọn mục với hàm xử lý
-        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
-        # ---- content_frame ----
+        self.total_nhap_hang = StringVar()
+        self.total_so_luong = StringVar()
+        self.total_thanh_tien = StringVar()
         self.coloumn_title = list(NHAP_HANG_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
-        
+        self.date = self.nhap_hang_service.get_day_month_year()
+        self.search_var_dict = {
+            'day': StringVar(value=""),
+            'month': StringVar(value=self.date.get('month')),
+            'year': StringVar(value=self.date.get('year')),
+        }
+        self.init_sub_frame() # ---Tạo các Frame con---
+        self.init_table_data() # ---Tạo bảng dữ liệu---
+        self.init_components() # ---Tạo các thành phần giao diện---
+        # ---- content_frame ----
         self.refresh_nhap_hang_list()
         
     def get_all(self):
@@ -55,9 +42,7 @@ class NhapHangController:
             day = self.search_var_dict.get('day').get()
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            print(f"sort: {sort}, day: {day}, month: {month}, year: {year}")
             nhap_hang_list = self.nhap_hang_service.get_all(sort=sort, day=day, month=month, year=year)
-            print(nhap_hang_list)
             return nhap_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
@@ -78,7 +63,6 @@ class NhapHangController:
         nhap_hang = NhapHang(**nhap_hang_data)
         try: 
             self.nhap_hang_service.create(nhap_hang)
-            # print("Create NhapHang:", nhap_hang.to_list())
             self.view_new_top_window.destroy()
             self.nhap_hang_vars.clear()
             self.refresh_nhap_hang_list()
@@ -91,7 +75,6 @@ class NhapHangController:
         nhap_hang = NhapHang(**nhap_hang_data)
         try: 
             self.nhap_hang_service.update(nhap_hang_id, nhap_hang)
-            print("Update NhapHang with", nhap_hang.to_list())
             self.view_new_top_window.destroy()
             self.nhap_hang_vars.clear()
             self.refresh_nhap_hang_list()
@@ -102,7 +85,6 @@ class NhapHangController:
         logging.info("Delete NhapHang with id: %s", nhap_hang_id)
         try:
             self.nhap_hang_service.delete(nhap_hang_id)
-            print(f"Delete NhapHang with id: {nhap_hang_id}")
             self.view_new_top_window.destroy()
             self.refresh_nhap_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
@@ -115,7 +97,9 @@ class NhapHangController:
         
     # Làm mới thanh tìm kiếm
     def refresh_entry_search(self):
-        self.init_search_date()
+        self.search_var_dict['day'].set("")
+        self.search_var_dict['month'].set(self.date.get('month'))
+        self.search_var_dict['year'].set(self.date.get('year'))
         self.refresh_nhap_hang_list()
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
@@ -131,20 +115,18 @@ class NhapHangController:
         else:
             self.destroy_table_data()
             self.init_table_data()
-        if self.total_nhap_hang_label is None:
-            self.show_total_label()
-        else:
-            self.desloy_total_label()
-            self.show_total_label()
             
         nhap_hang_list = self.get_all()
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
         row = 1
-        total_nhap_hang = 0
+        total_nhap_hang = len(nhap_hang_list)
+        total_so_luong = 0
+        total_thanh_tien = 0
         for nhap_hang in nhap_hang_list:
-            total_nhap_hang += nhap_hang.gia_nhap_hang
+            total_thanh_tien += nhap_hang.gia_nhap
+            total_so_luong += nhap_hang.so_luong
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -176,7 +158,9 @@ class NhapHangController:
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
 
-        self.show_total_label(total_nhap_hang)
+        self.total_nhap_hang.set(TextNormalization.format_number(total_nhap_hang))
+        self.total_so_luong.set(TextNormalization.format_number(total_so_luong))
+        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien) + f" {MONEY_UNIT}")
         
     def view_edit_item(self, nhap_hang: NhapHang):
         nhap_hang = nhap_hang.to_dict()
@@ -225,19 +209,6 @@ class NhapHangController:
         for j in self.coloumn_title:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
-            
-    def show_total_label(self, total_nhap_hang=0, total_so_luong=0, total_thanh_tien=0):
-        self.total_nhap_hang_label = LabelType.h4(self.head_frame, f"Tổng nhập hàng: {TextNormalization.format_number(total_nhap_hang)} VNĐ", text_color=TEXT_COLOR_BLUE)
-        self.total_nhap_hang_label.grid(row=2, column=2, sticky="nw")
-        self.total_so_luong_label = LabelType.h4(self.head_frame, f"Tổng số lượng: {TextNormalization.format_number(total_so_luong)}", text_color=TEXT_COLOR_BLUE)
-        self.total_so_luong_label.grid(row=2, column=2, sticky="W")
-        self.total_thanh_tien_label = LabelType.h4(self.head_frame, f"Tổng tiền: {TextNormalization.format_number(total_thanh_tien)} VNĐ", text_color=TEXT_COLOR_BLUE)
-        self.total_thanh_tien_label.grid(row=2, column=2, sticky="sw")
-        
-    def desloy_total_label(self):
-        self.total_nhap_hang_label.destroy()
-        self.total_so_luong_label.destroy()
-        self.total_thanh_tien_label.destroy()
         
     
     def init_sub_frame(self):
@@ -261,6 +232,42 @@ class NhapHangController:
         self.head_frame.grid_columnconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(4, weight=1)
         self.head_frame.grid_columnconfigure(5, weight=1)
+    
+    def init_components(self):
+        # ---- head_frame ----
+        head_label = LabelType.h1(self.head_frame, TITLE_NHAP_HANG) # Label trong head_frame
+        head_label.grid(row=0, column=0)
+        
+        self.init_search_date()
+        # button add
+        button_add = ButtonType.success(self.head_frame, "Thêm nhập hàng")
+        # button_add.config(command=partial(self.view_add_item))
+        button_add.grid(row=2, column=0)
+        # Tạo Combobox cho chức năng sắp xếp
+        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
+        label_sort.grid(row=2, column=1, sticky="nw")
+        self.sort_var = StringVar()
+        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
+        sort_combobox['values'] = self.nhap_hang_service.get_nhap_hang_sort_keys()
+        sort_combobox.current(0)
+        sort_combobox.grid(row=2, column=1, sticky="W")
+        # Liên kết sự kiện chọn mục với hàm xử lý
+        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
+        # total
+        total_nhap_hang_label = LabelType.h4(self.head_frame, text="Tổng nhập hàng:")
+        total_nhap_hang_label.grid(row=2, column=2, sticky="nw")
+        total_nhap_hang_value = EntryType.normal(self.head_frame, text_var=self.total_nhap_hang)
+        total_nhap_hang_value.grid(row=2, column=2, sticky="ne")
+        
+        total_so_luong_label = LabelType.h4(self.head_frame, text="Tổng số lượng:")
+        total_so_luong_label.grid(row=2, column=2, sticky="w")
+        total_so_luong_value = EntryType.normal(self.head_frame, text_var=self.total_so_luong)
+        total_so_luong_value.grid(row=2, column=2, sticky='e')
+        
+        total_thanh_tien_label = LabelType.h4(self.head_frame, text="Tổng thành tiền:")
+        total_thanh_tien_label.grid(row=2, column=2, sticky="sw")
+        total_thanh_tien_value = EntryType.normal(self.head_frame, text_var=self.total_thanh_tien)
+        total_thanh_tien_value.grid(row=2, column=2, sticky='se')
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
@@ -276,12 +283,6 @@ class NhapHangController:
         self.scrollable_frame.destroy()
         
     def init_search_date(self):
-        date = self.nhap_hang_service.get_day_month_year()
-        self.search_var_dict = {
-            'day': StringVar(value=""),
-            'month': StringVar(value=date.get('month')),
-            'year': StringVar(value=date.get('year')),
-        }
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm
         LabelType.h2(self.head_frame, "Tìm theo ngày/tháng/năm:").grid(row=0, column=1, sticky="e", padx=5) #--set ngay thang nam
         LabelType.normal(self.head_frame, "Ngày:").grid(row=1, column=1, sticky="n")

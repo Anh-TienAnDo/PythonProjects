@@ -20,46 +20,13 @@ class NCCController:
         self.ncc_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
-        self.total_item_label = None
-        self.init_sub_frame() # ---Tạo các Frame con---
-        self.init_table_data() # ---Tạo bảng dữ liệu---
-        # ---- head_frame ----
-        head_label = LabelType.h1(self.head_frame, TITLE_NCC) # Label trong head_frame
-        head_label.grid(row=0, column=0)
-        # Tạo ô nhập văn bản (Entry) cho tìm kiếm
-        search_input_box = EntryType.blue(self.head_frame, text_var=self.search_var)
-        search_input_box.grid(row=0, column=1, sticky="e")
-        search_input_box.bind("<KeyRelease>", self.on_search) # Liên kết sự kiện nhập văn bản với hàm xử lý
-        # Tạo nút tìm kiếm
-        search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
-        search_button.config(command=partial(self.on_search_button_click))
-        search_button.grid(row=0, column=2, sticky="w")
-        # Tạo nút làm mới thanh tìm kiếm
-        refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
-        refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2)
-        # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
-        self.suggestion_box.grid(row=1, column=1, sticky="e")
-        self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
-        # button add
-        button_add = ButtonType.success(self.head_frame, "Thêm nhà cung cấp")
-        button_add.config(command=partial(self.view_add_item))
-        button_add.grid(row=2, column=0)
-        # Tạo Combobox cho chức năng sắp xếp
-        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
-        self.sort_var = StringVar()
-        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
-        sort_combobox['values'] = self.ncc_service.get_ncc_sort_keys()
-        sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
-        # Liên kết sự kiện chọn mục với hàm xử lý
-        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
-        # ---- content_frame ----
+        self.total_item = StringVar()
         self.coloumn_title = list(NCC_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
         
+        self.init_sub_frame() # ---Tạo các Frame con---
+        self.init_table_data() # ---Tạo bảng dữ liệu---
+        self.init_components() # ---Tạo các thành phần giao diện---
         self.refresh_ncc_list()
 
     def get_all(self):
@@ -87,7 +54,6 @@ class NCCController:
         ncc = NCC(**ncc_data)
         try: 
             self.ncc_service.create(ncc)
-            print("Create NCC:", ncc.to_list())
             self.view_new_top_window.destroy()
             self.ncc_vars.clear()
             self.refresh_ncc_list()
@@ -100,7 +66,6 @@ class NCCController:
         ncc = NCC(**ncc_data)
         try:
             self.ncc_service.create(ncc)
-            print("Create and continue NCC:", ncc.to_list())
             self.view_new_top_window.destroy()
             self.ncc_vars.clear()
             self.refresh_ncc_list()
@@ -114,7 +79,6 @@ class NCCController:
         ncc = NCC(**ncc_data)
         try: 
             self.ncc_service.update(ncc_id, ncc)
-            print("Update NCC with", ncc.to_list())
             self.view_new_top_window.destroy()
             self.ncc_vars.clear()
             self.refresh_ncc_list()
@@ -125,7 +89,6 @@ class NCCController:
         logging.info("Delete NCC with id: %s", ncc_id)
         try:
             self.ncc_service.delete(ncc_id)
-            print(f"Delete NCC with id: {ncc_id}")
             self.view_new_top_window.destroy()
             self.refresh_ncc_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
@@ -135,19 +98,16 @@ class NCCController:
     # Hàm xử lý sự kiện nhập văn bản
     def on_search(self, event):
         search_text = self.search_var.get()
-        print(f"Tìm kiếm: {search_text}", event)
         if search_text is not None and search_text.strip() != "":
             self.update_suggestions()
                   
     # Cập nhật danh sách gợi ý khi người dùng nhập từ khóa
     def update_suggestions(self, *args):
         keyword = self.search_var.get()
-        print(f"Đang tìm kiếm gợi ý cho từ khóa: {keyword}")
         self.suggestions = self.ncc_service.get_suggestions(keyword)
         self.suggestion_box.delete(0, END)
         for suggestion in self.suggestions:
             self.suggestion_box.insert(END, suggestion)
-        print(f"Gợi ý: {self.suggestions}")
         
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
@@ -156,6 +116,7 @@ class NCCController:
     # Làm mới danh sách ncc
     def refresh_entry_search(self):
         self.search_var.set("")
+        self.suggestion_box.delete(0, END)
         self.refresh_ncc_list()
         
     # Xử lý sự kiện khi người dùng chọn một gợi ý
@@ -168,7 +129,6 @@ class NCCController:
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
         sort_option = self.sort_var.get()
-        print(f"Sắp xếp theo: {sort_option}")
         self.refresh_ncc_list()
         
     # --- Các hàm giao diện  ---
@@ -182,7 +142,7 @@ class NCCController:
             self.init_table_data()
             
         ncc_list = self.get_all()
-        total_item = len(ncc_list)
+        total_item_temp = len(ncc_list)
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
@@ -219,7 +179,7 @@ class NCCController:
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
 
-        self.show_total_label(total_item)
+        self.total_item.set(TextNormalization.format_number(total_item_temp))
         
     def view_edit_item(self, ncc: NCC):
         ncc = ncc.to_dict()
@@ -299,13 +259,6 @@ class NCCController:
         for j in self.coloumn_title:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
-            
-    def show_total_label(self, total_item=0):
-        self.total_item_label = LabelType.h4(self.head_frame, f"Tổng nhà cung cấp: {TextNormalization.format_number(total_item)}", text_color=TEXT_COLOR_BLUE)
-        self.total_item_label.grid(row=2, column=2, sticky="W")
-    
-    def destroy_total_label(self):
-        self.total_item_label.destroy
         
     # --- khởi tạo các frame con ---
     def init_sub_frame(self):
@@ -329,6 +282,45 @@ class NCCController:
         self.head_frame.grid_columnconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(4, weight=1)
         self.head_frame.grid_columnconfigure(5, weight=1)
+        
+    def init_components(self):
+        # ---- head_frame ----
+        head_label = LabelType.h1(self.head_frame, TITLE_NCC) # Label trong head_frame
+        head_label.grid(row=0, column=0)
+        # Tạo ô nhập văn bản (Entry) cho tìm kiếm
+        search_input_box = EntryType.blue(self.head_frame, text_var=self.search_var)
+        search_input_box.grid(row=0, column=1, sticky="e")
+        search_input_box.bind("<KeyRelease>", self.on_search) # Liên kết sự kiện nhập văn bản với hàm xử lý
+        # Tạo nút tìm kiếm
+        search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
+        search_button.config(command=partial(self.on_search_button_click))
+        search_button.grid(row=0, column=2, sticky="w")
+        # Tạo nút làm mới thanh tìm kiếm
+        refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
+        refresh_button.config(command=partial(self.refresh_entry_search))
+        refresh_button.grid(row=0, column=2)
+        # Tạo Listbox cho gợi ý từ khóa
+        self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
+        self.suggestion_box.grid(row=1, column=1, sticky="e")
+        self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
+        # button add
+        button_add = ButtonType.success(self.head_frame, "Thêm nhà cung cấp")
+        button_add.config(command=partial(self.view_add_item))
+        button_add.grid(row=2, column=0)
+        # Tạo Combobox cho chức năng sắp xếp
+        label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
+        label_sort.grid(row=2, column=1, sticky="nw")
+        self.sort_var = StringVar()
+        sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
+        sort_combobox['values'] = self.ncc_service.get_ncc_sort_keys()
+        sort_combobox.current(0)
+        sort_combobox.grid(row=2, column=1, sticky="W")
+        sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected) # Liên kết sự kiện chọn mục với hàm xử lý
+        # total item
+        total_item_label = LabelType.h4(self.head_frame, "Tổng nhà cung cấp:", text_color=TEXT_COLOR_BLUE)
+        total_item_label.grid(row=2, column=2, sticky="W")
+        total_item_view = EntryType.view(self.head_frame, text_var=self.total_item)
+        total_item_view.grid(row=2, column=2, sticky="E")
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
