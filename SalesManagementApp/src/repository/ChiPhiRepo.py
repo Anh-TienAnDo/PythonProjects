@@ -43,6 +43,17 @@ class ChiPhiRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error getting chiphi by id %s', e)
             return None
+    
+    def get_by_ten_chi_phi(self, ten_chi_phi) -> ChiPhi:
+        logging.info('Getting chiphi by ten %s', ten_chi_phi)
+        try:
+            self.cursor.execute(
+                f'SELECT * FROM {CHI_PHI_TABLE} WHERE ten_chi_phi = ?', (ten_chi_phi,))
+            data = self.cursor.fetchone()
+            return ChiPhi(*data) if data else None
+        except sqlite3.IntegrityError as e:
+            logging.error('Error getting chiphi by ten_chi_phi %s', e)
+            return None
 
     def create(self, chi_phi: ChiPhi) -> bool:
         logging.info('Creating chiphi %s', chi_phi)

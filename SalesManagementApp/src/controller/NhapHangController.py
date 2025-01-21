@@ -10,13 +10,14 @@ from static.css.LabelType import LabelType
 from src.entity.NhapHangEntity import NhapHang
 from src.service.NhapHangService import NhapHangService
 from src.utils.TextNormalization import TextNormalization
+from src.controller.NhapHangAddController import NhapHangAddController
 from functools import partial
 
 class NhapHangController:
     def __init__(self, frame: Frame):
         self.frame = frame
         logging.info("NhapHang Controller")
-        self.nhap_hang_service = NhapHangService() # -------
+        self.nhap_hang_service = NhapHangService() 
         self.nhap_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.total_nhap_hang = StringVar()
         self.total_so_luong = StringVar()
@@ -59,22 +60,24 @@ class NhapHangController:
         
     def create(self):
         logging.info("Create NhapHang")
-        nhap_hang_data = {key: var.get() for key, var in self.nhap_hang_vars.items()}
-        nhap_hang = NhapHang(**nhap_hang_data)
+        # nhap_hang_data = {key: var.get() for key, var in self.nhap_hang_vars.items()}
+        # nhap_hang = NhapHang(**nhap_hang_data)
         try: 
-            self.nhap_hang_service.create(nhap_hang)
-            self.view_new_top_window.destroy()
-            self.nhap_hang_vars.clear()
+            # self.nhap_hang_service.create(nhap_hang)
+            # self.view_new_top_window.destroy()
+            # self.nhap_hang_vars.clear()
+            # self.refresh_nhap_hang_list()
+            nhap_hang_add_controller = NhapHangAddController(self.frame)
             self.refresh_nhap_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
         
-    def update(self, nhap_hang_id):
+    def update(self, nhap_hang_id, so_luong_nhap_old: int):
         logging.info("Update NhapHang with id: %s", nhap_hang_id)
         nhap_hang_data = {key: var.get() for key, var in self.nhap_hang_vars.items()}
         nhap_hang = NhapHang(**nhap_hang_data)
         try: 
-            self.nhap_hang_service.update(nhap_hang_id, nhap_hang)
+            self.nhap_hang_service.update(nhap_hang_id, nhap_hang, so_luong_nhap_old)
             self.view_new_top_window.destroy()
             self.nhap_hang_vars.clear()
             self.refresh_nhap_hang_list()
@@ -121,12 +124,12 @@ class NhapHangController:
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
         row = 1
-        total_nhap_hang = len(nhap_hang_list)
-        total_so_luong = 0
-        total_thanh_tien = 0
+        total_nhap_hang_temp = len(nhap_hang_list)
+        total_so_luong_temp = 0
+        total_thanh_tien_temp = 0
         for nhap_hang in nhap_hang_list:
-            total_thanh_tien += nhap_hang.gia_nhap
-            total_so_luong += nhap_hang.so_luong
+            total_thanh_tien_temp += int(nhap_hang.thanh_tien)
+            total_so_luong_temp += int(nhap_hang.so_luong)
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -158,9 +161,9 @@ class NhapHangController:
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
 
-        self.total_nhap_hang.set(TextNormalization.format_number(total_nhap_hang))
-        self.total_so_luong.set(TextNormalization.format_number(total_so_luong))
-        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien) + f" {MONEY_UNIT}")
+        self.total_nhap_hang.set(TextNormalization.format_number(total_nhap_hang_temp))
+        self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
+        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
         
     def view_edit_item(self, nhap_hang: NhapHang):
         nhap_hang = nhap_hang.to_dict()
@@ -183,7 +186,7 @@ class NhapHangController:
             row += 1
 
         button_save = ButtonType.success(self.view_new_top_window, text="Lưu")
-        button_save.config(command=partial(self.update, nhap_hang_id=nhap_hang.get('id')))
+        button_save.config(command=partial(self.update, nhap_hang_id=nhap_hang.get('id'), so_luong_nhap_old=int(nhap_hang.get('so_luong'))))
         button_save.grid(row=row+1, column=0, padx=5, pady=5)
         
         button_exit = ButtonType.warning(self.view_new_top_window, text="Thoát")
@@ -241,7 +244,7 @@ class NhapHangController:
         self.init_search_date()
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm nhập hàng")
-        # button_add.config(command=partial(self.view_add_item))
+        button_add.config(command=partial(self.create))
         button_add.grid(row=2, column=0)
         # Tạo Combobox cho chức năng sắp xếp
         label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")

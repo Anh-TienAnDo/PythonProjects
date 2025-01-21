@@ -16,7 +16,7 @@ class NCCController:
     def __init__(self, frame: Frame):
         logging.info("NCC Controller")
         self.frame = frame
-        self.ncc_service = NCCService() # -------
+        self.ncc_service = NCCService() 
         self.ncc_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
