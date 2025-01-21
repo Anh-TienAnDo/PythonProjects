@@ -176,10 +176,14 @@ class NhapHangController:
             if key == 'id' or key == 'ngay_nhap' or key == 'id_mat_hang':
                 LabelType.normal_blue_white(self.view_new_top_window, text=value).grid(row=row, column=0, padx=5, pady=5)
                 EntryType.view(self.view_new_top_window, text_var=self.nhap_hang_vars[key]).grid(row=row, column=1, padx=5, pady=5)
-            elif key == 'gia_nhap' or key == 'thanh_tien' or key == 'so_luong':
+            elif key == 'gia_nhap' or key == 'so_luong':
                 value = TextNormalization.format_number(value)
                 LabelType.normal_blue_white(self.view_new_top_window, text=value).grid(row=row, column=0, padx=5, pady=5)
                 EntryType.normal(self.view_new_top_window, text_var=self.nhap_hang_vars[key]).grid(row=row, column=1, padx=5, pady=5)
+            elif key == 'thanh_tien':
+                value = TextNormalization.format_number(value)
+                LabelType.normal_blue_white(self.view_new_top_window, text=value).grid(row=row, column=0, padx=5, pady=5)
+                EntryType.view(self.view_new_top_window, text_var=self.nhap_hang_vars[key]).grid(row=row, column=1, padx=5, pady=5)
             else: 
                 LabelType.normal_blue_white(self.view_new_top_window, text=value).grid(row=row, column=0, padx=5, pady=5)
                 EntryType.normal(self.view_new_top_window, text_var=self.nhap_hang_vars[key]).grid(row=row, column=1, padx=5, pady=5)
@@ -299,6 +303,6 @@ class NhapHangController:
         search_button.config(command=partial(self.on_search_button_click))
         search_button.grid(row=0, column=2, sticky="w")
         # Tạo nút làm mới thanh tìm kiếm
-        refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
+        refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2)
+        refresh_button.grid(row=0, column=3, sticky="w")

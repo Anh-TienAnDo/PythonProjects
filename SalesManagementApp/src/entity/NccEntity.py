@@ -10,9 +10,9 @@ class NCC:
             NCC_ID_LENGTH, NCC_ID_PREFIX)
         self.ten_ncc = TextNormalization.remove_special_characters_and_Upper(str(ten_ncc)) if ten_ncc is not None else ""
         self.dien_thoai = TextNormalization.remove_special_characters(str(dien_thoai)) if dien_thoai is not None else ""
-        self.email = TextNormalization.remove_special_characters(str(email)) if email is not None else ""
-        self.dia_chi = TextNormalization.remove_special_characters(str(dia_chi)) if dia_chi is not None else ""
-        self.ghi_chu = TextNormalization.remove_special_characters(str(ghi_chu)) if ghi_chu is not None else ""
+        self.email = str(email).strip() if email is not None else ""
+        self.dia_chi = str(dia_chi).strip() if dia_chi is not None else ""
+        self.ghi_chu = str(ghi_chu).strip() if ghi_chu is not None else ""
         self.ngay_tao = ngay_tao if ngay_tao is not None else datetime.now().strftime("%Y-%m-%d")
         self.is_active = is_active if is_active is not None else 1
 

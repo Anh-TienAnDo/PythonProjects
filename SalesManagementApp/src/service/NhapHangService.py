@@ -45,70 +45,53 @@ class NhapHangService:
     def create(self, nhap_hang: NhapHang) -> bool:
         while self.nhap_hang_repo.check_exist_id(nhap_hang.id):
             nhap_hang.id = GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
-        if not self.nhap_hang_repo.create(nhap_hang):
+        try:
+            nhap_hang.thanh_tien = int(nhap_hang.so_luong) * int(nhap_hang.gia_nhap)
+            self.nhap_hang_repo.create(nhap_hang)
+            mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
+            mat_hang.so_luong += nhap_hang.so_luong
+            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            print('Create nhap hang success')
+            print(nhap_hang.to_dict())
+            print(mat_hang.to_dict())
+            return True
+        except Exception as e:
+            logging.error('Error when create nhap hang')
             return False
-        # update số lượng mặt hàng, create chi phí
-        chi_phi = ChiPhi()
-        chi_phi.ten_chi_phi = nhap_hang.id
-        chi_phi.gia_chi_phi = nhap_hang.thanh_tien
-        chi_phi.ghi_chu = "Nhập hàng"
-        if not self.chi_phi_service.create(chi_phi):
-            return False
-        mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
-        if mat_hang is None:
-            return False
-        mat_hang.so_luong += nhap_hang.so_luong
-        if not self.mat_hang_service.update(mat_hang.id, mat_hang):
-            return False
-        print('Create nhap hang success')
-        print(nhap_hang.to_dict())
-        print(chi_phi.to_dict())
-        print(mat_hang.to_dict())
-        return True
 
     def update(self, nhap_hang_id, nhap_hang: NhapHang, so_luong_nhap_old: int) -> bool:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
             return False
-        if not self.nhap_hang_repo.update(nhap_hang_id, nhap_hang):
+        try: 
+            nhap_hang.thanh_tien = int(nhap_hang.so_luong) * int(nhap_hang.gia_nhap)
+            self.nhap_hang_repo.update(nhap_hang_id, nhap_hang)
+            mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
+            mat_hang.so_luong = mat_hang.so_luong - so_luong_nhap_old + nhap_hang.so_luong
+            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            print('Update nhap hang success')
+            print(nhap_hang.to_dict())
+            print(mat_hang.to_dict())
+            return True
+        except Exception as e:
+            logging.error('Error when update nhap hang')
             return False
-        # update số lượng mặt hàng: có mặt hàng cũ và số lượng mới, update giá chi phí
-        chi_phi = self.chi_phi_service.get_by_ten_chi_phi(nhap_hang_id)
-        chi_phi.gia_chi_phi = nhap_hang.thanh_tien
-        if not self.chi_phi_service.update(chi_phi.id, chi_phi):
-            return False
-        mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
-        if mat_hang is None:
-            return False
-        mat_hang.so_luong = mat_hang.so_luong - so_luong_nhap_old + nhap_hang.so_luong
-        if not self.mat_hang_service.update(mat_hang.id, mat_hang):
-            return False
-        print('Update nhap hang success')
-        print(nhap_hang.to_dict())
-        print(chi_phi.to_dict())
-        print(mat_hang.to_dict())
-        return True
       
-    def delete(self, nhap_hang_id) -> bool: #--------------------------------------------------------
+    def delete(self, nhap_hang_id) -> bool:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
             return False
-        # update số lượng mặt hàng: xóa số lượng của nhập hàng, delete chi phí
         nhap_hang = self.nhap_hang_repo.get_by_id(nhap_hang_id)
-        chi_phi = self.chi_phi_service.get_by_ten_chi_phi(nhap_hang_id)
         mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
-        if nhap_hang is None or chi_phi is None or mat_hang is None:
-            return False
         mat_hang.so_luong -= nhap_hang.so_luong
-        if not self.mat_hang_service.update(mat_hang.id, mat_hang):
+        try:
+            self.nhap_hang_repo.delete(nhap_hang_id)
+            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            print('Delete nhap hang success')
+            print(nhap_hang.to_dict())
+            print(mat_hang.to_dict())
+            return True
+        except Exception as e:
+            logging.error('Error when delete nhap hang')
             return False
-        if not self.chi_phi_service.delete(chi_phi.id):
-            return False
-        if not self.nhap_hang_repo.delete(nhap_hang_id):
-            return False
-        print('Delete nhap hang success')
-        print(nhap_hang.to_dict())
-        print(chi_phi.to_dict())
-        print(mat_hang.to_dict())
-        return True
     
     def get_nhap_hang_sort_keys(self):
         return tuple([key for key in NHAP_HANG_SORT_OPTIONS.keys()])
@@ -142,6 +125,7 @@ class NhapHangService:
             return mat_hang_list
         except Exception as e:
             logging.error('Error when search mat hang')
+            return []
     
     def search_ncc(self, keyword) -> list[str]:
         try:
@@ -153,5 +137,6 @@ class NhapHangService:
             return [suggestion['ten_ncc'] for suggestion in results]
         except Exception as e:  
             logging.error('Error when search ncc')
+            return []
     
     

@@ -129,7 +129,7 @@ class NhapHangAddController:
                     label = LabelType.normal(self.scrollable_frame, text=nhap_hang_var.get(key).get())
                     label.grid(row=row, column=coloumn, padx=5, pady=5)
                 elif key == 'thanh_tien':
-                    label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(so_luong * gia_nhap) + f" {MONEY_UNIT}")
+                    label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(nhap_hang_var.get(key).get()) + f" {MONEY_UNIT}")
                     label.grid(row=row, column=coloumn, padx=5, pady=5)
                 else:
                     entry = EntryType.normal(self.scrollable_frame, text_var=nhap_hang_var.get(key))
@@ -194,7 +194,7 @@ class NhapHangAddController:
         self.view_new_top_window.rowconfigure(1, weight=4)
         self.view_new_top_window.columnconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(0, weight=1)
-        self.sub_frame_bottom.rowconfigure(1, weight=4)
+        self.sub_frame_bottom.rowconfigure(1, weight=3)
         self.sub_frame_bottom.rowconfigure(2, weight=1)
         self.sub_frame_bottom.columnconfigure(0, weight=1)
         
@@ -202,6 +202,7 @@ class NhapHangAddController:
         self.sub_frame_bottom_top.rowconfigure(1, weight=1)
         self.sub_frame_bottom_top.columnconfigure(0, weight=1)
         self.sub_frame_bottom_top.columnconfigure(1, weight=1)
+        self.sub_frame_bottom_top.columnconfigure(2, weight=1)
         
         self.sub_frame_bottom_bottom.rowconfigure(0, weight=1)
         self.sub_frame_bottom_bottom.columnconfigure(0, weight=1)
@@ -219,20 +220,21 @@ class NhapHangAddController:
         # ---- sub_frame_bottom_top ----
         head_label = LabelType.h1(self.sub_frame_bottom_top, "Thêm nhập hàng") # Label trong head_frame
         head_label.grid(row=0, column=0, columnspan=2)
+        button_refresh = ButtonType.brown(self.sub_frame_bottom_top, "Làm mới dữ liệu")
+        button_refresh.grid(row=0, column=2)
+        button_refresh.config(command=partial(self.refresh_nhap_hang_list))
         total_nhap_hang_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng nhập hàng:", text_color=TEXT_COLOR_BLUE)
-        total_nhap_hang_label.grid(row=1, column=0, sticky="ne")
-        total_nhap_hang_value = EntryType.normal(self.sub_frame_bottom_top, text_var=self.total_nhap_hang)
-        total_nhap_hang_value.grid(row=1, column=1, sticky="nw")
-        
+        total_nhap_hang_label.grid(row=1, column=0, sticky="n")
+        total_nhap_hang_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_nhap_hang)
+        total_nhap_hang_value.grid(row=1, column=0, sticky='ne')
         total_so_luong_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_so_luong_label.grid(row=1, column=0, sticky="e")
-        total_so_luong_value = EntryType.normal(self.sub_frame_bottom_top, text_var=self.total_so_luong)
-        total_so_luong_value.grid(row=1, column=1, sticky='w')
-        
+        total_so_luong_label.grid(row=1, column=1, sticky='n')
+        total_so_luong_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_so_luong)
+        total_so_luong_value.grid(row=1, column=1, sticky='ne')
         total_thanh_tien_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
-        total_thanh_tien_label.grid(row=1, column=0, sticky="se")
-        total_thanh_tien_value = EntryType.normal(self.sub_frame_bottom_top, text_var=self.total_thanh_tien)
-        total_thanh_tien_value.grid(row=1, column=1, sticky='sw')
+        total_thanh_tien_label.grid(row=1, column=2, sticky='n')
+        total_thanh_tien_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_thanh_tien)
+        total_thanh_tien_value.grid(row=1, column=2, sticky='ne', padx=5)
         
         # ---- sub_frame_bottom_bottom ----
         button_add = ButtonType.success(self.sub_frame_bottom_bottom, "Lưu toàn bộ nhập hàng")

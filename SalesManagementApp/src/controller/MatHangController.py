@@ -249,12 +249,12 @@ class MatHangController: # lấy data rồi đưa vào template
         search_button.config(command=partial(self.on_search_button_click))
         search_button.grid(row=0, column=2, sticky="W")
         # Tạo nút làm mới thanh tìm kiếm
-        refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
+        refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2)
+        refresh_button.grid(row=0, column=3, sticky="w")
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
-        self.suggestion_box.grid(row=1, column=1, sticky="E")
+        self.suggestion_box.grid(row=1, column=1, sticky="ne")
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
         
         # button add

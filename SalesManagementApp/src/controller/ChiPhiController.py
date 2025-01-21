@@ -326,6 +326,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         search_button.config(command=partial(self.on_search_button_click))
         search_button.grid(row=0, column=2, sticky="w")
         # Tạo nút làm mới thanh tìm kiếm
-        refresh_button = ButtonType.brown(self.head_frame, "Làm mới thanh tìm kiếm")
+        refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=2)
+        refresh_button.grid(row=0, column=3, sticky="w")
