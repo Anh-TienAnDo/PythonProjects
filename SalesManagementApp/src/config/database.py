@@ -73,7 +73,6 @@ class Database:
             ngay_tao DATE DEFAULT CURRENT_DATE
         )''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS chi_phi_idx_id ON {CHI_PHI_TABLE} (id)''')
-        self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS chi_phi_idx_ten_chi_phi ON {CHI_PHI_TABLE} (ten_chi_phi)''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS chi_phi_idx_year ON {CHI_PHI_TABLE} (strftime('%Y', ngay_tao))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS chi_phi_idx_year_month ON {CHI_PHI_TABLE} (strftime('%Y-%m', ngay_tao))''')
         self.cursor.execute(f'''CREATE INDEX IF NOT EXISTS chi_phi_idx_year_month_day ON {CHI_PHI_TABLE} (strftime('%Y-%m-%d', ngay_tao))''')

@@ -173,10 +173,11 @@ class MatHangController: # lấy data rồi đưa vào template
                 value = mat_hang[key]
                 if key == "is_active":
                     value = "Còn bán" if value else "Ngừng bán"
-                label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(value))
+                if key == "gia_le" or key == "gia_si" or key == "so_luong":
+                    value = TextNormalization.format_number(value)
+                label = LabelType.normal(self.scrollable_frame, text=value)
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
-
                 label.grid(row=row, column=coloumn, padx=5, pady=5)
                 coloumn += 1
                 

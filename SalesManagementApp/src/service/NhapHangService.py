@@ -1,8 +1,6 @@
 from src.entity.NhapHangEntity import NhapHang
-from src.entity.ChiPhiEntity import ChiPhi
 from src.repository.NhapHangRepo import NhapHangRepo
 from src.service.MatHangService import MatHangService
-from src.service.ChiPhiService import ChiPhiService
 from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshNCC
 from src.utils.GenerationId import GenerationId
 import logging
@@ -16,7 +14,6 @@ class NhapHangService:
         self.mat_hang_search = SearchWhooshMatHang()
         self.ncc_search = SearchWhooshNCC()
         self.mat_hang_service = MatHangService()
-        self.chi_phi_service = ChiPhiService()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[NhapHang]:
         sort = sort.strip()
@@ -46,7 +43,7 @@ class NhapHangService:
         while self.nhap_hang_repo.check_exist_id(nhap_hang.id):
             nhap_hang.id = GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
         try:
-            nhap_hang.thanh_tien = int(nhap_hang.so_luong) * int(nhap_hang.gia_nhap)
+            nhap_hang.thanh_tien = nhap_hang.so_luong * nhap_hang.gia_nhap
             self.nhap_hang_repo.create(nhap_hang)
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong += nhap_hang.so_luong
@@ -63,7 +60,7 @@ class NhapHangService:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
             return False
         try: 
-            nhap_hang.thanh_tien = int(nhap_hang.so_luong) * int(nhap_hang.gia_nhap)
+            nhap_hang.thanh_tien = nhap_hang.so_luong * nhap_hang.gia_nhap
             self.nhap_hang_repo.update(nhap_hang_id, nhap_hang)
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong = mat_hang.so_luong - so_luong_nhap_old + nhap_hang.so_luong

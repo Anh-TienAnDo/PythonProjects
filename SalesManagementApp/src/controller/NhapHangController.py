@@ -67,8 +67,8 @@ class NhapHangController:
             # self.view_new_top_window.destroy()
             # self.nhap_hang_vars.clear()
             # self.refresh_nhap_hang_list()
-            nhap_hang_add_controller = NhapHangAddController(self.frame)
-            self.refresh_nhap_hang_list()
+            NhapHangAddController(self.frame)
+            # self.refresh_nhap_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
         
@@ -138,6 +138,8 @@ class NhapHangController:
             nhap_hang = nhap_hang.to_dict()
             for key in NHAP_HANG_COLUMN_NAMES.keys():
                 value = nhap_hang[key]
+                if key == 'id':
+                    continue
                 if key == "gia_nhap" or key == "thanh_tien" or key == "so_luong":
                     value = TextNormalization.format_number(value)
                 label = LabelType.normal(self.scrollable_frame, text=value)
@@ -213,9 +215,13 @@ class NhapHangController:
         button_exit.grid(row=2, column=0, padx=5, pady=5, sticky="E")
         
     def show_column_title(self):
+        column = 0
         for j in self.coloumn_title:
+            if j == "Mã nhập hàng":
+                continue
             label = LabelType.title(self.scrollable_frame, text=j)
-            label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
+            label.grid(row=0, column=column, padx=5)
+            coloumn += 1
         
     
     def init_sub_frame(self):

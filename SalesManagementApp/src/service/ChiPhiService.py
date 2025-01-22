@@ -33,9 +33,6 @@ class ChiPhiService:
         
     def get_by_id(self, chi_phi_id) -> ChiPhi:
         return self.chi_phi_repo.get_by_id(chi_phi_id)
-    
-    def get_by_ten_chi_phi(self, ten_chi_phi) -> ChiPhi:
-        return self.chi_phi_repo.get_by_ten_chi_phi(ten_chi_phi)
 
     def create(self, chi_phi: ChiPhi) -> bool:
         while self.chi_phi_repo.check_exist_id(chi_phi.id):

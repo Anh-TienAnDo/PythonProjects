@@ -98,6 +98,19 @@ NHAP_HANG_COLUMN_NAMES = {
     'ngay_nhap': 'Ngày nhập',
     'ghi_chu': 'Ghi chú'
 }
+
+BAN_HANG_COLUMN_NAMES = {
+    'id': 'Mã bán hàng',
+    'id_mat_hang': 'Mã hàng',
+    'ten_hang': 'Tên hàng',
+    'don_vi': 'Đơn vị',
+    'so_luong': 'Số lượng',
+    'gia_ban': 'Giá bán',
+    'khach_hang': 'Khách hàng',
+    'thanh_tien': 'Thành tiền',
+    'ngay_ban': 'Ngày bán',
+    'ghi_chu': 'Ghi chú'
+}
 #  sort_option: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_SORT_OPTIONS = {
     'Tên A-Z': 'ten_hang asc',
@@ -146,11 +159,25 @@ NHAP_HANG_SORT_OPTIONS = {
     'Ngày nhập cũ - mới': 'ngay_nhap asc'
 }
 
+BAN_HANG_SORT_OPTIONS = {
+    'Tên A-Z': 'ten_hang asc',
+    'Tên Z-A': 'ten_hang desc',
+    'Số lượng ít - nhiều': 'so_luong asc',
+    'Số lượng nhiều - ít': 'so_luong desc',
+    'Giá thấp - cao': 'gia_ban asc',
+    'Giá cao - thấp': 'gia_ban desc',
+    'Thành tiền ít - nhiều': 'thanh_tien asc',
+    'Thành tiền nhiều - ít': 'thanh_tien desc',
+    'Ngày nhập mới - cũ': 'ngay_ban desc',
+    'Ngày nhập cũ - mới': 'ngay_ban asc'
+}
+
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"
 
 # --- CSS ---
 FAMILY_FONT = 'Arial'
+# FAMILY_FONT = 'Times New Roman'
 
 # --- Color ---
 BG_COLOR_LIGHT_BLUE = 'lightblue'

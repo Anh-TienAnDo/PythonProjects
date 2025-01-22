@@ -8,6 +8,11 @@ class LabelType:
     def normal(frame, text, font=FontType.normal(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
         label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
         return label
+    
+    @staticmethod
+    def text(frame, text, font=FontType.normal(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, warplength=WARP_LENGTH):
+        label = Label(frame, textvariable=StringVar(frame, str(text)), font=font, fg=text_color, bg=bg_color, wraplength=warplength)
+        return label
 
     @staticmethod
     def h1(frame, text, font=FontType.h1(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE):
