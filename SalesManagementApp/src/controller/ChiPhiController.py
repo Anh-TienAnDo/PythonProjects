@@ -289,15 +289,15 @@ class ChiPhiController: # lấy data rồi đưa vào template
         # Liên kết sự kiện chọn mục với hàm xử lý
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
         # total chi phi
-        total_chi_phi = LabelType.h4(self.head_frame, "Tổng chi phí:", text_color=TEXT_COLOR_BLUE)
-        total_chi_phi.grid(row=2, column=2, sticky="nw")
-        total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
-        total_chi_phi_value.grid(row=2, column=2, sticky="ne")
-        
         total_quantity_label = LabelType.h4(self.head_frame, "Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_quantity_label.grid(row=2, column=2, sticky="w")
+        total_quantity_label.grid(row=2, column=2, sticky="nw")
         total_quantity_value = EntryType.view(self.head_frame, text_var=self.total_quantity)
-        total_quantity_value.grid(row=2, column=2, sticky="e")
+        total_quantity_value.grid(row=2, column=2, sticky="ne")
+        
+        total_chi_phi = LabelType.h4(self.head_frame, "Tổng chi phí:", text_color=TEXT_COLOR_BLUE)
+        total_chi_phi.grid(row=2, column=2, sticky="w")
+        total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
+        total_chi_phi_value.grid(row=2, column=2, sticky="e")
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)

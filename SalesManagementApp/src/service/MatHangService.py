@@ -5,12 +5,14 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH
+from src.utils.Excel import Excel
 
 class MatHangService:
     def __init__(self):
         logging.info('---MatHangService initializing---')
         self.mat_hang_repo = MatHangRepo()
         self.search_whoosh = SearchWhooshMatHang()
+        self.excel_util = Excel()
 
     def get_all(self, sort: str, keyword: str) -> list[MatHang]:
         sort = sort.strip()
@@ -70,3 +72,13 @@ class MatHangService:
         except Exception as e:
             logging.error('Error when get suggestions')
             return list()
+        
+    def to_list_dict(self, mat_hang_list: list[MatHang]) -> list[dict]:
+        return [mat_hang.to_dict() for mat_hang in mat_hang_list]
+    
+    def export_data(self, path: str, data: list[MatHang]) -> bool:
+        data = self.to_list_dict(data)
+        return self.excel_util.export_data(path, data) 
+    
+    def get_path(self):
+        return self.excel_util.select_folder()

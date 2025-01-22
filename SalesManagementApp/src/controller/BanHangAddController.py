@@ -1,6 +1,5 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
-from tkinter import ttk
+from tkinter import Frame, StringVar, Toplevel, Listbox, END, messagebox, filedialog
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
 from static.css.ButtonType import ButtonType
@@ -11,6 +10,11 @@ from src.entity.BanHangEntity import BanHang
 from src.service.BanHangService import BanHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from datetime import datetime
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 class BanHangAddController:
     def __init__(self, frame: Frame):
@@ -24,6 +28,7 @@ class BanHangAddController:
         self.total_ban_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
+        self.selected_folder = None
         self.coloumn_title = list(BAN_HANG_COLUMN_NAMES.values())
         self.coloumn_title.insert(0, "STT")
         
@@ -61,7 +66,7 @@ class BanHangAddController:
     def on_search_mat_hang_button_click(self):
         pass
     
-    #  Hàm xử lý sự kiện khi bán văn bản tìm kiếm nhà cung cấp
+    #  Hàm xử lý sự kiện khi bán văn bản tìm kiếm khách hàng
     def on_search_khach_hang(self, event):
         search_text = self.search_khach_hang_var.get()
         if search_text is not None and search_text.strip() != "":
@@ -70,27 +75,93 @@ class BanHangAddController:
             for suggestion in suggestions:
                 self.suggestion_khach_hang_box.insert(END, suggestion.get('ten_khach_hang'))
     
-    #  Hàm xử lý sự kiện khi chọn nhà cung cấp từ gợi ý
+    #  Hàm xử lý sự kiện khi chọn khách hàng từ gợi ý
     def on_suggestion_khach_hang_select(self, event):
         selected_index = self.suggestion_khach_hang_box.curselection()
         if selected_index:
             selected_text = self.suggestion_khach_hang_box.get(selected_index)
             self.search_khach_hang_var.set(selected_text)
     
-    #  Hàm xử lý sự kiện khi nhấn nút tìm kiếm nhà cung cấp
+    #  Hàm xử lý sự kiện khi nhấn nút tìm kiếm khách hàng
     def on_search_khach_hang_button_click(self):
         pass
     
     def save_all(self):
+        from src.controller.BanHangController import BanHangController
         for ban_hang_var in self.ban_hang_list_var:
             ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
             ban_hang = BanHang(**ban_hang_data)
             self.ban_hang_service.create(ban_hang)
-        self.view_new_top_window.destroy()
+        BanHangController(self.frame)
+        # self.view_new_top_window.destroy()
     
     def delete_hang_ban(self, index):
         self.ban_hang_list_var.pop(index)
         self.refresh_ban_hang_list()   
+        
+    def export_invoice(self):
+        try:
+            self.register_fonts()
+            self.select_folder()
+            invoice_data = {
+                "Ngày bán": datetime.now().strftime("%d/%m/%Y"),
+                "Những mặt hàng": [],
+                "Tổng tiền": ""
+            }
+            total = 0
+            for ban_hang_var in self.ban_hang_list_var:
+                ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
+                item = {}
+                thanh_tien = int(ban_hang_data.get('so_luong')) * int(ban_hang_data.get('gia_ban'))
+                total += thanh_tien
+                item['thanh_tien'] = TextNormalization.format_number(thanh_tien)
+                for key, value in ban_hang_data.items():
+                    if key == "ten_hang":
+                        item = {"ten_hang": value}
+                    elif key == "so_luong":
+                        item["so_luong"] = TextNormalization.format_number(value)
+                    elif key == "gia_ban":
+                        item["gia_ban"] = TextNormalization.format_number(value)
+                invoice_data["Những mặt hàng"].append(item)
+            invoice_data["Tổng tiền"] = TextNormalization.format_number(total)
+            # Tạo tài liệu PDF
+            pdf_filename = f"{self.selected_folder}/invoice_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pdf"
+            self.create_invoice_pdf(pdf_filename, invoice_data)
+            messagebox.showinfo("Xuất hóa đơn thành công", f"Đã xuất hóa đơn tại: {pdf_filename}")
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Đã có lỗi xảy ra: {e}")
+            
+    def select_folder(self):
+        # Mở hộp thoại chọn thư mục
+        folder_selected = filedialog.askdirectory()
+        if folder_selected:
+            messagebox.showinfo("Thư mục đã chọn", f"Thư mục đã chọn: {folder_selected}")
+            self.selected_folder = folder_selected
+        else:
+            messagebox.showwarning("Chưa chọn thư mục", "Bạn chưa chọn thư mục nào.")
+    
+    def create_invoice_pdf(self, filename, invoice_data):
+        c = canvas.Canvas(filename, pagesize=letter)
+        width, height = letter
+        # Tiêu đề hóa đơn
+        c.setFont("Arial", 20)
+        c.drawString(200, height - 50, "HÓA ĐƠN BÁN HÀNG")
+        # Thông tin hóa đơn
+        c.setFont("Arial", 12)
+        y = height - 100
+        for key, value in invoice_data.items():
+            if key != "Những mặt hàng":
+                c.drawString(50, y, f"{key}: {value}")
+                y -= 20
+        # Thông tin sản phẩm
+        c.drawString(50, y, "Sản phẩm:")
+        y -= 20
+        for item in invoice_data['Những mặt hàng']:
+            c.drawString(70, y, f"Mặt hàng: {item['ten_hang']} - Số lượng: {item['so_luong']} - Giá: {item['gia_ban']} - Thành tiền: {item['thanh_tien']}")
+            y -= 20
+        # Tổng cộng
+        c.drawString(50, y, f"Tổng cộng: {invoice_data['Tổng tiền']} {MONEY_UNIT}")
+        c.save()
         
     #  hàm xử lý giao diện khi chọn hàng hóa từ gợi ý
     def refresh_ban_hang_list(self):
@@ -126,7 +197,7 @@ class BanHangAddController:
             for key in BAN_HANG_COLUMN_NAMES.keys():
                 if key == 'id':
                     continue
-                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_ban':
+                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_ban' or key == 'don_vi':
                     label = LabelType.normal(self.scrollable_frame, text=ban_hang_var.get(key).get())
                     label.grid(row=row, column=coloumn, padx=5, pady=5)
                 elif key == 'thanh_tien':
@@ -138,7 +209,6 @@ class BanHangAddController:
                 coloumn += 1
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
-                    entry.config(bg=BG_COLOR_LIGHT_BLUE)
             button_delete = ButtonType.danger(self.scrollable_frame, "Xóa")
             button_delete.grid(row=row, column=coloumn, padx=5, pady=5)
             button_delete.config(command=partial(self.delete_hang_ban, i))
@@ -153,10 +223,13 @@ class BanHangAddController:
     
     def destroy_all_by_cancel(self):
         self.view_cancel_top_window.destroy()
-        self.view_new_top_window.destroy()
+        from src.controller.BanHangController import BanHangController
+        BanHangController(self.frame)
+        # self.view_new_top_window.destroy()
     
     def view_cancel(self):
-        self.view_cancel_top_window = Toplevel(self.view_new_top_window)
+        self.view_cancel_top_window = Toplevel(self.frame)
+        # self.view_cancel_top_window = Toplevel(self.view_new_top_window)
         self.view_cancel_top_window.title("Hủy đơn hàng")
         self.view_cancel_top_window.rowconfigure(0, weight=1)
         self.view_cancel_top_window.rowconfigure(1, weight=1)
@@ -181,14 +254,14 @@ class BanHangAddController:
             column += 1
         
     def init_sub_frame(self):
-        self.view_new_top_window = Toplevel(self.frame)
-        self.view_new_top_window.title("Thêm mới bán hàng")
-        self.view_new_top_window.geometry(SCREEN_SIZE)
-        self.view_new_top_window.rowconfigure(0, weight=1)
+        # self.view_new_top_window = Toplevel(self.frame)
+        # self.view_new_top_window.title("Thêm mới bán hàng")
+        # self.view_new_top_window.geometry(SCREEN_SIZE)
+        # self.view_new_top_window.rowconfigure(0, weight=1)
         
-        self.sub_frame_top = Frame(self.view_new_top_window, bg=BG_COLOR_LIGHT_BLUE)
+        self.sub_frame_top = Frame(self.frame, bg=BG_COLOR_LIGHT_BLUE, relief="sunken")
         self.sub_frame_top.grid(row=0, column=0, sticky="nsew", padx=10)
-        self.sub_frame_bottom = Frame(self.view_new_top_window, bg=BG_COLOR_LIGHT_GRAY)
+        self.sub_frame_bottom = Frame(self.frame, bg=BG_COLOR_LIGHT_GRAY, relief="sunken")
         self.sub_frame_bottom.grid(row=1, column=0, sticky="nsew", padx=10)
         
         self.sub_frame_bottom_top = Frame(self.sub_frame_bottom)
@@ -198,9 +271,12 @@ class BanHangAddController:
         self.sub_frame_bottom_bottom = Frame(self.sub_frame_bottom)
         self.sub_frame_bottom_bottom.grid(row=2, column=0, sticky="nsew")
         
-        self.view_new_top_window.rowconfigure(0, weight=1)
-        self.view_new_top_window.rowconfigure(1, weight=4)
-        self.view_new_top_window.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.rowconfigure(1, weight=4)
+        self.frame.columnconfigure(0, weight=1)
+        # self.view_new_top_window.rowconfigure(0, weight=1)
+        # self.view_new_top_window.rowconfigure(1, weight=4)
+        # self.view_new_top_window.columnconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(1, weight=3)
         self.sub_frame_bottom.rowconfigure(2, weight=1)
@@ -227,10 +303,13 @@ class BanHangAddController:
     def init_components(self):
         # ---- sub_frame_bottom_top ----
         head_label = LabelType.h1(self.sub_frame_bottom_top, "Thêm bán hàng") # Label trong head_frame
-        head_label.grid(row=0, column=0, columnspan=2)
+        head_label.grid(row=0, column=0)
         button_refresh = ButtonType.brown(self.sub_frame_bottom_top, "Làm mới dữ liệu")
-        button_refresh.grid(row=0, column=2)
+        button_refresh.grid(row=0, column=1)
         button_refresh.config(command=partial(self.refresh_ban_hang_list))
+        button_export = ButtonType.success(self.sub_frame_bottom_top, "Xuất hóa đơn")
+        button_export.grid(row=0, column=2)
+        button_export.config(command=partial(self.export_invoice))
         total_ban_hang_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng bán hàng:", text_color=TEXT_COLOR_BLUE)
         total_ban_hang_label.grid(row=1, column=0, sticky="n")
         total_ban_hang_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_ban_hang)
@@ -290,4 +369,8 @@ class BanHangAddController:
         self.scrollbar_y.destroy()
         self.scrollbar_x.destroy()
         self.scrollable_frame.destroy()
+        
+    def register_fonts(self):
+        # Đăng ký phông chữ Arial
+        pdfmetrics.registerFont(TTFont('Arial', 'arial.ttf'))
           

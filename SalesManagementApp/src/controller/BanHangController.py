@@ -10,7 +10,6 @@ from static.css.LabelType import LabelType
 from src.entity.BanHangEntity import BanHang
 from src.service.BanHangService import BanHangService
 from src.utils.TextNormalization import TextNormalization
-from src.controller.BanHangAddController import BanHangAddController
 from functools import partial
 
 class BanHangController: # lấy data rồi đưa vào template
@@ -59,6 +58,7 @@ class BanHangController: # lấy data rồi đưa vào template
             return None
         
     def create(self):
+        from src.controller.BanHangAddController import BanHangAddController
         logging.info("Create BanHang")
         try:
             BanHangAddController(self.frame)
@@ -214,7 +214,7 @@ class BanHangController: # lấy data rồi đưa vào template
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
-            coloumn += 1
+            column += 1
         
     
     def init_sub_frame(self):

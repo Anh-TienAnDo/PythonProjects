@@ -1,66 +1,83 @@
-# delete 
-# gen id
-# view add product
-# get all + sort
-# nháy chuột và copy
+import tkinter as tk
+from tkinter import ttk, messagebox, filedialog
+from datetime import datetime
+from reportlab.lib.pagesizes import letter
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
-from whoosh.index import create_in, open_dir, exists_in
-from whoosh.fields import Schema, TEXT, ID
-from whoosh.qparser import QueryParser
-from whoosh.query import Prefix
-import os
-from contants import CURRENT_WORKING_DIRECTORY, WHOOSH_INDEX_DIR, WHOOSH_PATH
+class NhapHangAddController:
+    def __init__(self, frame: tk.Frame):
+        self.frame = frame
+        # Thêm nút để chọn thư mục lưu trữ
+        select_folder_button = tk.Button(self.frame, text="Xuất hóa đơn", command=self.select_folder)
+        select_folder_button.pack(pady=20)
+        # Dữ liệu hóa đơn mẫu
+        self.invoice_data = {
+            "Mã hóa đơn": "HD001",
+            "Ngày": datetime.now().strftime("%d/%m/%Y"),
+            "Khách hàng": "Nguyễn Văn A",
+            "items": [
+                {"name": "Sản phẩm A", "quantity": 2, "price": "100.000"},
+                {"name": "Sản phẩm B", "quantity": 1, "price": "200.000"},
+                {"name": "Sản phẩm C", "quantity": 3, "price": "150.000"},
+            ],
+            "total": "650.000"
+        }
+        
+        # Đăng ký phông chữ Arial
+        self.register_fonts()
+        # # Thêm nút để tạo và in hóa đơn
+        # self.print_button = tk.Button(self.frame, text="In hóa đơn", command=self.create_and_print_invoice)
+        # self.print_button.pack(pady=20)
 
-# Định nghĩa schema cho mặt hàng
-schema_mat_hang = Schema(
-    id=ID(stored=True, unique=True),
-    ten_mat_hang=TEXT(stored=True)
-)
+    def select_folder(self):
+        # Mở hộp thoại chọn thư mục
+        folder_selected = filedialog.askdirectory()
+        if folder_selected:
+            messagebox.showinfo("Thư mục đã chọn", f"Thư mục đã chọn: {folder_selected}")
+            self.selected_folder = folder_selected
+            # Tạo tài liệu PDF
+            pdf_filename = f"{self.selected_folder}/invoice_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pdf"
+            self.create_invoice_pdf(pdf_filename)
+            messagebox.showinfo(f"Đã xuất hóa đơn tại: {pdf_filename}")
+        else:
+            messagebox.showwarning("Chưa chọn thư mục", "Bạn chưa chọn thư mục nào.")
 
-# Tạo thư mục để lưu trữ chỉ mục
-index_dir = WHOOSH_INDEX_DIR
-# if not os.path.exists(os.path.join(CURRENT_WORKING_DIRECTORY, index_dir)):
-#     os.mkdir(os.path.join(CURRENT_WORKING_DIRECTORY, index_dir))
-# # Kiểm tra xem chỉ mục đã tồn tại hay chưa
-ix_mat_hang = open_dir(WHOOSH_PATH, indexname="mat_hang")
-# else:
-#     ix_mat_hang = create_in(WHOOSH_PATH, schema_mat_hang, indexname="mat_hang")
+    def create_invoice_pdf(self, filename):
+        c = canvas.Canvas(filename, pagesize=letter)
+        width, height = letter
 
+        # Tiêu đề hóa đơn
+        c.setFont("Arial", 20)
+        c.drawString(200, height - 50, "HÓA ĐƠN BÁN HÀNG")
 
-# Cập nhật dữ liệu trong chỉ mục mặt hàng
-def add_or_update_document(ix, doc_id, doc):
-    writer = ix.writer()
-    writer.update_document(id=doc_id, **doc)
-    writer.commit()
+        # Thông tin hóa đơn
+        c.setFont("Arial", 12)
+        y = height - 100
+        for key, value in self.invoice_data.items():
+            if key != "items":
+                c.drawString(50, y, f"{key}: {value}")
+                y -= 20
 
-# Xóa dữ liệu khỏi chỉ mục mặt hàng
-def delete_document(ix, doc_id):
-    writer = ix.writer()
-    writer.delete_by_term('id', doc_id)
-    writer.commit()
+        # Thông tin sản phẩm
+        c.drawString(50, y, "Sản phẩm:")
+        y -= 20
+        for item in self.invoice_data['items']:
+            c.drawString(70, y, f"{item['name']} - Số lượng: {item['quantity']} - Giá: {item['price']}")
+            y -= 20
 
-# Hàm thực hiện tìm kiếm
-def search(query_str, index):
-    with index.searcher() as searcher:
-        query = QueryParser("ten_mat_hang", index.schema).parse(query_str)
-        results = searcher.search(query)
-        results = [dict(result) for result in results]
-        for result in results:
-            print(result)
-            
-def search_prefix(prefix_str, index):
-    with index.searcher() as searcher:
-        query = Prefix("ten_mat_hang", prefix_str)
-        results = searcher.search(query)
-        for result in results:
-            print(result)
+        # Tổng cộng
+        c.drawString(50, y, f"Tổng cộng: {self.invoice_data['total']}")
 
-# Cập nhật tài liệu
-# add_or_update_document(ix_mat_hang, "1", {"ten_mat_hang": "Sản phẩm 2"})
+        c.save()
 
-# # Xóa tài liệu
-# delete_document(ix_mat_hang, "1")
-
-# Tìm kiếm tài liệu
-print("Tìm kiếm theo tên mặt hàng:")
-search("", ix_mat_hang) # check viết hoa, dấu cách, dấu chấm
+    def register_fonts(self):
+        # Đăng ký phông chữ Arial
+        pdfmetrics.registerFont(TTFont('Arial', 'arial.ttf'))
+        
+if __name__ == "__main__":
+    root = tk.Tk()
+    root.geometry("800x600")
+    app = NhapHangAddController(root)
+    root.mainloop()

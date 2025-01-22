@@ -1,5 +1,5 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
+from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END, messagebox, filedialog
 from tkinter import ttk
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
@@ -11,6 +11,7 @@ from src.entity.MatHangEntity import MatHang
 from src.service.MatHangService import MatHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from datetime import datetime
 
 
 class MatHangController: # lấy data rồi đưa vào template
@@ -143,6 +144,12 @@ class MatHangController: # lấy data rồi đưa vào template
         self.suggestion_box.delete(0, END)
         self.refresh_mat_hang_list()
         
+    def export_data(self):
+        path = self.mat_hang_service.get_path()
+        if path:
+            path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+            self.mat_hang_service.export_data(path, self.get_all())
+        
     # --- các hàm giao diện ---
     def refresh_mat_hang_list(self):
         '''Lấy dữ liệu từ database và cập nhật giao diện: list mặt hàng, tổng số mặt hàng, tổng số lượng'''
@@ -257,6 +264,9 @@ class MatHangController: # lấy data rồi đưa vào template
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
         self.suggestion_box.grid(row=1, column=1, sticky="ne")
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
+        button_export = ButtonType.success(self.head_frame, "Xuất Excel")
+        button_export.grid(row=1, column=3, sticky="w")
+        button_export.config(command=partial(self.export_data))
         
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm mặt hàng")

@@ -10,7 +10,6 @@ from static.css.LabelType import LabelType
 from src.entity.NhapHangEntity import NhapHang
 from src.service.NhapHangService import NhapHangService
 from src.utils.TextNormalization import TextNormalization
-from src.controller.NhapHangAddController import NhapHangAddController
 from functools import partial
 
 class NhapHangController:
@@ -59,16 +58,10 @@ class NhapHangController:
             return None
         
     def create(self):
+        from src.controller.NhapHangAddController import NhapHangAddController
         logging.info("Create NhapHang")
-        # nhap_hang_data = {key: var.get() for key, var in self.nhap_hang_vars.items()}
-        # nhap_hang = NhapHang(**nhap_hang_data)
         try: 
-            # self.nhap_hang_service.create(nhap_hang)
-            # self.view_new_top_window.destroy()
-            # self.nhap_hang_vars.clear()
-            # self.refresh_nhap_hang_list()
             NhapHangAddController(self.frame)
-            # self.refresh_nhap_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
         
@@ -221,7 +214,7 @@ class NhapHangController:
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
-            coloumn += 1
+            column += 1
         
     
     def init_sub_frame(self):

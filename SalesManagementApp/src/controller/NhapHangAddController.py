@@ -1,6 +1,5 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
-from tkinter import ttk
+from tkinter import Frame, StringVar, Toplevel, Listbox, END
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
 from static.css.ButtonType import ButtonType
@@ -83,11 +82,12 @@ class NhapHangAddController:
         pass
     
     def save_all(self):
+        from src.controller.NhapHangController import NhapHangController
         for nhap_hang_var in self.nhap_hang_list_var:
             nhap_hang_data = {key: var.get() for key, var in nhap_hang_var.items()}
             nhap_hang = NhapHang(**nhap_hang_data)
             self.nhap_hang_service.create(nhap_hang)
-        self.view_new_top_window.destroy()
+        NhapHangController(self.frame)
     
     def delete_hang_nhap(self, index):
         self.nhap_hang_list_var.pop(index)
@@ -127,7 +127,7 @@ class NhapHangAddController:
             for key in NHAP_HANG_COLUMN_NAMES.keys():
                 if key == 'id':
                     continue
-                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_nhap':
+                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_nhap' or key == 'don_vi':
                     label = LabelType.normal(self.scrollable_frame, text=nhap_hang_var.get(key).get())
                     label.grid(row=row, column=coloumn, padx=5, pady=5)
                 elif key == 'thanh_tien':
@@ -139,7 +139,6 @@ class NhapHangAddController:
                 coloumn += 1
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
-                    entry.config(bg=BG_COLOR_LIGHT_BLUE)
             button_delete = ButtonType.danger(self.scrollable_frame, "Xóa")
             button_delete.grid(row=row, column=coloumn, padx=5, pady=5)
             button_delete.config(command=partial(self.delete_hang_nhap, i))
@@ -153,11 +152,12 @@ class NhapHangAddController:
             self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
     
     def destroy_all_by_cancel(self):
+        from src.controller.NhapHangController import NhapHangController
         self.view_cancel_top_window.destroy()
-        self.view_new_top_window.destroy()
+        NhapHangController(self.frame)
     
     def view_cancel(self):
-        self.view_cancel_top_window = Toplevel(self.view_new_top_window)
+        self.view_cancel_top_window = Toplevel(self.frame)
         self.view_cancel_top_window.title("Hủy nhập hàng")
         self.view_cancel_top_window.rowconfigure(0, weight=1)
         self.view_cancel_top_window.rowconfigure(1, weight=1)
@@ -182,14 +182,9 @@ class NhapHangAddController:
             column += 1
         
     def init_sub_frame(self):
-        self.view_new_top_window = Toplevel(self.frame)
-        self.view_new_top_window.title("Thêm mới nhập hàng")
-        self.view_new_top_window.geometry(SCREEN_SIZE)
-        self.view_new_top_window.rowconfigure(0, weight=1)
-        
-        self.sub_frame_top = Frame(self.view_new_top_window, bg=BG_COLOR_LIGHT_BLUE)
+        self.sub_frame_top = Frame(self.frame, bg=BG_COLOR_LIGHT_BLUE, relief="sunken")
         self.sub_frame_top.grid(row=0, column=0, sticky="nsew", padx=10)
-        self.sub_frame_bottom = Frame(self.view_new_top_window, bg=BG_COLOR_LIGHT_GRAY)
+        self.sub_frame_bottom = Frame(self.frame, bg=BG_COLOR_LIGHT_GRAY, relief="sunken")
         self.sub_frame_bottom.grid(row=1, column=0, sticky="nsew", padx=10)
         
         self.sub_frame_bottom_top = Frame(self.sub_frame_bottom)
@@ -199,9 +194,9 @@ class NhapHangAddController:
         self.sub_frame_bottom_bottom = Frame(self.sub_frame_bottom)
         self.sub_frame_bottom_bottom.grid(row=2, column=0, sticky="nsew")
         
-        self.view_new_top_window.rowconfigure(0, weight=1)
-        self.view_new_top_window.rowconfigure(1, weight=4)
-        self.view_new_top_window.columnconfigure(0, weight=1)
+        self.frame.rowconfigure(0, weight=1)
+        self.frame.rowconfigure(1, weight=4)
+        self.frame.columnconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(1, weight=3)
         self.sub_frame_bottom.rowconfigure(2, weight=1)
