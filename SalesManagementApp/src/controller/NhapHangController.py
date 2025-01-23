@@ -102,6 +102,13 @@ class NhapHangController:
     def on_sort_selected(self, event):
         self.refresh_nhap_hang_list()
         
+    def export_data(self):
+        self.nhap_hang_service.export_data(self.get_all())
+        
+    def import_data(self):
+        self.nhap_hang_service.import_nhap_hang()
+        self.refresh_nhap_hang_list()
+        
     # --- Các hàm giao diện  ---
     def refresh_nhap_hang_list(self):
         '''Lấy dữ liệu từ database và cập nhật giao diện'''
@@ -260,17 +267,17 @@ class NhapHangController:
         # Liên kết sự kiện chọn mục với hàm xử lý
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
         # total
-        total_nhap_hang_label = LabelType.h4(self.head_frame, text="Tổng nhập hàng:")
+        total_nhap_hang_label = LabelType.h4(self.head_frame, text="Tổng nhập hàng:", text_color=TEXT_COLOR_BLUE)
         total_nhap_hang_label.grid(row=2, column=2, sticky="nw")
         total_nhap_hang_value = EntryType.normal(self.head_frame, text_var=self.total_nhap_hang)
         total_nhap_hang_value.grid(row=2, column=2, sticky="ne")
         
-        total_so_luong_label = LabelType.h4(self.head_frame, text="Tổng số lượng:")
+        total_so_luong_label = LabelType.h4(self.head_frame, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
         total_so_luong_label.grid(row=2, column=2, sticky="w")
         total_so_luong_value = EntryType.normal(self.head_frame, text_var=self.total_so_luong)
         total_so_luong_value.grid(row=2, column=2, sticky='e')
         
-        total_thanh_tien_label = LabelType.h4(self.head_frame, text="Tổng thành tiền:")
+        total_thanh_tien_label = LabelType.h4(self.head_frame, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
         total_thanh_tien_label.grid(row=2, column=2, sticky="sw")
         total_thanh_tien_value = EntryType.normal(self.head_frame, text_var=self.total_thanh_tien)
         total_thanh_tien_value.grid(row=2, column=2, sticky='se')
@@ -305,3 +312,10 @@ class NhapHangController:
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
         refresh_button.grid(row=0, column=3, sticky="w")
+        # export and import 
+        button_export = ButtonType.success(self.head_frame, "Xuất Excel")
+        button_export.grid(row=1, column=3, sticky="nw")
+        button_export.config(command=partial(self.export_data))
+        button_import = ButtonType.primary(self.head_frame, "Nhập Excel")
+        button_import.grid(row=1, column=3, sticky="ne")
+        button_import.config(command=partial(self.import_data))

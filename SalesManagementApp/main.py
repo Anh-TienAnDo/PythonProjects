@@ -13,7 +13,8 @@ from src.controller.ChiPhiController import ChiPhiController
 from src.controller.KhachHangController import KhachHangController
 from src.controller.NCCController import NCCController
 from src.controller.BaoCaoController import BaoCaoController
-
+from src.controller.BaoCaoBanHangController import BaoCaoBanHangController
+from src.controller.BaoCaoNhapHangController import BaoCaoNhapHangController
 
 # Database setup
 def setup_database():
@@ -48,6 +49,8 @@ class SalesManagementApp:
         self.frame_khach_hang = Frame(root, bg=BG_COLOR_FRAME_KHACH_HANG)
         self.frame_ncc = Frame(root, bg=BG_COLOR_FRAME_NCC)
         self.frame_bao_cao = Frame(root, bg=BG_COLOR_FRAME_BAO_CAO)
+        self.frame_bao_cao_ban_hang = Frame(root, bg=BG_COLOR_FRAME_BAO_CAO)
+        self.frame_bao_cao_nhap_hang = Frame(root, bg=BG_COLOR_FRAME_BAO_CAO)
 
         # Đặt trọng số cho các hàng và cột để các phần tử thay đổi kích thước theo cửa sổ
         self.root.rowconfigure(0, weight=1)
@@ -72,15 +75,13 @@ class SalesManagementApp:
         nav_menu.add_command(label=TITLE_CHI_PHI, command=lambda: self.show_frame(self.frame_chi_phi))
         nav_menu.add_command(label=TITLE_KHACH_HANG, command=lambda: self.show_frame(self.frame_khach_hang))
         nav_menu.add_command(label=TITLE_NCC, command=lambda: self.show_frame(self.frame_ncc))
-        menu_bar.add_cascade(label="Chức Năng Quản Lý", menu=nav_menu)
+        menu_bar.add_cascade(label="QUẢN LÝ", menu=nav_menu)
         
         bao_cao_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
-        bao_cao_menu.add_command(label="Báo cáo tồn kho")
-        bao_cao_menu.add_command(label="Báo cáo doanh thu")
-        bao_cao_menu.add_command(label="Báo cáo lợi nhuận")
-        bao_cao_menu.add_command(label="Báo cáo chi phí")
-        bao_cao_menu.add_command(label="Báo cáo công nợ")
-        menu_bar.add_cascade(label="Báo Cáo", menu=bao_cao_menu)
+        bao_cao_menu.add_command(label="Báo cáo lợi nhuận", command=lambda: self.show_frame(self.frame_bao_cao))
+        bao_cao_menu.add_command(label="Báo cáo bán hàng", command=lambda: self.show_frame(self.frame_bao_cao_ban_hang))
+        bao_cao_menu.add_command(label="Báo cáo nhập hàng", command=lambda: self.show_frame(self.frame_bao_cao_nhap_hang))
+        menu_bar.add_cascade(label="BÁO CÁO", menu=bao_cao_menu)
         
         self.root.config(menu=menu_bar)
 
@@ -93,6 +94,8 @@ class SalesManagementApp:
         KhachHangController(self.frame_khach_hang)
         NCCController(self.frame_ncc)
         BaoCaoController(self.frame_bao_cao)
+        BaoCaoBanHangController(self.frame_bao_cao_ban_hang)
+        BaoCaoNhapHangController(self.frame_bao_cao_nhap_hang)
 
     # Sử dụng grid để đặt các Frame trong cửa sổ chính
     def show_frame(self, frame):

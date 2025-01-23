@@ -135,7 +135,6 @@ class MatHangController: # lấy data rồi đưa vào template
         
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
-        sort_option = self.sort_var.get()
         self.refresh_mat_hang_list()
         
     # Làm mới thanh tìm kiếm
@@ -145,10 +144,12 @@ class MatHangController: # lấy data rồi đưa vào template
         self.refresh_mat_hang_list()
         
     def export_data(self):
-        path = self.mat_hang_service.get_path()
-        if path:
-            path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
-            self.mat_hang_service.export_data(path, self.get_all())
+        self.search_var.set("") # clear search
+        self.mat_hang_service.export_data(self.get_all())
+        
+    def import_data(self):
+        self.mat_hang_service.import_mat_hang()
+        self.refresh_mat_hang_list()
         
     # --- các hàm giao diện ---
     def refresh_mat_hang_list(self):
@@ -261,12 +262,16 @@ class MatHangController: # lấy data rồi đưa vào template
         refresh_button.config(command=partial(self.refresh_entry_search))
         refresh_button.grid(row=0, column=3, sticky="w")
         # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5)
-        self.suggestion_box.grid(row=1, column=1, sticky="ne")
+        self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5, width=40)
+        self.suggestion_box.grid(row=1, column=1, columnspan=2, sticky='n')
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
+        # export and import 
         button_export = ButtonType.success(self.head_frame, "Xuất Excel")
-        button_export.grid(row=1, column=3, sticky="w")
+        button_export.grid(row=1, column=3, sticky="nw")
         button_export.config(command=partial(self.export_data))
+        button_import = ButtonType.primary(self.head_frame, "Nhập Excel")
+        button_import.grid(row=1, column=3, sticky="w")
+        button_import.config(command=partial(self.import_data))
         
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm mặt hàng")

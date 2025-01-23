@@ -117,8 +117,8 @@ MAT_HANG_SORT_OPTIONS = {
     'Tên Z-A': 'ten_hang desc',
     'Số lượng ít - nhiều': 'so_luong asc',
     'Số lượng nhiều - ít': 'so_luong desc',
-    'Giá thấp - cao': 'gia_le asc',
-    'Giá cao - thấp': 'gia_le desc',
+    'Giá ít - nhiều': 'gia_le asc',
+    'Giá nhiều - ít': 'gia_le desc',
     'Ngày tạo mới - cũ': 'ngay_tao desc',
     'Ngày tạo cũ - mới': 'ngay_tao asc'
 }
@@ -140,8 +140,8 @@ NCC_SORT_OPTIONS = {
 CHI_PHI_SORT_OPTIONS = {
     'Tên A-Z': 'ten_chi_phi asc',
     'Tên Z-A': 'ten_chi_phi desc',
-    'Giá thấp - cao': 'gia_chi_phi asc',
-    'Giá cao - thấp': 'gia_chi_phi desc',
+    'Giá ít - nhiều': 'gia_chi_phi asc',
+    'Giá nhiều - ít': 'gia_chi_phi desc',
     'Ngày tạo mới - cũ': 'ngay_tao desc',
     'Ngày tạo cũ - mới': 'ngay_tao asc'
 }
@@ -151,12 +151,23 @@ NHAP_HANG_SORT_OPTIONS = {
     'Tên Z-A': 'ten_hang desc',
     'Số lượng ít - nhiều': 'so_luong asc',
     'Số lượng nhiều - ít': 'so_luong desc',
-    'Giá thấp - cao': 'gia_nhap asc',
-    'Giá cao - thấp': 'gia_nhap desc',
+    'Giá ít - nhiều': 'gia_nhap asc',
+    'Giá nhiều - ít': 'gia_nhap desc',
     'Thành tiền ít - nhiều': 'thanh_tien asc',
     'Thành tiền nhiều - ít': 'thanh_tien desc',
     'Ngày nhập mới - cũ': 'ngay_nhap desc',
     'Ngày nhập cũ - mới': 'ngay_nhap asc'
+}
+
+REPORT_NHAP_HANG_SORT_OPTIONS = {
+    'Ngày nhập mới - cũ': 'ngay_nhap desc',
+    'Ngày nhập cũ - mới': 'ngay_nhap asc',
+    'Số lần nhập ít - nhiều': 'count(id_mat_hang) asc',
+    'Số lần nhập nhiều - ít': 'count(id_mat_hang) desc',
+    'Tổng số lượng ít - nhiều': 'sum(so_luong) asc',
+    'Tổng số lượng nhiều - ít': 'sum(so_luong) desc',
+    'Tổng tiền ít - nhiều': 'sum(thanh_tien) asc',
+    'Tổng tiền nhiều - ít': 'sum(thanh_tien) desc'
 }
 
 BAN_HANG_SORT_OPTIONS = {
@@ -164,14 +175,29 @@ BAN_HANG_SORT_OPTIONS = {
     'Tên Z-A': 'ten_hang desc',
     'Số lượng ít - nhiều': 'so_luong asc',
     'Số lượng nhiều - ít': 'so_luong desc',
-    'Giá thấp - cao': 'gia_ban asc',
-    'Giá cao - thấp': 'gia_ban desc',
+    'Giá ít - nhiều': 'gia_ban asc',
+    'Giá nhiều - ít': 'gia_ban desc',
     'Thành tiền ít - nhiều': 'thanh_tien asc',
     'Thành tiền nhiều - ít': 'thanh_tien desc',
-    'Ngày nhập mới - cũ': 'ngay_ban desc',
-    'Ngày nhập cũ - mới': 'ngay_ban asc'
+    'Ngày bán mới - cũ': 'ngay_ban desc',
+    'Ngày bán cũ - mới': 'ngay_ban asc'
 }
 
+REPORT_BAN_HANG_SORT_OPTIONS = {
+    'Ngày bán mới - cũ': 'ngay_ban desc',
+    'Ngày bán cũ - mới': 'ngay_ban asc',
+    'Số lần bán ít - nhiều': 'count(id_mat_hang) asc',
+    'Số lần bán nhiều - ít': 'count(id_mat_hang) desc',
+    'Tổng số lượng ít - nhiều': 'sum(so_luong) asc',
+    'Tổng số lượng nhiều - ít': 'sum(so_luong) desc',
+    'Tổng tiền ít - nhiều': 'sum(thanh_tien) asc',
+    'Tổng tiền nhiều - ít': 'sum(thanh_tien) desc'
+}
+
+TITLE_REPORT_NHAP_HANG = 'Báo cáo nhập hàng'
+TITLE_REPORT_BAN_HANG = 'Báo cáo bán hàng'
+COLUMNS_REPORT_NHAP_HANG = ['Mã hàng', 'Tên hàng', 'Số lần nhập', 'Tổng số lượng', 'Tổng tiền', 'Ngày nhập']
+COLUMNS_REPORT_BAN_HANG = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền', 'Ngày bán']
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"
 

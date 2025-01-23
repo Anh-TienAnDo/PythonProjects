@@ -32,6 +32,11 @@ class BanHangRepo:
             return ban_hang_list
         except sqlite3.IntegrityError as e:
             logging.error('Error getting all %s', e)
+            
+    def report(self, sort_by: str, where: str) -> list:
+        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
+        data = self.cursor.fetchall()
+        return data
 
     def get_by_id(self, ban_hang_id) -> BanHang:
         logging.info('Getting banhang by id %s', ban_hang_id)

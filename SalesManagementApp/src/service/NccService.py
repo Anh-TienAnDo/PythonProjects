@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.entity.NccEntity import NCC
 from src.repository.NccRepo import NCCRepo
 from src.config.search_whoosh import SearchWhooshNCC
@@ -5,12 +6,14 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import NCC_SORT_OPTIONS, NCC_ID_PREFIX, NCC_ID_LENGTH
+from src.utils.Excel import Excel
 
 class NCCService:
     def __init__(self):
         logging.info('---NCCService initializing---')
         self.ncc_repo = NCCRepo()
         self.search_whoosh = SearchWhooshNCC()
+        self.excel_util = Excel()
 
     def get_all(self, sort: str, keyword: str) -> list[NCC]:
         sort = sort.strip()
@@ -70,3 +73,20 @@ class NCCService:
         except Exception as e:
             logging.error('Error when get suggestions')
             return list()
+        
+    def to_list_dict(self, ncc_list: list[NCC]) -> list[dict]:
+        return [ncc.to_dict() for ncc in ncc_list]
+    
+    def export_data(self, data: list[NCC]) -> bool:
+        data = self.to_list_dict(data)
+        path = self.excel_util.select_folder_export()
+        if path is None:
+            return False
+        path = f'{path}/ncc_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+        return self.excel_util.export_data(path, data) 
+    
+    def import_ncc(self) -> bool:
+        path = self.excel_util.select_file_import()
+        if path is None:
+            return False
+        return self.excel_util.import_ncc(path)

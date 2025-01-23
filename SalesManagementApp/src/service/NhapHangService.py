@@ -4,8 +4,9 @@ from src.service.MatHangService import MatHangService
 from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshNCC
 from src.utils.GenerationId import GenerationId
 import logging
-from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH
+from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS
 from datetime import datetime
+from src.utils.Excel import Excel
 
 class NhapHangService:
     def __init__(self):
@@ -14,6 +15,7 @@ class NhapHangService:
         self.mat_hang_search = SearchWhooshMatHang()
         self.ncc_search = SearchWhooshNCC()
         self.mat_hang_service = MatHangService()
+        self.excel_util = Excel()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[NhapHang]:
         sort = sort.strip()
@@ -35,6 +37,27 @@ class NhapHangService:
                 day = f'0{day}'
             where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
         return self.nhap_hang_repo.get_all(sort_by, where)
+    
+    def report(self, sort: str, day: str, month: str, year: str) -> list:
+        sort = sort.strip()
+        if sort not in self.get_report_nhap_hang_sort_keys() or sort == '' or sort is None:
+            sort = 'Ngày nhập mới - cũ'
+        sort_by = self.get_report_nhap_hang_sort_by_key(sort)
+
+        now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+        if month is None or month.strip() == '':
+            month = str(now.month)
+        if year is None or year.strip() == '':
+            year = str(now.year)
+        if len(month) == 1:
+            month = f'0{month}'
+        if day is None or day.strip() == '':
+            where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
+        else:
+            if len(day) == 1:
+                day = f'0{day}'
+            where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
+        return self.nhap_hang_repo.report(sort_by, where)
         
     def get_by_id(self, nhap_hang_id) -> NhapHang:
         return self.nhap_hang_repo.get_by_id(nhap_hang_id)
@@ -99,6 +122,15 @@ class NhapHangService:
             return NHAP_HANG_SORT_OPTIONS.get('Tên A-Z')
         return value
     
+    def get_report_nhap_hang_sort_keys(self):
+        return tuple([key for key in REPORT_NHAP_HANG_SORT_OPTIONS.keys()])
+    
+    def get_report_nhap_hang_sort_by_key(self, sort_key):
+        value = REPORT_NHAP_HANG_SORT_OPTIONS.get(sort_key)
+        if value is None:
+            return REPORT_NHAP_HANG_SORT_OPTIONS.get('Ngày nhập mới - cũ')
+        return value
+    
     def get_day_month_year(self) -> dict:
         now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
         return {
@@ -136,4 +168,19 @@ class NhapHangService:
             logging.error('Error when search ncc')
             return []
     
+    def to_list_dict(self, nhap_hang_list: list[NhapHang]) -> list[dict]:
+        return [nhap_hang.to_dict() for nhap_hang in nhap_hang_list]
     
+    def export_data(self, data: list[NhapHang]) -> bool:
+        data = self.to_list_dict(data)
+        path = self.excel_util.select_folder_export()
+        if path is None:
+            return False
+        path = f'{path}/nhap_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+        return self.excel_util.export_data(path, data) 
+    
+    def import_nhap_hang(self) -> bool:
+        path = self.excel_util.select_file_import()
+        if path is None:
+            return False
+        return self.excel_util.import_nhap_hang(path)

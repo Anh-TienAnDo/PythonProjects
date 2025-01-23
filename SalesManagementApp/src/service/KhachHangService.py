@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.entity.KhachHangEntity import KhachHang
 from src.repository.KhachHangRepo import KhachHangRepo
 from src.config.search_whoosh import SearchWhooshKhachHang
@@ -5,12 +6,14 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import KHACH_HANG_SORT_OPTIONS, KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH
+from src.utils.Excel import Excel
 
 class KhachHangService:
     def __init__(self):
         logging.info('---KhachHangService initializing---')
         self.khach_hang_repo = KhachHangRepo()
         self.search_whoosh = SearchWhooshKhachHang()
+        self.excel_util = Excel()
 
     def get_all(self, sort: str, keyword: str) -> list[KhachHang]:
         sort = sort.strip()
@@ -70,3 +73,20 @@ class KhachHangService:
         except Exception as e:
             logging.error('Error when get suggestions')
             return list()
+        
+    def to_list_dict(self, khach_hang_list: list[KhachHang]) -> list[dict]:
+        return [khach_hang.to_dict() for khach_hang in khach_hang_list]
+    
+    def export_data(self, data: list[KhachHang]) -> bool:
+        data = self.to_list_dict(data)
+        path = self.excel_util.select_folder_export()
+        if path is None:
+            return False
+        path = f'{path}/khach_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+        return self.excel_util.export_data(path, data) 
+    
+    def import_khach_hang(self) -> bool:
+        path = self.excel_util.select_file_import()
+        if path is None:
+            return False
+        return self.excel_util.import_khach_hang(path)

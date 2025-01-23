@@ -118,6 +118,13 @@ class ChiPhiController: # lấy data rồi đưa vào template
     def on_sort_selected(self, event):
         self.refresh_chi_phi_list()
         
+    def export_data(self):
+        self.chi_phi_service.export_data(self.get_all())
+        
+    def import_data(self):
+        self.chi_phi_service.import_chi_phi()
+        self.refresh_chi_phi_list()
+        
     # --- Các hàm giao diện  ---
     def refresh_chi_phi_list(self):
         '''Lấy dữ liệu từ database và cập nhật giao diện'''
@@ -329,3 +336,10 @@ class ChiPhiController: # lấy data rồi đưa vào template
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
         refresh_button.grid(row=0, column=3, sticky="w")
+        # export and import 
+        button_export = ButtonType.success(self.head_frame, "Xuất Excel")
+        button_export.grid(row=1, column=3, sticky="nw")
+        button_export.config(command=partial(self.export_data))
+        button_import = ButtonType.primary(self.head_frame, "Nhập Excel")
+        button_import.grid(row=1, column=3, sticky="ne")
+        button_import.config(command=partial(self.import_data))

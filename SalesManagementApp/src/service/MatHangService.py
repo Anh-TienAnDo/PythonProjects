@@ -1,3 +1,4 @@
+from datetime import datetime
 from src.entity.MatHangEntity import MatHang
 from src.repository.MatHangRepo import MatHangRepo
 from src.config.search_whoosh import SearchWhooshMatHang
@@ -76,9 +77,16 @@ class MatHangService:
     def to_list_dict(self, mat_hang_list: list[MatHang]) -> list[dict]:
         return [mat_hang.to_dict() for mat_hang in mat_hang_list]
     
-    def export_data(self, path: str, data: list[MatHang]) -> bool:
+    def export_data(self, data: list[MatHang]) -> bool:
         data = self.to_list_dict(data)
+        path = self.excel_util.select_folder_export()
+        if path is None:
+            return False
+        path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
         return self.excel_util.export_data(path, data) 
     
-    def get_path(self):
-        return self.excel_util.select_folder()
+    def import_mat_hang(self) -> bool:
+        path = self.excel_util.select_file_import()
+        if path is None:
+            return False
+        return self.excel_util.import_mat_hang(path)

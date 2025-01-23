@@ -4,11 +4,13 @@ from src.utils.GenerationId import GenerationId
 import logging
 from contants import CHI_PHI_SORT_OPTIONS, CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH
 from datetime import datetime
+from src.utils.Excel import Excel
 
 class ChiPhiService:
     def __init__(self):
         logging.info('---ChiPhiService initializing---')
         self.chi_phi_repo = ChiPhiRepo()
+        self.excel_util = Excel()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[ChiPhi]:
         sort = sort.strip()
@@ -65,3 +67,20 @@ class ChiPhiService:
             'month': str(now.month),
             'year': str(now.year)
         }
+        
+    def to_list_dict(self, chi_phi_list: list[ChiPhi]) -> list[dict]:
+        return [chi_phi.to_dict() for chi_phi in chi_phi_list]
+    
+    def export_data(self, data: list[ChiPhi]) -> bool:
+        data = self.to_list_dict(data)
+        path = self.excel_util.select_folder_export()
+        if path is None:
+            return False
+        path = f'{path}/chi_phi_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+        return self.excel_util.export_data(path, data) 
+    
+    def import_chi_phi(self) -> bool:
+        path = self.excel_util.select_file_import()
+        if path is None:
+            return False
+        return self.excel_util.import_chi_phi(path)
