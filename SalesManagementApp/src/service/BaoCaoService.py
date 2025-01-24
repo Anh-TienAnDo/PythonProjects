@@ -1,3 +1,4 @@
+import calendar
 import logging
 from datetime import datetime
 from src.repository.BanHangRepo import BanHangRepo
@@ -26,18 +27,21 @@ class BaoCaoService:
         nhap_hang = self.nhap_hang_repo.report_loi_nhuan(where_nhap_hang)
         chi_phi = self.chi_phi_repo.report_loi_nhuan(where_chi_phi)
         report = {}
-        for day in datetime.strptime(f'{year}-{month}-01', '%Y-%m-%d').day:
-            report[day] = {
+        # Xác định số ngày trong tháng
+        num_days = calendar.monthrange(int(year), int(month))[1]
+        
+        for d in [f'{year}-{month}-{day:02d}' for day in range(1, num_days + 1)]:
+            report[d] = {
                 'ban_hang': 0,
                 'nhap_hang': 0,
                 'chi_phi': 0
             }
         for item in ban_hang:
-            report[datetime.strptime(str(item[1]), '%Y-%m-%d')]['ban_hang'] = item[0]
+            report[str(item[1])]['ban_hang'] = item[0] if item[0] is not None else 0
         for item in nhap_hang:
-            report[datetime.strptime(str(item[1]), '%Y-%m-%d')]['nhap_hang'] = item[0]
+            report[str(item[1])]['nhap_hang'] = item[0] if item[0] is not None else 0
         for item in chi_phi:
-            report[datetime.strptime(str(item[1]), '%Y-%m-%d')]['chi_phi'] = item[0]
+            report[str(item[1])]['chi_phi'] = item[0] if item[0] is not None else 0
         return report
       
     def get_day_month_year(self) -> dict:

@@ -15,7 +15,7 @@ from functools import partial
 
 class BaoCaoBanHangController:
     def __init__(self, frame: Frame):
-        logging.info("BaoCaoBanHang Controller")
+        # logging.info("BaoCaoBanHang Controller")
         self.frame = frame
         self.ban_hang_service = BanHangService()
         self.total_ban_hang = StringVar()
@@ -36,7 +36,7 @@ class BaoCaoBanHangController:
         self.refresh_ban_hang_list()
         
     def report(self):
-        logging.info("report BanHang")
+        # logging.info("report BanHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -45,7 +45,7 @@ class BaoCaoBanHangController:
             report_ban_hang_list = self.ban_hang_service.report(sort=sort, day=day, month=month, year=year)
             return report_ban_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return []
           
     # --- Các hàm xử lý sự kiện ---

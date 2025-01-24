@@ -14,7 +14,7 @@ from datetime import datetime
 
 class BaoCaoController:
     def __init__(self, frame: Frame):
-        logging.info("BaoCao Controller")
+        # logging.info("BaoCao Controller")
         self.frame = frame
         self.bao_cao_service = BaoCaoService()
         self.total_chi_phi = StringVar()
@@ -37,13 +37,13 @@ class BaoCaoController:
         self.refresh_bao_cao_list()
 
     def report(self) -> dict:
-        logging.info("report BanHang")
+        # logging.info("report BanHang")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
             return self.bao_cao_service.report_loi_nhuan(month=month, year=year)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return {}
           
     # --- Các hàm xử lý sự kiện ---
@@ -119,9 +119,12 @@ class BaoCaoController:
                 loi_nhuan_cao_nhat_temp['day'] = str(key)
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             label_day = LabelType.normal(self.scrollable_frame, text=str(key))
-            label_chi_phi = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(str(key)))
-            label_doanh_thu = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(str(key)))
-            label_loi_nhuan = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(str(key)))
+            total_chi_phi_day = self.convert_number(total_chi_phi_day)
+            total_doanh_thu_day = self.convert_number(total_doanh_thu_day)
+            total_loi_nhuan_day = self.convert_number(total_loi_nhuan_day)
+            label_chi_phi = LabelType.normal(self.scrollable_frame, text=total_chi_phi_day)
+            label_doanh_thu = LabelType.normal(self.scrollable_frame, text=total_doanh_thu_day)
+            label_loi_nhuan = LabelType.normal(self.scrollable_frame, text=total_loi_nhuan_day)
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
                 label_day.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -139,12 +142,18 @@ class BaoCaoController:
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
 
-        self.total_chi_phi.set(TextNormalization.format_number(total_chi_phi_temp) + f" {MONEY_UNIT}")
-        self.total_doanh_thu.set(TextNormalization.format_number(total_doanh_thu_temp) + f" {MONEY_UNIT}")
-        self.total_loi_nhuan.set(TextNormalization.format_number(total_loi_nhuan_temp) + f" {MONEY_UNIT}")
-        self.chi_phi_cao_nhat.set(TextNormalization.format_number(chi_phi_cao_nhat_temp.get('value')) + f" {MONEY_UNIT} - {chi_phi_cao_nhat_temp.get('day')}")
-        self.doanh_thu_cao_nhat.set(TextNormalization.format_number(doanh_thu_cao_nhat_temp.get('value')) + f" {MONEY_UNIT} - {doanh_thu_cao_nhat_temp.get('day')}")
-        self.loi_nhuan_cao_nhat.set(TextNormalization.format_number(loi_nhuan_cao_nhat_temp.get('value')) + f" {MONEY_UNIT} - {loi_nhuan_cao_nhat_temp.get('day')}")
+        self.total_chi_phi.set(self.convert_number(total_chi_phi_temp) + f" {MONEY_UNIT}")
+        self.total_doanh_thu.set(self.convert_number(total_doanh_thu_temp) + f" {MONEY_UNIT}")
+        self.total_loi_nhuan.set(self.convert_number(total_loi_nhuan_temp) + f" {MONEY_UNIT}")
+        self.chi_phi_cao_nhat.set(self.convert_number(chi_phi_cao_nhat_temp.get('value')) + f" {MONEY_UNIT}")
+        self.doanh_thu_cao_nhat.set(self.convert_number(doanh_thu_cao_nhat_temp.get('value')) + f" {MONEY_UNIT}")
+        self.loi_nhuan_cao_nhat.set(self.convert_number(loi_nhuan_cao_nhat_temp.get('value')) + f" {MONEY_UNIT}")
+    
+    def convert_number(self, number) -> str:
+        if number < 0:
+            number = abs(number)
+            return f"-{TextNormalization.format_number(str(number))}"
+        return TextNormalization.format_number(str(number))
     
     def show_column_title(self):
         column = 0
@@ -161,34 +170,34 @@ class BaoCaoController:
         self.init_search_date()
         # chi phi, doanh thu, loi nhuan
         chi_phi_cao_nhat_label = LabelType.h4(self.head_frame, text="Chi phí cao nhất:", text_color=TEXT_COLOR_BLUE)
-        chi_phi_cao_nhat_label.grid(row=1, column=1, sticky="w")
+        chi_phi_cao_nhat_label.grid(row=1, column=0, sticky="n")
         chi_phi_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.chi_phi_cao_nhat)
-        chi_phi_cao_nhat_value.grid(row=1, column=1, sticky="e")
+        chi_phi_cao_nhat_value.grid(row=1, column=0)
         
         doanh_thu_cao_nhat_label = LabelType.h4(self.head_frame, text="Doanh thu cao nhất:", text_color=TEXT_COLOR_BLUE)
-        doanh_thu_cao_nhat_label.grid(row=1, column=2, sticky="w")
+        doanh_thu_cao_nhat_label.grid(row=1, column=1, sticky="n")
         doanh_thu_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.doanh_thu_cao_nhat)
-        doanh_thu_cao_nhat_value.grid(row=1, column=2, sticky="e")
+        doanh_thu_cao_nhat_value.grid(row=1, column=1)
         
         loi_nhuan_cao_nhat_label = LabelType.h4(self.head_frame, text="Lợi nhuận cao nhất:", text_color=TEXT_COLOR_BLUE)
-        loi_nhuan_cao_nhat_label.grid(row=1, column=3, sticky="w")
+        loi_nhuan_cao_nhat_label.grid(row=1, column=2, sticky="n")
         loi_nhuan_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.loi_nhuan_cao_nhat)
-        loi_nhuan_cao_nhat_value.grid(row=1, column=3, sticky="e")
+        loi_nhuan_cao_nhat_value.grid(row=1, column=2)
         # total
         total_chi_phi_label = LabelType.h4(self.head_frame, text="Tổng lần bán:", text_color=TEXT_COLOR_BLUE)
-        total_chi_phi_label.grid(row=2, column=1, sticky="nw")
+        total_chi_phi_label.grid(row=2, column=0, sticky="n")
         total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
-        total_chi_phi_value.grid(row=2, column=1, sticky="ne")
+        total_chi_phi_value.grid(row=2, column=0)
         
         total_doanh_thu_label = LabelType.h4(self.head_frame, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_doanh_thu_label.grid(row=2, column=1, sticky="w")
+        total_doanh_thu_label.grid(row=2, column=1, sticky="n")
         total_doanh_thu_value = EntryType.view(self.head_frame, text_var=self.total_doanh_thu)
-        total_doanh_thu_value.grid(row=2, column=1, sticky='e')
+        total_doanh_thu_value.grid(row=2, column=1)
         
         total_loi_nhuan_label = LabelType.h4(self.head_frame, text="Tổng tiền:", text_color=TEXT_COLOR_BLUE)
-        total_loi_nhuan_label.grid(row=2, column=2, sticky="nw")
+        total_loi_nhuan_label.grid(row=2, column=2, sticky="n")
         total_loi_nhuan_value = EntryType.view(self.head_frame, text_var=self.total_loi_nhuan)
-        total_loi_nhuan_value.grid(row=2, column=2, sticky='ne')
+        total_loi_nhuan_value.grid(row=2, column=2)
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
@@ -205,11 +214,10 @@ class BaoCaoController:
         
     def init_search_date(self):
         # Tạo ô bán văn bản (Entry) cho tìm kiếm
-        LabelType.h2(self.head_frame, "Tìm theo tháng/năm:").grid(row=0, column=1, sticky="e", padx=5)
-        LabelType.normal(self.head_frame, "Tháng:").grid(row=1, column=1, sticky="n")
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month'], ).grid(row=1, column=1, pady=5, sticky="ne")
-        LabelType.normal(self.head_frame, "Năm:").grid(row=1, column=1)
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year'], ).grid(row=1, column=1, pady=5, sticky="e")
+        LabelType.normal(self.head_frame, "Tháng:").grid(row=0, column=1, sticky="n", pady=20)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month']).grid(row=0, column=1, pady=20, sticky="ne", padx=10)
+        LabelType.normal(self.head_frame, "Năm:").grid(row=0, column=1, pady=5)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year']).grid(row=0, column=1, pady=5, sticky='e', padx=10)
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
         search_button.config(command=partial(self.on_search_button_click))

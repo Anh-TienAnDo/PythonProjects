@@ -71,9 +71,6 @@ class BanHangService:
             mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
             mat_hang.so_luong -= ban_hang.so_luong
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Create ban hang success')
-            print(ban_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when create ban hang')
@@ -88,9 +85,6 @@ class BanHangService:
             mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
             mat_hang.so_luong = mat_hang.so_luong + so_luong_ban_old - ban_hang.so_luong
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Update ban hang success')
-            print(ban_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when update ban hang')
@@ -105,9 +99,6 @@ class BanHangService:
         try:
             self.ban_hang_repo.delete(ban_hang_id)
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Delete ban hang success')
-            print(ban_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when delete ban hang')

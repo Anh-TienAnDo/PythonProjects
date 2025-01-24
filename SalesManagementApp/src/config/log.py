@@ -14,4 +14,4 @@ class LogConfig:
             format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",  # Định dạng log
             datefmt="%Y-%m-%d %H:%M:%S",  # Định dạng thời gian
         )
-        logging.info("Logging initialized")
+        # logging.info("Logging initialized")

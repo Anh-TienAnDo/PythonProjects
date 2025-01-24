@@ -39,7 +39,7 @@ class NhapHangRepo:
         return data
     
     def report_loi_nhuan(self, where: str) -> list:
-        self.cursor.execute(f'SELECT sum(thanh_tien), ngay_nhap FROM {NHAP_HANG_TABLE} WHERE {where} ORDER BY ngay_nhap')
+        self.cursor.execute(f'SELECT sum(thanh_tien), ngay_nhap FROM {NHAP_HANG_TABLE} WHERE {where} GROUP BY ngay_nhap')
         data = self.cursor.fetchall()
         return data
 

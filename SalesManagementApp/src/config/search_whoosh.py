@@ -3,12 +3,10 @@ from whoosh.fields import Schema, TEXT, ID
 from whoosh.qparser import QueryParser
 from contants import WHOOSH_INDEX_DIR, WHOOSH_PATH, MAT_HANG_SORT_OPTIONS
 import os
-import logging
 
 class SearchWhoosh:
     def __init__(self):
         self.index_dir = WHOOSH_INDEX_DIR
-    
         
 class SearchWhooshMatHang(SearchWhoosh):
     def __init__(self):

@@ -14,7 +14,7 @@ from functools import partial
 
 class BanHangController:
     def __init__(self, frame: Frame):
-        logging.info("BanHang Controller")
+        # logging.info("BanHang Controller")
         self.frame = frame
         self.ban_hang_service = BanHangService() 
         self.ban_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
@@ -36,7 +36,7 @@ class BanHangController:
         self.refresh_ban_hang_list()
         
     def get_all(self):
-        logging.info("Get all BanHang")
+        # logging.info("Get all BanHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -45,28 +45,29 @@ class BanHangController:
             ban_hang_list = self.ban_hang_service.get_all(sort=sort, day=day, month=month, year=year)
             return ban_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return []
         
     def get_by_id(self, ban_hang_id):
-        logging.info("Get BanHang with id: %s", ban_hang_id)
+        # logging.info("Get BanHang with id: %s", ban_hang_id)
         try:
             ban_hang = self.ban_hang_service.get_by_id(ban_hang_id)
             self.view_edit_item(ban_hang)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return None
         
     def create(self):
         from src.controller.BanHangAddController import BanHangAddController
-        logging.info("Create BanHang")
+        # logging.info("Create BanHang")
         try:
             BanHangAddController(self.frame)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
         
     def update(self, ban_hang_id, so_luong_ban_old: int):
-        logging.info("Update BanHang with id: %s", ban_hang_id)
+        # logging.info("Update BanHang with id: %s", ban_hang_id)
         ban_hang_data = {key: var.get() for key, var in self.ban_hang_vars.items()}
         ban_hang = BanHang(**ban_hang_data)
         try: 
@@ -75,16 +76,18 @@ class BanHangController:
             self.ban_hang_vars.clear()
             self.refresh_ban_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
         
     def delete(self, ban_hang_id):
-        logging.info("Delete BanHang with id: %s", ban_hang_id)
+        # logging.info("Delete BanHang with id: %s", ban_hang_id)
         try:
             self.ban_hang_service.delete(ban_hang_id)
             self.view_new_top_window.destroy()
             self.refresh_ban_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
         
     # --- Các hàm xử lý sự kiện ---
     # Hàm xử lý khi nhấn nút tìm kiếm

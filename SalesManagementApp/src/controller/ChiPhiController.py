@@ -14,7 +14,7 @@ from functools import partial
 
 class ChiPhiController: # lấy data rồi đưa vào template
     def __init__(self, frame: Frame):
-        logging.info("ChiPhi Controller")
+        # logging.info("ChiPhi Controller")
         self.frame = frame
         self.chi_phi_service = ChiPhiService() # -------
         self.chi_phi_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
@@ -35,7 +35,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.refresh_chi_phi_list()
 
     def get_all(self):
-        logging.info("Get all ChiPhi")
+        # logging.info("Get all ChiPhi")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -44,20 +44,20 @@ class ChiPhiController: # lấy data rồi đưa vào template
             chi_phi_list = self.chi_phi_service.get_all(sort=sort, day=day, month=month, year=year)
             return chi_phi_list
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return []
 
     def get_by_id(self, chi_phi_id):
-        logging.info("Get ChiPhi with id: %s", chi_phi_id)
+        # logging.info("Get ChiPhi with id: %s", chi_phi_id)
         try:
             chi_phi = self.chi_phi_service.get_by_id(chi_phi_id)
             self.view_edit_item(chi_phi)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
             return None
 
     def create(self):
-        logging.info("Create ChiPhi")
+        # logging.info("Create ChiPhi")
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
@@ -66,10 +66,11 @@ class ChiPhiController: # lấy data rồi đưa vào template
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
             
     def create_and_continue(self):
-        logging.info("Create and continue ChiPhi")
+        # logging.info("Create and continue ChiPhi")
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try:
@@ -79,10 +80,11 @@ class ChiPhiController: # lấy data rồi đưa vào template
             self.refresh_chi_phi_list()
             self.view_add_item()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
 
     def update(self, chi_phi_id):
-        logging.info("Update ChiPhi with id: %s", chi_phi_id)
+        # logging.info("Update ChiPhi with id: %s", chi_phi_id)
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
@@ -91,16 +93,18 @@ class ChiPhiController: # lấy data rồi đưa vào template
             self.chi_phi_vars.clear()
             self.refresh_chi_phi_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
 
     def delete(self, chi_phi_id):
-        logging.info("Delete ChiPhi with id: %s", chi_phi_id)
+        # logging.info("Delete ChiPhi with id: %s", chi_phi_id)
         try:
             self.chi_phi_service.delete(chi_phi_id)
             self.view_new_top_window.destroy()
             self.refresh_chi_phi_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            logging.error("Error: %s", e)
+            # logging.error("Error: %s", e)
+            return None
         
     # --- Các hàm xử lý sự kiện ---
     # Hàm xử lý khi nhấn nút tìm kiếm

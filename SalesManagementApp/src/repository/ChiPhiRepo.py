@@ -34,7 +34,7 @@ class ChiPhiRepo:
             logging.error('Error getting all %s', e)
             
     def report_loi_nhuan(self, where: str) -> list:
-        self.cursor.execute(f'SELECT sum(gia_chi_phi), ngay_tao FROM {CHI_PHI_TABLE} WHERE {where} ORDER BY ngay_tao')
+        self.cursor.execute(f'SELECT sum(gia_chi_phi), ngay_tao FROM {CHI_PHI_TABLE} WHERE {where} GROUP BY ngay_tao')
         data = self.cursor.fetchall()
         return data
 

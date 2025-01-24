@@ -104,7 +104,6 @@ class SalesManagementApp:
 
 
 def init_template():
-    logging.info('Starting Sales Management System')
     root = Tk()
     SalesManagementApp(root)
     root.mainloop()
@@ -112,7 +111,7 @@ def init_template():
 
 if __name__ == "__main__":
     setup_logging()
-    logging.info('Starting Sales Management System')
+    # logging.info('Starting Sales Management System')
     setup_database()
     setup_search_index()
     init_template()

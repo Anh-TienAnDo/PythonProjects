@@ -19,7 +19,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 class BanHangAddController:
     def __init__(self, frame: Frame):
         self.frame = frame
-        logging.info("BanHangAdd Controller")
+        # logging.info("BanHangAdd Controller")
         self.ban_hang_service = BanHangService() 
         self.ban_hang_list_var = []
         self.search_mat_hang_var = StringVar()

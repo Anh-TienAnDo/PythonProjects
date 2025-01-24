@@ -29,8 +29,8 @@ class MatHangController: # lấy data rồi đưa vào template
         self.coloumn_title.insert(0, "STT")
         
         self.init_sub_frame() # ---Tạo các Frame con---
-        self.init_table_data() # ---Tạo bảng dữ liệu---
         self.init_components() # ---Tạo các thành phần giao diện---
+        self.init_table_data() # ---Tạo bảng dữ liệu---
         self.refresh_mat_hang_list()
 
     # chech search, filter -> refresh data -> get data
@@ -111,13 +111,6 @@ class MatHangController: # lấy data rồi đưa vào template
         
     # Cập nhật danh sách gợi ý khi người dùng nhập từ khóa
     def update_suggestions(self, *args):
-        # keyword = self.search_var.get()
-        # print(f"Đang tìm kiếm gợi ý cho từ khóa: {keyword}")
-        # self.suggestions = self.mat_hang_service.get_suggestions(keyword)
-        # self.suggestion_box['values'] = self.suggestions
-        # print(f"Gợi ý: {self.suggestions}")
-        # if self.suggestions:
-        #     self.suggestion_box.event_generate('<Down>')
         keyword = self.search_var.get()
         self.suggestions = self.mat_hang_service.get_suggestions(keyword)
         self.suggestion_box.delete(0, END)
@@ -126,8 +119,6 @@ class MatHangController: # lấy data rồi đưa vào template
             
     # Xử lý sự kiện khi người dùng chọn một gợi ý
     def on_suggestion_select(self, event):
-        # selected_text = self.suggestion_box.get()
-        # self.search_var.set(selected_text)
         selected_index = self.suggestion_box.curselection()
         if selected_index:
             selected_text = self.suggestion_box.get(selected_index)

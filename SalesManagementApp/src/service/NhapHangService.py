@@ -71,9 +71,6 @@ class NhapHangService:
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong += nhap_hang.so_luong
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Create nhap hang success')
-            print(nhap_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when create nhap hang')
@@ -88,9 +85,6 @@ class NhapHangService:
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong = mat_hang.so_luong - so_luong_nhap_old + nhap_hang.so_luong
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Update nhap hang success')
-            print(nhap_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when update nhap hang')
@@ -105,9 +99,6 @@ class NhapHangService:
         try:
             self.nhap_hang_repo.delete(nhap_hang_id)
             self.mat_hang_service.update(mat_hang.id, mat_hang)
-            print('Delete nhap hang success')
-            print(nhap_hang.to_dict())
-            print(mat_hang.to_dict())
             return True
         except Exception as e:
             logging.error('Error when delete nhap hang')
