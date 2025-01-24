@@ -1,2 +1,11 @@
 
 ManageGarden/server/ManageGarden/
+/SalesManagementApp/__pycache__
+/SalesManagementApp/src/config/__pycache__
+/SalesManagementApp/src/controller/__pycache__
+/SalesManagementApp/src/entity/__pycache__
+/SalesManagementApp/src/repository/__pycache__
+/SalesManagementApp/src/service/__pycache__
+/SalesManagementApp/src/utils/__pycache__
+/SalesManagementApp/static/css/__pycache__
+/SalesManagementApp/templates/__pycache__
