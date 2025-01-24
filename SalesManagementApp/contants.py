@@ -42,7 +42,7 @@ TITLE_BAN_HANG = 'Quản lý bán hàng'
 TITLE_CHI_PHI = 'Quản lý chi phí'
 TITLE_KHACH_HANG = 'Quản lý khách hàng'
 TITLE_NCC = 'Quản lý nhà cung cấp'
-TITLE_BAO_CAO = 'Báo cáo'
+TITLE_BAO_CAO = 'Báo cáo Lợi Nhuận'
 
 # template: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_COLUMN_NAMES = {
@@ -111,6 +111,8 @@ BAN_HANG_COLUMN_NAMES = {
     'ngay_ban': 'Ngày bán',
     'ghi_chu': 'Ghi chú'
 }
+
+
 #  sort_option: 'Tên cột': 'Tên cột hiển thị'
 MAT_HANG_SORT_OPTIONS = {
     'Tên A-Z': 'ten_hang asc',
@@ -198,6 +200,7 @@ TITLE_REPORT_NHAP_HANG = 'Báo cáo nhập hàng'
 TITLE_REPORT_BAN_HANG = 'Báo cáo bán hàng'
 COLUMNS_REPORT_NHAP_HANG = ['Mã hàng', 'Tên hàng', 'Số lần nhập', 'Tổng số lượng', 'Tổng tiền', 'Ngày nhập']
 COLUMNS_REPORT_BAN_HANG = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền', 'Ngày bán']
+COLUMNS_REPORT_LOI_NHUAN = ['Ngày', 'Chi phí', 'Doanh thu', 'Lợi nhuận']
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"
 

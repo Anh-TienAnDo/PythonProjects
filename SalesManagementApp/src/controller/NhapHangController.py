@@ -269,17 +269,17 @@ class NhapHangController:
         # total
         total_nhap_hang_label = LabelType.h4(self.head_frame, text="Tổng nhập hàng:", text_color=TEXT_COLOR_BLUE)
         total_nhap_hang_label.grid(row=2, column=2, sticky="nw")
-        total_nhap_hang_value = EntryType.normal(self.head_frame, text_var=self.total_nhap_hang)
+        total_nhap_hang_value = EntryType.view(self.head_frame, text_var=self.total_nhap_hang)
         total_nhap_hang_value.grid(row=2, column=2, sticky="ne")
         
         total_so_luong_label = LabelType.h4(self.head_frame, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
         total_so_luong_label.grid(row=2, column=2, sticky="w")
-        total_so_luong_value = EntryType.normal(self.head_frame, text_var=self.total_so_luong)
+        total_so_luong_value = EntryType.view(self.head_frame, text_var=self.total_so_luong)
         total_so_luong_value.grid(row=2, column=2, sticky='e')
         
         total_thanh_tien_label = LabelType.h4(self.head_frame, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
         total_thanh_tien_label.grid(row=2, column=2, sticky="sw")
-        total_thanh_tien_value = EntryType.normal(self.head_frame, text_var=self.total_thanh_tien)
+        total_thanh_tien_value = EntryType.view(self.head_frame, text_var=self.total_thanh_tien)
         total_thanh_tien_value.grid(row=2, column=2, sticky='se')
         
     def init_table_data(self):

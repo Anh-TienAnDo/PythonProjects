@@ -37,6 +37,11 @@ class BanHangRepo:
         self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
         data = self.cursor.fetchall()
         return data
+    
+    def report_loi_nhuan(self, where: str) -> list:
+        self.cursor.execute(f'SELECT sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban')
+        data = self.cursor.fetchall()
+        return data
 
     def get_by_id(self, ban_hang_id) -> BanHang:
         logging.info('Getting banhang by id %s', ban_hang_id)

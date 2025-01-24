@@ -78,9 +78,9 @@ class SalesManagementApp:
         menu_bar.add_cascade(label="QUẢN LÝ", menu=nav_menu)
         
         bao_cao_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
-        bao_cao_menu.add_command(label="Báo cáo lợi nhuận", command=lambda: self.show_frame(self.frame_bao_cao))
         bao_cao_menu.add_command(label="Báo cáo bán hàng", command=lambda: self.show_frame(self.frame_bao_cao_ban_hang))
         bao_cao_menu.add_command(label="Báo cáo nhập hàng", command=lambda: self.show_frame(self.frame_bao_cao_nhap_hang))
+        bao_cao_menu.add_command(label="Báo cáo lợi nhuận", command=lambda: self.show_frame(self.frame_bao_cao))
         menu_bar.add_cascade(label="BÁO CÁO", menu=bao_cao_menu)
         
         self.root.config(menu=menu_bar)

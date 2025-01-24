@@ -2326,3 +2326,123 @@
 2025-01-23 15:59:41 - root - INFO - Closing database connection
 2025-01-23 15:59:41 - root - INFO - Closing database connection
 2025-01-23 15:59:41 - root - INFO - Closing database connection
+2025-01-24 09:38:53 - root - INFO - Logging initialized
+2025-01-24 09:38:53 - root - INFO - Starting Sales Management System
+2025-01-24 09:38:53 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:53 - root - INFO - Initializing tables
+2025-01-24 09:38:53 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:38:53 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:53 - root - INFO - Getting all products
+2025-01-24 09:38:55 - root - INFO - Closing database connection
+2025-01-24 09:38:55 - root - INFO - Starting Sales Management System
+2025-01-24 09:38:57 - root - INFO - MatHang Controller
+2025-01-24 09:38:57 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all MatHang
+2025-01-24 09:38:57 - root - INFO - Getting all products
+2025-01-24 09:38:57 - root - INFO - NhapHang Controller
+2025-01-24 09:38:57 - root - INFO - ---NhapHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---NhapHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all NhapHang
+2025-01-24 09:38:57 - root - INFO - Getting all nhaphang
+2025-01-24 09:38:57 - root - INFO - BanHang Controller
+2025-01-24 09:38:57 - root - INFO - ---BanHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---BanHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all BanHang
+2025-01-24 09:38:57 - root - INFO - Getting all banhang
+2025-01-24 09:38:57 - root - INFO - ChiPhi Controller
+2025-01-24 09:38:57 - root - INFO - ---ChiPhiService initializing---
+2025-01-24 09:38:57 - root - INFO - ---ChiPhiRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all ChiPhi
+2025-01-24 09:38:57 - root - INFO - Getting all chi phi
+2025-01-24 09:38:57 - root - INFO - KhachHang Controller
+2025-01-24 09:38:57 - root - INFO - ---KhachHangService initializing---
+2025-01-24 09:38:57 - root - INFO - ---KhachHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all KhachHang
+2025-01-24 09:38:57 - root - INFO - Getting all khach hang
+2025-01-24 09:38:57 - root - INFO - NCC Controller
+2025-01-24 09:38:57 - root - INFO - ---NCCService initializing---
+2025-01-24 09:38:57 - root - INFO - ---NCCRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - Get all NCC
+2025-01-24 09:38:57 - root - INFO - Getting all ncc
+2025-01-24 09:38:57 - root - INFO - BaoCao Controller
+2025-01-24 09:38:57 - root - INFO - ---BaoCaoService initializing---
+2025-01-24 09:38:57 - root - INFO - ---BanHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - ---NhapHangRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - ---ChiPhiRepo initializing---
+2025-01-24 09:38:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:38:57 - root - INFO - report BanHang
+2025-01-24 09:41:02 - root - INFO - Logging initialized
+2025-01-24 09:41:02 - root - INFO - Starting Sales Management System
+2025-01-24 09:41:02 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:02 - root - INFO - Initializing tables
+2025-01-24 09:41:02 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:41:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:02 - root - INFO - Getting all products
+2025-01-24 09:41:04 - root - INFO - Starting Sales Management System
+2025-01-24 09:41:04 - root - INFO - MatHang Controller
+2025-01-24 09:41:04 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:41:04 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:04 - root - INFO - Closing database connection
+2025-01-24 09:41:04 - root - INFO - Get all MatHang
+2025-01-24 09:41:04 - root - INFO - Getting all products
+2025-01-24 09:41:04 - root - INFO - NhapHang Controller
+2025-01-24 09:41:04 - root - INFO - ---NhapHangService initializing---
+2025-01-24 09:41:04 - root - INFO - ---NhapHangRepo initializing---
+2025-01-24 09:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:04 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:41:04 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:04 - root - INFO - Get all NhapHang
+2025-01-24 09:41:04 - root - INFO - Getting all nhaphang
+2025-01-24 09:41:04 - root - INFO - BanHang Controller
+2025-01-24 09:41:04 - root - INFO - ---BanHangService initializing---
+2025-01-24 09:41:04 - root - INFO - ---BanHangRepo initializing---
+2025-01-24 09:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:04 - root - INFO - ---MatHangService initializing---
+2025-01-24 09:41:04 - root - INFO - ---MatHangRepo initializing---
+2025-01-24 09:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:04 - root - INFO - Get all BanHang
+2025-01-24 09:41:04 - root - INFO - Getting all banhang
+2025-01-24 09:41:05 - root - INFO - ChiPhi Controller
+2025-01-24 09:41:05 - root - INFO - ---ChiPhiService initializing---
+2025-01-24 09:41:05 - root - INFO - ---ChiPhiRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - Get all ChiPhi
+2025-01-24 09:41:05 - root - INFO - Getting all chi phi
+2025-01-24 09:41:05 - root - INFO - KhachHang Controller
+2025-01-24 09:41:05 - root - INFO - ---KhachHangService initializing---
+2025-01-24 09:41:05 - root - INFO - ---KhachHangRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - Get all KhachHang
+2025-01-24 09:41:05 - root - INFO - Getting all khach hang
+2025-01-24 09:41:05 - root - INFO - NCC Controller
+2025-01-24 09:41:05 - root - INFO - ---NCCService initializing---
+2025-01-24 09:41:05 - root - INFO - ---NCCRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - Get all NCC
+2025-01-24 09:41:05 - root - INFO - Getting all ncc
+2025-01-24 09:41:05 - root - INFO - BaoCao Controller
+2025-01-24 09:41:05 - root - INFO - ---BaoCaoService initializing---
+2025-01-24 09:41:05 - root - INFO - ---BanHangRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - ---NhapHangRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - ---ChiPhiRepo initializing---
+2025-01-24 09:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-01-24 09:41:05 - root - INFO - report BanHang

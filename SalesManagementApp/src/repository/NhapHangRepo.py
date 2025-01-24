@@ -37,6 +37,11 @@ class NhapHangRepo:
         self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_nhap FROM {NHAP_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
         data = self.cursor.fetchall()
         return data
+    
+    def report_loi_nhuan(self, where: str) -> list:
+        self.cursor.execute(f'SELECT sum(thanh_tien), ngay_nhap FROM {NHAP_HANG_TABLE} WHERE {where} ORDER BY ngay_nhap')
+        data = self.cursor.fetchall()
+        return data
 
     def get_by_id(self, nhap_hang_id) -> NhapHang:
         logging.info('Getting nhaphang by id %s', nhap_hang_id)
