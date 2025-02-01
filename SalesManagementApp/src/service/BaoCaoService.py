@@ -14,9 +14,11 @@ class BaoCaoService:
         
     def report_loi_nhuan(self, month: str, year: str) -> dict:
         now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month.strip() == '':
+        month = month.strip()
+        year = year.strip()
+        if month is None or month == '':
             month = str(now.month)
-        if year is None or year.strip() == '':
+        if year is None or year == '':
             year = str(now.year)
         if len(month) == 1:
             month = f'0{month}'

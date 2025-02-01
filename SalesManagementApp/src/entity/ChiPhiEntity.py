@@ -9,7 +9,7 @@ class ChiPhi:
         self.id = id if id is not None else GenerationId.generate_id(
             CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
         self.ten_chi_phi = TextNormalization.remove_special_characters(str(ten_chi_phi)) if ten_chi_phi is not None else ""
-        self.gia_chi_phi = int(gia_chi_phi) if gia_chi_phi is not None and str(gia_chi_phi).isdigit() else 0
+        self.gia_chi_phi = int(gia_chi_phi) if gia_chi_phi is not None and str(gia_chi_phi).strip().isdigit() else 0
         self.ghi_chu = str(ghi_chu).strip() if ghi_chu is not None else ""
         self.ngay_tao = ngay_tao if ngay_tao is not None else datetime.now().strftime("%Y-%m-%d")
 

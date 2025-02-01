@@ -68,7 +68,7 @@ class NhapHangAddController:
             suggestions = self.nhap_hang_service.search_ncc(search_text)
             self.suggestion_ncc_box.delete(0, END)
             for suggestion in suggestions:
-                self.suggestion_ncc_box.insert(END, suggestion.get('ten_ncc'))
+                self.suggestion_ncc_box.insert(END, suggestion)
     
     #  Hàm xử lý sự kiện khi chọn nhà cung cấp từ gợi ý
     def on_suggestion_ncc_select(self, event):
@@ -106,8 +106,8 @@ class NhapHangAddController:
         total_so_luong_temp = 0
         total_thanh_tien_temp = 0
         for i, nhap_hang_var in enumerate(self.nhap_hang_list_var):
-            so_luong = nhap_hang_var.get('so_luong').get()
-            gia_nhap = nhap_hang_var.get('gia_nhap').get()
+            so_luong = str(nhap_hang_var.get('so_luong').get()).strip()
+            gia_nhap = str(nhap_hang_var.get('gia_nhap').get()).strip()
             if so_luong is not None and str(so_luong).isdigit():
                 so_luong = int(so_luong)
             else:
@@ -125,9 +125,9 @@ class NhapHangAddController:
             label_stt.grid(row=row, column=0, padx=5, pady=5)
             coloumn = 1
             for key in NHAP_HANG_COLUMN_NAMES.keys():
-                if key == 'id':
+                if key == 'id' or key == 'ngay_nhap' or key == 'id_mat_hang':
                     continue
-                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_nhap' or key == 'don_vi':
+                elif key == 'ten_hang' or key == 'id' or key == 'don_vi':
                     label = LabelType.normal(self.scrollable_frame, text=nhap_hang_var.get(key).get())
                     label.grid(row=row, column=coloumn, padx=5, pady=5)
                 elif key == 'thanh_tien':
@@ -175,7 +175,7 @@ class NhapHangAddController:
     def show_column_title(self):
         column = 0
         for j in self.coloumn_title:
-            if j == 'Mã nhập hàng':
+            if j == 'Mã nhập hàng' or j == 'Ngày nhập' or j == 'Mã hàng':
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
@@ -198,7 +198,7 @@ class NhapHangAddController:
         self.frame.rowconfigure(1, weight=4)
         self.frame.columnconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(0, weight=1)
-        self.sub_frame_bottom.rowconfigure(1, weight=3)
+        self.sub_frame_bottom.rowconfigure(1, weight=2)
         self.sub_frame_bottom.rowconfigure(2, weight=1)
         self.sub_frame_bottom.columnconfigure(0, weight=1)
         
@@ -207,6 +207,7 @@ class NhapHangAddController:
         self.sub_frame_bottom_top.columnconfigure(0, weight=1)
         self.sub_frame_bottom_top.columnconfigure(1, weight=1)
         self.sub_frame_bottom_top.columnconfigure(2, weight=1)
+        self.sub_frame_bottom_top.columnconfigure(3, weight=1)
         
         self.sub_frame_bottom_bottom.rowconfigure(0, weight=1)
         self.sub_frame_bottom_bottom.columnconfigure(0, weight=1)
@@ -223,30 +224,30 @@ class NhapHangAddController:
     def init_components(self):
         # ---- sub_frame_bottom_top ----
         head_label = LabelType.h1(self.sub_frame_bottom_top, "Thêm nhập hàng") # Label trong head_frame
-        head_label.grid(row=0, column=0, columnspan=2)
+        head_label.grid(row=0, column=0, padx=5, pady=5)
         button_refresh = ButtonType.brown(self.sub_frame_bottom_top, "Làm mới dữ liệu")
-        button_refresh.grid(row=0, column=2)
+        button_refresh.grid(row=0, column=1, padx=5, pady=5)
         button_refresh.config(command=partial(self.refresh_nhap_hang_list))
-        total_nhap_hang_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng nhập hàng:", text_color=TEXT_COLOR_BLUE)
-        total_nhap_hang_label.grid(row=1, column=0, sticky="n")
+        total_nhap_hang_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng nhập hàng:")
+        total_nhap_hang_label.grid(row=0, column=2, sticky="e", padx=5, pady=5)
         total_nhap_hang_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_nhap_hang)
-        total_nhap_hang_value.grid(row=1, column=0, sticky='ne')
-        total_so_luong_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_so_luong_label.grid(row=1, column=1, sticky='n')
+        total_nhap_hang_value.grid(row=0, column=3, sticky='w', padx=5, pady=5)
+        total_so_luong_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng số lượng:")
+        total_so_luong_label.grid(row=1, column=0, sticky='e', padx=5, pady=5)
         total_so_luong_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_so_luong)
-        total_so_luong_value.grid(row=1, column=1, sticky='ne')
-        total_thanh_tien_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
-        total_thanh_tien_label.grid(row=1, column=2, sticky='n')
+        total_so_luong_value.grid(row=1, column=1, sticky='w', padx=5, pady=5)
+        total_thanh_tien_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng thành tiền:")
+        total_thanh_tien_label.grid(row=1, column=2, sticky='e', padx=5, pady=5)
         total_thanh_tien_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_thanh_tien)
-        total_thanh_tien_value.grid(row=1, column=2, sticky='ne', padx=30)
+        total_thanh_tien_value.grid(row=1, column=3, sticky='w', padx=5, pady=5)
         
         # ---- sub_frame_bottom_bottom ----
         button_add = ButtonType.success(self.sub_frame_bottom_bottom, "Lưu toàn bộ nhập hàng")
         button_add.config(command=partial(self.save_all))
-        button_add.grid(row=0, column=0)
+        button_add.grid(row=0, column=0, padx=5, pady=5)
         button_cancel = ButtonType.danger(self.sub_frame_bottom_bottom, "Hủy")
         button_cancel.config(command=partial(self.view_cancel))
-        button_cancel.grid(row=0, column=1)
+        button_cancel.grid(row=0, column=1, padx=5, pady=5)
         
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm hàng hóa
         search_input_box = EntryType.blue(self.sub_frame_top, text_var=self.search_mat_hang_var)

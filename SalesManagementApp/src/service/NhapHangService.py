@@ -22,15 +22,17 @@ class NhapHangService:
         if sort not in self.get_nhap_hang_sort_keys() or sort == '' or sort is None:
             sort = 'Tên A-Z'
         sort_by = self.get_nhap_hang_sort_by_key(sort)
-
+        day = day.strip()
+        month = month.strip()
+        year = year.strip()
         now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month.strip() == '':
+        if month is None or month == '':
             month = str(now.month)
-        if year is None or year.strip() == '':
+        if year is None or year == '':
             year = str(now.year)
         if len(month) == 1:
             month = f'0{month}'
-        if day is None or day.strip() == '':
+        if day is None or day == '':
             where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
         else:
             if len(day) == 1:
@@ -43,15 +45,17 @@ class NhapHangService:
         if sort not in self.get_report_nhap_hang_sort_keys() or sort == '' or sort is None:
             sort = 'Ngày nhập mới - cũ'
         sort_by = self.get_report_nhap_hang_sort_by_key(sort)
-
+        day = day.strip()
+        month = month.strip()
+        year = year.strip()
         now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month.strip() == '':
+        if month is None or month == '':
             month = str(now.month)
-        if year is None or year.strip() == '':
+        if year is None or year == '':
             year = str(now.year)
         if len(month) == 1:
             month = f'0{month}'
-        if day is None or day.strip() == '':
+        if day is None or day == '':
             where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
         else:
             if len(day) == 1:

@@ -293,10 +293,10 @@ class KhachHangController: # lấy data rồi đưa vào template
     def init_components(self):
         # ---- head_frame ----
         head_label = LabelType.h1(self.head_frame, TITLE_KHACH_HANG) # Label trong head_frame
-        head_label.grid(row=0, column=0)
+        head_label.grid(row=0, column=0, padx=5, pady=5)
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm
         search_input_box = EntryType.blue(self.head_frame, text_var=self.search_var)
-        search_input_box.grid(row=0, column=1, sticky="E")
+        search_input_box.grid(row=0, column=1, sticky="E", padx=5, pady=5)
         search_input_box.bind("<KeyRelease>", self.on_search) # Liên kết sự kiện nhập văn bản với hàm xử lý
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
@@ -308,7 +308,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         refresh_button.grid(row=0, column=3, sticky="w")
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5, width=40)
-        self.suggestion_box.grid(row=1, column=1, columnspan=2, sticky='n')
+        self.suggestion_box.grid(row=1, column=1, columnspan=2, sticky='nw')
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
         # export and import 
         button_export = ButtonType.success(self.head_frame, "Xuất Excel")
@@ -321,22 +321,22 @@ class KhachHangController: # lấy data rồi đưa vào template
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm khách hàng")
         button_add.config(command=partial(self.view_add_item))
-        button_add.grid(row=2, column=0)
+        button_add.grid(row=2, column=0, padx=5, pady=5)
         # Tạo Combobox cho chức năng sắp xếp
         label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
+        label_sort.grid(row=2, column=1, sticky="e", padx=5, pady=5)
         self.sort_var = StringVar()
         sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
         sort_combobox['values'] = self.khach_hang_service.get_khach_hang_sort_keys()
         sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
+        sort_combobox.grid(row=2, column=2, sticky="w")
         # Liên kết sự kiện chọn mục với hàm xử lý
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
         # total label
-        total_item_label = LabelType.h4(self.head_frame, "Tổng khách hàng:", text_color=TEXT_COLOR_BLUE)
-        total_item_label.grid(row=2, column=2, sticky="W")
+        total_item_label = LabelType.normal_blue_white(self.head_frame, "Tổng khách hàng:")
+        total_item_label.grid(row=2, column=3, sticky="e", padx=5, pady=5)
         total_item_view = EntryType.view(self.head_frame, text_var=self.total_item)
-        total_item_view.grid(row=2, column=2, sticky="E")
+        total_item_view.grid(row=2, column=4, sticky="w", padx=5, pady=5)
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)

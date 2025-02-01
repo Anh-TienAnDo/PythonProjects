@@ -10,10 +10,10 @@ class BanHang:
         self.id_mat_hang = str(id_mat_hang)
         self.ten_hang = str(ten_hang)
         self.don_vi = TextNormalization.remove_special_characters(str(don_vi)) if don_vi is not None else ""
-        self.so_luong = int(so_luong) if so_luong is not None and str(so_luong).isdigit() else 0
-        self.gia_ban = int(gia_ban) if gia_ban is not None and str(gia_ban).isdigit() else 0
+        self.so_luong = int(so_luong) if so_luong is not None and str(so_luong).strip().isdigit() else 0
+        self.gia_ban = int(gia_ban) if gia_ban is not None and str(gia_ban).strip().isdigit() else 0
         self.khach_hang = str(khach_hang).strip() if khach_hang is not None else ""
-        self.thanh_tien = int(thanh_tien) if thanh_tien is not None and str(thanh_tien).isdigit() else 0
+        self.thanh_tien = int(thanh_tien) if thanh_tien is not None and str(thanh_tien).strip().isdigit() else 0
         self.ghi_chu = str(ghi_chu).strip() if ghi_chu is not None else ""
         self.ngay_ban = ngay_ban if ngay_ban is not None else datetime.now().strftime("%Y-%m-%d")
         

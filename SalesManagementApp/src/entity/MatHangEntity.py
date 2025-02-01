@@ -10,9 +10,9 @@ class MatHang:
             MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
         self.ten_hang = TextNormalization.remove_special_characters(str(ten_hang)) if ten_hang is not None else ""
         self.don_vi = TextNormalization.remove_special_characters(str(don_vi)) if don_vi is not None else ""
-        self.so_luong = int(so_luong) if so_luong is not None and str(so_luong).isdigit() else 0
-        self.gia_le = int(gia_le) if gia_le is not None and str(gia_le).isdigit() else 0
-        self.gia_si = int(gia_si) if gia_si is not None and str(gia_si).isdigit() else 0
+        self.so_luong = int(so_luong) if so_luong is not None and str(so_luong).strip().isdigit() else 0
+        self.gia_le = int(gia_le) if gia_le is not None and str(gia_le).strip().isdigit() else 0
+        self.gia_si = int(gia_si) if gia_si is not None and str(gia_si).strip().isdigit() else 0
         self.ngay_tao = ngay_tao if ngay_tao is not None else datetime.now().strftime("%Y-%m-%d")
         self.is_active = is_active if is_active is not None else 1
 

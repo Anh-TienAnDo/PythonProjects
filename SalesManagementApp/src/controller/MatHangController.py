@@ -1,5 +1,5 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END, messagebox, filedialog
+from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
 from tkinter import ttk
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
@@ -11,7 +11,6 @@ from src.entity.MatHangEntity import MatHang
 from src.service.MatHangService import MatHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
-from datetime import datetime
 
 
 class MatHangController: # lấy data rồi đưa vào template
@@ -229,6 +228,7 @@ class MatHangController: # lấy data rồi đưa vào template
         self.head_frame.grid_rowconfigure(0, weight=1)
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
+        self.head_frame.grid_rowconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -239,22 +239,22 @@ class MatHangController: # lấy data rồi đưa vào template
     def init_components(self):
         # ---- head_frame ----
         head_label = LabelType.h1(self.head_frame, TITLE_MAT_HANG) # Label trong head_frame
-        head_label.grid(row=0, column=0)
+        head_label.grid(row=0, column=0, padx=5, pady=5)
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm
         search_input_box = EntryType.blue(self.head_frame, text_var=self.search_var)
-        search_input_box.grid(row=0, column=1, sticky="E")
+        search_input_box.grid(row=0, column=1, sticky="E", padx=5, pady=5)
         search_input_box.bind("<KeyRelease>", self.on_search) # Liên kết sự kiện nhập văn bản với hàm xử lý
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
         search_button.config(command=partial(self.on_search_button_click))
-        search_button.grid(row=0, column=2, sticky="W")
+        search_button.grid(row=0, column=2, sticky="w")
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
         refresh_button.grid(row=0, column=3, sticky="w")
         # Tạo Listbox cho gợi ý từ khóa
         self.suggestion_box = Listbox(self.head_frame, font=FontType.normal(), height=5, width=40)
-        self.suggestion_box.grid(row=1, column=1, columnspan=2, sticky='n')
+        self.suggestion_box.grid(row=1, column=1, columnspan=2, sticky='nw')
         self.suggestion_box.bind("<<ListboxSelect>>", self.on_suggestion_select)
         # export and import 
         button_export = ButtonType.success(self.head_frame, "Xuất Excel")
@@ -267,25 +267,25 @@ class MatHangController: # lấy data rồi đưa vào template
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm mặt hàng")
         button_add.config(command=partial(self.view_add_item))
-        button_add.grid(row=2, column=0)
+        button_add.grid(row=2, column=0, padx=5, pady=5)
         # Tạo Combobox cho chức năng sắp xếp
         label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
+        label_sort.grid(row=2, column=1, sticky="e", padx=5, pady=5)
         sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
         sort_combobox['values'] = self.mat_hang_service.get_mat_hang_sort_keys()
         sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
+        sort_combobox.grid(row=2, column=2, sticky="w")
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected) # Liên kết sự kiện chọn mục với hàm xử lý
         # ---- content_frame ----
         # Tạo Label hiển thị tổng số mặt hàng và tổng số lượng
-        total_item_label = LabelType.h4(self.head_frame, "Tổng mặt hàng:", text_color=TEXT_COLOR_BLUE)
-        total_item_label.grid(row=2, column=2, sticky="nw")
+        total_item_label = LabelType.normal_blue_white(self.head_frame, "Tổng mặt hàng:")
+        total_item_label.grid(row=3, column=0, sticky="e", padx=5, pady=5)
         total_item_view = EntryType.view(self.head_frame, text_var=self.total_item)
-        total_item_view.grid(row=2, column=2, sticky="ne")
-        total_quantity_label = LabelType.h4(self.head_frame, "Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_quantity_label.grid(row=2, column=2, sticky="w")
+        total_item_view.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+        total_quantity_label = LabelType.normal_blue_white(self.head_frame, "Tổng số lượng:")
+        total_quantity_label.grid(row=3, column=2, sticky="e", padx=5, pady=5)
         total_quantity_view = EntryType.view(self.head_frame, text_var=self.total_quantity)
-        total_quantity_view.grid(row=2, column=2, sticky="e")
+        total_quantity_view.grid(row=3, column=3, sticky="w", padx=5, pady=5)
         
     def show_column_title(self):
         for j in self.coloumn_title:

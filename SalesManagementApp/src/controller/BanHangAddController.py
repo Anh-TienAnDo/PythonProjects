@@ -19,7 +19,7 @@ from reportlab.pdfbase.ttfonts import TTFont
 class BanHangAddController:
     def __init__(self, frame: Frame):
         self.frame = frame
-        # logging.info("BanHangAdd Controller")
+        logging.info("BanHangAdd Controller")
         self.ban_hang_service = BanHangService() 
         self.ban_hang_list_var = []
         self.search_mat_hang_var = StringVar()
@@ -73,7 +73,7 @@ class BanHangAddController:
             suggestions = self.ban_hang_service.search_khach_hang(search_text)
             self.suggestion_khach_hang_box.delete(0, END)
             for suggestion in suggestions:
-                self.suggestion_khach_hang_box.insert(END, suggestion.get('ten_khach_hang'))
+                self.suggestion_khach_hang_box.insert(END, suggestion)
     
     #  Hàm xử lý sự kiện khi chọn khách hàng từ gợi ý
     def on_suggestion_khach_hang_select(self, event):
@@ -110,14 +110,14 @@ class BanHangAddController:
             }
             total = 0
             for ban_hang_var in self.ban_hang_list_var:
-                ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
+                ban_hang_data = {key: str(var.get()).strip() for key, var in ban_hang_var.items()}
                 item = {}
                 thanh_tien = int(ban_hang_data.get('so_luong')) * int(ban_hang_data.get('gia_ban'))
                 total += thanh_tien
                 item['thanh_tien'] = TextNormalization.format_number(thanh_tien)
                 for key, value in ban_hang_data.items():
                     if key == "ten_hang":
-                        item = {"ten_hang": value}
+                        item["ten_hang"] = value
                     elif key == "so_luong":
                         item["so_luong"] = TextNormalization.format_number(value)
                     elif key == "gia_ban":
@@ -176,8 +176,8 @@ class BanHangAddController:
         total_so_luong_temp = 0
         total_thanh_tien_temp = 0
         for i, ban_hang_var in enumerate(self.ban_hang_list_var):
-            so_luong = ban_hang_var.get('so_luong').get()
-            gia_ban = ban_hang_var.get('gia_ban').get()
+            so_luong = str(ban_hang_var.get('so_luong').get()).strip()
+            gia_ban = str(ban_hang_var.get('gia_ban').get()).strip()
             if so_luong is not None and str(so_luong).isdigit():
                 so_luong = int(so_luong)
             else:
@@ -193,24 +193,24 @@ class BanHangAddController:
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             for key in BAN_HANG_COLUMN_NAMES.keys():
-                if key == 'id':
+                if key == 'id' or key == 'id_mat_hang' or key == 'ngay_ban':
                     continue
-                elif key == 'id_mat_hang' or key == 'ten_hang' or key == 'id' or key == 'ngay_ban' or key == 'don_vi':
+                elif key == 'ten_hang' or key == 'id' or key == 'don_vi':
                     label = LabelType.normal(self.scrollable_frame, text=ban_hang_var.get(key).get())
-                    label.grid(row=row, column=coloumn, padx=5, pady=5)
+                    label.grid(row=row, column=column, padx=5, pady=5)
                 elif key == 'thanh_tien':
                     label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(ban_hang_var.get(key).get()) + f" {MONEY_UNIT}")
-                    label.grid(row=row, column=coloumn, padx=5, pady=5)
+                    label.grid(row=row, column=column, padx=5, pady=5)
                 else:
                     entry = EntryType.normal(self.scrollable_frame, text_var=ban_hang_var.get(key))
-                    entry.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
+                    entry.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
             button_delete = ButtonType.danger(self.scrollable_frame, "Xóa")
-            button_delete.grid(row=row, column=coloumn, padx=5, pady=5)
+            button_delete.grid(row=row, column=column, padx=5, pady=5)
             button_delete.config(command=partial(self.delete_hang_ban, i))
             row += 1
             
@@ -247,18 +247,13 @@ class BanHangAddController:
     def show_column_title(self):
         column = 0
         for j in self.coloumn_title:
-            if j == 'Mã bán hàng':
+            if j == 'Mã bán hàng' or j == 'Ngày bán' or j == 'Mã hàng':
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
             column += 1
         
     def init_sub_frame(self):
-        # self.view_new_top_window = Toplevel(self.frame)
-        # self.view_new_top_window.title("Thêm mới bán hàng")
-        # self.view_new_top_window.geometry(SCREEN_SIZE)
-        # self.view_new_top_window.rowconfigure(0, weight=1)
-        
         self.sub_frame_top = Frame(self.frame, bg=BG_COLOR_LIGHT_BLUE, relief="sunken")
         self.sub_frame_top.grid(row=0, column=0, sticky="nsew", padx=10)
         self.sub_frame_bottom = Frame(self.frame, bg=BG_COLOR_LIGHT_GRAY, relief="sunken")
@@ -274,11 +269,8 @@ class BanHangAddController:
         self.frame.rowconfigure(0, weight=1)
         self.frame.rowconfigure(1, weight=4)
         self.frame.columnconfigure(0, weight=1)
-        # self.view_new_top_window.rowconfigure(0, weight=1)
-        # self.view_new_top_window.rowconfigure(1, weight=4)
-        # self.view_new_top_window.columnconfigure(0, weight=1)
         self.sub_frame_bottom.rowconfigure(0, weight=1)
-        self.sub_frame_bottom.rowconfigure(1, weight=3)
+        self.sub_frame_bottom.rowconfigure(1, weight=2)
         self.sub_frame_bottom.rowconfigure(2, weight=1)
         self.sub_frame_bottom.columnconfigure(0, weight=1)
         
@@ -287,6 +279,9 @@ class BanHangAddController:
         self.sub_frame_bottom_top.columnconfigure(0, weight=1)
         self.sub_frame_bottom_top.columnconfigure(1, weight=1)
         self.sub_frame_bottom_top.columnconfigure(2, weight=1)
+        self.sub_frame_bottom_top.columnconfigure(3, weight=1)
+        self.sub_frame_bottom_top.columnconfigure(4, weight=1)
+        self.sub_frame_bottom_top.columnconfigure(5, weight=1)
         
         self.sub_frame_bottom_bottom.rowconfigure(0, weight=1)
         self.sub_frame_bottom_bottom.columnconfigure(0, weight=1)
@@ -303,33 +298,33 @@ class BanHangAddController:
     def init_components(self):
         # ---- sub_frame_bottom_top ----
         head_label = LabelType.h1(self.sub_frame_bottom_top, "Thêm bán hàng") # Label trong head_frame
-        head_label.grid(row=0, column=0)
+        head_label.grid(row=0, column=0, padx=5, pady=5, columnspan=2)
         button_refresh = ButtonType.brown(self.sub_frame_bottom_top, "Làm mới dữ liệu")
-        button_refresh.grid(row=0, column=1)
+        button_refresh.grid(row=0, column=2, padx=5, pady=5, columnspan=2)
         button_refresh.config(command=partial(self.refresh_ban_hang_list))
         button_export = ButtonType.success(self.sub_frame_bottom_top, "Xuất hóa đơn")
-        button_export.grid(row=0, column=2)
+        button_export.grid(row=0, column=4, padx=5, pady=5, columnspan=2)
         button_export.config(command=partial(self.export_invoice))
-        total_ban_hang_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng bán hàng:", text_color=TEXT_COLOR_BLUE)
-        total_ban_hang_label.grid(row=1, column=0, sticky="n")
+        total_ban_hang_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng bán hàng:")
+        total_ban_hang_label.grid(row=1, column=0, sticky="e", padx=5, pady=5)
         total_ban_hang_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_ban_hang)
-        total_ban_hang_value.grid(row=1, column=0, sticky='ne')
-        total_so_luong_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_so_luong_label.grid(row=1, column=1, sticky='n')
+        total_ban_hang_value.grid(row=1, column=1, sticky='w', padx=5, pady=5)
+        total_so_luong_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng số lượng:")
+        total_so_luong_label.grid(row=1, column=2, sticky='e', padx=5, pady=5)
         total_so_luong_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_so_luong)
-        total_so_luong_value.grid(row=1, column=1, sticky='ne')
-        total_thanh_tien_label = LabelType.h4(self.sub_frame_bottom_top, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
-        total_thanh_tien_label.grid(row=1, column=2, sticky='n')
+        total_so_luong_value.grid(row=1, column=3, sticky='w', padx=5, pady=5)
+        total_thanh_tien_label = LabelType.normal_blue_white(self.sub_frame_bottom_top, text="Tổng thành tiền:")
+        total_thanh_tien_label.grid(row=1, column=4, sticky='e', padx=5, pady=5)
         total_thanh_tien_value = EntryType.view(self.sub_frame_bottom_top, text_var=self.total_thanh_tien)
-        total_thanh_tien_value.grid(row=1, column=2, sticky='ne', padx=30)
+        total_thanh_tien_value.grid(row=1, column=5, sticky='w', padx=5, pady=5)
         
         # ---- sub_frame_bottom_bottom ----
         button_add = ButtonType.success(self.sub_frame_bottom_bottom, "Lưu toàn bộ bán hàng")
         button_add.config(command=partial(self.save_all))
-        button_add.grid(row=0, column=0)
+        button_add.grid(row=0, column=0, padx=5, pady=5)
         button_cancel = ButtonType.danger(self.sub_frame_bottom_bottom, "Hủy")
         button_cancel.config(command=partial(self.view_cancel))
-        button_cancel.grid(row=0, column=1)
+        button_cancel.grid(row=0, column=1, padx=5, pady=5)
         
         # Tạo ô bán văn bản (Entry) cho tìm kiếm hàng hóa
         search_input_box = EntryType.blue(self.sub_frame_top, text_var=self.search_mat_hang_var)

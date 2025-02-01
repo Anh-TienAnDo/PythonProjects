@@ -4,7 +4,7 @@ import logging
 from contants import *
 from src.config.database import Database
 from src.config.log import LogConfig
-from src.config.search_whoosh import SearchWhooshMatHang
+from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshNCC, SearchWhooshKhachHang
 from static.css.FontType import FontType
 from src.controller.MatHangController import MatHangController
 from src.controller.NhapHangController import NhapHangController
@@ -26,12 +26,13 @@ def setup_logging():
     log = LogConfig(LOGGING_PATH)
     log.setup_logging()
 
-# Whoosh Index setup
-# id trùng thì sinh id mới
-
 def setup_search_index():
     search_whoosh_mat_hang = SearchWhooshMatHang()
     search_whoosh_mat_hang.create_document_ix()
+    search_whoosh_ncc = SearchWhooshNCC()
+    search_whoosh_ncc.create_document_ix()
+    search_whoosh_khach_hang = SearchWhooshKhachHang()
+    search_whoosh_khach_hang.create_document_ix()
 
 # Tkinter GUI Setup
 class SalesManagementApp:
@@ -39,6 +40,8 @@ class SalesManagementApp:
         self.root = root
         self.root.title(TITLE_APP)
         self.root.geometry(SCREEN_SIZE)
+        # Điều chỉnh DPI scaling
+        # self.root.tk.call('tk', 'scaling', 1.25)
 
         # Tạo các Frame (container) cho các giao diện khác nhau
         self.frame_main = Frame(root, bg=BG_COLOR_FRAME_MAIN)

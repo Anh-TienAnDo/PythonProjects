@@ -1,5 +1,5 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
+from tkinter import Frame, StringVar, Toplevel
 from tkinter import ttk
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
@@ -14,7 +14,7 @@ from functools import partial
 
 class BanHangController:
     def __init__(self, frame: Frame):
-        # logging.info("BanHang Controller")
+        logging.info("BanHang Controller")
         self.frame = frame
         self.ban_hang_service = BanHangService() 
         self.ban_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
@@ -36,7 +36,7 @@ class BanHangController:
         self.refresh_ban_hang_list()
         
     def get_all(self):
-        # logging.info("Get all BanHang")
+        logging.info("Get all BanHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -45,29 +45,29 @@ class BanHangController:
             ban_hang_list = self.ban_hang_service.get_all(sort=sort, day=day, month=month, year=year)
             return ban_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return []
         
     def get_by_id(self, ban_hang_id):
-        # logging.info("Get BanHang with id: %s", ban_hang_id)
+        logging.info("Get BanHang with id: %s", ban_hang_id)
         try:
             ban_hang = self.ban_hang_service.get_by_id(ban_hang_id)
             self.view_edit_item(ban_hang)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return None
         
     def create(self):
         from src.controller.BanHangAddController import BanHangAddController
-        # logging.info("Create BanHang")
+        logging.info("Create BanHang")
         try:
             BanHangAddController(self.frame)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return None
         
     def update(self, ban_hang_id, so_luong_ban_old: int):
-        # logging.info("Update BanHang with id: %s", ban_hang_id)
+        logging.info("Update BanHang with id: %s", ban_hang_id)
         ban_hang_data = {key: var.get() for key, var in self.ban_hang_vars.items()}
         ban_hang = BanHang(**ban_hang_data)
         try: 
@@ -76,17 +76,17 @@ class BanHangController:
             self.ban_hang_vars.clear()
             self.refresh_ban_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return None
         
     def delete(self, ban_hang_id):
-        # logging.info("Delete BanHang with id: %s", ban_hang_id)
+        logging.info("Delete BanHang with id: %s", ban_hang_id)
         try:
             self.ban_hang_service.delete(ban_hang_id)
             self.view_new_top_window.destroy()
             self.refresh_ban_hang_list()
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return None
         
     # --- Các hàm xử lý sự kiện ---
@@ -242,6 +242,9 @@ class BanHangController:
         self.head_frame.grid_rowconfigure(0, weight=1)
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
+        self.head_frame.grid_rowconfigure(3, weight=1)
+        self.head_frame.grid_rowconfigure(4, weight=1)
+        self.head_frame.grid_rowconfigure(5, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -252,38 +255,38 @@ class BanHangController:
     def init_components(self):
         # ---- head_frame ----
         head_label = LabelType.h1(self.head_frame, TITLE_BAN_HANG) # Label trong head_frame
-        head_label.grid(row=0, column=0)
+        head_label.grid(row=0, column=0, padx=5, pady=5)
         
         self.init_search_date()
         # button add
         button_add = ButtonType.success(self.head_frame, "Thêm bán hàng")
         button_add.config(command=partial(self.create))
-        button_add.grid(row=2, column=0)
+        button_add.grid(row=4, column=0, padx=5, pady=5)
         # Tạo Combobox cho chức năng sắp xếp
         label_sort = LabelType.normal_blue_white(self.head_frame, "Sắp xếp theo:")
-        label_sort.grid(row=2, column=1, sticky="nw")
+        label_sort.grid(row=4, column=1, sticky="e", padx=5, pady=5)
         self.sort_var = StringVar()
         sort_combobox = ttk.Combobox(self.head_frame, textvariable=self.sort_var, font=FontType.normal())
         sort_combobox['values'] = self.ban_hang_service.get_ban_hang_sort_keys()
         sort_combobox.current(0)
-        sort_combobox.grid(row=2, column=1, sticky="W")
+        sort_combobox.grid(row=4, column=2, sticky="W")
         # Liên kết sự kiện chọn mục với hàm xử lý
         sort_combobox.bind("<<ComboboxSelected>>", self.on_sort_selected)
         # total
-        total_ban_hang_label = LabelType.h4(self.head_frame, text="Tổng bán hàng:", text_color=TEXT_COLOR_BLUE)
-        total_ban_hang_label.grid(row=2, column=2, sticky="nw")
+        total_ban_hang_label = LabelType.normal_blue_white(self.head_frame, text="Tổng bán hàng:")
+        total_ban_hang_label.grid(row=4, column=3, sticky="e", padx=5, pady=5)
         total_ban_hang_value = EntryType.view(self.head_frame, text_var=self.total_ban_hang)
-        total_ban_hang_value.grid(row=2, column=2, sticky="ne")
+        total_ban_hang_value.grid(row=4, column=4, sticky="w", padx=5, pady=5)
         
-        total_so_luong_label = LabelType.h4(self.head_frame, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_so_luong_label.grid(row=2, column=2, sticky="w")
+        total_so_luong_label = LabelType.normal_blue_white(self.head_frame, text="Tổng số lượng:")
+        total_so_luong_label.grid(row=5, column=0, sticky="e", padx=5, pady=5)
         total_so_luong_value = EntryType.view(self.head_frame, text_var=self.total_so_luong)
-        total_so_luong_value.grid(row=2, column=2, sticky='e')
+        total_so_luong_value.grid(row=5, column=1, sticky='w', padx=5, pady=5)
         
-        total_thanh_tien_label = LabelType.h4(self.head_frame, text="Tổng thành tiền:", text_color=TEXT_COLOR_BLUE)
-        total_thanh_tien_label.grid(row=2, column=2, sticky="sw")
+        total_thanh_tien_label = LabelType.normal_blue_white(self.head_frame, text="Tổng thành tiền:")
+        total_thanh_tien_label.grid(row=5, column=2, sticky="e", padx=5, pady=5)
         total_thanh_tien_value = EntryType.view(self.head_frame, text_var=self.total_thanh_tien)
-        total_thanh_tien_value.grid(row=2, column=2, sticky='se')
+        total_thanh_tien_value.grid(row=5, column=3, sticky='w', padx=5, pady=5)
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
@@ -300,13 +303,13 @@ class BanHangController:
         
     def init_search_date(self):
         # Tạo ô bán văn bản (Entry) cho tìm kiếm
-        LabelType.h2(self.head_frame, "Tìm theo ngày/tháng/năm:").grid(row=0, column=1, sticky="e", padx=5) #--set ngay thang nam
-        LabelType.normal(self.head_frame, "Ngày:").grid(row=1, column=1, sticky="n")
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['day'], ).grid(row=1, column=1, sticky="ne")
-        LabelType.normal(self.head_frame, "Tháng:").grid(row=1, column=1)
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month'], ).grid(row=1, column=1, pady=5, sticky="e")
-        LabelType.normal(self.head_frame, "Năm:").grid(row=1, column=1, sticky="s")
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year'], ).grid(row=1, column=1, pady=5, sticky="se")
+        LabelType.h2(self.head_frame, "Tìm theo ngày/tháng/năm:").grid(row=0, column=1, sticky="e", padx=5, pady=5) #--set ngay thang nam
+        LabelType.normal(self.head_frame, "Ngày:").grid(row=1, column=1, sticky="e", padx=5, pady=5)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['day'], ).grid(row=1, column=2, sticky="w", padx=5, pady=5)
+        LabelType.normal(self.head_frame, "Tháng:").grid(row=2, column=1, padx=5, pady=5, sticky='e')
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month'], ).grid(row=2, column=2, sticky="w", padx=5, pady=5)
+        LabelType.normal(self.head_frame, "Năm:").grid(row=3, column=1, sticky="e", padx=5, pady=5)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year'], ).grid(row=3, column=2, sticky="w", padx=5, pady=5)
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
         search_button.config(command=partial(self.on_search_button_click))
@@ -317,10 +320,10 @@ class BanHangController:
         refresh_button.grid(row=0, column=3, sticky="w")
         # export and import 
         button_export = ButtonType.success(self.head_frame, "Xuất Excel")
-        button_export.grid(row=1, column=3, sticky="nw")
+        button_export.grid(row=1, column=3, sticky="w")
         button_export.config(command=partial(self.export_data))
         button_import = ButtonType.primary(self.head_frame, "Nhập Excel")
-        button_import.grid(row=1, column=3, sticky="ne")
+        button_import.grid(row=2, column=3, sticky="w")
         button_import.config(command=partial(self.import_data))
 
     

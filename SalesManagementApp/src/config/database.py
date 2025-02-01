@@ -1,10 +1,13 @@
 import sqlite3
 from contants import *
 import logging
+import os
 
 class Database:
     def __init__(self, db_name):
-        # logging.info('Connecting to database %s', db_name)
+        logging.info('Connecting to database %s', db_name)
+        if not os.path.exists(os.path.dirname(db_name)):
+            os.makedirs(os.path.dirname(db_name))
         # database//sales_management.db
         self.db_name = db_name
         # Kết nối đến cơ sở dữ liệu SQLite (hoặc tạo cơ sở dữ liệu nếu chưa tồn tại) 
@@ -13,7 +16,7 @@ class Database:
         self.cursor = self.connection.cursor()
         
     def init_tables(self):
-        # logging.info('Initializing tables')
+        logging.info('Initializing tables')
         self.cursor.execute(f'''CREATE TABLE IF NOT EXISTS {MAT_HANG_TABLE} (
             id VARCHAR(10) PRIMARY KEY,
             ten_hang VARCHAR(255) NOT NULL,

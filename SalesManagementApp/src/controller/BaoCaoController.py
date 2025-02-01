@@ -1,20 +1,18 @@
 import logging
-from tkinter import Frame, StringVar, Toplevel, Checkbutton, Listbox, END
+from tkinter import Frame, StringVar
 from tkinter import ttk
 from contants import *
 from templates.DataTableTemplate import DataTableTemplate
 from static.css.ButtonType import ButtonType
 from static.css.EntryType import EntryType
-from static.css.FontType import FontType
 from static.css.LabelType import LabelType
 from src.service.BaoCaoService import BaoCaoService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
-from datetime import datetime
 
 class BaoCaoController:
     def __init__(self, frame: Frame):
-        # logging.info("BaoCao Controller")
+        logging.info("BaoCao Controller")
         self.frame = frame
         self.bao_cao_service = BaoCaoService()
         self.total_chi_phi = StringVar()
@@ -37,13 +35,13 @@ class BaoCaoController:
         self.refresh_bao_cao_list()
 
     def report(self) -> dict:
-        # logging.info("report BanHang")
+        logging.info("report BanHang")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
             return self.bao_cao_service.report_loi_nhuan(month=month, year=year)
         except (ConnectionError, TimeoutError, ValueError) as e:
-            # logging.error("Error: %s", e)
+            logging.error("Error: %s", e)
             return {}
           
     # --- Các hàm xử lý sự kiện ---
@@ -72,6 +70,7 @@ class BaoCaoController:
         self.head_frame.grid_rowconfigure(0, weight=1)
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
+        self.head_frame.grid_rowconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -165,39 +164,39 @@ class BaoCaoController:
     def init_components(self):
         # ---- head_frame ----
         head_label = LabelType.h1(self.head_frame, TITLE_BAO_CAO) # Label trong head_frame
-        head_label.grid(row=0, column=0)
+        head_label.grid(row=0, column=0, padx=5, pady=5)
         
         self.init_search_date()
         # chi phi, doanh thu, loi nhuan
-        chi_phi_cao_nhat_label = LabelType.h4(self.head_frame, text="Chi phí cao nhất:", text_color=TEXT_COLOR_BLUE)
-        chi_phi_cao_nhat_label.grid(row=1, column=0, sticky="n")
+        chi_phi_cao_nhat_label = LabelType.normal_blue_white(self.head_frame, text="Chi phí cao nhất:")
+        chi_phi_cao_nhat_label.grid(row=2, column=0, sticky="e", padx=5, pady=5)
         chi_phi_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.chi_phi_cao_nhat)
-        chi_phi_cao_nhat_value.grid(row=1, column=0)
+        chi_phi_cao_nhat_value.grid(row=2, column=1, padx=5, pady=5, sticky='w')
         
-        doanh_thu_cao_nhat_label = LabelType.h4(self.head_frame, text="Doanh thu cao nhất:", text_color=TEXT_COLOR_BLUE)
-        doanh_thu_cao_nhat_label.grid(row=1, column=1, sticky="n")
+        doanh_thu_cao_nhat_label = LabelType.normal_blue_white(self.head_frame, text="Doanh thu cao nhất:")
+        doanh_thu_cao_nhat_label.grid(row=2, column=2, sticky="e", padx=5, pady=5)
         doanh_thu_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.doanh_thu_cao_nhat)
-        doanh_thu_cao_nhat_value.grid(row=1, column=1)
+        doanh_thu_cao_nhat_value.grid(row=2, column=3, padx=5, pady=5, sticky='w')
         
-        loi_nhuan_cao_nhat_label = LabelType.h4(self.head_frame, text="Lợi nhuận cao nhất:", text_color=TEXT_COLOR_BLUE)
-        loi_nhuan_cao_nhat_label.grid(row=1, column=2, sticky="n")
+        loi_nhuan_cao_nhat_label = LabelType.normal_blue_white(self.head_frame, text="Lợi nhuận cao nhất:")
+        loi_nhuan_cao_nhat_label.grid(row=2, column=4, sticky="e", padx=5, pady=5)
         loi_nhuan_cao_nhat_value = EntryType.view(self.head_frame, text_var=self.loi_nhuan_cao_nhat)
-        loi_nhuan_cao_nhat_value.grid(row=1, column=2)
+        loi_nhuan_cao_nhat_value.grid(row=2, column=5, padx=5, pady=5, sticky='w')
         # total
-        total_chi_phi_label = LabelType.h4(self.head_frame, text="Tổng lần bán:", text_color=TEXT_COLOR_BLUE)
-        total_chi_phi_label.grid(row=2, column=0, sticky="n")
+        total_chi_phi_label = LabelType.normal_blue_white(self.head_frame, text="Tổng chi phí:")
+        total_chi_phi_label.grid(row=3, column=0, sticky="e", padx=5, pady=5)
         total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
-        total_chi_phi_value.grid(row=2, column=0)
+        total_chi_phi_value.grid(row=3, column=1, padx=5, pady=5, sticky='w')
         
-        total_doanh_thu_label = LabelType.h4(self.head_frame, text="Tổng số lượng:", text_color=TEXT_COLOR_BLUE)
-        total_doanh_thu_label.grid(row=2, column=1, sticky="n")
+        total_doanh_thu_label = LabelType.normal_blue_white(self.head_frame, text="Tổng doanh thu:")
+        total_doanh_thu_label.grid(row=3, column=2, sticky="e", padx=5, pady=5)
         total_doanh_thu_value = EntryType.view(self.head_frame, text_var=self.total_doanh_thu)
-        total_doanh_thu_value.grid(row=2, column=1)
+        total_doanh_thu_value.grid(row=3, column=3, padx=5, pady=5, sticky='w')
         
-        total_loi_nhuan_label = LabelType.h4(self.head_frame, text="Tổng tiền:", text_color=TEXT_COLOR_BLUE)
-        total_loi_nhuan_label.grid(row=2, column=2, sticky="n")
+        total_loi_nhuan_label = LabelType.normal_blue_white(self.head_frame, text="Tổng lợi nhuận:")
+        total_loi_nhuan_label.grid(row=3, column=4, sticky="e", padx=5, pady=5)
         total_loi_nhuan_value = EntryType.view(self.head_frame, text_var=self.total_loi_nhuan)
-        total_loi_nhuan_value.grid(row=2, column=2)
+        total_loi_nhuan_value.grid(row=3, column=5, padx=5, pady=5, sticky='w')
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
@@ -214,19 +213,15 @@ class BaoCaoController:
         
     def init_search_date(self):
         # Tạo ô bán văn bản (Entry) cho tìm kiếm
-        LabelType.normal(self.head_frame, "Tháng:").grid(row=0, column=1, sticky="n", pady=20)
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month']).grid(row=0, column=1, pady=20, sticky="ne", padx=10)
-        LabelType.normal(self.head_frame, "Năm:").grid(row=0, column=1, pady=5)
-        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year']).grid(row=0, column=1, pady=5, sticky='e', padx=10)
+        LabelType.normal(self.head_frame, "Tháng:").grid(row=0, column=1, sticky="e", padx=5)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['month']).grid(row=0, column=2, sticky='w')
+        LabelType.normal(self.head_frame, "Năm:").grid(row=1, column=1, sticky="e", padx=5)
+        EntryType.blue_day(self.head_frame, text_var=self.search_var_dict['year']).grid(row=1, column=2, sticky='w')
         # Tạo nút tìm kiếm
         search_button = ButtonType.primary(self.head_frame, "Tìm kiếm")
         search_button.config(command=partial(self.on_search_button_click))
-        search_button.grid(row=0, column=2, sticky="w")
+        search_button.grid(row=0, column=2, sticky="e", padx=5)
         # Tạo nút làm mới thanh tìm kiếm
         refresh_button = ButtonType.brown(self.head_frame, "Làm mới tìm kiếm\nvà bảng dữ liệu")
         refresh_button.config(command=partial(self.refresh_entry_search))
-        refresh_button.grid(row=0, column=3, sticky="w")
-        # export and import 
-        # button_export = ButtonType.success(self.head_frame, "Xuất Excel")
-        # button_export.grid(row=1, column=3, sticky="nw")
-        # button_export.config(command=partial(self.export_data))
+        refresh_button.grid(row=0, column=3)
