@@ -34,6 +34,7 @@ class DataTableTemplate:
 
     # Hàm xử lý sự kiện lăn chuột
     def on_mouse_wheel(self, event):
+        # self.canvas.yview_scroll(int(-1*(event.delta/120)), "units")
         if event.state & 0x0001:  # Shift key is held
             self.canvas.xview_scroll(int(-1*(event.delta/120)), "units")
         else:

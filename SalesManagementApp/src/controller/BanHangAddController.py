@@ -45,7 +45,7 @@ class BanHangAddController:
             suggestions = self.ban_hang_service.search_mat_hang(search_text)
             self.suggestion_mat_hang_box.delete(0, END)
             for suggestion in suggestions:
-                text = suggestion.get('id') + " - " + suggestion.get('ten_hang') + " - " + suggestion.get('don_vi')
+                text = f"{suggestion.get('id')} - {suggestion.get('ten_hang')} - {suggestion.get('gia_le')} - {suggestion.get('don_vi')}"
                 self.suggestion_mat_hang_box.insert(END, text)
     
     #  Hàm xử lý sự kiện khi chọn hàng hóa từ gợi ý
@@ -55,7 +55,7 @@ class BanHangAddController:
             selected_text = self.suggestion_mat_hang_box.get(selected_index)
             # self.search_mat_hang_var.set(selected_text)
             text_arr = str(selected_text).split(" - ")
-            ban_hang = BanHang(id_mat_hang=text_arr[0], ten_hang=text_arr[1], don_vi=text_arr[2])
+            ban_hang = BanHang(id_mat_hang=text_arr[0], ten_hang=text_arr[1], gia_ban=text_arr[2], don_vi=text_arr[3])
             ban_hang_var = {}
             for key, value in ban_hang.to_dict().items():
                 ban_hang_var[key] = StringVar(value=value)
@@ -106,13 +106,16 @@ class BanHangAddController:
             invoice_data = {
                 "Ngày bán": datetime.now().strftime("%d/%m/%Y"),
                 "Những mặt hàng": [],
+                "Tổng số lượng": "",
                 "Tổng tiền": ""
             }
             total = 0
+            quantity = 0
             for ban_hang_var in self.ban_hang_list_var:
                 ban_hang_data = {key: str(var.get()).strip() for key, var in ban_hang_var.items()}
                 item = {}
                 thanh_tien = int(ban_hang_data.get('so_luong')) * int(ban_hang_data.get('gia_ban'))
+                quantity += int(ban_hang_data.get('so_luong'))
                 total += thanh_tien
                 item['thanh_tien'] = TextNormalization.format_number(thanh_tien)
                 for key, value in ban_hang_data.items():
@@ -123,6 +126,7 @@ class BanHangAddController:
                     elif key == "gia_ban":
                         item["gia_ban"] = TextNormalization.format_number(value)
                 invoice_data["Những mặt hàng"].append(item)
+            invoice_data["Tổng số lượng"] = TextNormalization.format_number(quantity)
             invoice_data["Tổng tiền"] = TextNormalization.format_number(total)
             # Tạo tài liệu PDF
             pdf_filename = f"{self.selected_folder}/invoice_{datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.pdf"
@@ -150,17 +154,17 @@ class BanHangAddController:
         c.setFont("Arial", 12)
         y = height - 100
         for key, value in invoice_data.items():
-            if key != "Những mặt hàng":
+            if key == "Ngày bán" or key == "Tổng số lượng":
                 c.drawString(50, y, f"{key}: {value}")
                 y -= 20
         # Thông tin sản phẩm
-        c.drawString(50, y, "Sản phẩm:")
+        c.drawString(50, y, "Những mặt hàng:")
         y -= 20
         for item in invoice_data['Những mặt hàng']:
             c.drawString(70, y, f"Mặt hàng: {item['ten_hang']} - Số lượng: {item['so_luong']} - Giá: {item['gia_ban']} - Thành tiền: {item['thanh_tien']}")
             y -= 20
         # Tổng cộng
-        c.drawString(50, y, f"Tổng cộng: {invoice_data['Tổng tiền']} {MONEY_UNIT}")
+        c.drawString(50, y, f"Tổng tiền: {invoice_data['Tổng tiền']} {MONEY_UNIT}")
         c.save()
         
     #  hàm xử lý giao diện khi chọn hàng hóa từ gợi ý
