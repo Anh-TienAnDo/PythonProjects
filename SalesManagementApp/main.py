@@ -15,6 +15,7 @@ from src.controller.NCCController import NCCController
 from src.controller.BaoCaoController import BaoCaoController
 from src.controller.BaoCaoBanHangController import BaoCaoBanHangController
 from src.controller.BaoCaoNhapHangController import BaoCaoNhapHangController
+from functools import partial
 
 # Database setup
 def setup_database():
@@ -72,18 +73,18 @@ class SalesManagementApp:
     def create_menu(self):
         menu_bar = Menu(self.root)
         nav_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
-        nav_menu.add_command(label=TITLE_MAT_HANG, command=lambda: self.show_frame(self.frame_mat_hang))
-        nav_menu.add_command(label=TITLE_NHAP_HANG, command=lambda: self.show_frame(self.frame_nhap_hang))
-        nav_menu.add_command(label=TITLE_BAN_HANG, command=lambda: self.show_frame(self.frame_ban_hang))
-        nav_menu.add_command(label=TITLE_CHI_PHI, command=lambda: self.show_frame(self.frame_chi_phi))
-        nav_menu.add_command(label=TITLE_KHACH_HANG, command=lambda: self.show_frame(self.frame_khach_hang))
-        nav_menu.add_command(label=TITLE_NCC, command=lambda: self.show_frame(self.frame_ncc))
+        nav_menu.add_command(label=TITLE_MAT_HANG, command=partial(self.show_frame, self.frame_mat_hang))
+        nav_menu.add_command(label=TITLE_NHAP_HANG, command=partial(self.show_frame, self.frame_nhap_hang))
+        nav_menu.add_command(label=TITLE_BAN_HANG, command=partial(self.show_frame, self.frame_ban_hang))
+        nav_menu.add_command(label=TITLE_CHI_PHI, command=partial(self.show_frame, self.frame_chi_phi))
+        nav_menu.add_command(label=TITLE_KHACH_HANG, command=partial(self.show_frame, self.frame_khach_hang))
+        nav_menu.add_command(label=TITLE_NCC, command=partial(self.show_frame, self.frame_ncc))
         menu_bar.add_cascade(label="QUẢN LÝ", menu=nav_menu)
         
         bao_cao_menu = Menu(menu_bar, tearoff=0, font=FontType.normal())
-        bao_cao_menu.add_command(label="Báo cáo bán hàng", command=lambda: self.show_frame(self.frame_bao_cao_ban_hang))
-        bao_cao_menu.add_command(label="Báo cáo nhập hàng", command=lambda: self.show_frame(self.frame_bao_cao_nhap_hang))
-        bao_cao_menu.add_command(label="Báo cáo lợi nhuận", command=lambda: self.show_frame(self.frame_bao_cao))
+        bao_cao_menu.add_command(label="Báo cáo bán hàng", command=partial(self.show_frame, self.frame_bao_cao_ban_hang))
+        bao_cao_menu.add_command(label="Báo cáo nhập hàng", command=partial(self.show_frame, self.frame_bao_cao_nhap_hang))
+        bao_cao_menu.add_command(label="Báo cáo lợi nhuận", command=partial(self.show_frame, self.frame_bao_cao))
         menu_bar.add_cascade(label="BÁO CÁO", menu=bao_cao_menu)
         
         self.root.config(menu=menu_bar)

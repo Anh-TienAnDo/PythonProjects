@@ -34,7 +34,13 @@ class BanHangRepo:
             logging.error('Error getting all %s', e)
             
     def report(self, sort_by: str, where: str) -> list:
-        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
+        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
+        data = self.cursor.fetchall()
+        return data
+    
+    def report_detail_mat_hang(self, sort_by: str, where: str) -> list:
+        # where: ngay_ban = '2021-09-01', id_mat_hang = 'MH0001'
+        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban ORDER BY {sort_by}')
         data = self.cursor.fetchall()
         return data
     

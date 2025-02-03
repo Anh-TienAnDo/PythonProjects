@@ -13,15 +13,18 @@ from functools import partial
 
 
 class BaoCaoBanHangController:
-    def __init__(self, frame: Frame):
+    def __init__(self, parent: Frame):
         logging.info("BaoCaoBanHang Controller")
-        self.frame = frame
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         self.ban_hang_service = BanHangService()
         self.total_ban_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
-        self.coloumn_title = COLUMNS_REPORT_BAN_HANG
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = COLUMNS_REPORT_BAN_HANG
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         self.date = self.ban_hang_service.get_day_month_year()
         self.search_var_dict = {
             'day': StringVar(value=""),
@@ -33,6 +36,15 @@ class BaoCaoBanHangController:
         self.init_components()  # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_ban_hang_list()
+        self.count_frames()
+        
+    def count_frames(self):
+        frame_count = 0
+        for widget in self.frame.winfo_children():
+            if isinstance(widget, Frame):
+                frame_count += 1
+                print(widget)
+        print(f"Number of Frames: {frame_count}")
         
     def report(self):
         logging.info("report BanHang")
@@ -63,13 +75,21 @@ class BaoCaoBanHangController:
     def on_sort_selected(self, event):
         self.refresh_ban_hang_list()
         
+    def view_detail(self, id_mat_hang):
+        logging.info("view detail")
+        from src.controller.BaoCaoBanHangDetailController import BaoCaoBanHangDetailController
+        try:
+            self.frame.destroy()
+            BaoCaoBanHangDetailController(self.parent, id_mat_hang, self.search_var_dict.get('month').get(), self.search_var_dict.get('year').get())
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error("Error: %s", e)
+        
     # def export_data(self):
     #     self.ban_hang_service.export_data(self.get_all())
         
     def init_sub_frame(self):
         self.head_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
         self.content_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
-        self.view_new_top_window = None
         # Sử dụng grid để đặt các Frame con trong frame_ban_hang
         self.head_frame.grid(row=0, column=0, sticky="nsew")
         self.content_frame.grid(row=1, column=0, sticky="nsew")
@@ -118,15 +138,17 @@ class BaoCaoBanHangController:
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             for value in ban_hang:
                 value = TextNormalization.format_number(value)
                 label = LabelType.normal(self.scrollable_frame, text=value)
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
-                label.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
-            
+                label.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
+            button_view = ButtonType.primary(self.scrollable_frame, "Xem chi tiết")
+            button_view.config(command=partial(self.view_detail, str(ban_hang[0])))
+            button_view.grid(row=row, column=column, padx=5, pady=5)
             row += 1
             
         self.canvas.pack(side="left", fill="both", expand=True)
@@ -138,7 +160,7 @@ class BaoCaoBanHangController:
     
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
             column += 1

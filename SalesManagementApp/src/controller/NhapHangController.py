@@ -13,16 +13,19 @@ from src.utils.TextNormalization import TextNormalization
 from functools import partial
 
 class NhapHangController:
-    def __init__(self, frame: Frame):
-        self.frame = frame
+    def __init__(self, parent: Frame):
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         logging.info("NhapHang Controller")
         self.nhap_hang_service = NhapHangService() 
         self.nhap_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.total_nhap_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
-        self.coloumn_title = list(NHAP_HANG_COLUMN_NAMES.values())
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = list(NHAP_HANG_COLUMN_NAMES.values())
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         self.date = self.nhap_hang_service.get_day_month_year()
         self.search_var_dict = {
             'day': StringVar(value=""),
@@ -34,6 +37,15 @@ class NhapHangController:
         self.init_components() # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_nhap_hang_list()
+        self.count_frames()
+        
+    def count_frames(self):
+        frame_count = 0
+        for widget in self.frame.winfo_children():
+            if isinstance(widget, Frame):
+                frame_count += 1
+                print(widget)
+        print(f"Number of Frames: {frame_count}")
         
     def get_all(self):
         logging.info("Get all NhapHang")
@@ -61,7 +73,8 @@ class NhapHangController:
         from src.controller.NhapHangAddController import NhapHangAddController
         logging.info("Create NhapHang")
         try: 
-            NhapHangAddController(self.frame)
+            self.frame.destroy()
+            NhapHangAddController(self.parent)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
         
@@ -134,7 +147,7 @@ class NhapHangController:
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             nhap_hang = nhap_hang.to_dict()
             for key in NHAP_HANG_COLUMN_NAMES.keys():
                 value = nhap_hang[key]
@@ -146,17 +159,17 @@ class NhapHangController:
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
 
-                label.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
+                label.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
                 
             # Thêm nút "Xem chi tiết/Sửa"
             view_edit_button = ButtonType.primary(self.scrollable_frame, text="Xem / Sửa")
             view_edit_button.config(command=partial(self.get_by_id, nhap_hang_id=nhap_hang.get('id')))
-            view_edit_button.grid(row=row, column=coloumn, padx=5, pady=5)
+            view_edit_button.grid(row=row, column=column, padx=5, pady=5)
             # Thêm nút "Xóa"
             delete_button = ButtonType.danger(self.scrollable_frame, text="Xóa")
             delete_button.config(command=partial(self.view_delete_item, nhap_hang=nhap_hang))
-            delete_button.grid(row=row, column=coloumn+1, padx=5, pady=5)
+            delete_button.grid(row=row, column=column+1, padx=5, pady=5)
             
             row += 1
             
@@ -216,7 +229,7 @@ class NhapHangController:
         
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             if j == "Mã nhập hàng":
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)

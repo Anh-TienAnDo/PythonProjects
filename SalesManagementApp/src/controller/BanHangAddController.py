@@ -17,8 +17,10 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 
 class BanHangAddController:
-    def __init__(self, frame: Frame):
-        self.frame = frame
+    def __init__(self, parent: Frame):
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         logging.info("BanHangAdd Controller")
         self.ban_hang_service = BanHangService() 
         self.ban_hang_list_var = []
@@ -29,8 +31,9 @@ class BanHangAddController:
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
         self.selected_folder = None
-        self.coloumn_title = list(BAN_HANG_COLUMN_NAMES.values())
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = list(BAN_HANG_COLUMN_NAMES.values())
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
@@ -92,7 +95,8 @@ class BanHangAddController:
             ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
             ban_hang = BanHang(**ban_hang_data)
             self.ban_hang_service.create(ban_hang)
-        BanHangController(self.frame)
+        self.frame.destroy()
+        BanHangController(self.parent)
         # self.view_new_top_window.destroy()
     
     def delete_hang_ban(self, index):
@@ -218,18 +222,18 @@ class BanHangAddController:
             button_delete.config(command=partial(self.delete_hang_ban, i))
             row += 1
             
-            self.canvas.pack(side="left", fill="both", expand=True)
-            self.scrollbar_y.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.scrollbar_y.pack(side="right", fill="y")
 
-            self.total_ban_hang.set(TextNormalization.format_number(total_ban_hang_temp))
-            self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
-            self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
+        self.total_ban_hang.set(TextNormalization.format_number(total_ban_hang_temp))
+        self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
+        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
     
     def destroy_all_by_cancel(self):
         self.view_cancel_top_window.destroy()
         from src.controller.BanHangController import BanHangController
-        BanHangController(self.frame)
-        # self.view_new_top_window.destroy()
+        self.frame.destroy()
+        BanHangController(self.parent)
     
     def view_cancel(self):
         self.view_cancel_top_window = Toplevel(self.frame)
@@ -250,7 +254,7 @@ class BanHangAddController:
         
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             if j == 'Mã bán hàng' or j == 'Ngày bán' or j == 'Mã hàng':
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
@@ -339,8 +343,8 @@ class BanHangAddController:
         search_button.config(command=partial(self.on_search_mat_hang_button_click))
         search_button.grid(row=0, column=1, sticky='sw', padx=5)
         # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_mat_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10, width=50)
-        self.suggestion_mat_hang_box.grid(row=1, column=0, columnspan=2)
+        self.suggestion_mat_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10)
+        self.suggestion_mat_hang_box.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=5, pady=5)
         self.suggestion_mat_hang_box.bind("<<ListboxSelect>>", self.on_suggestion_mat_hang_select)
         
         # Tạo ô bán văn bản (Entry) cho tìm kiếm khach_hang
@@ -352,8 +356,8 @@ class BanHangAddController:
         search_button.config(command=partial(self.on_search_khach_hang_button_click))
         search_button.grid(row=0, column=3, sticky='sw', padx=5)
         # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_khach_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10, width=50)
-        self.suggestion_khach_hang_box.grid(row=1, column=2, columnspan=2)
+        self.suggestion_khach_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10)
+        self.suggestion_khach_hang_box.grid(row=1, column=2, columnspan=2, sticky='nsew', padx=20, pady=5)
         self.suggestion_khach_hang_box.bind("<<ListboxSelect>>", self.on_suggestion_khach_hang_select)
         
     def init_table_data(self):

@@ -14,9 +14,11 @@ from functools import partial
 
 
 class MatHangController: # lấy data rồi đưa vào template
-    def __init__(self, frame: Frame):
+    def __init__(self, parent: Frame):
         logging.info("MatHang Controller")
-        self.frame = frame
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         self.mat_hang_service = MatHangService()
         self.mat_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
@@ -24,8 +26,9 @@ class MatHangController: # lấy data rồi đưa vào template
         self.suggestions = []
         self.total_item = StringVar()
         self.total_quantity = StringVar()
-        self.coloumn_title = list(MAT_HANG_COLUMN_NAMES.values())
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = list(MAT_HANG_COLUMN_NAMES.values())
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_components() # ---Tạo các thành phần giao diện---
@@ -165,7 +168,7 @@ class MatHangController: # lấy data rồi đưa vào template
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             mat_hang = mat_hang.to_dict()
             for key in MAT_HANG_COLUMN_NAMES.keys():
                 value = mat_hang[key]
@@ -176,18 +179,18 @@ class MatHangController: # lấy data rồi đưa vào template
                 label = LabelType.normal(self.scrollable_frame, text=value)
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
-                label.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
+                label.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
                 
             # Thêm nút "Xem chi tiết/Sửa"
             view_edit_button = ButtonType.primary(self.scrollable_frame, text="Xem / Sửa")
             view_edit_button.config(command=partial(self.get_by_id, mat_hang_id=mat_hang['id']))
-            view_edit_button.grid(row=row, column=coloumn, padx=5, pady=5)
+            view_edit_button.grid(row=row, column=column, padx=5, pady=5)
 
             # Thêm nút "Xóa"
             delete_button = ButtonType.danger(self.scrollable_frame, text="Xóa")
             delete_button.config(command=partial(self.view_delete_item, mat_hang=mat_hang))
-            delete_button.grid(row=row, column=coloumn+1, padx=5, pady=5)
+            delete_button.grid(row=row, column=column+1, padx=5, pady=5)
             
             row += 1
             
@@ -288,9 +291,9 @@ class MatHangController: # lấy data rồi đưa vào template
         total_quantity_view.grid(row=3, column=3, sticky="w", padx=5, pady=5)
         
     def show_column_title(self):
-        for j in self.coloumn_title:
+        for j in self.column_title:
             label = LabelType.title(self.scrollable_frame, text=j)
-            label.grid(row=0, column=self.coloumn_title.index(j), padx=5)
+            label.grid(row=0, column=self.column_title.index(j), padx=5)
         
     def view_edit_item(self, mat_hang: MatHang):
         mat_hang = mat_hang.to_dict()

@@ -11,9 +11,11 @@ from src.utils.TextNormalization import TextNormalization
 from functools import partial
 
 class BaoCaoController:
-    def __init__(self, frame: Frame):
+    def __init__(self, parent: Frame):
         logging.info("BaoCao Controller")
-        self.frame = frame
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         self.bao_cao_service = BaoCaoService()
         self.total_chi_phi = StringVar()
         self.total_doanh_thu = StringVar()
@@ -21,8 +23,9 @@ class BaoCaoController:
         self.chi_phi_cao_nhat = StringVar()
         self.doanh_thu_cao_nhat = StringVar()
         self.loi_nhuan_cao_nhat = StringVar()
-        self.coloumn_title = COLUMNS_REPORT_LOI_NHUAN
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = COLUMNS_REPORT_LOI_NHUAN
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         self.date = self.bao_cao_service.get_day_month_year()
         self.search_var_dict = {
             'month': StringVar(value=self.date.get('month')),
@@ -58,7 +61,6 @@ class BaoCaoController:
     def init_sub_frame(self):
         self.head_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
         self.content_frame = Frame(self.frame, bg=BG_COLOR_FRAME_WHITE, relief="sunken")
-        self.view_new_top_window = None
         # Sử dụng grid để đặt các Frame con trong frame_bao_cao
         self.head_frame.grid(row=0, column=0, sticky="nsew")
         self.content_frame.grid(row=1, column=0, sticky="nsew")
@@ -156,7 +158,7 @@ class BaoCaoController:
     
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             label = LabelType.title(self.scrollable_frame, text=j)
             label.grid(row=0, column=column, padx=5)
             column += 1

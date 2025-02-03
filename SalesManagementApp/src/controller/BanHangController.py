@@ -13,16 +13,19 @@ from src.utils.TextNormalization import TextNormalization
 from functools import partial
 
 class BanHangController:
-    def __init__(self, frame: Frame):
+    def __init__(self, parent: Frame):
         logging.info("BanHang Controller")
-        self.frame = frame
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         self.ban_hang_service = BanHangService() 
         self.ban_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.total_ban_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
-        self.coloumn_title = list(BAN_HANG_COLUMN_NAMES.values())
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = list(BAN_HANG_COLUMN_NAMES.values())
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         self.date = self.ban_hang_service.get_day_month_year()
         self.search_var_dict = {
             'day': StringVar(value=""),
@@ -34,6 +37,15 @@ class BanHangController:
         self.init_components() # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_ban_hang_list()
+        self.count_frames()
+        
+    def count_frames(self):
+        frame_count = 0
+        for widget in self.frame.winfo_children():
+            if isinstance(widget, Frame):
+                frame_count += 1
+                print(widget)
+        print(f"Number of Frames: {frame_count}")
         
     def get_all(self):
         logging.info("Get all BanHang")
@@ -61,7 +73,8 @@ class BanHangController:
         from src.controller.BanHangAddController import BanHangAddController
         logging.info("Create BanHang")
         try:
-            BanHangAddController(self.frame)
+            self.frame.destroy()
+            BanHangAddController(self.parent)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
             return None
@@ -137,7 +150,7 @@ class BanHangController:
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             ban_hang = ban_hang.to_dict()
             for key in BAN_HANG_COLUMN_NAMES.keys():
                 value = ban_hang[key]
@@ -149,17 +162,17 @@ class BanHangController:
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
 
-                label.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
+                label.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
                 
             # Thêm nút "Xem chi tiết/Sửa"
             view_edit_button = ButtonType.primary(self.scrollable_frame, text="Xem / Sửa")
             view_edit_button.config(command=partial(self.get_by_id, ban_hang_id=ban_hang.get('id')))
-            view_edit_button.grid(row=row, column=coloumn, padx=5, pady=5)
+            view_edit_button.grid(row=row, column=column, padx=5, pady=5)
             # Thêm nút "Xóa"
             delete_button = ButtonType.danger(self.scrollable_frame, text="Xóa")
             delete_button.config(command=partial(self.view_delete_item, ban_hang=ban_hang))
-            delete_button.grid(row=row, column=coloumn+1, padx=5, pady=5)
+            delete_button.grid(row=row, column=column+1, padx=5, pady=5)
             
             row += 1
             
@@ -219,7 +232,7 @@ class BanHangController:
     
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             if j == "Mã bán hàng":
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)

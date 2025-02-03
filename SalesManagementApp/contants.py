@@ -162,6 +162,14 @@ NHAP_HANG_SORT_OPTIONS = {
 }
 
 REPORT_NHAP_HANG_SORT_OPTIONS = {
+    'Tổng tiền nhiều - ít': 'sum(thanh_tien) desc',
+    'Tổng tiền ít - nhiều': 'sum(thanh_tien) asc',
+    'Số lần nhập ít - nhiều': 'count(id_mat_hang) asc',
+    'Số lần nhập nhiều - ít': 'count(id_mat_hang) desc',
+    'Tổng số lượng ít - nhiều': 'sum(so_luong) asc',
+    'Tổng số lượng nhiều - ít': 'sum(so_luong) desc'
+}
+REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS = {
     'Ngày nhập mới - cũ': 'ngay_nhap desc',
     'Ngày nhập cũ - mới': 'ngay_nhap asc',
     'Số lần nhập ít - nhiều': 'count(id_mat_hang) asc',
@@ -186,6 +194,14 @@ BAN_HANG_SORT_OPTIONS = {
 }
 
 REPORT_BAN_HANG_SORT_OPTIONS = {
+    'Tổng tiền nhiều - ít': 'sum(thanh_tien) desc',
+    'Tổng tiền ít - nhiều': 'sum(thanh_tien) asc',
+    'Số lần bán ít - nhiều': 'count(id_mat_hang) asc',
+    'Số lần bán nhiều - ít': 'count(id_mat_hang) desc',
+    'Tổng số lượng ít - nhiều': 'sum(so_luong) asc',
+    'Tổng số lượng nhiều - ít': 'sum(so_luong) desc'
+}
+REPORT_BAN_HANG_DETAIL_SORT_OPTIONS = {
     'Ngày bán mới - cũ': 'ngay_ban desc',
     'Ngày bán cũ - mới': 'ngay_ban asc',
     'Số lần bán ít - nhiều': 'count(id_mat_hang) asc',
@@ -197,9 +213,13 @@ REPORT_BAN_HANG_SORT_OPTIONS = {
 }
 
 TITLE_REPORT_NHAP_HANG = 'Báo cáo nhập hàng'
+TITLE_REPORT_NHAP_HANG_DETAIL = 'Báo cáo chi tiết nhập hàng'
 TITLE_REPORT_BAN_HANG = 'Báo cáo bán hàng'
-COLUMNS_REPORT_NHAP_HANG = ['Mã hàng', 'Tên hàng', 'Số lần nhập', 'Tổng số lượng', 'Tổng tiền', 'Ngày nhập']
-COLUMNS_REPORT_BAN_HANG = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền', 'Ngày bán']
+TITLE_REPORT_BAN_HANG_DETAIL = 'Báo cáo chi tiết bán hàng'
+COLUMNS_REPORT_NHAP_HANG = ['Mã hàng', 'Tên hàng', 'Số lần nhập', 'Tổng số lượng', 'Tổng tiền']
+COLUMNS_REPORT_NHAP_HANG_DETAIL = ['Mã hàng', 'Tên hàng', 'Số lần nhập', 'Tổng số lượng', 'Tổng tiền', 'Ngày nhập']
+COLUMNS_REPORT_BAN_HANG = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền']
+COLUMNS_REPORT_BAN_HANG_DETAIL = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền', 'Ngày bán']
 COLUMNS_REPORT_LOI_NHUAN = ['Ngày', 'Chi phí', 'Doanh thu', 'Lợi nhuận']
 # --- srceen ---
 SCREEN_SIZE = "1920x1080"

@@ -13,8 +13,10 @@ from functools import partial
 
 
 class NhapHangAddController:
-    def __init__(self, frame: Frame):
-        self.frame = frame
+    def __init__(self, parent: Frame):
+        self.parent = parent
+        self.frame = Frame(self.parent)
+        self.frame.pack(fill="both", expand=True)
         logging.info("NhapHangAdd Controller")
         self.nhap_hang_service = NhapHangService() 
         self.nhap_hang_list_var = []
@@ -24,8 +26,9 @@ class NhapHangAddController:
         self.total_nhap_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
-        self.coloumn_title = list(NHAP_HANG_COLUMN_NAMES.values())
-        self.coloumn_title.insert(0, "STT")
+        self.column_title = list(NHAP_HANG_COLUMN_NAMES.values())
+        if 'STT' not in self.column_title:
+            self.column_title.insert(0, "STT")
         
         self.init_sub_frame() # ---Tạo các Frame con---
         self.init_table_data() # ---Tạo bảng dữ liệu---
@@ -87,7 +90,8 @@ class NhapHangAddController:
             nhap_hang_data = {key: var.get() for key, var in nhap_hang_var.items()}
             nhap_hang = NhapHang(**nhap_hang_data)
             self.nhap_hang_service.create(nhap_hang)
-        NhapHangController(self.frame)
+        self.frame.destroy()
+        NhapHangController(self.parent)
     
     def delete_hang_nhap(self, index):
         self.nhap_hang_list_var.pop(index)
@@ -123,38 +127,39 @@ class NhapHangAddController:
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
             label_stt.grid(row=row, column=0, padx=5, pady=5)
-            coloumn = 1
+            column = 1
             for key in NHAP_HANG_COLUMN_NAMES.keys():
                 if key == 'id' or key == 'ngay_nhap' or key == 'id_mat_hang':
                     continue
                 elif key == 'ten_hang' or key == 'id' or key == 'don_vi':
                     label = LabelType.normal(self.scrollable_frame, text=nhap_hang_var.get(key).get())
-                    label.grid(row=row, column=coloumn, padx=5, pady=5)
+                    label.grid(row=row, column=column, padx=5, pady=5)
                 elif key == 'thanh_tien':
                     label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(nhap_hang_var.get(key).get()) + f" {MONEY_UNIT}")
-                    label.grid(row=row, column=coloumn, padx=5, pady=5)
+                    label.grid(row=row, column=column, padx=5, pady=5)
                 else:
                     entry = EntryType.normal(self.scrollable_frame, text_var=nhap_hang_var.get(key))
-                    entry.grid(row=row, column=coloumn, padx=5, pady=5)
-                coloumn += 1
+                    entry.grid(row=row, column=column, padx=5, pady=5)
+                column += 1
                 if row % 2 == 0:
                     label.config(bg=BG_COLOR_LIGHT_BLUE)
             button_delete = ButtonType.danger(self.scrollable_frame, "Xóa")
-            button_delete.grid(row=row, column=coloumn, padx=5, pady=5)
+            button_delete.grid(row=row, column=column, padx=5, pady=5)
             button_delete.config(command=partial(self.delete_hang_nhap, i))
             row += 1
             
-            self.canvas.pack(side="left", fill="both", expand=True)
-            self.scrollbar_y.pack(side="right", fill="y")
+        self.canvas.pack(side="left", fill="both", expand=True)
+        self.scrollbar_y.pack(side="right", fill="y")
 
-            self.total_nhap_hang.set(TextNormalization.format_number(total_nhap_hang_temp))
-            self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
-            self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
+        self.total_nhap_hang.set(TextNormalization.format_number(total_nhap_hang_temp))
+        self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
+        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
     
     def destroy_all_by_cancel(self):
         from src.controller.NhapHangController import NhapHangController
         self.view_cancel_top_window.destroy()
-        NhapHangController(self.frame)
+        self.frame.destroy()
+        NhapHangController(self.parent)
     
     def view_cancel(self):
         self.view_cancel_top_window = Toplevel(self.frame)
@@ -174,7 +179,7 @@ class NhapHangAddController:
         
     def show_column_title(self):
         column = 0
-        for j in self.coloumn_title:
+        for j in self.column_title:
             if j == 'Mã nhập hàng' or j == 'Ngày nhập' or j == 'Mã hàng':
                 continue
             label = LabelType.title(self.scrollable_frame, text=j)
@@ -258,8 +263,8 @@ class NhapHangAddController:
         search_button.config(command=partial(self.on_search_mat_hang_button_click))
         search_button.grid(row=0, column=1, sticky='sw', padx=5)
         # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_mat_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10, width=50)
-        self.suggestion_mat_hang_box.grid(row=1, column=0, columnspan=2)
+        self.suggestion_mat_hang_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10)
+        self.suggestion_mat_hang_box.grid(row=1, column=0, columnspan=2, sticky='nsew', padx=5, pady=5)
         self.suggestion_mat_hang_box.bind("<<ListboxSelect>>", self.on_suggestion_mat_hang_select)
         
         # Tạo ô nhập văn bản (Entry) cho tìm kiếm ncc
@@ -271,8 +276,8 @@ class NhapHangAddController:
         search_button.config(command=partial(self.on_search_ncc_button_click))
         search_button.grid(row=0, column=3, sticky='sw', padx=5)
         # Tạo Listbox cho gợi ý từ khóa
-        self.suggestion_ncc_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10, width=50)
-        self.suggestion_ncc_box.grid(row=1, column=2, columnspan=2)
+        self.suggestion_ncc_box = Listbox(self.sub_frame_top, font=FontType.normal(), height=10)
+        self.suggestion_ncc_box.grid(row=1, column=2, columnspan=2, sticky='nsew', padx=20, pady=5)
         self.suggestion_ncc_box.bind("<<ListboxSelect>>", self.on_suggestion_ncc_select)
         
     def init_table_data(self):

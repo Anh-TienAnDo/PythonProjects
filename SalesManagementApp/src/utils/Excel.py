@@ -7,6 +7,7 @@ from src.entity.ChiPhiEntity import ChiPhi
 from src.entity.KhachHangEntity import KhachHang
 from src.entity.NccEntity import NCC
 from tkinter import filedialog, messagebox
+from datetime import datetime
 
 class Excel:
     def __init__(self):
@@ -40,6 +41,7 @@ class Excel:
             'so_luong': 0,
             'gia_le': 0,
             'gia_si': 0,
+            'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
         for index, row in df_filled.iterrows():
@@ -49,6 +51,7 @@ class Excel:
                 so_luong=row.get('so_luong'),
                 gia_le=row.get('gia_le'),
                 gia_si=row.get('gia_si'),
+                ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
             mat_hang_service.create(mat_hang)
@@ -65,6 +68,7 @@ class Excel:
             'so_dien_thoai': '',
             'email': '',
             'ghi_chu': '',
+            'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
         for index, row in df_filled.iterrows():
@@ -74,6 +78,7 @@ class Excel:
                 email=row.get('email'),
                 dia_chi=row.get('dia_chi'),
                 ghi_chu=row.get('ghi_chu'),
+                ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
             khach_hang_service.create(khach_hang)
@@ -90,6 +95,7 @@ class Excel:
             'so_dien_thoai': '',
             'email': '',
             'ghi_chu': '',
+            'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
         for index, row in df_filled.iterrows():
@@ -99,6 +105,7 @@ class Excel:
                 email=row.get('email'),
                 dia_chi=row.get('dia_chi'),
                 ghi_chu=row.get('ghi_chu'),
+                ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
             ncc_service.create(ncc)
@@ -112,13 +119,15 @@ class Excel:
         df_filled = df.fillna({
             'ten_chi_phi': 'Không rõ',
             'gia_chi_phi': 0,
-            'ghi_chu': ''
+            'ghi_chu': '',
+            'ngay_tao': datetime.now().strftime('%Y-%m-%d')
         })
         for index, row in df_filled.iterrows():
             chi_phi = ChiPhi(
                 ten_chi_phi=row.get('ten_chi_phi'),
                 gia_chi_phi=row.get('gia_chi_phi'),
-                ghi_chu=row.get('ghi_chu')
+                ghi_chu=row.get('ghi_chu'),
+                ngay_tao=row.get('ngay_tao')
             )
             chi_phi_service.create(chi_phi)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
@@ -136,7 +145,8 @@ class Excel:
             'so_luong': 0,
             'gia_nhap': 0,
             'thanh_tien': 0,
-            'ghi_chu': ''
+            'ghi_chu': '',
+            'ngay_nhap': datetime.now().strftime('%Y-%m-%d')
         })
         for index, row in df_filled.iterrows():
             nhap_hang = NhapHang(
@@ -147,7 +157,8 @@ class Excel:
                 so_luong=row.get('so_luong'),
                 gia_nhap=row.get('gia_nhap'),
                 thanh_tien=row.get('thanh_tien'),
-                ghi_chu=row.get('ghi_chu')
+                ghi_chu=row.get('ghi_chu'),
+                ngay_nhap=row.get('ngay_nhap')
             )
             nhap_hang_service.create(nhap_hang)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
@@ -165,7 +176,8 @@ class Excel:
             'so_luong': 0,
             'gia_ban': 0,
             'thanh_tien': 0,
-            'ghi_chu': ''
+            'ghi_chu': '',
+            'ngay_ban': datetime.now().strftime('%Y-%m-%d')
         })
         for index, row in df_filled.iterrows():
             ban_hang = BanHang(
@@ -176,7 +188,8 @@ class Excel:
                 so_luong=row.get('so_luong'),
                 gia_ban=row.get('gia_ban'),
                 thanh_tien=row.get('thanh_tien'),
-                ghi_chu=row.get('ghi_chu')
+                ghi_chu=row.get('ghi_chu'),
+                ngay_ban=row.get('ngay_ban')
             )
             ban_hang_service.create(ban_hang)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")

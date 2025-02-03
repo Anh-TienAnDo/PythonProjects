@@ -4,7 +4,7 @@ from src.service.MatHangService import MatHangService
 from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshKhachHang
 from src.utils.GenerationId import GenerationId
 import logging
-from contants import BAN_HANG_SORT_OPTIONS, BAN_HANG_ID_PREFIX, BAN_HANG_ID_LENGTH, REPORT_BAN_HANG_SORT_OPTIONS
+from contants import BAN_HANG_SORT_OPTIONS, BAN_HANG_ID_PREFIX, BAN_HANG_ID_LENGTH, REPORT_BAN_HANG_SORT_OPTIONS, REPORT_BAN_HANG_DETAIL_SORT_OPTIONS
 from datetime import datetime
 from src.utils.Excel import Excel
 
@@ -43,7 +43,7 @@ class BanHangService:
     def report(self, sort: str, day: str, month: str, year: str) -> list:
         sort = sort.strip()
         if sort not in self.get_report_ban_hang_sort_keys() or sort == '' or sort is None:
-            sort = 'Ngày bán mới - cũ'
+            sort = 'Tổng tiền nhiều - ít'
         sort_by = self.get_report_ban_hang_sort_by_key(sort)
         day = day.strip()
         month = month.strip()
@@ -62,6 +62,23 @@ class BanHangService:
                 day = f'0{day}'
             where = f"strftime('%d-%m-%Y', ngay_ban) = '{day}-{month}-{year}'"
         return self.ban_hang_repo.report(sort_by, where)
+    
+    def report_detail_mat_hang(self, sort: str, month: str, year: str, id_mat_hang: str) -> list:
+        sort = sort.strip()
+        if sort not in self.get_report_ban_hang_detail_sort_keys() or sort == '' or sort is None:
+            sort = 'Ngày bán mới - cũ'
+        sort_by = self.get_report_ban_hang_detail_sort_by_key(sort)
+        month = month.strip()
+        year = year.strip()
+        now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+        if month is None or month == '':
+            month = str(now.month)
+        if year is None or year == '':
+            year = str(now.year)
+        if len(month) == 1:
+            month = f'0{month}'
+        where = f"strftime('%m-%Y', ngay_ban) = '{month}-{year}' AND id_mat_hang = '{id_mat_hang}'"
+        return self.ban_hang_repo.report_detail_mat_hang(sort_by, where)
         
     def get_by_id(self, ban_hang_id) -> BanHang:
         return self.ban_hang_repo.get_by_id(ban_hang_id)
@@ -123,7 +140,16 @@ class BanHangService:
     def get_report_ban_hang_sort_by_key(self, sort_key):
         value = REPORT_BAN_HANG_SORT_OPTIONS.get(sort_key)
         if value is None:
-            return REPORT_BAN_HANG_SORT_OPTIONS.get('Ngày bán mới - cũ')
+            return REPORT_BAN_HANG_SORT_OPTIONS.get('Tổng tiền nhiều - ít')
+        return value
+    
+    def get_report_ban_hang_detail_sort_keys(self):
+        return tuple([key for key in REPORT_BAN_HANG_DETAIL_SORT_OPTIONS.keys()])
+    
+    def get_report_ban_hang_detail_sort_by_key(self, sort_key):
+        value = REPORT_BAN_HANG_DETAIL_SORT_OPTIONS.get(sort_key)
+        if value is None:
+            return REPORT_BAN_HANG_DETAIL_SORT_OPTIONS.get('Ngày bán mới - cũ')
         return value
     
     def get_day_month_year(self) -> dict:
