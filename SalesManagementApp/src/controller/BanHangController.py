@@ -37,15 +37,15 @@ class BanHangController:
         self.init_components() # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_ban_hang_list()
-        self.count_frames()
+    #     self.count_frames()
         
-    def count_frames(self):
-        frame_count = 0
-        for widget in self.frame.winfo_children():
-            if isinstance(widget, Frame):
-                frame_count += 1
-                print(widget)
-        print(f"Number of Frames: {frame_count}")
+    # def count_frames(self):
+    #     frame_count = 0
+    #     for widget in self.parent.winfo_children():
+    #         if isinstance(widget, Frame):
+    #             frame_count += 1
+    #             print(widget)
+    #     print(f"Number of Frames: {frame_count}")
         
     def get_all(self):
         logging.info("Get all BanHang")
@@ -119,6 +119,7 @@ class BanHangController:
         self.refresh_ban_hang_list()
         
     def export_data(self):
+        self.search_var_dict['day'].set("")
         self.ban_hang_service.export_data(self.get_all())
         
     def import_data(self):
@@ -185,7 +186,7 @@ class BanHangController:
         
     def view_edit_item(self, ban_hang: BanHang):
         ban_hang = ban_hang.to_dict()
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xem chi tiết / Sửa')
         
         row = 1
@@ -216,7 +217,7 @@ class BanHangController:
         button_exit.grid(row=row+1, column=1, padx=5, pady=5)
         
     def view_delete_item(self, ban_hang: dict):
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xóa hàng bán')
         
         LabelType.h3(self.view_new_top_window, text=ban_hang['ten_hang']).grid(row=0, column=0, padx=5, pady=5)

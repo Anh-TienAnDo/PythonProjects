@@ -1,4 +1,8 @@
 import os
+import json
+
+with open('config.json', 'r', encoding='utf-8') as file:
+    config = json.load(file)
 
 CURRENT_WORKING_DIRECTORY = os.getcwd()
 DATABASE_NAME = 'sales_management.db'
@@ -221,12 +225,16 @@ COLUMNS_REPORT_NHAP_HANG_DETAIL = ['Mã hàng', 'Tên hàng', 'Số lần nhập
 COLUMNS_REPORT_BAN_HANG = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền']
 COLUMNS_REPORT_BAN_HANG_DETAIL = ['Mã hàng', 'Tên hàng', 'Số lần bán', 'Tổng số lượng', 'Tổng tiền', 'Ngày bán']
 COLUMNS_REPORT_LOI_NHUAN = ['Ngày', 'Chi phí', 'Doanh thu', 'Lợi nhuận']
+
 # --- srceen ---
-SCREEN_SIZE = "1920x1080"
+SCREEN_SIZE = config.get('SCREEN_SIZE', '1920x1080')
+# --- scaling ---
+SCALING_ACTIVE = config.get('SCALING_ACTIVE', 1)
+SCALING_VALUE = config.get('SCALING_VALUE', 1.25)
 
 # --- CSS ---
-FAMILY_FONT = 'Arial'
-# FAMILY_FONT = 'Times New Roman'
+FAMILY_FONT = config.get('FAMILY_FONT', 'Arial')
+FONT_SIZE = config.get('FONT_SIZE', 12)
 
 # --- Color ---
 BG_COLOR_LIGHT_BLUE = 'lightblue'
@@ -263,7 +271,7 @@ TEXT_COLOR_ORANGE = 'orange'
 TEXT_COLOR_BROWN = 'brown'
 
 # --- button ---
-WARP_LENGTH = 200
+WARP_LENGTH = config.get('WARP_LENGTH', 150)
 BUTTON_WARP_LENGTH = 200
 BUTTON_BD = 3
 BUTTON_HEIGHT = 3
@@ -276,7 +284,7 @@ BUTTON_CURSOR = 'hand2'
 #  --- Entry ---
 ENTRY_BD = 3
 
-MONEY_UNIT = 'VNĐ'
+MONEY_UNIT = config.get('MONEY_UNIT', 'VNĐ')
 
 
 

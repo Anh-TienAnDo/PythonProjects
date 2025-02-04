@@ -16,6 +16,7 @@ from src.controller.BaoCaoController import BaoCaoController
 from src.controller.BaoCaoBanHangController import BaoCaoBanHangController
 from src.controller.BaoCaoNhapHangController import BaoCaoNhapHangController
 from functools import partial
+import json
 
 # Database setup
 def setup_database():
@@ -42,7 +43,8 @@ class SalesManagementApp:
         self.root.title(TITLE_APP)
         self.root.geometry(SCREEN_SIZE)
         # Điều chỉnh DPI scaling
-        # self.root.tk.call('tk', 'scaling', 1.25)
+        if SCALING_ACTIVE:
+            self.root.tk.call('tk', 'scaling', SCALING_VALUE)
 
         # Tạo các Frame (container) cho các giao diện khác nhau
         self.frame_main = Frame(root, bg=BG_COLOR_FRAME_MAIN)
@@ -115,7 +117,6 @@ def init_template():
 
 if __name__ == "__main__":
     setup_logging()
-    # logging.info('Starting Sales Management System')
     setup_database()
     setup_search_index()
     init_template()

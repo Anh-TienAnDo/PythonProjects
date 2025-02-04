@@ -37,15 +37,6 @@ class NhapHangController:
         self.init_components() # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_nhap_hang_list()
-        self.count_frames()
-        
-    def count_frames(self):
-        frame_count = 0
-        for widget in self.frame.winfo_children():
-            if isinstance(widget, Frame):
-                frame_count += 1
-                print(widget)
-        print(f"Number of Frames: {frame_count}")
         
     def get_all(self):
         logging.info("Get all NhapHang")
@@ -116,6 +107,7 @@ class NhapHangController:
         self.refresh_nhap_hang_list()
         
     def export_data(self):
+        self.search_var_dict['day'].set("")
         self.nhap_hang_service.export_data(self.get_all())
         
     def import_data(self):
@@ -182,7 +174,7 @@ class NhapHangController:
         
     def view_edit_item(self, nhap_hang: NhapHang):
         nhap_hang = nhap_hang.to_dict()
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xem chi tiết / Sửa')
         
         row = 1
@@ -213,7 +205,7 @@ class NhapHangController:
         button_exit.grid(row=row+1, column=1, padx=5, pady=5)
         
     def view_delete_item(self, nhap_hang: dict):
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xóa hàng nhập')
         
         LabelType.h3(self.view_new_top_window, text=nhap_hang['ten_hang']).grid(row=0, column=0, padx=5, pady=5)

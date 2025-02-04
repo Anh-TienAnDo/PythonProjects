@@ -212,7 +212,10 @@ class BanHangAddController:
                     label = LabelType.normal(self.scrollable_frame, text=TextNormalization.format_number(ban_hang_var.get(key).get()) + f" {MONEY_UNIT}")
                     label.grid(row=row, column=column, padx=5, pady=5)
                 else:
-                    entry = EntryType.normal(self.scrollable_frame, text_var=ban_hang_var.get(key))
+                    if key == 'so_luong':
+                        entry = EntryType.normal(self.scrollable_frame, text_var=ban_hang_var.get(key), width=10)
+                    else:
+                        entry = EntryType.normal(self.scrollable_frame, text_var=ban_hang_var.get(key))
                     entry.grid(row=row, column=column, padx=5, pady=5)
                 column += 1
                 if row % 2 == 0:
@@ -236,7 +239,7 @@ class BanHangAddController:
         BanHangController(self.parent)
     
     def view_cancel(self):
-        self.view_cancel_top_window = Toplevel(self.frame)
+        self.view_cancel_top_window = Toplevel(self.parent)
         # self.view_cancel_top_window = Toplevel(self.view_new_top_window)
         self.view_cancel_top_window.title("Hủy đơn hàng")
         self.view_cancel_top_window.rowconfigure(0, weight=1)

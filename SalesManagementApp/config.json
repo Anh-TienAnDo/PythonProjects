@@ -1,0 +1,9 @@
+{
+  "SCREEN_SIZE": "1920x1080",
+  "FAMILY_FONT": "Arial", 
+  "FONT_SIZE": 12,
+  "WARP_LENGTH": 150,
+  "MONEY_UNIT": "VNĐ",
+  "SCALING_ACTIVE": 0,
+  "SCALING_VALUE": 1.25
+}

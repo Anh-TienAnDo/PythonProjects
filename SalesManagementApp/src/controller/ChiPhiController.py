@@ -126,6 +126,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.refresh_chi_phi_list()
         
     def export_data(self):
+        self.search_var_dict['day'].set("")
         self.chi_phi_service.export_data(self.get_all())
         
     def import_data(self):
@@ -187,7 +188,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         
     def view_edit_item(self, chi_phi: ChiPhi):
         chi_phi = chi_phi.to_dict()
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xem chi tiết / Sửa')
         
         row = 1
@@ -214,7 +215,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         button_exit.grid(row=row+1, column=1, padx=5, pady=5)
     
     def view_add_item(self):
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Thêm chi phí')
         chi_phi = ChiPhi()
         chi_phi = chi_phi.to_dict()
@@ -241,7 +242,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         button_exit.grid(row=row+1, column=2, padx=5, pady=5)
         
     def view_delete_item(self, chi_phi: dict):
-        self.view_new_top_window = Toplevel(self.frame)
+        self.view_new_top_window = Toplevel(self.parent)
         self.view_new_top_window.title('Xóa chi phí')
         
         LabelType.h3(self.view_new_top_window, text=chi_phi['ten_chi_phi']).grid(row=0, column=0, padx=5, pady=5)

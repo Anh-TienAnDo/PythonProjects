@@ -4,8 +4,8 @@ from contants import *
 
 class EntryType:
   @staticmethod
-  def normal(frame, text_var, font=FontType.normal(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, bd=ENTRY_BD):
-    entry = Entry(frame, textvariable=text_var, font=font, fg=text_color, bg=bg_color, bd=bd)
+  def normal(frame, text_var, font=FontType.normal(), text_color=TEXT_COLOR, bg_color=BG_COLOR_WHITE, bd=ENTRY_BD, width=20):
+    entry = Entry(frame, textvariable=text_var, font=font, fg=text_color, bg=bg_color, bd=bd, width=width)
     return entry
   
   @staticmethod

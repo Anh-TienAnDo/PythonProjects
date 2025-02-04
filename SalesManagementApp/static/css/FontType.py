@@ -1,4 +1,4 @@
-from contants import FAMILY_FONT
+from contants import FAMILY_FONT, FONT_SIZE
 
 class FontType:
     @staticmethod
@@ -19,12 +19,12 @@ class FontType:
 
     @staticmethod
     def normal():
-        return (FAMILY_FONT, 12, "bold")
+        return (FAMILY_FONT, FONT_SIZE, "bold")
     
     @staticmethod
     def mini():
-        return (FAMILY_FONT, 10)
+        return (FAMILY_FONT, FONT_SIZE-2)
     
     @staticmethod
     def data():
-        return (FAMILY_FONT, 16, "bold")
+        return (FAMILY_FONT, FONT_SIZE+4, "bold")

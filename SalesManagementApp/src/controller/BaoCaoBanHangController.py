@@ -36,15 +36,6 @@ class BaoCaoBanHangController:
         self.init_components()  # ---Tạo các thành phần giao diện---
         # ---- content_frame ----
         self.refresh_ban_hang_list()
-        self.count_frames()
-        
-    def count_frames(self):
-        frame_count = 0
-        for widget in self.frame.winfo_children():
-            if isinstance(widget, Frame):
-                frame_count += 1
-                print(widget)
-        print(f"Number of Frames: {frame_count}")
         
     def report(self):
         logging.info("report BanHang")
