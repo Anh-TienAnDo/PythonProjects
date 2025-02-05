@@ -71,6 +71,19 @@ class BanHangRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating banhang %s', e)
             return False
+    
+    def create_many(self, ban_hang_list) -> bool:
+        logging.info('Creating multiple banhang records')
+        try:
+            ban_hang_tuples = [ban_hang.to_tuple() for ban_hang in ban_hang_list]
+            self.cursor.executemany(f'''INSERT INTO {BAN_HANG_TABLE}
+                                    (id, id_mat_hang, ten_hang, don_vi, so_luong, gia_ban, khach_hang, thanh_tien, ghi_chu, ngay_ban) 
+                                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', ban_hang_tuples)
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating multiple banhang records %s', e)
+            return False
 
     def update(self, ban_hang_id, ban_hang: BanHang) -> bool:
         logging.info('Updating banhang %s', ban_hang)

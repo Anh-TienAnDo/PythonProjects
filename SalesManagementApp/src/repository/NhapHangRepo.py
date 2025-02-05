@@ -70,6 +70,19 @@ class NhapHangRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating nhaphang %s', e)
             return False
+        
+    def create_many(self, nhap_hang_list) -> bool:
+        logging.info('Creating multiple nhaphang records')
+        try:
+            nhap_hang_tuples = [nhap_hang.to_tuple() for nhap_hang in nhap_hang_list]
+            self.cursor.executemany(f'''INSERT INTO {NHAP_HANG_TABLE}
+                                (id, id_mat_hang, ten_hang, don_vi, so_luong, gia_nhap, nha_cung_cap, thanh_tien, ghi_chu, ngay_nhap) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', nhap_hang_tuples)
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating multiple banhang records %s', e)
+            return False
 
     def update(self, nhap_hang_id, nhap_hang: NhapHang) -> bool:
         logging.info('Updating nhaphang %s', nhap_hang)

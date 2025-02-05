@@ -96,6 +96,25 @@ class NhapHangService:
         except Exception as e:
             logging.error('Error when create nhap hang')
             return False
+        
+    def create_many(self, nhap_hang_list: list[NhapHang]) -> bool:
+        for index, nhap_hang in enumerate(nhap_hang_list):
+            try:
+                while self.nhap_hang_repo.check_exist_id(nhap_hang.id):
+                    nhap_hang_list[index].id = GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
+                nhap_hang_list[index].thanh_tien = nhap_hang.so_luong * nhap_hang.gia_nhap
+                mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
+                mat_hang.so_luong += nhap_hang.so_luong
+                self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
+            except (ConnectionError, TimeoutError, ValueError) as e:
+                logging.error('Error when create many ban hang %s', e)
+                return False
+        try:
+            self.nhap_hang_repo.create_many(nhap_hang_list)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when create many ban hang %s', e)
+            return False
+        return True
 
     def update(self, nhap_hang_id, nhap_hang: NhapHang, so_luong_nhap_old: int) -> bool:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):

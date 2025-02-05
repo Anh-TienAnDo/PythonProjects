@@ -83,6 +83,17 @@ class MatHangRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error updating product %s', e)
             return False
+        
+    def update_so_luong(self, mat_hang_id, so_luong) -> bool:
+        logging.info('Updating so luong mat hang %s', so_luong)
+        try:
+            self.cursor.execute(f'UPDATE {MAT_HANG_TABLE} SET so_luong = ? WHERE id = ?', (
+                so_luong, mat_hang_id))
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error updating so luong mat hang %s', e)
+            return False
 
     def delete(self, mat_hang_id) -> bool:
         logging.info('Deleting product by id %s', mat_hang_id)

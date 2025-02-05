@@ -91,11 +91,30 @@ class BanHangService:
             self.ban_hang_repo.create(ban_hang)
             mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
             mat_hang.so_luong -= ban_hang.so_luong
-            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
-        except Exception as e:
-            logging.error('Error when create ban hang')
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when create ban hang %s', e)
             return False
+        
+    def create_many(self, ban_hang_list: list[BanHang]) -> bool:
+        for index, ban_hang in enumerate(ban_hang_list):
+            try:
+                while self.ban_hang_repo.check_exist_id(ban_hang.id):
+                    ban_hang_list[index].id = GenerationId.generate_id(BAN_HANG_ID_LENGTH, BAN_HANG_ID_PREFIX)
+                ban_hang_list[index].thanh_tien = ban_hang.so_luong * ban_hang.gia_ban
+                mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
+                mat_hang.so_luong -= ban_hang.so_luong
+                self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
+            except (ConnectionError, TimeoutError, ValueError) as e:
+                logging.error('Error when create many ban hang %s', e)
+                return False
+        try:
+            self.ban_hang_repo.create_many(ban_hang_list)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when create many ban hang %s', e)
+            return False
+        return True
 
     def update(self, ban_hang_id, ban_hang: BanHang, so_luong_ban_old: int) -> bool:
         if not self.ban_hang_repo.check_exist_id(ban_hang_id):
@@ -107,8 +126,8 @@ class BanHangService:
             mat_hang.so_luong = mat_hang.so_luong + so_luong_ban_old - ban_hang.so_luong
             self.mat_hang_service.update(mat_hang.id, mat_hang)
             return True
-        except Exception as e:
-            logging.error('Error when update ban hang')
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when update ban hang %s', e)
             return False
       
     def delete(self, ban_hang_id) -> bool:
@@ -121,8 +140,8 @@ class BanHangService:
             self.ban_hang_repo.delete(ban_hang_id)
             self.mat_hang_service.update(mat_hang.id, mat_hang)
             return True
-        except Exception as e:
-            logging.error('Error when delete ban hang')
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when delete ban hang %s', e)
             return False
     
     def get_ban_hang_sort_keys(self):

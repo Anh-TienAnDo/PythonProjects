@@ -48,6 +48,13 @@ class MatHangService:
             return False
         self.search_whoosh.add_or_update_document_ix(mat_hang_id, mat_hang.ten_hang)
         return True
+    
+    def update_so_luong(self, mat_hang_id, so_luong: int) -> bool:
+        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            return False
+        if not self.mat_hang_repo.update_so_luong(mat_hang_id, so_luong):
+            return False
+        return True
       
     def delete(self, mat_hang_id) -> bool:
         if not self.mat_hang_repo.check_exist_id(mat_hang_id):

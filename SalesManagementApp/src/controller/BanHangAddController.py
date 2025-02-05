@@ -90,14 +90,18 @@ class BanHangAddController:
         pass
     
     def save_all(self):
-        from src.controller.BanHangController import BanHangController
-        for ban_hang_var in self.ban_hang_list_var:
-            ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
-            ban_hang = BanHang(**ban_hang_data)
-            self.ban_hang_service.create(ban_hang)
-        self.frame.destroy()
-        BanHangController(self.parent)
-        # self.view_new_top_window.destroy()
+        try:
+            from src.controller.BanHangController import BanHangController
+            ban_hang_list = []
+            for ban_hang_var in self.ban_hang_list_var:
+                ban_hang_data = {key: var.get() for key, var in ban_hang_var.items()}
+                ban_hang = BanHang(**ban_hang_data)
+                ban_hang_list.append(ban_hang)
+            self.ban_hang_service.create_many(ban_hang_list)
+            self.frame.destroy()
+            BanHangController(self.parent)
+        except Exception as e:
+            messagebox.showerror("Lỗi", f"Đã có lỗi xảy ra: {e}")
     
     def delete_hang_ban(self, index):
         self.ban_hang_list_var.pop(index)
@@ -247,7 +251,7 @@ class BanHangAddController:
         self.view_cancel_top_window.columnconfigure(0, weight=1)
         self.view_cancel_top_window.geometry("400x200")
         self.view_cancel_top_window.grab_set()
-        LabelType.h4(self.view_cancel_top_window, "Bạn có chắc chắn muốn hủy đơn hàng không?").grid(row=0, column=0)
+        LabelType.h4(self.view_cancel_top_window, "Bạn có chắc chắn\nmuốn hủy đơn hàng không?").grid(row=0, column=0)
         button_yes = ButtonType.danger(self.view_cancel_top_window, "Xác nhận")
         button_yes.grid(row=1, column=0, sticky="w", padx=10)
         button_yes.config(command=partial(self.destroy_all_by_cancel))

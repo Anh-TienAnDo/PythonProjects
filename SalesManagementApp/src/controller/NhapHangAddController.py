@@ -86,13 +86,18 @@ class NhapHangAddController:
     
     def save_all(self):
         from src.controller.NhapHangController import NhapHangController
-        for nhap_hang_var in self.nhap_hang_list_var:
-            nhap_hang_data = {key: var.get() for key, var in nhap_hang_var.items()}
-            nhap_hang = NhapHang(**nhap_hang_data)
-            self.nhap_hang_service.create(nhap_hang)
-        self.frame.destroy()
-        NhapHangController(self.parent)
-    
+        try:
+            nhap_hang_list = []
+            for nhap_hang_var in self.nhap_hang_list_var:
+                nhap_hang_data = {key: var.get() for key, var in nhap_hang_var.items()}
+                nhap_hang = NhapHang(**nhap_hang_data)
+                nhap_hang_list.append(nhap_hang)
+            self.nhap_hang_service.create_many(nhap_hang_list)
+            self.frame.destroy()
+            NhapHangController(self.parent)
+        except Exception as e:
+            logging.error("Error: %s", e)
+                
     def delete_hang_nhap(self, index):
         self.nhap_hang_list_var.pop(index)
         self.refresh_nhap_hang_list()
@@ -172,7 +177,7 @@ class NhapHangAddController:
         self.view_cancel_top_window.columnconfigure(0, weight=1)
         self.view_cancel_top_window.geometry("400x200")
         self.view_cancel_top_window.grab_set()
-        LabelType.h4(self.view_cancel_top_window, "Bạn có chắc chắn muốn hủy nhập hàng không?").grid(row=0, column=0)
+        LabelType.h4(self.view_cancel_top_window, "Bạn có chắc chắn\nmuốn hủy nhập hàng không?").grid(row=0, column=0)
         button_yes = ButtonType.danger(self.view_cancel_top_window, "Xác nhận")
         button_yes.grid(row=1, column=0, sticky="w", padx=10)
         button_yes.config(command=partial(self.destroy_all_by_cancel))

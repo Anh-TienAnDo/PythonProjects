@@ -19,7 +19,7 @@ class BaoCaoNhapHangDetailController:
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
         self.id_mat_hang = id_mat_hang
-        self.date = {'month': month, 'year': year}
+        self.date = {'month': month.strip(), 'year': year.strip()}
         self.nhap_hang_service = NhapHangService()
         self.total_nhap_hang = StringVar()
         self.total_so_luong = StringVar()
