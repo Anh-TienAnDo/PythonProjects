@@ -6,7 +6,7 @@ from contants import MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH, MAT_HANG_TABLE
 
 class MatHang:
     def __init__(self, id=None, ten_hang=None, don_vi=None, so_luong=None, gia_le=None, gia_si=None, ngay_tao=None, is_active=None):
-        self.id = id if id is not None else GenerationId.generate_id(
+        self.id = id if id is not None and MAT_HANG_ID_PREFIX in id else GenerationId.generate_id(
             MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
         self.ten_hang = TextNormalization.remove_special_characters(str(ten_hang)) if ten_hang is not None else ""
         self.don_vi = TextNormalization.remove_special_characters(str(don_vi)) if don_vi is not None else ""

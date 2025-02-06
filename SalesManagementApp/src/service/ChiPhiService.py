@@ -33,7 +33,7 @@ class ChiPhiService:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_tao) = '{day}-{month}-{year}'"
             return self.chi_phi_repo.get_all(sort_by, where)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error get_all: %s", e)
             return list()
         
@@ -45,7 +45,7 @@ class ChiPhiService:
             while self.chi_phi_repo.check_exist_id(chi_phi.id):
                 chi_phi.id = GenerationId.generate_id(CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
             return self.chi_phi_repo.create(chi_phi)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error create: %s", e)
             return False
         
@@ -55,32 +55,32 @@ class ChiPhiService:
                 while self.chi_phi_repo.check_exist_id(chi_phi.id):
                     chi_phi.id = GenerationId.generate_id(CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
             return self.chi_phi_repo.create_many(chi_phi_list)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error create_many: %s", e)
             return False
 
     def update(self, chi_phi_id, chi_phi: ChiPhi) -> bool:
         try:
-            if not self.chi_phi_repo.check_exist_id(chi_phi_id):
-                return False
+            # if not self.chi_phi_repo.check_exist_id(chi_phi_id):
+            #     return False
             return self.chi_phi_repo.update(chi_phi_id, chi_phi)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error update: %s", e)
             return False
       
     def delete(self, chi_phi_id) -> bool:
         try:
-            if not self.chi_phi_repo.check_exist_id(chi_phi_id):
-                return False
+            # if not self.chi_phi_repo.check_exist_id(chi_phi_id):
+            #     return False
             return self.chi_phi_repo.delete(chi_phi_id)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error delete: %s", e)
             return False
     
     def get_chi_phi_sort_keys(self):
         try:
             return tuple([key for key in CHI_PHI_SORT_OPTIONS.keys()])
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error get_chi_phi_sort_keys: %s", e)
             return tuple()
     
@@ -110,7 +110,7 @@ class ChiPhiService:
                 return False
             path = f'{path}/chi_phi_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
             return excel_util.export_data(path, self.to_list_dict(data)) 
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error(e)
             return False
     
@@ -122,6 +122,6 @@ class ChiPhiService:
             if path is None:
                 return False
             return excel_util.import_chi_phi(path)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error(e)
             return False

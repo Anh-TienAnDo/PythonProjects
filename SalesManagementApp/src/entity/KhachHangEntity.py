@@ -6,7 +6,7 @@ from contants import KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH, KHACH_HANG_TABL
 
 class KhachHang:
     def __init__(self, id=None, ten_khach_hang=None, dien_thoai=None, email=None, dia_chi=None, ghi_chu=None, ngay_tao=None, is_active=None):
-        self.id = id if id is not None else GenerationId.generate_id(
+        self.id = id if id is not None and KHACH_HANG_ID_PREFIX in id else GenerationId.generate_id(
             KHACH_HANG_ID_LENGTH, KHACH_HANG_ID_PREFIX)
         self.ten_khach_hang = TextNormalization.remove_special_characters_and_Upper(str(ten_khach_hang)) if ten_khach_hang is not None else ""
         self.dien_thoai = TextNormalization.remove_special_characters(str(dien_thoai)) if dien_thoai is not None else ""

@@ -38,7 +38,7 @@ class BanHangService:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_ban) = '{day}-{month}-{year}'"
             return self.ban_hang_repo.get_all(sort_by, where)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get all ban hang %s', e)
             return []
     
@@ -65,7 +65,7 @@ class BanHangService:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_ban) = '{day}-{month}-{year}'"
             return self.ban_hang_repo.report(sort_by, where)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when report ban hang %s', e)
             return []
     
@@ -86,7 +86,7 @@ class BanHangService:
                 month = f'0{month}'
             where = f"strftime('%m-%Y', ngay_ban) = '{month}-{year}' AND id_mat_hang = '{id_mat_hang}'"
             return self.ban_hang_repo.report_detail_mat_hang(sort_by, where)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when report detail mat hang %s', e)
             return []
         
@@ -103,7 +103,7 @@ class BanHangService:
             mat_hang.so_luong -= ban_hang.so_luong
             self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create ban hang %s', e)
             return False
         
@@ -116,46 +116,46 @@ class BanHangService:
                 mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
                 mat_hang.so_luong -= ban_hang.so_luong
                 self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
-            except (ConnectionError, TimeoutError, ValueError) as e:
+            except Exception as e:
                 logging.error('Error when create many ban hang %s', e)
         try:
             return self.ban_hang_repo.create_many(ban_hang_list)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create many ban hang %s', e)
             return False
 
     def update(self, ban_hang_id, ban_hang: BanHang, so_luong_ban_old: int) -> bool:
-        if not self.ban_hang_repo.check_exist_id(ban_hang_id):
-            return False
         try: 
+            if not self.ban_hang_repo.check_exist_id(ban_hang_id):
+                return False
             ban_hang.thanh_tien = ban_hang.so_luong * ban_hang.gia_ban
             self.ban_hang_repo.update(ban_hang_id, ban_hang)
             mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
             mat_hang.so_luong = mat_hang.so_luong + so_luong_ban_old - ban_hang.so_luong
             self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when update ban hang %s', e)
             return False
       
     def delete(self, ban_hang_id) -> bool:
-        if not self.ban_hang_repo.check_exist_id(ban_hang_id):
-            return False
         try:
+            if not self.ban_hang_repo.check_exist_id(ban_hang_id):
+                return False
             ban_hang = self.ban_hang_repo.get_by_id(ban_hang_id)
             self.ban_hang_repo.delete(ban_hang_id)
             mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)
             mat_hang.so_luong += ban_hang.so_luong
             self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when delete ban hang %s', e)
             return False
     
     def get_ban_hang_sort_keys(self):
         try:
             return tuple([key for key in BAN_HANG_SORT_OPTIONS.keys()])
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get ban hang sort keys %s', e)
             return []
     
@@ -168,7 +168,7 @@ class BanHangService:
     def get_report_ban_hang_sort_keys(self):
         try:
             return tuple([key for key in REPORT_BAN_HANG_SORT_OPTIONS.keys()])
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get report ban hang sort keys %s', e)
             return []
     
@@ -181,7 +181,7 @@ class BanHangService:
     def get_report_ban_hang_detail_sort_keys(self):
         try:
             return tuple([key for key in REPORT_BAN_HANG_DETAIL_SORT_OPTIONS.keys()])
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get report ban hang detail sort keys %s', e)
             return []
     
@@ -212,7 +212,7 @@ class BanHangService:
                 if mat_hang is not None:
                     mat_hang_list.append(mat_hang.to_dict())
             return mat_hang_list
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when search mat hang %s', e)
             return []
     
@@ -224,7 +224,7 @@ class BanHangService:
             if len(results) > 15:
                 results = results[0:15]
             return [suggestion['ten_khach_hang'] for suggestion in results]
-        except (ConnectionError, TimeoutError, ValueError) as e:  
+        except Exception as e:  
             logging.error('Error when search khach_hang %s', e)
             return []
         
@@ -240,7 +240,7 @@ class BanHangService:
                 return False
             path = f'{path}/ban_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
             return excel_util.export_data(path, self.to_list_dict(data)) 
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when export data %s', e)
             return False
     
@@ -252,7 +252,7 @@ class BanHangService:
             if path is None:
                 return False
             return excel_util.import_ban_hang(path)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when import ban hang %s', e)
             return False
     

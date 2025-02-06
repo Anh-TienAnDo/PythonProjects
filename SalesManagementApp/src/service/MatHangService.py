@@ -28,7 +28,7 @@ class MatHangService:
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
             return self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get all mat hang %s', e)
             return list()
 
@@ -43,7 +43,7 @@ class MatHangService:
                 return False
             self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create mat hang %s', e)
             return False
         
@@ -57,42 +57,42 @@ class MatHangService:
             for mat_hang in mat_hang_list:
                 self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create many mat hang %s', e)
             return False
 
     def update(self, mat_hang_id, mat_hang: MatHang) -> bool:
         try:
-            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
-                return False
+            # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            #     return False
             if not self.mat_hang_repo.update(mat_hang_id, mat_hang):
                 return False
             self.search_whoosh.add_or_update_document_ix(mat_hang_id, mat_hang.ten_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when update mat hang %s', e)
             return False
     
     def update_so_luong(self, mat_hang_id, so_luong: int) -> bool:
         try:
-            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
-                return False
+            # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            #     return False
             if not self.mat_hang_repo.update_so_luong(mat_hang_id, so_luong):
                 return False
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when update so luong mat hang %s', e)
             return False
       
     def delete(self, mat_hang_id) -> bool:
         try:
-            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
-                return False
+            # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+            #     return False
             if not self.mat_hang_repo.delete(mat_hang_id):
                 return False
             self.search_whoosh.delete_document_ix(mat_hang_id)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when delete mat hang %s', e)
             return False
     
@@ -126,7 +126,7 @@ class MatHangService:
                 return False
             path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
             return excel_util.export_data(path, data) 
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when export data %s', e)
             return False
     
@@ -138,6 +138,6 @@ class MatHangService:
             if path is None:
                 return False
             return excel_util.import_mat_hang(path)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when import mat hang %s', e)
             return False

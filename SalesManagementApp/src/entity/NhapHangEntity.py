@@ -6,7 +6,7 @@ from contants import NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, NHAP_HANG_TABLE
 
 class NhapHang:
     def __init__(self, id=None, id_mat_hang=None, ten_hang=None, don_vi=None, so_luong=None, gia_nhap=None, nha_cung_cap=None, thanh_tien=None, ghi_chu=None, ngay_nhap=None):
-        self.id = id if id is not None else GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
+        self.id = id if id is not None and NHAP_HANG_ID_PREFIX in id else GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
         self.id_mat_hang = str(id_mat_hang)
         self.ten_hang = str(ten_hang)
         self.don_vi = TextNormalization.remove_special_characters(str(don_vi)) if don_vi is not None else ""

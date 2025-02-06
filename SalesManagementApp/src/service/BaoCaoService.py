@@ -46,7 +46,7 @@ class BaoCaoService:
             for item in chi_phi:
                 report[str(item[1])]['chi_phi'] = item[0] if item[0] is not None else 0
             return report
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error(f'Error: {e}')
             return {}
       

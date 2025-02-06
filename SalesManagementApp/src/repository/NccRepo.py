@@ -19,7 +19,7 @@ class NCCRepo:
             data = self.cursor.fetchall()
             ncc_list = [NCC(*row) for row in data]
             return ncc_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             return None
         
@@ -30,7 +30,7 @@ class NCCRepo:
             data = self.cursor.fetchall()
             ncc_list = [NCC(*row) for row in data]
             return ncc_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error searching ncc %s', e)
             return None
         
@@ -41,7 +41,7 @@ class NCCRepo:
             data = self.cursor.fetchall()
             ncc_list = [NCC(*row) for row in data]
             return ncc_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
 
     def get_by_id(self, ncc_id) -> NCC:
@@ -51,7 +51,7 @@ class NCCRepo:
                 f'SELECT * FROM {NCC_TABLE} WHERE id = ?', (ncc_id,))
             data = self.cursor.fetchone()
             return NCC(*data) if data else None
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting ncc by id %s', e)
             return None
 
@@ -63,11 +63,11 @@ class NCCRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', ncc.to_tuple())
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating ncc %s', e)
             return False
         
-    def create_many(self, ncc_list: list[NCC]) -> bool:
+    def create_many(self, ncc_list) -> bool:
         logging.info('Creating ncc %s', ncc_list)
         try:
             self.cursor.executemany(f'''INSERT INTO {NCC_TABLE}
@@ -75,7 +75,7 @@ class NCCRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', [ncc.to_tuple() for ncc in ncc_list])
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating ncc %s', e)
             return False
 
@@ -92,7 +92,7 @@ class NCCRepo:
                 ten_ncc, dien_thoai, email, dia_chi, ghi_chu, is_active, ncc_id))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error updating ncc %s', e)
             return False
 
@@ -103,7 +103,7 @@ class NCCRepo:
                 f'DELETE FROM {NCC_TABLE} WHERE id = ?', (ncc_id,))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error deleting ncc %s', e)
             return False
             
@@ -114,7 +114,7 @@ class NCCRepo:
                 f'SELECT * FROM {NCC_TABLE} WHERE id = ?', (ncc_id,))
             data = self.cursor.fetchone()
             return True if data else False
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error checking ncc exist %s', e)
             return False
 

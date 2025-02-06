@@ -28,7 +28,7 @@ class KhachHangService:
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
             return self.khach_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error get_all: %s", e)
             return list()
 
@@ -43,7 +43,7 @@ class KhachHangService:
                 return False
             self.search_whoosh.add_or_update_document_ix(khach_hang.id, khach_hang.ten_khach_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error create: %s", e)
             return False
         
@@ -57,30 +57,30 @@ class KhachHangService:
             for khach_hang in khach_hang_list:
                 self.search_whoosh.add_or_update_document_ix(khach_hang.id, khach_hang.ten_khach_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error create_many: %s", e)
             return False
 
     def update(self, khach_hang_id, khach_hang: KhachHang) -> bool:
         try:
-            if not self.khach_hang_repo.check_exist_id(khach_hang_id):
-                return False
+            # if not self.khach_hang_repo.check_exist_id(khach_hang_id):
+            #     return False
             if not self.khach_hang_repo.update(khach_hang_id, khach_hang):
                 return False
             self.search_whoosh.add_or_update_document_ix(khach_hang_id, khach_hang.ten_khach_hang)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error update: %s", e)
       
     def delete(self, khach_hang_id) -> bool:
         try:
-            if not self.khach_hang_repo.check_exist_id(khach_hang_id):
-                return False
+            # if not self.khach_hang_repo.check_exist_id(khach_hang_id):
+            #     return False
             if not self.khach_hang_repo.delete(khach_hang_id):
                 return False
             self.search_whoosh.delete_document_ix(khach_hang_id)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error delete: %s", e)
             return False
     
@@ -117,7 +117,7 @@ class KhachHangService:
                 return False
             path = f'{path}/khach_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
             return excel_util.export_data(path, self.to_list_dict(data)) 
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error export_data: %s", e)
             return False
     
@@ -129,6 +129,6 @@ class KhachHangService:
             if path is None:
                 return False
             return excel_util.import_khach_hang(path)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error("Error import_khach_hang: %s", e)
             return False

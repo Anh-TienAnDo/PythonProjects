@@ -19,7 +19,7 @@ class ChiPhiRepo:
             data = self.cursor.fetchall()
             chi_phi_list = [ChiPhi(*row) for row in data]
             return chi_phi_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             return None
         
@@ -30,7 +30,7 @@ class ChiPhiRepo:
             data = self.cursor.fetchall()
             chi_phi_list = [ChiPhi(*row) for row in data]
             return chi_phi_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             
     def report_loi_nhuan(self, where: str) -> list:
@@ -45,7 +45,7 @@ class ChiPhiRepo:
                 f'SELECT * FROM {CHI_PHI_TABLE} WHERE id = ?', (chi_phi_id,))
             data = self.cursor.fetchone()
             return ChiPhi(*data) if data else None
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting chiphi by id %s', e)
             return None
 
@@ -57,11 +57,11 @@ class ChiPhiRepo:
                                 VALUES (?, ?, ?, ?, ?)''', chi_phi.to_tuple())
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating chiphi %s', e)
             return False
         
-    def create_many(self, chi_phi_list: list[ChiPhi]) -> bool:
+    def create_many(self, chi_phi_list) -> bool:
         logging.info('Creating chiphi %s', chi_phi_list)
         try:
             self.cursor.executemany(f'''INSERT INTO {CHI_PHI_TABLE}
@@ -69,7 +69,7 @@ class ChiPhiRepo:
                                 VALUES (?, ?, ?, ?, ?)''', [chi_phi.to_tuple() for chi_phi in chi_phi_list])
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating chiphi %s', e)
             return False
 
@@ -83,7 +83,7 @@ class ChiPhiRepo:
                 ten_chi_phi, gia_chi_phi, ghi_chu, chi_phi_id))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error updating chiphi %s', e)
             return False
 
@@ -94,7 +94,7 @@ class ChiPhiRepo:
                 f'DELETE FROM {CHI_PHI_TABLE} WHERE id = ?', (chi_phi_id,))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error deleting chiphi %s', e)
             return False
             
@@ -105,7 +105,7 @@ class ChiPhiRepo:
                 f'SELECT * FROM {CHI_PHI_TABLE} WHERE id = ?', (chi_phi_id,))
             data = self.cursor.fetchone()
             return True if data else False
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error checking chiphi exist %s', e)
             return False
 

@@ -19,7 +19,7 @@ class BanHangRepo:
             data = self.cursor.fetchall()
             ban_hang_list = [BanHang(*row) for row in data]
             return ban_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             return None
         
@@ -30,7 +30,7 @@ class BanHangRepo:
             data = self.cursor.fetchall()
             ban_hang_list = [BanHang(*row) for row in data]
             return ban_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             
     def report(self, sort_by: str, where: str) -> list:
@@ -56,7 +56,7 @@ class BanHangRepo:
                 f'SELECT * FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
             data = self.cursor.fetchone()
             return BanHang(*data) if data else None
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting banhang by id %s', e)
             return None
 
@@ -68,7 +68,7 @@ class BanHangRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', ban_hang.to_tuple())
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating banhang %s', e)
             return False
     
@@ -81,7 +81,7 @@ class BanHangRepo:
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', ban_hang_tuples)
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating multiple banhang records %s', e)
             return False
 
@@ -99,7 +99,7 @@ class BanHangRepo:
                 ten_hang, don_vi, so_luong, gia_ban, khach_hang, thanh_tien, ghi_chu, ban_hang_id))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error updating banhang %s', e)
             return False
 
@@ -110,7 +110,7 @@ class BanHangRepo:
                 f'DELETE FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error deleting banhang %s', e)
             return False
             
@@ -121,7 +121,7 @@ class BanHangRepo:
                 f'SELECT * FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
             data = self.cursor.fetchone()
             return True if data else False
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error checking banhang exist %s', e)
             return False
 

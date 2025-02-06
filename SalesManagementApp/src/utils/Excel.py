@@ -36,7 +36,7 @@ class Excel:
         mat_hang_service = MatHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'ten_hang': 'Không rõ',
             'don_vi': '',
             'so_luong': 0,
@@ -67,7 +67,7 @@ class Excel:
         khach_hang_service = KhachHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'ten_khach_hang': 'Không rõ',
             'dia_chi': '',
             'so_dien_thoai': '',
@@ -98,7 +98,7 @@ class Excel:
         ncc_service = NCCService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'ten_ncc': 'Không rõ',
             'dia_chi': '',
             'so_dien_thoai': '',
@@ -129,7 +129,7 @@ class Excel:
         chi_phi_service = ChiPhiService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'ten_chi_phi': 'Không rõ',
             'gia_chi_phi': 0,
             'ghi_chu': '',
@@ -154,7 +154,7 @@ class Excel:
         nhap_hang_service = NhapHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'id_mat_hang': '',
             'ten_hang': 'Không rõ',
             'don_vi': '',
@@ -189,7 +189,7 @@ class Excel:
         ban_hang_service = BanHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
-            'id': None,
+            'id': '',
             'id_mat_hang': '',
             'ten_hang': 'Không rõ',
             'don_vi': '',

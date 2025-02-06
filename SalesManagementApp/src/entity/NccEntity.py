@@ -6,7 +6,7 @@ from contants import NCC_ID_PREFIX, NCC_ID_LENGTH, NCC_TABLE
 
 class NCC:
     def __init__(self, id=None, ten_ncc=None, dien_thoai=None, email=None, dia_chi=None, ghi_chu=None, ngay_tao=None, is_active=None):
-        self.id = id if id is not None else GenerationId.generate_id(
+        self.id = id if id is not None and NCC_ID_PREFIX in id else GenerationId.generate_id(
             NCC_ID_LENGTH, NCC_ID_PREFIX)
         self.ten_ncc = TextNormalization.remove_special_characters_and_Upper(str(ten_ncc)) if ten_ncc is not None else ""
         self.dien_thoai = TextNormalization.remove_special_characters(str(dien_thoai)) if dien_thoai is not None else ""

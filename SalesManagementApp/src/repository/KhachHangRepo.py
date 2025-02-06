@@ -19,7 +19,7 @@ class KhachHangRepo:
             data = self.cursor.fetchall()
             khach_hang_list = [KhachHang(*row) for row in data]
             return khach_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             return None
         
@@ -30,7 +30,7 @@ class KhachHangRepo:
             data = self.cursor.fetchall()
             khach_hang_list = [KhachHang(*row) for row in data]
             return khach_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error searching khachhang %s', e)
             return None
         
@@ -41,7 +41,7 @@ class KhachHangRepo:
             data = self.cursor.fetchall()
             khach_hang_list = [KhachHang(*row) for row in data]
             return khach_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
 
     def get_by_id(self, khach_hang_id) -> KhachHang:
@@ -51,7 +51,7 @@ class KhachHangRepo:
                 f'SELECT * FROM {KHACH_HANG_TABLE} WHERE id = ?', (khach_hang_id,))
             data = self.cursor.fetchone()
             return KhachHang(*data) if data else None
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting khachhang by id %s', e)
             return None
 
@@ -63,11 +63,11 @@ class KhachHangRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', khach_hang.to_tuple())
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating khachhang %s', e)
             return False
         
-    def create_many(self, khach_hang_list: list[KhachHang]) -> bool:
+    def create_many(self, khach_hang_list) -> bool:
         logging.info('Creating khachhang %s', khach_hang_list)
         try:
             self.cursor.executemany(f'''INSERT INTO {KHACH_HANG_TABLE}
@@ -75,7 +75,7 @@ class KhachHangRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', [khach_hang.to_tuple() for khach_hang in khach_hang_list])
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating khachhang %s', e)
             return False
 
@@ -92,7 +92,7 @@ class KhachHangRepo:
                 ten_khach_hang, dien_thoai, email, dia_chi, ghi_chu, is_active, khach_hang_id))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error updating khachhang %s', e)
             return False
 
@@ -103,7 +103,7 @@ class KhachHangRepo:
                 f'DELETE FROM {KHACH_HANG_TABLE} WHERE id = ?', (khach_hang_id,))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error deleting khachhang %s', e)
             return False
             
@@ -114,7 +114,7 @@ class KhachHangRepo:
                 f'SELECT * FROM {KHACH_HANG_TABLE} WHERE id = ?', (khach_hang_id,))
             data = self.cursor.fetchone()
             return True if data else False
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error checking khachhang exist %s', e)
             return False
 

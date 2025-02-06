@@ -28,7 +28,7 @@ class NCCService:
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
             return self.ncc_repo.search(sort_by=sort_by, where=where, params=id_list)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when get all NCC %s', e)
             return list()
 
@@ -43,7 +43,7 @@ class NCCService:
                 return False
             self.search_whoosh.add_or_update_document_ix(ncc.id, ncc.ten_ncc)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create NCC %s', e)
             return False
         
@@ -57,31 +57,31 @@ class NCCService:
             for ncc in ncc_list:
                 self.search_whoosh.add_or_update_document_ix(ncc.id, ncc.ten_ncc)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when create many NCC %s', e)
             return False
 
     def update(self, ncc_id, ncc: NCC) -> bool:
         try:
-            if not self.ncc_repo.check_exist_id(ncc_id):
-                return False
+            # if not self.ncc_repo.check_exist_id(ncc_id):
+            #     return False
             if not self.ncc_repo.update(ncc_id, ncc):
                 return False
             self.search_whoosh.add_or_update_document_ix(ncc_id, ncc.ten_ncc)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when update NCC %s', e)
             return False
       
     def delete(self, ncc_id) -> bool:
         try:
-            if not self.ncc_repo.check_exist_id(ncc_id):
-                return False
+            # if not self.ncc_repo.check_exist_id(ncc_id):
+            #     return False
             if not self.ncc_repo.delete(ncc_id):
                 return False
             self.search_whoosh.delete_document_ix(ncc_id)
             return True
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when delete NCC %s', e)
             return False
     
@@ -114,7 +114,7 @@ class NCCService:
                 return False
             path = f'{path}/ncc_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
             return excel_util.export_data(path, self.to_list_dict(data)) 
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when export NCC %s', e)
             return False
     
@@ -126,6 +126,6 @@ class NCCService:
             if path is None:
                 return False
             return excel_util.import_ncc(path)
-        except (ConnectionError, TimeoutError, ValueError) as e:
+        except Exception as e:
             logging.error('Error when import NCC %s', e)
             return False

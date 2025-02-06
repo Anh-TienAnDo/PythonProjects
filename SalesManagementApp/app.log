@@ -1,268 +1,2220 @@
-2025-02-05 10:15:22 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
-2025-02-05 10:15:22 - root - INFO - Logging initialized
-2025-02-05 10:15:22 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:22 - root - INFO - Initializing tables
-2025-02-05 10:15:23 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:23 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:23 - root - INFO - Getting all products
-2025-02-05 10:15:25 - root - INFO - ---NCCRepo initializing---
-2025-02-05 10:15:25 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:25 - root - INFO - Getting all ncc
-2025-02-05 10:15:25 - root - INFO - Closing database connection
-2025-02-05 10:15:26 - root - INFO - Closing database connection
-2025-02-05 10:15:26 - root - INFO - ---KhachHangRepo initializing---
-2025-02-05 10:15:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:26 - root - INFO - Getting all khach hang
-2025-02-05 10:15:27 - root - INFO - Closing database connection
-2025-02-05 10:15:31 - root - INFO - MatHang Controller
-2025-02-05 10:15:31 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all MatHang
-2025-02-05 10:15:31 - root - INFO - Getting all products
-2025-02-05 10:15:31 - root - INFO - NhapHang Controller
-2025-02-05 10:15:31 - root - INFO - ---NhapHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---NhapHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all NhapHang
-2025-02-05 10:15:31 - root - INFO - Getting all nhaphang
-2025-02-05 10:15:31 - root - INFO - BanHang Controller
-2025-02-05 10:15:31 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all BanHang
-2025-02-05 10:15:31 - root - INFO - Getting all banhang
-2025-02-05 10:15:31 - root - INFO - ChiPhi Controller
-2025-02-05 10:15:31 - root - INFO - ---ChiPhiService initializing---
-2025-02-05 10:15:31 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all ChiPhi
-2025-02-05 10:15:31 - root - INFO - Getting all chi phi
-2025-02-05 10:15:31 - root - INFO - KhachHang Controller
-2025-02-05 10:15:31 - root - INFO - ---KhachHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---KhachHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all KhachHang
-2025-02-05 10:15:31 - root - INFO - Getting all khach hang
-2025-02-05 10:15:31 - root - INFO - NCC Controller
-2025-02-05 10:15:31 - root - INFO - ---NCCService initializing---
-2025-02-05 10:15:31 - root - INFO - ---NCCRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - Get all NCC
-2025-02-05 10:15:31 - root - INFO - Getting all ncc
-2025-02-05 10:15:31 - root - INFO - BaoCao Controller
-2025-02-05 10:15:31 - root - INFO - ---BaoCaoService initializing---
-2025-02-05 10:15:31 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---NhapHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - report BanHang
-2025-02-05 10:15:31 - root - INFO - BaoCaoBanHang Controller
-2025-02-05 10:15:31 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - report BanHang
-2025-02-05 10:15:31 - root - INFO - BaoCaoNhapHang Controller
-2025-02-05 10:15:31 - root - INFO - ---NhapHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---NhapHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:31 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:31 - root - INFO - report NhapHang
-2025-02-05 10:15:44 - root - INFO - Create NhapHang
-2025-02-05 10:15:44 - root - INFO - NhapHangAdd Controller
-2025-02-05 10:15:44 - root - INFO - ---NhapHangService initializing---
-2025-02-05 10:15:44 - root - INFO - ---NhapHangRepo initializing---
-2025-02-05 10:15:44 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:44 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:15:44 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:15:44 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:15:44 - root - INFO - Closing database connection
-2025-02-05 10:15:44 - root - INFO - Closing database connection
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_DtUsG1
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_Jqm3cu
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_VmF9h5
-2025-02-05 10:15:48 - root - INFO - Getting product by id MH_fIUXNJ
-2025-02-05 10:16:28 - root - INFO - Checking nhaphang exist by id NH_80BpnTim
-2025-02-05 10:16:28 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:16:28 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:16:28 - root - INFO - Updating so luong mat hang 10051
-2025-02-05 10:16:28 - root - INFO - Checking nhaphang exist by id NH_7eBc3IlK
-2025-02-05 10:16:28 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:16:28 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:16:28 - root - INFO - Updating so luong mat hang 99999980
-2025-02-05 10:16:28 - root - INFO - Checking nhaphang exist by id NH_uQUmNaqf
-2025-02-05 10:16:28 - root - INFO - Getting product by id MH_Jqm3cu
-2025-02-05 10:16:28 - root - INFO - Checking product exist by id MH_Jqm3cu
-2025-02-05 10:16:28 - root - INFO - Updating so luong mat hang 14
-2025-02-05 10:16:28 - root - INFO - Checking nhaphang exist by id NH_H2BGdG5M
-2025-02-05 10:16:28 - root - INFO - Getting product by id MH_VmF9h5
-2025-02-05 10:16:28 - root - INFO - Checking product exist by id MH_VmF9h5
-2025-02-05 10:16:28 - root - INFO - Updating so luong mat hang 510
-2025-02-05 10:16:28 - root - INFO - Creating multiple nhaphang records
-2025-02-05 10:16:28 - root - INFO - NhapHang Controller
-2025-02-05 10:16:28 - root - INFO - ---NhapHangService initializing---
-2025-02-05 10:16:28 - root - INFO - ---NhapHangRepo initializing---
-2025-02-05 10:16:28 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:16:28 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:16:28 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:16:28 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:16:28 - root - INFO - Get all NhapHang
-2025-02-05 10:16:28 - root - INFO - Getting all nhaphang
-2025-02-05 10:16:28 - root - INFO - Closing database connection
-2025-02-05 10:16:28 - root - INFO - Closing database connection
-2025-02-05 10:16:31 - root - INFO - Get all NhapHang
-2025-02-05 10:16:31 - root - INFO - Getting all nhaphang
-2025-02-05 10:16:43 - root - INFO - Get all MatHang
-2025-02-05 10:16:43 - root - INFO - Getting all products
-2025-02-05 10:16:54 - root - INFO - Create BanHang
-2025-02-05 10:16:54 - root - INFO - BanHangAdd Controller
-2025-02-05 10:16:54 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:16:54 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:16:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:16:54 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:16:54 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:16:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:16:54 - root - INFO - Closing database connection
-2025-02-05 10:16:54 - root - INFO - Closing database connection
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_DtUsG1
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_Jqm3cu
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_VmF9h5
-2025-02-05 10:17:00 - root - INFO - Getting product by id MH_fIUXNJ
-2025-02-05 10:17:26 - root - INFO - Checking banhang exist by id BH_S7J1GWKIv0
-2025-02-05 10:17:26 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:17:26 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:17:26 - root - INFO - Updating so luong mat hang 9051
-2025-02-05 10:17:26 - root - INFO - Checking banhang exist by id BH_v1kUN9vVkK
-2025-02-05 10:17:26 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:17:26 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:17:26 - root - INFO - Updating so luong mat hang 99999968
-2025-02-05 10:17:26 - root - INFO - Checking banhang exist by id BH_Z2aHnvpWra
-2025-02-05 10:17:26 - root - INFO - Getting product by id MH_Jqm3cu
-2025-02-05 10:17:26 - root - INFO - Checking product exist by id MH_Jqm3cu
-2025-02-05 10:17:26 - root - INFO - Updating so luong mat hang 2
-2025-02-05 10:17:26 - root - INFO - Checking banhang exist by id BH_P2zVxKsNYV
-2025-02-05 10:17:26 - root - INFO - Getting product by id MH_VmF9h5
-2025-02-05 10:17:26 - root - INFO - Checking product exist by id MH_VmF9h5
-2025-02-05 10:17:26 - root - INFO - Updating so luong mat hang 498
-2025-02-05 10:17:26 - root - INFO - Creating multiple banhang records
-2025-02-05 10:17:26 - root - INFO - BanHang Controller
-2025-02-05 10:17:26 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:17:26 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:17:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:17:26 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:17:26 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:17:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:17:26 - root - INFO - Get all BanHang
-2025-02-05 10:17:26 - root - INFO - Getting all banhang
-2025-02-05 10:17:26 - root - INFO - Closing database connection
-2025-02-05 10:17:26 - root - INFO - Closing database connection
-2025-02-05 10:17:34 - root - INFO - Get all MatHang
-2025-02-05 10:17:34 - root - INFO - Getting all products
-2025-02-05 10:17:43 - root - INFO - Create BanHang
-2025-02-05 10:17:43 - root - INFO - BanHangAdd Controller
-2025-02-05 10:17:43 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:17:43 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:17:43 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:17:43 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:17:43 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:17:43 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:17:43 - root - INFO - Closing database connection
-2025-02-05 10:17:43 - root - INFO - Closing database connection
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_DtUsG1
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_Jqm3cu
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_VmF9h5
-2025-02-05 10:17:45 - root - INFO - Getting product by id MH_fIUXNJ
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_uWRoKjDfdw
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 9040
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_QWwCk7cXnw
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 99999957
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_wwzLpCi4KD
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 9029
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_TdLPb1MPcQ
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 99999946
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_Rx7QHajA19
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 9018
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_x69Xb4jaaa
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 99999935
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_Yc9UjCEH9s
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 9007
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_rB8sF6WnTv
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 99999924
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_em5C0wx8wl
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 8996
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_AjjOXGg8Df
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_XEkRNT
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 99999913
-2025-02-05 10:18:19 - root - INFO - Checking banhang exist by id BH_2geiYy1nsP
-2025-02-05 10:18:19 - root - INFO - Getting product by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Checking product exist by id MH_ySZZLw
-2025-02-05 10:18:19 - root - INFO - Updating so luong mat hang 8985
-2025-02-05 10:18:19 - root - INFO - Creating multiple banhang records
-2025-02-05 10:18:19 - root - INFO - BanHang Controller
-2025-02-05 10:18:19 - root - INFO - ---BanHangService initializing---
-2025-02-05 10:18:19 - root - INFO - ---BanHangRepo initializing---
-2025-02-05 10:18:19 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:18:19 - root - INFO - ---MatHangService initializing---
-2025-02-05 10:18:19 - root - INFO - ---MatHangRepo initializing---
-2025-02-05 10:18:19 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-05 10:18:19 - root - INFO - Get all BanHang
-2025-02-05 10:18:19 - root - INFO - Getting all banhang
-2025-02-05 10:18:19 - root - INFO - Closing database connection
-2025-02-05 10:18:19 - root - INFO - Closing database connection
-2025-02-05 10:18:22 - root - INFO - Get all BanHang
-2025-02-05 10:18:22 - root - INFO - Getting all banhang
-2025-02-05 10:18:32 - root - INFO - Get all MatHang
-2025-02-05 10:18:32 - root - INFO - Getting all products
-2025-02-05 10:18:50 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
-2025-02-05 10:18:51 - root - INFO - Closing database connection
+2025-02-06 19:56:59 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
+2025-02-06 19:56:59 - root - INFO - Logging initialized
+2025-02-06 19:56:59 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:56:59 - root - INFO - Initializing tables
+2025-02-06 19:56:59 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:56:59 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:56:59 - root - INFO - Getting all products
+2025-02-06 19:57:00 - root - INFO - Closing database connection
+2025-02-06 19:57:00 - root - INFO - ---NCCRepo initializing---
+2025-02-06 19:57:00 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:00 - root - INFO - Getting all ncc
+2025-02-06 19:57:00 - root - INFO - Closing database connection
+2025-02-06 19:57:00 - root - INFO - ---KhachHangRepo initializing---
+2025-02-06 19:57:00 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:00 - root - INFO - Getting all khach hang
+2025-02-06 19:57:01 - root - INFO - Closing database connection
+2025-02-06 19:57:02 - root - INFO - MatHang Controller
+2025-02-06 19:57:02 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all MatHang
+2025-02-06 19:57:02 - root - INFO - Getting all products
+2025-02-06 19:57:02 - root - INFO - NhapHang Controller
+2025-02-06 19:57:02 - root - INFO - ---NhapHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all NhapHang
+2025-02-06 19:57:02 - root - INFO - Getting all nhaphang
+2025-02-06 19:57:02 - root - INFO - BanHang Controller
+2025-02-06 19:57:02 - root - INFO - ---BanHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all BanHang
+2025-02-06 19:57:02 - root - INFO - Getting all banhang
+2025-02-06 19:57:02 - root - INFO - ChiPhi Controller
+2025-02-06 19:57:02 - root - INFO - ---ChiPhiService initializing---
+2025-02-06 19:57:02 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all ChiPhi
+2025-02-06 19:57:02 - root - INFO - Getting all chi phi
+2025-02-06 19:57:02 - root - INFO - KhachHang Controller
+2025-02-06 19:57:02 - root - INFO - ---KhachHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---KhachHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all KhachHang
+2025-02-06 19:57:02 - root - INFO - Getting all khach hang
+2025-02-06 19:57:02 - root - INFO - NCC Controller
+2025-02-06 19:57:02 - root - INFO - ---NCCService initializing---
+2025-02-06 19:57:02 - root - INFO - ---NCCRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - Get all NCC
+2025-02-06 19:57:02 - root - INFO - Getting all ncc
+2025-02-06 19:57:02 - root - INFO - BaoCao Controller
+2025-02-06 19:57:02 - root - INFO - ---BaoCaoService initializing---
+2025-02-06 19:57:02 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - report BanHang
+2025-02-06 19:57:02 - root - INFO - BaoCaoBanHang Controller
+2025-02-06 19:57:02 - root - INFO - ---BanHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - report BanHang
+2025-02-06 19:57:02 - root - INFO - BaoCaoNhapHang Controller
+2025-02-06 19:57:02 - root - INFO - ---NhapHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:02 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:02 - root - INFO - report NhapHang
+2025-02-06 19:57:12 - root - INFO - Create BanHang
+2025-02-06 19:57:12 - root - INFO - BanHangAdd Controller
+2025-02-06 19:57:12 - root - INFO - ---BanHangService initializing---
+2025-02-06 19:57:12 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 19:57:12 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:12 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:12 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:12 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:12 - root - INFO - Closing database connection
+2025-02-06 19:57:12 - root - INFO - Closing database connection
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_b1yyHG
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_b1yyHG
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_b1yyHG
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 19:57:15 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 19:57:26 - root - INFO - Checking banhang exist by id BH_PoJJ5XhAIl
+2025-02-06 19:57:26 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:26 - root - INFO - Updating so luong mat hang 4778
+2025-02-06 19:57:26 - root - INFO - Checking banhang exist by id BH_KoJMi4Yjm9
+2025-02-06 19:57:26 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:26 - root - INFO - Updating so luong mat hang 4556
+2025-02-06 19:57:26 - root - INFO - Creating multiple banhang records
+2025-02-06 19:57:26 - root - INFO - BanHang Controller
+2025-02-06 19:57:26 - root - INFO - ---BanHangService initializing---
+2025-02-06 19:57:26 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 19:57:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:26 - root - INFO - ---MatHangService initializing---
+2025-02-06 19:57:26 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 19:57:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 19:57:26 - root - INFO - Get all BanHang
+2025-02-06 19:57:26 - root - INFO - Getting all banhang
+2025-02-06 19:57:26 - root - INFO - Closing database connection
+2025-02-06 19:57:26 - root - INFO - Closing database connection
+2025-02-06 19:57:31 - root - INFO - Get all MatHang
+2025-02-06 19:57:31 - root - INFO - Getting all products
+2025-02-06 19:57:35 - root - INFO - Delete MatHang with id: MH_815ug3
+2025-02-06 19:57:35 - root - INFO - Deleting product by id MH_815ug3
+2025-02-06 19:57:35 - root - INFO - Get all MatHang
+2025-02-06 19:57:35 - root - INFO - Getting all products
+2025-02-06 19:57:41 - root - INFO - Delete BanHang with id: BH_PoJJ5XhAIl
+2025-02-06 19:57:41 - root - INFO - Checking banhang exist by id BH_PoJJ5XhAIl
+2025-02-06 19:57:41 - root - INFO - Getting banhang by id BH_PoJJ5XhAIl
+2025-02-06 19:57:41 - root - INFO - Deleting banhang by id BH_PoJJ5XhAIl
+2025-02-06 19:57:41 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:41 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 19:57:41 - root - INFO - Get all BanHang
+2025-02-06 19:57:41 - root - INFO - Getting all banhang
+2025-02-06 19:57:49 - root - INFO - Get BanHang with id: BH_KoJMi4Yjm9
+2025-02-06 19:57:49 - root - INFO - Getting banhang by id BH_KoJMi4Yjm9
+2025-02-06 19:57:54 - root - INFO - Update BanHang with id: BH_KoJMi4Yjm9
+2025-02-06 19:57:54 - root - INFO - Checking banhang exist by id BH_KoJMi4Yjm9
+2025-02-06 19:57:54 - root - INFO - Updating banhang BanHang(id=BH_KoJMi4Yjm9, id_mat_hang=MH_815ug3, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=200, gia_ban=34444, khach_hang=, thanh_tien=6888800, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 19:57:54 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:57:54 - root - ERROR - Error when update ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 19:57:54 - root - INFO - Get all BanHang
+2025-02-06 19:57:54 - root - INFO - Getting all banhang
+2025-02-06 19:58:00 - root - INFO - Delete BanHang with id: BH_KoJMi4Yjm9
+2025-02-06 19:58:00 - root - INFO - Checking banhang exist by id BH_KoJMi4Yjm9
+2025-02-06 19:58:00 - root - INFO - Getting banhang by id BH_KoJMi4Yjm9
+2025-02-06 19:58:00 - root - INFO - Deleting banhang by id BH_KoJMi4Yjm9
+2025-02-06 19:58:00 - root - INFO - Getting product by id MH_815ug3
+2025-02-06 19:58:00 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 19:58:00 - root - INFO - Get all BanHang
+2025-02-06 19:58:00 - root - INFO - Getting all banhang
+2025-02-06 20:02:40 - root - INFO - Create MatHang
+2025-02-06 20:02:40 - root - INFO - Checking product exist by id MH_FlUOyp
+2025-02-06 20:02:40 - root - INFO - Creating product MatHang(id=MH_FlUOyp, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=2000, gia_le=0, gia_si=0, ngay_tao=2025-02-06, is_active=1)
+2025-02-06 20:02:40 - root - INFO - Get all MatHang
+2025-02-06 20:02:40 - root - INFO - Getting all products
+2025-02-06 20:03:03 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:03:03 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:03:03 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_b1yyHG
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_2OqhuO
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_ZTttXc
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_zGOP9O
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_JcV71J
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_E0KY1G
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_Yne6oD
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_3h11SI
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_S0c7XB
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_8Z5KH1
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_55Sdeb
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_ag3Db5
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_ZGQexQ
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_y7cxwA
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_hsD5tb
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_iOvuZS
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_FyzFgu
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_P5xGei
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_LqxJ77
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_RDZfgf
+2025-02-06 20:03:03 - root - INFO - Checking product exist by id MH_rochtY
+2025-02-06 20:03:03 - root - INFO - Creating product [MatHang(id=MH_2OqhuO, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_zGOP9O, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_E0KY1G, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_3h11SI, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_S0c7XB, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_55Sdeb, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_ZGQexQ, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_hsD5tb, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_FyzFgu, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_LqxJ77, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_rochtY, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)]
+2025-02-06 20:03:06 - root - INFO - Get all MatHang
+2025-02-06 20:03:06 - root - INFO - Getting all products
+2025-02-06 20:03:06 - root - INFO - Closing database connection
+2025-02-06 20:03:15 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:03:15 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:03:15 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_b1yyHG
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_ph8atD
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_ZTttXc
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_kZMJog
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_JcV71J
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_rRPZ6X
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_Yne6oD
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_lw8swW
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_S0c7XB
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_0UIfm8
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_8Z5KH1
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_H09Xfr
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_ag3Db5
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_l3fq55
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_y7cxwA
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_bIvift
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_iOvuZS
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_e5LKPu
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_P5xGei
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_eKiS44
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_RDZfgf
+2025-02-06 20:03:15 - root - INFO - Checking product exist by id MH_XxrEED
+2025-02-06 20:03:15 - root - INFO - Creating product [MatHang(id=MH_ph8atD, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_kZMJog, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_rRPZ6X, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_lw8swW, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_0UIfm8, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_H09Xfr, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_l3fq55, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_bIvift, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_e5LKPu, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_eKiS44, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_XxrEED, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)]
+2025-02-06 20:03:18 - root - INFO - Get all MatHang
+2025-02-06 20:03:18 - root - INFO - Getting all products
+2025-02-06 20:03:18 - root - INFO - Closing database connection
+2025-02-06 20:03:31 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:03:31 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:03:31 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_b1yyHG
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_WHeg4i
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_ZTttXc
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_Yrf8ty
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_JcV71J
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_1kVXzB
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_Yne6oD
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_R3f000
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_S0c7XB
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_74tcAn
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_8Z5KH1
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_0wIEqp
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_ag3Db5
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_R1UtWc
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_y7cxwA
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_SHgBQ9
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_iOvuZS
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_lfqf4t
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_P5xGei
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_ysb7lz
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_RDZfgf
+2025-02-06 20:03:31 - root - INFO - Checking product exist by id MH_RhOmOX
+2025-02-06 20:03:31 - root - INFO - Creating product [MatHang(id=MH_WHeg4i, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_Yrf8ty, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_1kVXzB, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_R3f000, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_74tcAn, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_0wIEqp, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_R1UtWc, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_SHgBQ9, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_lfqf4t, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_ysb7lz, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_RhOmOX, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)]
+2025-02-06 20:03:36 - root - INFO - Get all MatHang
+2025-02-06 20:03:36 - root - INFO - Getting all products
+2025-02-06 20:03:36 - root - INFO - Closing database connection
+2025-02-06 20:03:44 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:03:44 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:03:44 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_b1yyHG
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_QPqBuG
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_ZTttXc
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_jOK7DU
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_JcV71J
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_XiqALa
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_Yne6oD
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_XpXI5s
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_S0c7XB
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_GWepQj
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_8Z5KH1
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_uYkPoo
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_ag3Db5
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_07rKuZ
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_y7cxwA
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_LDjlMz
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_iOvuZS
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_EEf5yC
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_P5xGei
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_xRGC6n
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_RDZfgf
+2025-02-06 20:03:44 - root - INFO - Checking product exist by id MH_YfNOAT
+2025-02-06 20:03:44 - root - INFO - Creating product [MatHang(id=MH_QPqBuG, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_jOK7DU, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_XiqALa, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_XpXI5s, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_GWepQj, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_uYkPoo, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_07rKuZ, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_LDjlMz, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_EEf5yC, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_xRGC6n, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_YfNOAT, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)]
+2025-02-06 20:03:47 - root - INFO - Closing database connection
+2025-02-06 20:03:48 - root - INFO - Get all MatHang
+2025-02-06 20:03:48 - root - INFO - Getting all products
+2025-02-06 20:04:08 - root - INFO - Create NhapHang
+2025-02-06 20:04:08 - root - INFO - NhapHangAdd Controller
+2025-02-06 20:04:08 - root - INFO - ---NhapHangService initializing---
+2025-02-06 20:04:08 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 20:04:08 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:08 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:04:08 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:04:08 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:08 - root - INFO - Closing database connection
+2025-02-06 20:04:08 - root - INFO - Closing database connection
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_jOK7DU
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XiqALa
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XpXI5s
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_GWepQj
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_QPqBuG
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_1kVXzB
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_R3f000
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_74tcAn
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_Yrf8ty
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_WHeg4i
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_jOK7DU
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XiqALa
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XpXI5s
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_GWepQj
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_QPqBuG
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_1kVXzB
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_R3f000
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_74tcAn
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_Yrf8ty
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_WHeg4i
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_jOK7DU
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XiqALa
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_XpXI5s
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_GWepQj
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_QPqBuG
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_1kVXzB
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_R3f000
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_74tcAn
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_Yrf8ty
+2025-02-06 20:04:11 - root - INFO - Getting product by id MH_WHeg4i
+2025-02-06 20:04:21 - root - INFO - NhapHang Controller
+2025-02-06 20:04:21 - root - INFO - ---NhapHangService initializing---
+2025-02-06 20:04:21 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 20:04:21 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:21 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:04:21 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:04:21 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:21 - root - INFO - Get all NhapHang
+2025-02-06 20:04:21 - root - INFO - Getting all nhaphang
+2025-02-06 20:04:21 - root - INFO - Closing database connection
+2025-02-06 20:04:21 - root - INFO - Closing database connection
+2025-02-06 20:04:24 - root - INFO - Get all NhapHang
+2025-02-06 20:04:24 - root - INFO - Getting all nhaphang
+2025-02-06 20:04:32 - root - INFO - ---NhapHangService initializing---
+2025-02-06 20:04:32 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 20:04:32 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:32 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:04:32 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:04:32 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_Lqsl8UL0
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_CwUFXt3d
+2025-02-06 20:04:32 - root - INFO - Getting product by id MH_b1yyHG
+2025-02-06 20:04:32 - root - INFO - Updating so luong mat hang 11500
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_cdPVjTIB
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_2pF1JUN2
+2025-02-06 20:04:32 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:04:32 - root - INFO - Updating so luong mat hang 2200
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_EigypAyF
+2025-02-06 20:04:32 - root - INFO - Checking nhaphang exist by id NH_uEecBqQX
+2025-02-06 20:04:32 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:04:32 - root - INFO - Updating so luong mat hang 9900
+2025-02-06 20:04:32 - root - INFO - Creating multiple nhaphang records
+2025-02-06 20:04:34 - root - INFO - Closing database connection
+2025-02-06 20:04:34 - root - INFO - Closing database connection
+2025-02-06 20:04:34 - root - INFO - Get all NhapHang
+2025-02-06 20:04:34 - root - INFO - Getting all nhaphang
+2025-02-06 20:04:49 - root - INFO - Get all MatHang
+2025-02-06 20:04:49 - root - INFO - Getting all products
+2025-02-06 20:05:03 - root - INFO - Get all NhapHang
+2025-02-06 20:05:03 - root - INFO - Getting all nhaphang
+2025-02-06 20:05:06 - root - INFO - Get all MatHang
+2025-02-06 20:05:06 - root - INFO - Getting all products
+2025-02-06 20:05:14 - root - INFO - Get all MatHang
+2025-02-06 20:05:14 - root - INFO - Getting all products
+2025-02-06 20:05:22 - root - INFO - Get all MatHang
+2025-02-06 20:05:22 - root - INFO - Getting all products
+2025-02-06 20:05:31 - root - INFO - Get all MatHang
+2025-02-06 20:05:31 - root - INFO - Getting all products
+2025-02-06 20:05:36 - root - INFO - Get all MatHang
+2025-02-06 20:05:36 - root - INFO - Getting all products
+2025-02-06 20:05:41 - root - INFO - Get all MatHang
+2025-02-06 20:05:41 - root - INFO - Getting all products
+2025-02-06 20:06:04 - root - INFO - Delete NhapHang with id: NH_CwUFXt3d
+2025-02-06 20:06:04 - root - INFO - Checking nhaphang exist by id NH_CwUFXt3d
+2025-02-06 20:06:04 - root - INFO - Getting nhaphang by id NH_CwUFXt3d
+2025-02-06 20:06:04 - root - INFO - Deleting nhaphang by id NH_CwUFXt3d
+2025-02-06 20:06:04 - root - INFO - Getting product by id MH_b1yyHG
+2025-02-06 20:06:04 - root - INFO - Updating so luong mat hang 11250
+2025-02-06 20:06:04 - root - INFO - Get all NhapHang
+2025-02-06 20:06:04 - root - INFO - Getting all nhaphang
+2025-02-06 20:06:10 - root - INFO - Get all MatHang
+2025-02-06 20:06:10 - root - INFO - Getting all products
+2025-02-06 20:06:57 - root - INFO - Delete NhapHang with id: NH_2pF1JUN2
+2025-02-06 20:06:57 - root - INFO - Checking nhaphang exist by id NH_2pF1JUN2
+2025-02-06 20:06:57 - root - INFO - Getting nhaphang by id NH_2pF1JUN2
+2025-02-06 20:06:57 - root - INFO - Deleting nhaphang by id NH_2pF1JUN2
+2025-02-06 20:06:57 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:06:57 - root - INFO - Updating so luong mat hang 2050
+2025-02-06 20:06:57 - root - INFO - Get all NhapHang
+2025-02-06 20:06:57 - root - INFO - Getting all nhaphang
+2025-02-06 20:07:00 - root - INFO - Delete NhapHang with id: NH_uEecBqQX
+2025-02-06 20:07:00 - root - INFO - Checking nhaphang exist by id NH_uEecBqQX
+2025-02-06 20:07:00 - root - INFO - Getting nhaphang by id NH_uEecBqQX
+2025-02-06 20:07:00 - root - INFO - Deleting nhaphang by id NH_uEecBqQX
+2025-02-06 20:07:00 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:07:00 - root - INFO - Updating so luong mat hang 9800
+2025-02-06 20:07:00 - root - INFO - Get all NhapHang
+2025-02-06 20:07:00 - root - INFO - Getting all nhaphang
+2025-02-06 20:07:20 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:07:20 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:07:20 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:07:20 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:07:20 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:07:20 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_ehwGi54K4u
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_D061E3
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_PUcqIuDuCP
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_XgPZqW
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_oLPKtc2rQw
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_bvIVKL
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_yGi3m66AEx
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_xFT2Iy
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_s9TmlShUeR
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_3O2WYx
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_yZIDJMZMkO
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_YIoMrA
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_HmP7qIApcH
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_Jie7zX
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_7h7GyhUSVX
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_xPU1rR
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_AGWzMeU29c
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_z3zegz
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_Z3vAnnFcxO
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_1sA7O0
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_BssFFjLyGo
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_niGYqn
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_2OUaFKAh6N
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_eU24Ay
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_ka1Q8EPOcK
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_inYDlg
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Checking banhang exist by id BH_mfdCirtlc1
+2025-02-06 20:07:20 - root - INFO - Getting product by id MH_XPIisr
+2025-02-06 20:07:20 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:20 - root - INFO - Creating multiple banhang records
+2025-02-06 20:07:21 - root - INFO - Closing database connection
+2025-02-06 20:07:21 - root - INFO - Closing database connection
+2025-02-06 20:07:21 - root - INFO - Get all BanHang
+2025-02-06 20:07:21 - root - INFO - Getting all banhang
+2025-02-06 20:07:48 - root - INFO - Delete BanHang with id: BH_ehwGi54K4u
+2025-02-06 20:07:48 - root - INFO - Checking banhang exist by id BH_ehwGi54K4u
+2025-02-06 20:07:48 - root - INFO - Getting banhang by id BH_ehwGi54K4u
+2025-02-06 20:07:48 - root - INFO - Deleting banhang by id BH_ehwGi54K4u
+2025-02-06 20:07:48 - root - INFO - Getting product by id MH_D061E3
+2025-02-06 20:07:48 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:48 - root - INFO - Get all BanHang
+2025-02-06 20:07:48 - root - INFO - Getting all banhang
+2025-02-06 20:07:51 - root - INFO - Delete BanHang with id: BH_PUcqIuDuCP
+2025-02-06 20:07:51 - root - INFO - Checking banhang exist by id BH_PUcqIuDuCP
+2025-02-06 20:07:51 - root - INFO - Getting banhang by id BH_PUcqIuDuCP
+2025-02-06 20:07:51 - root - INFO - Deleting banhang by id BH_PUcqIuDuCP
+2025-02-06 20:07:51 - root - INFO - Getting product by id MH_XgPZqW
+2025-02-06 20:07:51 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:07:51 - root - INFO - Get all BanHang
+2025-02-06 20:07:51 - root - INFO - Getting all banhang
+2025-02-06 20:07:59 - root - INFO - report BanHang
+2025-02-06 20:08:07 - root - INFO - Delete BanHang with id: BH_oLPKtc2rQw
+2025-02-06 20:08:07 - root - INFO - Checking banhang exist by id BH_oLPKtc2rQw
+2025-02-06 20:08:07 - root - INFO - Getting banhang by id BH_oLPKtc2rQw
+2025-02-06 20:08:07 - root - INFO - Deleting banhang by id BH_oLPKtc2rQw
+2025-02-06 20:08:07 - root - INFO - Getting product by id MH_bvIVKL
+2025-02-06 20:08:07 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:07 - root - INFO - Get all BanHang
+2025-02-06 20:08:07 - root - INFO - Getting all banhang
+2025-02-06 20:08:09 - root - INFO - Delete BanHang with id: BH_yGi3m66AEx
+2025-02-06 20:08:09 - root - INFO - Checking banhang exist by id BH_yGi3m66AEx
+2025-02-06 20:08:09 - root - INFO - Getting banhang by id BH_yGi3m66AEx
+2025-02-06 20:08:09 - root - INFO - Deleting banhang by id BH_yGi3m66AEx
+2025-02-06 20:08:09 - root - INFO - Getting product by id MH_xFT2Iy
+2025-02-06 20:08:09 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:09 - root - INFO - Get all BanHang
+2025-02-06 20:08:09 - root - INFO - Getting all banhang
+2025-02-06 20:08:12 - root - INFO - Delete BanHang with id: BH_s9TmlShUeR
+2025-02-06 20:08:12 - root - INFO - Checking banhang exist by id BH_s9TmlShUeR
+2025-02-06 20:08:12 - root - INFO - Getting banhang by id BH_s9TmlShUeR
+2025-02-06 20:08:12 - root - INFO - Deleting banhang by id BH_s9TmlShUeR
+2025-02-06 20:08:12 - root - INFO - Getting product by id MH_3O2WYx
+2025-02-06 20:08:12 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:12 - root - INFO - Get all BanHang
+2025-02-06 20:08:12 - root - INFO - Getting all banhang
+2025-02-06 20:08:13 - root - INFO - Get BanHang with id: BH_yZIDJMZMkO
+2025-02-06 20:08:13 - root - INFO - Getting banhang by id BH_yZIDJMZMkO
+2025-02-06 20:08:16 - root - INFO - Update BanHang with id: BH_yZIDJMZMkO
+2025-02-06 20:08:16 - root - INFO - Checking banhang exist by id BH_yZIDJMZMkO
+2025-02-06 20:08:16 - root - INFO - Updating banhang BanHang(id=BH_yZIDJMZMkO, id_mat_hang=MH_YIoMrA, ten_hang=Banh te, don_vi=Cai, so_luong=333, gia_ban=10000, khach_hang=, thanh_tien=3330000, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:08:16 - root - INFO - Getting product by id MH_YIoMrA
+2025-02-06 20:08:16 - root - ERROR - Error when update ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:16 - root - INFO - Get all BanHang
+2025-02-06 20:08:16 - root - INFO - Getting all banhang
+2025-02-06 20:08:20 - root - INFO - Delete BanHang with id: BH_yZIDJMZMkO
+2025-02-06 20:08:20 - root - INFO - Checking banhang exist by id BH_yZIDJMZMkO
+2025-02-06 20:08:20 - root - INFO - Getting banhang by id BH_yZIDJMZMkO
+2025-02-06 20:08:20 - root - INFO - Deleting banhang by id BH_yZIDJMZMkO
+2025-02-06 20:08:20 - root - INFO - Getting product by id MH_YIoMrA
+2025-02-06 20:08:20 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:20 - root - INFO - Get all BanHang
+2025-02-06 20:08:20 - root - INFO - Getting all banhang
+2025-02-06 20:08:29 - root - INFO - Delete BanHang with id: BH_HmP7qIApcH
+2025-02-06 20:08:29 - root - INFO - Checking banhang exist by id BH_HmP7qIApcH
+2025-02-06 20:08:29 - root - INFO - Getting banhang by id BH_HmP7qIApcH
+2025-02-06 20:08:29 - root - INFO - Deleting banhang by id BH_HmP7qIApcH
+2025-02-06 20:08:29 - root - INFO - Getting product by id MH_Jie7zX
+2025-02-06 20:08:29 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:29 - root - INFO - Get all BanHang
+2025-02-06 20:08:29 - root - INFO - Getting all banhang
+2025-02-06 20:08:31 - root - INFO - Delete BanHang with id: BH_Z3vAnnFcxO
+2025-02-06 20:08:31 - root - INFO - Checking banhang exist by id BH_Z3vAnnFcxO
+2025-02-06 20:08:31 - root - INFO - Getting banhang by id BH_Z3vAnnFcxO
+2025-02-06 20:08:31 - root - INFO - Deleting banhang by id BH_Z3vAnnFcxO
+2025-02-06 20:08:31 - root - INFO - Getting product by id MH_1sA7O0
+2025-02-06 20:08:31 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:32 - root - INFO - Get all BanHang
+2025-02-06 20:08:32 - root - INFO - Getting all banhang
+2025-02-06 20:08:34 - root - INFO - Delete BanHang with id: BH_AGWzMeU29c
+2025-02-06 20:08:34 - root - INFO - Checking banhang exist by id BH_AGWzMeU29c
+2025-02-06 20:08:34 - root - INFO - Getting banhang by id BH_AGWzMeU29c
+2025-02-06 20:08:34 - root - INFO - Deleting banhang by id BH_AGWzMeU29c
+2025-02-06 20:08:34 - root - INFO - Getting product by id MH_z3zegz
+2025-02-06 20:08:34 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:34 - root - INFO - Get all BanHang
+2025-02-06 20:08:34 - root - INFO - Getting all banhang
+2025-02-06 20:08:36 - root - INFO - Delete BanHang with id: BH_7h7GyhUSVX
+2025-02-06 20:08:36 - root - INFO - Checking banhang exist by id BH_7h7GyhUSVX
+2025-02-06 20:08:36 - root - INFO - Getting banhang by id BH_7h7GyhUSVX
+2025-02-06 20:08:36 - root - INFO - Deleting banhang by id BH_7h7GyhUSVX
+2025-02-06 20:08:36 - root - INFO - Getting product by id MH_xPU1rR
+2025-02-06 20:08:36 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:36 - root - INFO - Get all BanHang
+2025-02-06 20:08:36 - root - INFO - Getting all banhang
+2025-02-06 20:08:40 - root - INFO - Delete BanHang with id: BH_BssFFjLyGo
+2025-02-06 20:08:40 - root - INFO - Checking banhang exist by id BH_BssFFjLyGo
+2025-02-06 20:08:40 - root - INFO - Getting banhang by id BH_BssFFjLyGo
+2025-02-06 20:08:40 - root - INFO - Deleting banhang by id BH_BssFFjLyGo
+2025-02-06 20:08:40 - root - INFO - Getting product by id MH_niGYqn
+2025-02-06 20:08:40 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:40 - root - INFO - Get all BanHang
+2025-02-06 20:08:40 - root - INFO - Getting all banhang
+2025-02-06 20:08:42 - root - INFO - Delete BanHang with id: BH_2OUaFKAh6N
+2025-02-06 20:08:42 - root - INFO - Checking banhang exist by id BH_2OUaFKAh6N
+2025-02-06 20:08:42 - root - INFO - Getting banhang by id BH_2OUaFKAh6N
+2025-02-06 20:08:42 - root - INFO - Deleting banhang by id BH_2OUaFKAh6N
+2025-02-06 20:08:42 - root - INFO - Getting product by id MH_eU24Ay
+2025-02-06 20:08:42 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:42 - root - INFO - Get all BanHang
+2025-02-06 20:08:42 - root - INFO - Getting all banhang
+2025-02-06 20:08:44 - root - INFO - Delete BanHang with id: BH_ka1Q8EPOcK
+2025-02-06 20:08:44 - root - INFO - Checking banhang exist by id BH_ka1Q8EPOcK
+2025-02-06 20:08:44 - root - INFO - Getting banhang by id BH_ka1Q8EPOcK
+2025-02-06 20:08:44 - root - INFO - Deleting banhang by id BH_ka1Q8EPOcK
+2025-02-06 20:08:44 - root - INFO - Getting product by id MH_inYDlg
+2025-02-06 20:08:44 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:44 - root - INFO - Get all BanHang
+2025-02-06 20:08:44 - root - INFO - Getting all banhang
+2025-02-06 20:08:45 - root - INFO - Get BanHang with id: BH_mfdCirtlc1
+2025-02-06 20:08:45 - root - INFO - Getting banhang by id BH_mfdCirtlc1
+2025-02-06 20:08:48 - root - INFO - Update BanHang with id: BH_mfdCirtlc1
+2025-02-06 20:08:48 - root - INFO - Checking banhang exist by id BH_mfdCirtlc1
+2025-02-06 20:08:48 - root - INFO - Updating banhang BanHang(id=BH_mfdCirtlc1, id_mat_hang=MH_XPIisr, ten_hang=Sach toan, don_vi=, so_luong=12333, gia_ban=100, khach_hang=, thanh_tien=1233300, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:08:48 - root - INFO - Getting product by id MH_XPIisr
+2025-02-06 20:08:48 - root - ERROR - Error when update ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:48 - root - INFO - Get all BanHang
+2025-02-06 20:08:48 - root - INFO - Getting all banhang
+2025-02-06 20:08:56 - root - INFO - Delete BanHang with id: BH_mfdCirtlc1
+2025-02-06 20:08:56 - root - INFO - Checking banhang exist by id BH_mfdCirtlc1
+2025-02-06 20:08:56 - root - INFO - Getting banhang by id BH_mfdCirtlc1
+2025-02-06 20:08:56 - root - INFO - Deleting banhang by id BH_mfdCirtlc1
+2025-02-06 20:08:56 - root - INFO - Getting product by id MH_XPIisr
+2025-02-06 20:08:56 - root - ERROR - Error when delete ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:08:56 - root - INFO - Get all BanHang
+2025-02-06 20:08:56 - root - INFO - Getting all banhang
+2025-02-06 20:09:09 - root - INFO - ---NhapHangService initializing---
+2025-02-06 20:09:09 - root - INFO - ---NhapHangRepo initializing---
+2025-02-06 20:09:09 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:09:09 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:09:09 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:09:09 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_8F2JT5m6
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_D061E3
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_ITVIJYhS
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_XgPZqW
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_BxQpFzXu
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_bvIVKL
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_yrTPR2Mg
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_xFT2Iy
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_a1FIqQ5k
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_3O2WYx
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_3KB0jMxS
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_YIoMrA
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_yckLb3He
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_xPU1rR
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_OZrzTNd1
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_z3zegz
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_kOXt0Ls2
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_1sA7O0
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_krYKJdkq
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_niGYqn
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_XUUdvSOl
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_eU24Ay
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_cFtk7Anz
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_inYDlg
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Checking nhaphang exist by id NH_a2N9UJhp
+2025-02-06 20:09:09 - root - INFO - Getting product by id MH_XPIisr
+2025-02-06 20:09:09 - root - ERROR - Error when create many ban hang 'NoneType' object has no attribute 'so_luong'
+2025-02-06 20:09:09 - root - INFO - Creating multiple nhaphang records
+2025-02-06 20:09:11 - root - INFO - Closing database connection
+2025-02-06 20:09:11 - root - INFO - Closing database connection
+2025-02-06 20:09:11 - root - INFO - Get all NhapHang
+2025-02-06 20:09:11 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:24 - root - INFO - Get all NhapHang
+2025-02-06 20:09:24 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:27 - root - INFO - Get all NhapHang
+2025-02-06 20:09:27 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:33 - root - INFO - Delete NhapHang with id: NH_a2N9UJhp
+2025-02-06 20:09:33 - root - INFO - Checking nhaphang exist by id NH_a2N9UJhp
+2025-02-06 20:09:33 - root - INFO - Getting nhaphang by id NH_a2N9UJhp
+2025-02-06 20:09:33 - root - INFO - Deleting nhaphang by id NH_a2N9UJhp
+2025-02-06 20:09:33 - root - INFO - Getting product by id MH_XPIisr
+2025-02-06 20:09:33 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:33 - root - INFO - Get all NhapHang
+2025-02-06 20:09:33 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:36 - root - INFO - Delete NhapHang with id: NH_BxQpFzXu
+2025-02-06 20:09:36 - root - INFO - Checking nhaphang exist by id NH_BxQpFzXu
+2025-02-06 20:09:36 - root - INFO - Getting nhaphang by id NH_BxQpFzXu
+2025-02-06 20:09:36 - root - INFO - Deleting nhaphang by id NH_BxQpFzXu
+2025-02-06 20:09:36 - root - INFO - Getting product by id MH_bvIVKL
+2025-02-06 20:09:36 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:36 - root - INFO - Get all NhapHang
+2025-02-06 20:09:36 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:39 - root - INFO - Delete NhapHang with id: NH_8F2JT5m6
+2025-02-06 20:09:39 - root - INFO - Checking nhaphang exist by id NH_8F2JT5m6
+2025-02-06 20:09:39 - root - INFO - Getting nhaphang by id NH_8F2JT5m6
+2025-02-06 20:09:39 - root - INFO - Deleting nhaphang by id NH_8F2JT5m6
+2025-02-06 20:09:39 - root - INFO - Getting product by id MH_D061E3
+2025-02-06 20:09:39 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:39 - root - INFO - Get all NhapHang
+2025-02-06 20:09:39 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:41 - root - INFO - Delete NhapHang with id: NH_ITVIJYhS
+2025-02-06 20:09:41 - root - INFO - Checking nhaphang exist by id NH_ITVIJYhS
+2025-02-06 20:09:41 - root - INFO - Getting nhaphang by id NH_ITVIJYhS
+2025-02-06 20:09:41 - root - INFO - Deleting nhaphang by id NH_ITVIJYhS
+2025-02-06 20:09:41 - root - INFO - Getting product by id MH_XgPZqW
+2025-02-06 20:09:41 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:42 - root - INFO - Get all NhapHang
+2025-02-06 20:09:42 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:44 - root - INFO - Delete NhapHang with id: NH_a1FIqQ5k
+2025-02-06 20:09:44 - root - INFO - Checking nhaphang exist by id NH_a1FIqQ5k
+2025-02-06 20:09:44 - root - INFO - Getting nhaphang by id NH_a1FIqQ5k
+2025-02-06 20:09:44 - root - INFO - Deleting nhaphang by id NH_a1FIqQ5k
+2025-02-06 20:09:44 - root - INFO - Getting product by id MH_3O2WYx
+2025-02-06 20:09:44 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:44 - root - INFO - Get all NhapHang
+2025-02-06 20:09:44 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:46 - root - INFO - Delete NhapHang with id: NH_3KB0jMxS
+2025-02-06 20:09:46 - root - INFO - Checking nhaphang exist by id NH_3KB0jMxS
+2025-02-06 20:09:46 - root - INFO - Getting nhaphang by id NH_3KB0jMxS
+2025-02-06 20:09:46 - root - INFO - Deleting nhaphang by id NH_3KB0jMxS
+2025-02-06 20:09:46 - root - INFO - Getting product by id MH_YIoMrA
+2025-02-06 20:09:46 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:46 - root - INFO - Get all NhapHang
+2025-02-06 20:09:46 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:49 - root - INFO - Delete NhapHang with id: NH_OZrzTNd1
+2025-02-06 20:09:49 - root - INFO - Checking nhaphang exist by id NH_OZrzTNd1
+2025-02-06 20:09:49 - root - INFO - Getting nhaphang by id NH_OZrzTNd1
+2025-02-06 20:09:49 - root - INFO - Deleting nhaphang by id NH_OZrzTNd1
+2025-02-06 20:09:49 - root - INFO - Getting product by id MH_z3zegz
+2025-02-06 20:09:49 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:49 - root - INFO - Get all NhapHang
+2025-02-06 20:09:49 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:51 - root - INFO - Delete NhapHang with id: NH_yrTPR2Mg
+2025-02-06 20:09:51 - root - INFO - Checking nhaphang exist by id NH_yrTPR2Mg
+2025-02-06 20:09:51 - root - INFO - Getting nhaphang by id NH_yrTPR2Mg
+2025-02-06 20:09:51 - root - INFO - Deleting nhaphang by id NH_yrTPR2Mg
+2025-02-06 20:09:51 - root - INFO - Getting product by id MH_xFT2Iy
+2025-02-06 20:09:51 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:52 - root - INFO - Get all NhapHang
+2025-02-06 20:09:52 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:54 - root - INFO - Delete NhapHang with id: NH_kOXt0Ls2
+2025-02-06 20:09:54 - root - INFO - Checking nhaphang exist by id NH_kOXt0Ls2
+2025-02-06 20:09:54 - root - INFO - Getting nhaphang by id NH_kOXt0Ls2
+2025-02-06 20:09:54 - root - INFO - Deleting nhaphang by id NH_kOXt0Ls2
+2025-02-06 20:09:54 - root - INFO - Getting product by id MH_1sA7O0
+2025-02-06 20:09:54 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:09:54 - root - INFO - Get all NhapHang
+2025-02-06 20:09:54 - root - INFO - Getting all nhaphang
+2025-02-06 20:09:55 - root - INFO - Get NhapHang with id: NH_yckLb3He
+2025-02-06 20:09:55 - root - INFO - Getting nhaphang by id NH_yckLb3He
+2025-02-06 20:09:59 - root - INFO - Update NhapHang with id: NH_yckLb3He
+2025-02-06 20:09:59 - root - INFO - Checking nhaphang exist by id NH_yckLb3He
+2025-02-06 20:09:59 - root - INFO - Updating nhaphang NhapHang(id=NH_yckLb3He, id_mat_hang=MH_xPU1rR, ten_hang=Hoa hong, don_vi=Bong, so_luong=1232, gia_nhap=111, nha_cung_cap=, thanh_tien=136752, ghi_chu=, ngay_nhap=2025-02-06)
+2025-02-06 20:09:59 - root - INFO - Getting product by id MH_xPU1rR
+2025-02-06 20:09:59 - root - ERROR - Error when update nhap hang
+2025-02-06 20:09:59 - root - INFO - Get all NhapHang
+2025-02-06 20:09:59 - root - INFO - Getting all nhaphang
+2025-02-06 20:10:03 - root - INFO - Delete NhapHang with id: NH_yckLb3He
+2025-02-06 20:10:03 - root - INFO - Checking nhaphang exist by id NH_yckLb3He
+2025-02-06 20:10:03 - root - INFO - Getting nhaphang by id NH_yckLb3He
+2025-02-06 20:10:03 - root - INFO - Deleting nhaphang by id NH_yckLb3He
+2025-02-06 20:10:03 - root - INFO - Getting product by id MH_xPU1rR
+2025-02-06 20:10:03 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:10:03 - root - INFO - Get all NhapHang
+2025-02-06 20:10:03 - root - INFO - Getting all nhaphang
+2025-02-06 20:10:06 - root - INFO - Delete NhapHang with id: NH_krYKJdkq
+2025-02-06 20:10:06 - root - INFO - Checking nhaphang exist by id NH_krYKJdkq
+2025-02-06 20:10:06 - root - INFO - Getting nhaphang by id NH_krYKJdkq
+2025-02-06 20:10:06 - root - INFO - Deleting nhaphang by id NH_krYKJdkq
+2025-02-06 20:10:06 - root - INFO - Getting product by id MH_niGYqn
+2025-02-06 20:10:06 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:10:06 - root - INFO - Get all NhapHang
+2025-02-06 20:10:06 - root - INFO - Getting all nhaphang
+2025-02-06 20:10:09 - root - INFO - Delete NhapHang with id: NH_XUUdvSOl
+2025-02-06 20:10:09 - root - INFO - Checking nhaphang exist by id NH_XUUdvSOl
+2025-02-06 20:10:09 - root - INFO - Getting nhaphang by id NH_XUUdvSOl
+2025-02-06 20:10:09 - root - INFO - Deleting nhaphang by id NH_XUUdvSOl
+2025-02-06 20:10:09 - root - INFO - Getting product by id MH_eU24Ay
+2025-02-06 20:10:09 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:10:09 - root - INFO - Get all NhapHang
+2025-02-06 20:10:09 - root - INFO - Getting all nhaphang
+2025-02-06 20:10:11 - root - INFO - Delete NhapHang with id: NH_cFtk7Anz
+2025-02-06 20:10:11 - root - INFO - Checking nhaphang exist by id NH_cFtk7Anz
+2025-02-06 20:10:11 - root - INFO - Getting nhaphang by id NH_cFtk7Anz
+2025-02-06 20:10:11 - root - INFO - Deleting nhaphang by id NH_cFtk7Anz
+2025-02-06 20:10:11 - root - INFO - Getting product by id MH_inYDlg
+2025-02-06 20:10:11 - root - ERROR - Error when delete nhap hang
+2025-02-06 20:10:11 - root - INFO - Get all NhapHang
+2025-02-06 20:10:11 - root - INFO - Getting all nhaphang
+2025-02-06 20:10:27 - root - INFO - Get all MatHang
+2025-02-06 20:10:27 - root - INFO - Getting all products
+2025-02-06 20:10:35 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:10:35 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:10:35 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_b1yyHG
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ZW8r8V
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_2OqhuO
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_mUV8IJ
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ph8atD
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_vHcpH1
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_WHeg4i
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Qs1qEs
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_QPqBuG
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_j77rqi
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ZTttXc
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_YCmwOf
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_zGOP9O
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_FKHnT4
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_kZMJog
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_XRjr6u
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Yrf8ty
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_mKDpTN
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_jOK7DU
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_7GJRSK
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_JcV71J
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_NUtXQN
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_E0KY1G
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_eziPzq
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_rRPZ6X
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_BpWhVn
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_1kVXzB
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_GLUkPS
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_XiqALa
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_F9nao4
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Yne6oD
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_DVFnFg
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_3h11SI
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_wNEJrG
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_lw8swW
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Fn1B9e
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_R3f000
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_42oS9U
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_XpXI5s
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_m2bWsB
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_FlUOyp
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_isVQWU
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_S0c7XB
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_KYbcgv
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_0UIfm8
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_q5FNQr
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_74tcAn
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_MsJpcT
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_GWepQj
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_dJNNjD
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_8Z5KH1
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_1MqbrM
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_55Sdeb
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_jVehqw
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_H09Xfr
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_8u3e77
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_0wIEqp
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_wjqBSR
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_uYkPoo
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_h5BGJB
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ag3Db5
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_SbJTqi
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ZGQexQ
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_yfxdvK
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_l3fq55
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_X9CE95
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_R1UtWc
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_MViATU
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_07rKuZ
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Vj6ixV
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_y7cxwA
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_4Qxg1o
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_hsD5tb
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_zfIU77
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_bIvift
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_Lbznox
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_SHgBQ9
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_S7sVN0
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_LDjlMz
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_BgLmdl
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_iOvuZS
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_FsSFe7
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_FyzFgu
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_PPjDww
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_e5LKPu
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_loxltc
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_lfqf4t
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_AnCr65
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_EEf5yC
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_tBsxHv
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_P5xGei
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_PMvIIl
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_LqxJ77
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_c5K9hD
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_eKiS44
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_fu5CyC
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_ysb7lz
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_hwCGih
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_xRGC6n
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_2WDEdD
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_RDZfgf
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_FaeGVp
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_rochtY
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_vkN8fU
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_XxrEED
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_B1nI92
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_RhOmOX
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_6qBY2s
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_YfNOAT
+2025-02-06 20:10:35 - root - INFO - Checking product exist by id MH_MaU9x1
+2025-02-06 20:10:35 - root - INFO - Creating product [MatHang(id=MH_ZW8r8V, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11250, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_mUV8IJ, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_vHcpH1, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_Qs1qEs, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_j77rqi, ten_hang=Bánh chưng, don_vi=Cái, so_luong=11000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_YCmwOf, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2050, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_FKHnT4, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_XRjr6u, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_mKDpTN, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_7GJRSK, ten_hang=Bánh giầy, don_vi=Cái, so_luong=2000, gia_le=30000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_NUtXQN, ten_hang=Bánh mì, don_vi=Cái, so_luong=9800, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_eziPzq, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_BpWhVn, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_GLUkPS, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_F9nao4, ten_hang=Bánh mì, don_vi=Cái, so_luong=10000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_DVFnFg, ten_hang=Bánh nếp, don_vi=Cái, so_luong=9900, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_wNEJrG, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_Fn1B9e, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_42oS9U, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_m2bWsB, ten_hang=Bánh nếp, don_vi=Cái, so_luong=10000, gia_le=2222, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_isVQWU, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=2000, gia_le=0, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_KYbcgv, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_q5FNQr, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_MsJpcT, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_dJNNjD, ten_hang=Bánh tẻ, don_vi=Cái, so_luong=10000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_1MqbrM, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_jVehqw, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_8u3e77, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_wjqBSR, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_h5BGJB, ten_hang=Chăn bông, don_vi=Cái, so_luong=3000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_SbJTqi, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_yfxdvK, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_X9CE95, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_MViATU, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_Vj6ixV, ten_hang=Gối, don_vi=Chiếc, so_luong=2000, gia_le=10000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_4Qxg1o, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_zfIU77, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_Lbznox, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_S7sVN0, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_BgLmdl, ten_hang=Nước ngọt, don_vi=Chai, so_luong=2000, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_FsSFe7, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_PPjDww, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_loxltc, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_AnCr65, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_tBsxHv, ten_hang=Nước tinh khiết, don_vi=Chai, so_luong=12345, gia_le=12000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_PMvIIl, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_c5K9hD, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_fu5CyC, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_hwCGih, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_2WDEdD, ten_hang=Sách, don_vi=Quyển, so_luong=10000, gia_le=4000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_FaeGVp, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_vkN8fU, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_B1nI92, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_6qBY2s, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1), MatHang(id=MH_MaU9x1, ten_hang=Đệm, don_vi=Cái, so_luong=4000, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)]
+2025-02-06 20:10:44 - root - INFO - Get all MatHang
+2025-02-06 20:10:44 - root - INFO - Getting all products
+2025-02-06 20:10:44 - root - INFO - Closing database connection
+2025-02-06 20:10:52 - root - INFO - Get all MatHang
+2025-02-06 20:10:52 - root - INFO - Getting all products
+2025-02-06 20:11:11 - root - INFO - Get MatHang with id: MH_RDZfgf
+2025-02-06 20:11:11 - root - INFO - Getting product by id MH_RDZfgf
+2025-02-06 20:11:15 - root - INFO - Update MatHang with id: MH_RDZfgf
+2025-02-06 20:11:15 - root - INFO - Updating product MatHang(id=MH_RDZfgf, ten_hang=Đệm, don_vi=Cái, so_luong=4500, gia_le=20000, gia_si=0, ngay_tao=2025-02-06, is_active=1)
+2025-02-06 20:11:16 - root - INFO - Get all MatHang
+2025-02-06 20:11:16 - root - INFO - Getting all products
+2025-02-06 20:13:30 - root - INFO - Get all MatHang
+2025-02-06 20:13:30 - root - INFO - Getting all products
+2025-02-06 20:13:44 - root - INFO - Get all MatHang
+2025-02-06 20:13:44 - root - INFO - Getting all products
+2025-02-06 20:14:34 - root - INFO - Get all BanHang
+2025-02-06 20:14:34 - root - INFO - Getting all banhang
+2025-02-06 20:14:35 - root - INFO - Get all BanHang
+2025-02-06 20:14:35 - root - INFO - Getting all banhang
+2025-02-06 20:14:45 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:14:45 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:14:45 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:14:45 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:14:45 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:14:45 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:14:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:14:45 - root - INFO - Updating so luong mat hang 1950
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:14:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:14:45 - root - INFO - Updating so luong mat hang 9500
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:14:45 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:14:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:14:45 - root - INFO - Updating so luong mat hang 9750
+2025-02-06 20:14:45 - root - INFO - Creating multiple banhang records
+2025-02-06 20:14:46 - root - INFO - Closing database connection
+2025-02-06 20:14:46 - root - INFO - Closing database connection
+2025-02-06 20:14:47 - root - INFO - Get all BanHang
+2025-02-06 20:14:47 - root - INFO - Getting all banhang
+2025-02-06 20:14:54 - root - INFO - Get all BanHang
+2025-02-06 20:14:54 - root - INFO - Getting all banhang
+2025-02-06 20:15:02 - root - INFO - Get BanHang with id: BH_gSgMnpWZAW
+2025-02-06 20:15:02 - root - INFO - Getting banhang by id BH_gSgMnpWZAW
+2025-02-06 20:15:06 - root - INFO - Update BanHang with id: BH_gSgMnpWZAW
+2025-02-06 20:15:06 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:15:06 - root - INFO - Updating banhang BanHang(id=BH_gSgMnpWZAW, id_mat_hang=MH_ZTttXc, ten_hang=Bánh giầy, don_vi=Cái, so_luong=10, gia_ban=30000, khach_hang=, thanh_tien=300000, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:06 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:06 - root - INFO - Updating so luong mat hang 2040
+2025-02-06 20:15:07 - root - INFO - Get all BanHang
+2025-02-06 20:15:07 - root - INFO - Getting all banhang
+2025-02-06 20:15:08 - root - INFO - Get BanHang with id: BH_oNSKhFzo2P
+2025-02-06 20:15:08 - root - INFO - Getting banhang by id BH_oNSKhFzo2P
+2025-02-06 20:15:10 - root - INFO - Update BanHang with id: BH_oNSKhFzo2P
+2025-02-06 20:15:10 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:15:10 - root - INFO - Updating banhang BanHang(id=BH_oNSKhFzo2P, id_mat_hang=MH_ZTttXc, ten_hang=Bánh giầy, don_vi=Cái, so_luong=10, gia_ban=30000, khach_hang=, thanh_tien=300000, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:10 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:10 - root - INFO - Updating so luong mat hang 2130
+2025-02-06 20:15:11 - root - INFO - Get all BanHang
+2025-02-06 20:15:11 - root - INFO - Getting all banhang
+2025-02-06 20:15:12 - root - INFO - Get BanHang with id: BH_uknL9VNJFl
+2025-02-06 20:15:12 - root - INFO - Getting banhang by id BH_uknL9VNJFl
+2025-02-06 20:15:14 - root - INFO - Update BanHang with id: BH_uknL9VNJFl
+2025-02-06 20:15:14 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:15:14 - root - INFO - Updating banhang BanHang(id=BH_uknL9VNJFl, id_mat_hang=MH_JcV71J, ten_hang=Bánh mì, don_vi=Cái, so_luong=30, gia_ban=10000, khach_hang=, thanh_tien=300000, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:14 - root - INFO - Updating so luong mat hang 9770
+2025-02-06 20:15:14 - root - INFO - Get all BanHang
+2025-02-06 20:15:14 - root - INFO - Getting all banhang
+2025-02-06 20:15:15 - root - INFO - Get BanHang with id: BH_VwOm6xBQPz
+2025-02-06 20:15:15 - root - INFO - Getting banhang by id BH_VwOm6xBQPz
+2025-02-06 20:15:17 - root - INFO - Update BanHang with id: BH_VwOm6xBQPz
+2025-02-06 20:15:17 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:15:17 - root - INFO - Updating banhang BanHang(id=BH_VwOm6xBQPz, id_mat_hang=MH_JcV71J, ten_hang=Bánh mì, don_vi=Cái, so_luong=30, gia_ban=10000, khach_hang=, thanh_tien=300000, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:17 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:17 - root - INFO - Updating so luong mat hang 10040
+2025-02-06 20:15:18 - root - INFO - Get all BanHang
+2025-02-06 20:15:18 - root - INFO - Getting all banhang
+2025-02-06 20:15:19 - root - INFO - Get BanHang with id: BH_MqcmSXlIC0
+2025-02-06 20:15:19 - root - INFO - Getting banhang by id BH_MqcmSXlIC0
+2025-02-06 20:15:21 - root - INFO - Update BanHang with id: BH_MqcmSXlIC0
+2025-02-06 20:15:21 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:15:21 - root - INFO - Updating banhang BanHang(id=BH_MqcmSXlIC0, id_mat_hang=MH_Yne6oD, ten_hang=Bánh nếp, don_vi=Cái, so_luong=15, gia_ban=2222, khach_hang=, thanh_tien=33330, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:21 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:21 - root - INFO - Updating so luong mat hang 9885
+2025-02-06 20:15:21 - root - INFO - Get all BanHang
+2025-02-06 20:15:21 - root - INFO - Getting all banhang
+2025-02-06 20:15:22 - root - INFO - Get BanHang with id: BH_hJOyqsX6qd
+2025-02-06 20:15:22 - root - INFO - Getting banhang by id BH_hJOyqsX6qd
+2025-02-06 20:15:25 - root - INFO - Update BanHang with id: BH_hJOyqsX6qd
+2025-02-06 20:15:25 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:15:25 - root - INFO - Updating banhang BanHang(id=BH_hJOyqsX6qd, id_mat_hang=MH_Yne6oD, ten_hang=Bánh nếp, don_vi=Cái, so_luong=15, gia_ban=2222, khach_hang=, thanh_tien=33330, ghi_chu=, ngay_ban=2025-02-06)
+2025-02-06 20:15:25 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:25 - root - INFO - Updating so luong mat hang 10020
+2025-02-06 20:15:25 - root - INFO - Get all BanHang
+2025-02-06 20:15:25 - root - INFO - Getting all banhang
+2025-02-06 20:15:28 - root - INFO - Get all BanHang
+2025-02-06 20:15:28 - root - INFO - Getting all banhang
+2025-02-06 20:15:39 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:15:39 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:15:39 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:39 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:15:39 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:15:39 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 2120
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 2110
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 10010
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 9980
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 10005
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:15:39 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:15:39 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:39 - root - INFO - Updating so luong mat hang 9990
+2025-02-06 20:15:39 - root - INFO - Creating multiple banhang records
+2025-02-06 20:15:40 - root - INFO - Closing database connection
+2025-02-06 20:15:40 - root - INFO - Closing database connection
+2025-02-06 20:15:40 - root - INFO - Get all BanHang
+2025-02-06 20:15:40 - root - INFO - Getting all banhang
+2025-02-06 20:15:46 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:15:46 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:15:46 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:46 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:15:46 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:15:46 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 2100
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 2090
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 9950
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 9920
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 9975
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:15:46 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:15:46 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:46 - root - INFO - Updating so luong mat hang 9960
+2025-02-06 20:15:46 - root - INFO - Creating multiple banhang records
+2025-02-06 20:15:47 - root - INFO - Closing database connection
+2025-02-06 20:15:47 - root - INFO - Closing database connection
+2025-02-06 20:15:47 - root - INFO - Get all BanHang
+2025-02-06 20:15:47 - root - INFO - Getting all banhang
+2025-02-06 20:15:53 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:15:53 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:15:53 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:53 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:15:53 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:15:53 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 2080
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 2070
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 9890
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 9860
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 9945
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:15:53 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:15:53 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:15:53 - root - INFO - Updating so luong mat hang 9930
+2025-02-06 20:15:53 - root - INFO - Creating multiple banhang records
+2025-02-06 20:15:54 - root - INFO - Closing database connection
+2025-02-06 20:15:54 - root - INFO - Closing database connection
+2025-02-06 20:15:54 - root - INFO - Get all BanHang
+2025-02-06 20:15:54 - root - INFO - Getting all banhang
+2025-02-06 20:15:57 - root - INFO - Get all BanHang
+2025-02-06 20:15:57 - root - INFO - Getting all banhang
+2025-02-06 20:16:07 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:16:07 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:16:07 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:07 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:16:07 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:16:07 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_UmV2sKogpe
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2060
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_4iNjwjnQN8
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2050
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_ybJVmj834g
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2040
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_jceG9MV2aH
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2030
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_EhkYCGGXXo
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2020
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_QaH2xuxX0T
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2010
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_Hklc5F1kBp
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 2000
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_XSu48WdWsI
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 1990
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_QLq3UF5WBZ
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9830
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_6OywIYomYG
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9800
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_oorLa7NCQL
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9770
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_KYynXoqGjQ
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9740
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_oQrXEDQKbH
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9710
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_GPL7NDzI9m
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9680
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_kIrK6AmqiU
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9650
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_HRb7AlFGkB
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9620
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_boZ4o40BwG
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9915
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_doKhIHhQ26
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9900
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_yqErxFqkgt
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9885
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_KYBey8NxX4
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9870
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_8le7u51YTl
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9855
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_STKestTRf7
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9840
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_HHfZkicqdR
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9825
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:16:07 - root - INFO - Checking banhang exist by id BH_HTiupxWBZd
+2025-02-06 20:16:07 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:07 - root - INFO - Updating so luong mat hang 9810
+2025-02-06 20:16:07 - root - INFO - Creating multiple banhang records
+2025-02-06 20:16:08 - root - INFO - Closing database connection
+2025-02-06 20:16:08 - root - INFO - Closing database connection
+2025-02-06 20:16:09 - root - INFO - Get all BanHang
+2025-02-06 20:16:09 - root - INFO - Getting all banhang
+2025-02-06 20:16:14 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:16:14 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:16:14 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:14 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:16:14 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:16:14 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_HP3DKYrQDi
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1980
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_uk3dD8TP9z
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1970
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_EoXOCwtPh3
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1960
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_LdzvvAEETu
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1950
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_et47wMAmoT
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1940
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_CADwvuufc4
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1930
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_F6zOK2NOSN
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1920
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_OG7eieCP6i
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 1910
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_kOOqLdGSn2
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9590
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_PZT3vEuALt
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9560
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_eMnqU4oVow
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9530
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_a2cjT34GYl
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9500
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_Zl4iPyuMAD
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9470
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_YxdrXdcmJT
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9440
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_GXBj9Jwqn9
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9410
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_sndIbnAHyW
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9380
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_2dxgNigczQ
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9795
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_1a2QhKVitu
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9780
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_6Pp9Rajmp5
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9765
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_I0gXgSuy5O
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9750
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_drsGf6k7yp
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9735
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_DmTFXk7Ect
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9720
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_Tupc4sM2Wp
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9705
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:16:14 - root - INFO - Checking banhang exist by id BH_dsBf8gJG6d
+2025-02-06 20:16:14 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:14 - root - INFO - Updating so luong mat hang 9690
+2025-02-06 20:16:14 - root - INFO - Creating multiple banhang records
+2025-02-06 20:16:15 - root - INFO - Closing database connection
+2025-02-06 20:16:15 - root - INFO - Closing database connection
+2025-02-06 20:16:15 - root - INFO - Get all BanHang
+2025-02-06 20:16:15 - root - INFO - Getting all banhang
+2025-02-06 20:16:23 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:16:23 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:16:23 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:23 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:16:23 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:16:23 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_lv9EVlpC3h
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1900
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_8i5qPtIEl0
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1890
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_tX2rBz6xAb
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1880
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_UHsPzqv1Dv
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1870
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_IbsfNdrl1Q
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1860
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_sMhyZ7ycfU
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1850
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_uTiTzucOr8
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1840
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_nkiIowcKkM
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 1830
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_S0WfUY1ad5
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9350
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_fVnqVl6syF
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9320
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_mftXcOTle2
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9290
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_ZgAAPXDSRa
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9260
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_j9YZCdVFU3
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9230
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_daRY5juVUC
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9200
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_GWwsNETuQl
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9170
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_lCtP9hlHPY
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9140
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_i37E24DQjq
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9675
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_ghqfiDZceX
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9660
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_aczxRs6wW1
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9645
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_YicHrWUodg
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9630
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_UYyBwQFY7s
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9615
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_DzuUzYfOv7
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9600
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_mLiMt6sur8
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9585
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:16:23 - root - INFO - Checking banhang exist by id BH_L3umOQuiyC
+2025-02-06 20:16:23 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:23 - root - INFO - Updating so luong mat hang 9570
+2025-02-06 20:16:23 - root - INFO - Creating multiple banhang records
+2025-02-06 20:16:24 - root - INFO - Closing database connection
+2025-02-06 20:16:24 - root - INFO - Closing database connection
+2025-02-06 20:16:24 - root - INFO - Get all BanHang
+2025-02-06 20:16:24 - root - INFO - Getting all banhang
+2025-02-06 20:16:32 - root - INFO - Get all BanHang
+2025-02-06 20:16:32 - root - INFO - Getting all banhang
+2025-02-06 20:16:42 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:16:42 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:16:42 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:42 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:16:42 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:16:42 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_BhJworkw5G
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1820
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_7pnWPcJWrv
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1810
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_to0t4hNY3w
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1800
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_4iNMk8ZqXV
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1790
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_qgkI6Z4K5u
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1780
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_b7qqqjrYBq
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1770
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_PomZKTFbGN
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1760
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_dRcSNPz3rE
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1750
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_UmV2sKogpe
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_O5BEnz8QJx
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1740
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_4iNjwjnQN8
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_eNRMBm1CuP
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1730
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ybJVmj834g
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ncRJPzAz9c
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1720
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_jceG9MV2aH
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ZJvPjl0MZP
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1710
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_EhkYCGGXXo
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_D2buh99Ur0
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1700
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_QaH2xuxX0T
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ANgvu2wCoZ
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1690
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Hklc5F1kBp
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_AFZPvl82F8
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1680
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_XSu48WdWsI
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_4dhDlidZUk
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1670
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_HP3DKYrQDi
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_L0otrbzwug
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1660
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_uk3dD8TP9z
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_jzXzu3nYTZ
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1650
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_EoXOCwtPh3
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_1Jj5KpmaQP
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1640
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_LdzvvAEETu
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kmENUlINSs
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1630
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_et47wMAmoT
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_emztGx75RY
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1620
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_CADwvuufc4
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Uk0naJOzIz
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1610
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_F6zOK2NOSN
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_MyLGfgyTAR
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1600
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_OG7eieCP6i
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ony7Z94m9P
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1590
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_lv9EVlpC3h
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_JFkCEy6Pv5
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1580
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_8i5qPtIEl0
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_EhrFcHnntU
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1570
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_tX2rBz6xAb
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Y6Y8vwoJg3
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1560
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_UHsPzqv1Dv
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_RUSflEejpj
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1550
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_IbsfNdrl1Q
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_IsTaCovfHO
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1540
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_sMhyZ7ycfU
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ur0EJMdict
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1530
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_uTiTzucOr8
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_rRb0fIv3mj
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1520
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_nkiIowcKkM
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_2rNY1ATaZA
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 1510
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_18Y4flvqEw
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9110
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_8lCeskJS6j
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9080
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_SJZaJdQWgB
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9050
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_BTQQFgVjA1
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9020
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_QpV7wh4ZWQ
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8990
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_PtcRTDWFHh
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8960
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_IOOJYOeM9m
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8930
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_dl5DeZHwhi
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8900
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_QLq3UF5WBZ
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_WemPRWzryk
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8870
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_6OywIYomYG
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_wocFl7rkJr
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8840
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_oorLa7NCQL
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_NcInrr9b2L
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8810
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_KYynXoqGjQ
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_QFtdTJu8g8
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8780
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_oQrXEDQKbH
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_wZRyJhmFCl
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8750
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_GPL7NDzI9m
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_A61x3ZszFf
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8720
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kIrK6AmqiU
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_PfMDtIfpxr
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8690
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_HRb7AlFGkB
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_BSrBZuE2Z5
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8660
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kOOqLdGSn2
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_G4AQj5IuQ7
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8630
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_PZT3vEuALt
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_mRj6IJg2aH
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8600
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_eMnqU4oVow
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_vD2WW6vvGx
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8570
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_a2cjT34GYl
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_CsGbIJdu9G
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8540
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Zl4iPyuMAD
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_HUCyyQ10Kt
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8510
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_YxdrXdcmJT
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_yvUE0zkv6N
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8480
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_GXBj9Jwqn9
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_zVpMc64I3v
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8450
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_sndIbnAHyW
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_p6X2nWW5gT
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8420
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_S0WfUY1ad5
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_4zhIORhQn9
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8390
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_fVnqVl6syF
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_XqQEiQxQo3
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8360
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_mftXcOTle2
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_8zSVSxCS56
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8330
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ZgAAPXDSRa
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_TGDJTjVfUF
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8300
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_j9YZCdVFU3
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_bY73ZK1RVY
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8270
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_daRY5juVUC
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_0hGdXsFhw9
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8240
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_GWwsNETuQl
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_yWNvBbKZTv
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8210
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_lCtP9hlHPY
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_dHMiPM2sjC
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 8180
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_UF0MfbJrDp
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9555
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_JQenbolzJS
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9540
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_MHtE1NNuzY
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9525
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_EX5yUHUdDH
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9510
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_5LTz1NgJju
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9495
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_52G6QiEPbJ
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9480
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ffOCEdKSHb
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9465
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_9t16oB6Auo
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9450
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_boZ4o40BwG
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Ocal6iGiex
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9435
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_doKhIHhQ26
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_C3LQ3sU6UH
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9420
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_yqErxFqkgt
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_BKHtVtsXo8
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9405
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_KYBey8NxX4
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Jjtk4jjZ47
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9390
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_8le7u51YTl
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_VotmUM0x1a
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9375
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_STKestTRf7
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_8mNrXCBteA
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9360
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_HHfZkicqdR
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_gByXs2wgWx
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9345
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_HTiupxWBZd
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_F0Ar1GlqI3
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9330
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_2dxgNigczQ
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_DUlC5BSX2k
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9315
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_1a2QhKVitu
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_BQ2lAQ46WT
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9300
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_6Pp9Rajmp5
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_KUgkPnE5HV
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9285
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_I0gXgSuy5O
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_UMgqsxJkeK
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9270
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_drsGf6k7yp
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_4bpB2Xcyoy
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9255
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_DmTFXk7Ect
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_WhziVmbYKW
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9240
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_Tupc4sM2Wp
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_j8pwcjLIQE
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9225
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_dsBf8gJG6d
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_MK1FWM3QaC
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9210
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_i37E24DQjq
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kW0KwXnzoa
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9195
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ghqfiDZceX
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_ToDBft5V89
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9180
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_aczxRs6wW1
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_kfnFrveXxY
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9165
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_YicHrWUodg
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_TCLJCYbYUz
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9150
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_UYyBwQFY7s
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_frYTGmASCT
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9135
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_DzuUzYfOv7
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_NeFIIoom6p
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9120
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_mLiMt6sur8
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_wxOsbGhNH9
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9105
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_L3umOQuiyC
+2025-02-06 20:16:42 - root - INFO - Checking banhang exist by id BH_LCXKrTXg2p
+2025-02-06 20:16:42 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:16:42 - root - INFO - Updating so luong mat hang 9090
+2025-02-06 20:16:42 - root - INFO - Creating multiple banhang records
+2025-02-06 20:16:44 - root - INFO - Closing database connection
+2025-02-06 20:16:44 - root - INFO - Closing database connection
+2025-02-06 20:16:47 - root - INFO - Get all BanHang
+2025-02-06 20:16:47 - root - INFO - Getting all banhang
+2025-02-06 20:17:45 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:17:45 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:17:45 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:17:45 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:17:45 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:17:45 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_gSgMnpWZAW
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_hsqErvF2ap
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1500
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_oNSKhFzo2P
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_2hPEHfxafT
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1490
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_V0UYZNQm8P
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_FgrZlWNTu9
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1480
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_2BaOgEXbkt
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_9Jxu1bom89
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1470
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_XTWOsYjV5n
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_oM9JPE2pNz
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1460
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_cvoNSfdviJ
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_yvFytljQrW
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1450
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_rLC6tOj6Vr
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_gCS4DjeDpn
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1440
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Ni1FtFlpKN
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_AhGSkdGBif
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1430
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_UmV2sKogpe
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_NHixYKe2DV
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1420
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_4iNjwjnQN8
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_yjalWqUSsb
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1410
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ybJVmj834g
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_x4BCGAYeJU
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1400
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_jceG9MV2aH
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DqW5hpZ7k7
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1390
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_EhkYCGGXXo
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DHz4VAKCtP
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1380
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_QaH2xuxX0T
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_fimPjEiBQI
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1370
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Hklc5F1kBp
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_yNaMjR5fRf
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1360
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_XSu48WdWsI
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_uBp658TID9
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1350
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_HP3DKYrQDi
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_zXBh17QC7B
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1340
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_uk3dD8TP9z
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Fxu2VTq595
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1330
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_EoXOCwtPh3
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_wzAzc9CVKc
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1320
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_LdzvvAEETu
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_vd4OqCxWNG
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1310
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_et47wMAmoT
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_E4y2FQLa1X
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1300
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_CADwvuufc4
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_fOwhAThFi6
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1290
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_F6zOK2NOSN
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_LQyc6iYkQl
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1280
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_OG7eieCP6i
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_wN5L3rhAxA
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1270
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_lv9EVlpC3h
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ttJj1dHd7R
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1260
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_8i5qPtIEl0
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_SgB7hy73ag
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1250
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_tX2rBz6xAb
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_AnkkcRl0qj
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1240
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_UHsPzqv1Dv
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ObG0buoJPP
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1230
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_IbsfNdrl1Q
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_46ZHkAC94x
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1220
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_sMhyZ7ycfU
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_bi2YJlCnrQ
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1210
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_uTiTzucOr8
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_UKne971RXJ
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1200
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_nkiIowcKkM
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_7WSuo9DIUB
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_ZTttXc
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 1190
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_uknL9VNJFl
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_5Vx1rgdG0r
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8150
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_VwOm6xBQPz
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_fSKjvvc8yJ
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8120
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_dZ60lVnoty
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_PJ41dEY9CZ
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8090
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_2F4HUN4eGl
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_cTfHoeiba1
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8060
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_FxPvhgEktX
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ZCh4ZPHXzr
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8030
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_n5qCuxuh2n
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_tQJaztzaAS
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8000
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_NYbMkI7pW9
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_okoiHKmIms
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7970
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_2yyh60Q9vo
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_fWOz933SNt
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7940
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_QLq3UF5WBZ
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_x1Z6xeYNKf
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7910
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_6OywIYomYG
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_iWjBuoncfg
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7880
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_oorLa7NCQL
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_6Ih3hZdyBJ
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7850
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_KYynXoqGjQ
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_MaRnogvjGR
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7820
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_oQrXEDQKbH
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_77T9D1neDA
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7790
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_GPL7NDzI9m
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_KmPv6qTscb
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7760
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_kIrK6AmqiU
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ugU2rMUaKP
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7730
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_HRb7AlFGkB
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_liyWKCCkUT
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7700
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_kOOqLdGSn2
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_SNqAbMdKVE
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7670
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_PZT3vEuALt
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DbKemmHEdE
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7640
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_eMnqU4oVow
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_zz9c8H8aQC
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7610
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_a2cjT34GYl
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Gbva2WtD5H
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7580
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Zl4iPyuMAD
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_R9Ayp8h8wd
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7550
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_YxdrXdcmJT
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_tYkQL2dHf7
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7520
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_GXBj9Jwqn9
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_p4IYGggEdD
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7490
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_sndIbnAHyW
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_R3NGpejTK5
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7460
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_S0WfUY1ad5
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_k4ZCfCGL6o
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7430
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_fVnqVl6syF
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_l2SDbKvhGY
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7400
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_mftXcOTle2
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_MGIrEedUso
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7370
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ZgAAPXDSRa
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_j6j9TNKiEd
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7340
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_j9YZCdVFU3
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_WfpLqcEFaL
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7310
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_daRY5juVUC
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_sg5xNl1Vps
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7280
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_GWwsNETuQl
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_wELy9WG19O
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7250
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_lCtP9hlHPY
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_zpywpcrVTn
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_JcV71J
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 7220
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_MqcmSXlIC0
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_1eAxF95LGs
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9075
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_hJOyqsX6qd
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_TcycNTJSMd
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9060
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_l805ohLuLY
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_vh4AL6RN42
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9045
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_047zoLVgse
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DHMqDBtHJI
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9030
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_kKCqIsAqfj
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_25aO6drvFC
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9015
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_pIGUTJsUym
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_lvbzrcJYWN
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 9000
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_A9uUQ3IovR
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_oVjI2GQtRg
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8985
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Aj9x7M0yXi
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_TdHWJd20JG
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8970
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_boZ4o40BwG
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Kqu43Xmej4
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8955
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_doKhIHhQ26
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_GRwi7f4OUn
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8940
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_yqErxFqkgt
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_trIfVYtrlo
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8925
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_KYBey8NxX4
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_RldJHdLxJY
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8910
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_8le7u51YTl
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_GHTm7bdUOi
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8895
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_STKestTRf7
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_VKdgFldFjY
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8880
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_HHfZkicqdR
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_RnNhEyUXrY
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8865
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_HTiupxWBZd
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ouUu0tix4C
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8850
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_2dxgNigczQ
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_dp8NDGnPWL
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8835
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_1a2QhKVitu
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_wpouw6Zmiw
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8820
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_6Pp9Rajmp5
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_bNDi8ZJBTn
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8805
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_I0gXgSuy5O
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_9FueIwftrM
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8790
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_drsGf6k7yp
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_5fjGVS6GJn
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8775
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DmTFXk7Ect
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_RZhwrYxdxK
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8760
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Tupc4sM2Wp
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_s8GVCEr4gU
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8745
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_dsBf8gJG6d
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_N61JCrGzYF
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8730
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_i37E24DQjq
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_acCfLIW94I
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8715
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_ghqfiDZceX
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_cTQr9FM0Au
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8700
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_aczxRs6wW1
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_HM8unMVvUr
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8685
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_YicHrWUodg
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_Yg2Wpmn1Yf
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8670
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_UYyBwQFY7s
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_19wuSZRCQG
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8655
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_DzuUzYfOv7
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_RukmNuaFLy
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8640
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_mLiMt6sur8
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_MFcKuTM517
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8625
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_L3umOQuiyC
+2025-02-06 20:17:45 - root - INFO - Checking banhang exist by id BH_iDM97vs65m
+2025-02-06 20:17:45 - root - INFO - Getting product by id MH_Yne6oD
+2025-02-06 20:17:45 - root - INFO - Updating so luong mat hang 8610
+2025-02-06 20:17:45 - root - INFO - Creating multiple banhang records
+2025-02-06 20:17:47 - root - INFO - Closing database connection
+2025-02-06 20:17:47 - root - INFO - Closing database connection
+2025-02-06 20:17:53 - root - INFO - Get all BanHang
+2025-02-06 20:17:53 - root - INFO - Getting all banhang
+2025-02-06 20:19:57 - root - INFO - report BanHang
+2025-02-06 20:20:21 - root - INFO - view detail
+2025-02-06 20:20:21 - root - INFO - BaoCaoBanHangDetailController Controller
+2025-02-06 20:20:21 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:20:21 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:20:21 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:20:21 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:20:21 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:20:21 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:20:21 - root - INFO - report BanHangDetail
+2025-02-06 20:20:21 - root - INFO - Closing database connection
+2025-02-06 20:20:21 - root - INFO - Closing database connection
+2025-02-06 20:20:26 - root - INFO - Quay lại
+2025-02-06 20:20:26 - root - INFO - BaoCaoBanHang Controller
+2025-02-06 20:20:26 - root - INFO - ---BanHangService initializing---
+2025-02-06 20:20:26 - root - INFO - ---BanHangRepo initializing---
+2025-02-06 20:20:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:20:26 - root - INFO - ---MatHangService initializing---
+2025-02-06 20:20:26 - root - INFO - ---MatHangRepo initializing---
+2025-02-06 20:20:26 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-06 20:20:26 - root - INFO - report BanHang
+2025-02-06 20:20:26 - root - INFO - Closing database connection
+2025-02-06 20:20:26 - root - INFO - Closing database connection
+2025-02-06 20:21:49 - root - INFO - Closing database connection
+2025-02-06 20:21:49 - root - INFO - Closing database connection
+2025-02-06 20:21:49 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:53 - root - INFO - Closing database connection
+2025-02-06 20:21:54 - root - INFO - Closing database connection
+2025-02-06 20:21:54 - root - INFO - Closing database connection
+2025-02-06 20:21:54 - root - INFO - Closing database connection
+2025-02-06 20:21:54 - root - INFO - Closing database connection

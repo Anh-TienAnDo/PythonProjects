@@ -6,7 +6,7 @@ from contants import CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH, CHI_PHI_TABLE
 
 class ChiPhi:
     def __init__(self, id=None, ten_chi_phi=None, gia_chi_phi=None, ghi_chu=None, ngay_tao=None):
-        self.id = id if id is not None else GenerationId.generate_id(
+        self.id = id if id is not None and CHI_PHI_ID_PREFIX in id else GenerationId.generate_id(
             CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
         self.ten_chi_phi = TextNormalization.remove_special_characters(str(ten_chi_phi)) if ten_chi_phi is not None else ""
         self.gia_chi_phi = int(gia_chi_phi) if gia_chi_phi is not None and str(gia_chi_phi).strip().isdigit() else 0

@@ -19,7 +19,7 @@ class NhapHangRepo:
             data = self.cursor.fetchall()
             nhap_hang_list = [NhapHang(*row) for row in data]
             return nhap_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             return None
         
@@ -30,7 +30,7 @@ class NhapHangRepo:
             data = self.cursor.fetchall()
             nhap_hang_list = [NhapHang(*row) for row in data]
             return nhap_hang_list
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting all %s', e)
             
     def report(self, sort_by: str, where: str) -> list:
@@ -55,7 +55,7 @@ class NhapHangRepo:
                 f'SELECT * FROM {NHAP_HANG_TABLE} WHERE id = ?', (nhap_hang_id,))
             data = self.cursor.fetchone()
             return NhapHang(*data) if data else None
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error getting nhaphang by id %s', e)
             return None
 
@@ -67,7 +67,7 @@ class NhapHangRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', nhap_hang.to_tuple())
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating nhaphang %s', e)
             return False
         
@@ -80,7 +80,7 @@ class NhapHangRepo:
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', nhap_hang_tuples)
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error creating multiple banhang records %s', e)
             return False
 
@@ -98,7 +98,7 @@ class NhapHangRepo:
                 ten_hang, don_vi, so_luong, gia_nhap, nha_cung_cap, thanh_tien, ghi_chu, nhap_hang_id))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error updating nhaphang %s', e)
             return False
 
@@ -109,7 +109,7 @@ class NhapHangRepo:
                 f'DELETE FROM {NHAP_HANG_TABLE} WHERE id = ?', (nhap_hang_id,))
             self.connection.commit()
             return True
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error deleting nhaphang %s', e)
             return False
             
@@ -120,7 +120,7 @@ class NhapHangRepo:
                 f'SELECT * FROM {NHAP_HANG_TABLE} WHERE id = ?', (nhap_hang_id,))
             data = self.cursor.fetchone()
             return True if data else False
-        except sqlite3.IntegrityError as e:
+        except Exception as e:
             logging.error('Error checking nhaphang exist %s', e)
             return False
 
