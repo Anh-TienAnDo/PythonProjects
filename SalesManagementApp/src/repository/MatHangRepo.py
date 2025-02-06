@@ -66,6 +66,18 @@ class MatHangRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating product %s', e)
             return False
+        
+    def create_many(self, mat_hang_list: list[MatHang]) -> bool:
+        logging.info('Creating product %s', mat_hang_list)
+        try:
+            self.cursor.executemany(f'''INSERT INTO {MAT_HANG_TABLE}
+                                (id, ten_hang, don_vi, so_luong, gia_le, gia_si, ngay_tao, is_active) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', [mat_hang.to_tuple() for mat_hang in mat_hang_list])
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating product %s', e)
+            return False
 
     def update(self, mat_hang_id, mat_hang: MatHang) -> bool:
         logging.info('Updating product %s', mat_hang)

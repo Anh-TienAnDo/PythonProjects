@@ -6,63 +6,95 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH
-from src.utils.Excel import Excel
 
 class MatHangService:
     def __init__(self):
         logging.info('---MatHangService initializing---')
         self.mat_hang_repo = MatHangRepo()
         self.search_whoosh = SearchWhooshMatHang()
-        self.excel_util = Excel()
 
     def get_all(self, sort: str, keyword: str) -> list[MatHang]:
-        sort = sort.strip()
-        if sort not in self.get_mat_hang_sort_keys() or sort == '' or sort is None:
-            sort = 'Tên A-Z'
-        sort_by = self.get_mat_hang_sort_by_key(sort)
-        
-        if keyword is None or keyword.strip() == '':
-            return self.mat_hang_repo.get_all(sort_by=sort_by)
-        
-        keyword = TextNormalization.remove_special_characters(keyword)
-        results = self.search_whoosh.search(keyword)
-        id_list = [result['id'] for result in results]
-        where = f'id IN ({",".join(["?"] * len(id_list))})'
-        return self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
+        try:
+            sort = sort.strip()
+            if sort not in self.get_mat_hang_sort_keys() or sort == '' or sort is None:
+                sort = 'Tên A-Z'
+            sort_by = self.get_mat_hang_sort_by_key(sort)
+            
+            if keyword is None or keyword.strip() == '':
+                return self.mat_hang_repo.get_all(sort_by=sort_by)
+            
+            keyword = TextNormalization.remove_special_characters(keyword)
+            results = self.search_whoosh.search(keyword)
+            id_list = [result['id'] for result in results]
+            where = f'id IN ({",".join(["?"] * len(id_list))})'
+            return self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when get all mat hang %s', e)
+            return list()
 
     def get_by_id(self, mat_hang_id) -> MatHang:
         return self.mat_hang_repo.get_by_id(mat_hang_id)
 
     def create(self, mat_hang: MatHang) -> bool:
-        while self.mat_hang_repo.check_exist_id(mat_hang.id):
-            mat_hang.id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
-        if not self.mat_hang_repo.create(mat_hang):
+        try:
+            while self.mat_hang_repo.check_exist_id(mat_hang.id):
+                mat_hang.id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
+            if not self.mat_hang_repo.create(mat_hang):
+                return False
+            self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
+            return True
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when create mat hang %s', e)
             return False
-        self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
-        return True
+        
+    def create_many(self, mat_hang_list: list[MatHang]) -> bool:
+        try:
+            for mat_hang in mat_hang_list:
+                while self.mat_hang_repo.check_exist_id(mat_hang.id):
+                    mat_hang.id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
+            if not self.mat_hang_repo.create_many(mat_hang_list):
+                return False
+            for mat_hang in mat_hang_list:
+                self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
+            return True
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when create many mat hang %s', e)
+            return False
 
     def update(self, mat_hang_id, mat_hang: MatHang) -> bool:
-        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+        try:
+            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+                return False
+            if not self.mat_hang_repo.update(mat_hang_id, mat_hang):
+                return False
+            self.search_whoosh.add_or_update_document_ix(mat_hang_id, mat_hang.ten_hang)
+            return True
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when update mat hang %s', e)
             return False
-        if not self.mat_hang_repo.update(mat_hang_id, mat_hang):
-            return False
-        self.search_whoosh.add_or_update_document_ix(mat_hang_id, mat_hang.ten_hang)
-        return True
     
     def update_so_luong(self, mat_hang_id, so_luong: int) -> bool:
-        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+        try:
+            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+                return False
+            if not self.mat_hang_repo.update_so_luong(mat_hang_id, so_luong):
+                return False
+            return True
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when update so luong mat hang %s', e)
             return False
-        if not self.mat_hang_repo.update_so_luong(mat_hang_id, so_luong):
-            return False
-        return True
       
     def delete(self, mat_hang_id) -> bool:
-        if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+        try:
+            if not self.mat_hang_repo.check_exist_id(mat_hang_id):
+                return False
+            if not self.mat_hang_repo.delete(mat_hang_id):
+                return False
+            self.search_whoosh.delete_document_ix(mat_hang_id)
+            return True
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when delete mat hang %s', e)
             return False
-        if not self.mat_hang_repo.delete(mat_hang_id):
-            return False
-        self.search_whoosh.delete_document_ix(mat_hang_id)
-        return True
     
     def get_mat_hang_sort_keys(self):
         return tuple([key for key in MAT_HANG_SORT_OPTIONS.keys()])
@@ -85,15 +117,27 @@ class MatHangService:
         return [mat_hang.to_dict() for mat_hang in mat_hang_list]
     
     def export_data(self, data: list[MatHang]) -> bool:
-        data = self.to_list_dict(data)
-        path = self.excel_util.select_folder_export()
-        if path is None:
+        from src.utils.Excel import Excel
+        excel_util = Excel()
+        try:
+            data = self.to_list_dict(data)
+            path = excel_util.select_folder_export()
+            if path is None:
+                return False
+            path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+            return excel_util.export_data(path, data) 
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when export data %s', e)
             return False
-        path = f'{path}/mat_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
-        return self.excel_util.export_data(path, data) 
     
     def import_mat_hang(self) -> bool:
-        path = self.excel_util.select_file_import()
-        if path is None:
+        from src.utils.Excel import Excel
+        excel_util = Excel()
+        try: 
+            path = excel_util.select_file_import()
+            if path is None:
+                return False
+            return excel_util.import_mat_hang(path)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when import mat hang %s', e)
             return False
-        return self.excel_util.import_mat_hang(path)

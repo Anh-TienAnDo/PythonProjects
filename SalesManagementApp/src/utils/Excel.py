@@ -36,6 +36,7 @@ class Excel:
         mat_hang_service = MatHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'ten_hang': 'Không rõ',
             'don_vi': '',
             'so_luong': 0,
@@ -44,8 +45,10 @@ class Excel:
             'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
+        mat_hang_list = []
         for index, row in df_filled.iterrows():
             mat_hang = MatHang(
+                id=row.get('id'),
                 ten_hang=row.get('ten_hang'),
                 don_vi=row.get('don_vi'),
                 so_luong=row.get('so_luong'),
@@ -54,7 +57,8 @@ class Excel:
                 ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
-            mat_hang_service.create(mat_hang)
+            mat_hang_list.append(mat_hang)
+        mat_hang_service.create_many(mat_hang_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
       
@@ -63,6 +67,7 @@ class Excel:
         khach_hang_service = KhachHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'ten_khach_hang': 'Không rõ',
             'dia_chi': '',
             'so_dien_thoai': '',
@@ -71,8 +76,10 @@ class Excel:
             'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
+        khach_hang_list = []
         for index, row in df_filled.iterrows():
             khach_hang = KhachHang(
+                id=row.get('id'),
                 ten_khach_hang=row.get('ten_khach_hang'),
                 dien_thoai=row.get('so_dien_thoai'),
                 email=row.get('email'),
@@ -81,7 +88,8 @@ class Excel:
                 ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
-            khach_hang_service.create(khach_hang)
+            khach_hang_list.append(khach_hang)
+        khach_hang_service.create_many(khach_hang_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
       
@@ -90,6 +98,7 @@ class Excel:
         ncc_service = NCCService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'ten_ncc': 'Không rõ',
             'dia_chi': '',
             'so_dien_thoai': '',
@@ -98,8 +107,10 @@ class Excel:
             'ngay_tao': datetime.now().strftime('%Y-%m-%d'),
             'is_active': 1
         })
+        ncc_list = []
         for index, row in df_filled.iterrows():
             ncc = NCC(
+                id=row.get('id'),
                 ten_ncc=row.get('ten_ncc'),
                 dien_thoai=row.get('so_dien_thoai'),
                 email=row.get('email'),
@@ -108,7 +119,8 @@ class Excel:
                 ngay_tao=row.get('ngay_tao'),
                 is_active=row.get('is_active')
             )
-            ncc_service.create(ncc)
+            ncc_list.append(ncc)
+        ncc_service.create_many(ncc_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
       
@@ -117,19 +129,23 @@ class Excel:
         chi_phi_service = ChiPhiService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'ten_chi_phi': 'Không rõ',
             'gia_chi_phi': 0,
             'ghi_chu': '',
             'ngay_tao': datetime.now().strftime('%Y-%m-%d')
         })
+        chi_phi_list = []
         for index, row in df_filled.iterrows():
             chi_phi = ChiPhi(
+                id=row.get('id'),
                 ten_chi_phi=row.get('ten_chi_phi'),
                 gia_chi_phi=row.get('gia_chi_phi'),
                 ghi_chu=row.get('ghi_chu'),
                 ngay_tao=row.get('ngay_tao')
             )
-            chi_phi_service.create(chi_phi)
+            chi_phi_list.append(chi_phi)
+        chi_phi_service.create_many(chi_phi_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
         
@@ -138,6 +154,7 @@ class Excel:
         nhap_hang_service = NhapHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'id_mat_hang': '',
             'ten_hang': 'Không rõ',
             'don_vi': '',
@@ -148,8 +165,10 @@ class Excel:
             'ghi_chu': '',
             'ngay_nhap': datetime.now().strftime('%Y-%m-%d')
         })
+        nhap_hang_list = []
         for index, row in df_filled.iterrows():
             nhap_hang = NhapHang(
+                id=row.get('id'),
                 id_mat_hang=row.get('id_mat_hang'),
                 ten_hang=row.get('ten_hang'),
                 don_vi=row.get('don_vi'),
@@ -160,7 +179,8 @@ class Excel:
                 ghi_chu=row.get('ghi_chu'),
                 ngay_nhap=row.get('ngay_nhap')
             )
-            nhap_hang_service.create(nhap_hang)
+            nhap_hang_list.append(nhap_hang)
+        nhap_hang_service.create_many(nhap_hang_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
       
@@ -169,6 +189,7 @@ class Excel:
         ban_hang_service = BanHangService()
         df = pd.read_excel(path, engine='openpyxl')
         df_filled = df.fillna({
+            'id': None,
             'id_mat_hang': '',
             'ten_hang': 'Không rõ',
             'don_vi': '',
@@ -179,8 +200,10 @@ class Excel:
             'ghi_chu': '',
             'ngay_ban': datetime.now().strftime('%Y-%m-%d')
         })
+        ban_hang_list = []
         for index, row in df_filled.iterrows():
             ban_hang = BanHang(
+                id=row.get('id'),
                 id_mat_hang=row.get('id_mat_hang'),
                 ten_hang=row.get('ten_hang'),
                 don_vi=row.get('don_vi'),
@@ -191,7 +214,8 @@ class Excel:
                 ghi_chu=row.get('ghi_chu'),
                 ngay_ban=row.get('ngay_ban')
             )
-            ban_hang_service.create(ban_hang)
+            ban_hang_list.append(ban_hang)
+        ban_hang_service.create_many(ban_hang_list)
         messagebox.showinfo("Import dữ liệu thành công", f"Đã import dữ liệu từ file excel: {path}")
         return True
       

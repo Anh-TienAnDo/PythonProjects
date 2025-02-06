@@ -60,6 +60,18 @@ class ChiPhiRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating chiphi %s', e)
             return False
+        
+    def create_many(self, chi_phi_list: list[ChiPhi]) -> bool:
+        logging.info('Creating chiphi %s', chi_phi_list)
+        try:
+            self.cursor.executemany(f'''INSERT INTO {CHI_PHI_TABLE}
+                                (id, ten_chi_phi, gia_chi_phi, ghi_chu, ngay_tao) 
+                                VALUES (?, ?, ?, ?, ?)''', [chi_phi.to_tuple() for chi_phi in chi_phi_list])
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating chiphi %s', e)
+            return False
 
     def update(self, chi_phi_id, chi_phi: ChiPhi) -> bool:
         logging.info('Updating chiphi %s', chi_phi)

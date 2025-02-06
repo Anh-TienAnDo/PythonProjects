@@ -66,6 +66,18 @@ class KhachHangRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating khachhang %s', e)
             return False
+        
+    def create_many(self, khach_hang_list: list[KhachHang]) -> bool:
+        logging.info('Creating khachhang %s', khach_hang_list)
+        try:
+            self.cursor.executemany(f'''INSERT INTO {KHACH_HANG_TABLE}
+                                (id, ten_khach_hang, dien_thoai, email, dia_chi, ghi_chu, ngay_tao, is_active) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', [khach_hang.to_tuple() for khach_hang in khach_hang_list])
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating khachhang %s', e)
+            return False
 
     def update(self, khach_hang_id, khach_hang: KhachHang) -> bool:
         logging.info('Updating khachhang %s', khach_hang)

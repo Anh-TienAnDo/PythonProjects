@@ -6,7 +6,6 @@ from src.utils.GenerationId import GenerationId
 import logging
 from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS, REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS
 from datetime import datetime
-from src.utils.Excel import Excel
 
 class NhapHangService:
     def __init__(self):
@@ -15,70 +14,81 @@ class NhapHangService:
         self.mat_hang_search = SearchWhooshMatHang()
         self.ncc_search = SearchWhooshNCC()
         self.mat_hang_service = MatHangService()
-        self.excel_util = Excel()
 
     def get_all(self, sort: str, day: str, month: str, year: str) -> list[NhapHang]:
-        sort = sort.strip()
-        if sort not in self.get_nhap_hang_sort_keys() or sort == '' or sort is None:
-            sort = 'Tên A-Z'
-        sort_by = self.get_nhap_hang_sort_by_key(sort)
-        day = day.strip()
-        month = month.strip()
-        year = year.strip()
-        now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month == '':
-            month = str(now.month)
-        if year is None or year == '':
-            year = str(now.year)
-        if len(month) == 1:
-            month = f'0{month}'
-        if day is None or day == '':
-            where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
-        else:
-            if len(day) == 1:
-                day = f'0{day}'
-            where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
-        return self.nhap_hang_repo.get_all(sort_by, where)
+        try:
+            sort = sort.strip()
+            if sort not in self.get_nhap_hang_sort_keys() or sort == '' or sort is None:
+                sort = 'Tên A-Z'
+            sort_by = self.get_nhap_hang_sort_by_key(sort)
+            day = day.strip()
+            month = month.strip()
+            year = year.strip()
+            now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            if month is None or month == '':
+                month = str(now.month)
+            if year is None or year == '':
+                year = str(now.year)
+            if len(month) == 1:
+                month = f'0{month}'
+            if day is None or day == '':
+                where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
+            else:
+                if len(day) == 1:
+                    day = f'0{day}'
+                where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
+            return self.nhap_hang_repo.get_all(sort_by, where)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when get all nhap hang %s', e)
+            return list()
     
     def report(self, sort: str, day: str, month: str, year: str) -> list:
-        sort = sort.strip()
-        if sort not in self.get_report_nhap_hang_sort_keys() or sort == '' or sort is None:
-            sort = 'Tổng tiền nhiều - ít'
-        sort_by = self.get_report_nhap_hang_sort_by_key(sort)
-        day = day.strip()
-        month = month.strip()
-        year = year.strip()
-        now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month == '':
-            month = str(now.month)
-        if year is None or year == '':
-            year = str(now.year)
-        if len(month) == 1:
-            month = f'0{month}'
-        if day is None or day == '':
-            where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
-        else:
-            if len(day) == 1:
-                day = f'0{day}'
-            where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
-        return self.nhap_hang_repo.report(sort_by, where)
+        try:
+            sort = sort.strip()
+            if sort not in self.get_report_nhap_hang_sort_keys() or sort == '' or sort is None:
+                sort = 'Tổng tiền nhiều - ít'
+            sort_by = self.get_report_nhap_hang_sort_by_key(sort)
+            day = day.strip()
+            month = month.strip()
+            year = year.strip()
+            now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            if month is None or month == '':
+                month = str(now.month)
+            if year is None or year == '':
+                year = str(now.year)
+            if len(month) == 1:
+                month = f'0{month}'
+            if day is None or day == '':
+                where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
+            else:
+                if len(day) == 1:
+                    day = f'0{day}'
+                where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
+            return self.nhap_hang_repo.report(sort_by, where)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when report nhap hang %s', e)
+            return list()
     
     def report_detail_mat_hang(self, sort: str, month: str, year: str, id_mat_hang: str) -> list:
-        sort = sort.strip()
-        if sort not in self.get_report_nhap_hang_detail_sort_keys() or sort == '' or sort is None:
-            sort = 'Ngày bán mới - cũ'
-        sort_by = self.get_report_nhap_hang_detail_sort_by_key(sort)
-        month = month.strip()
-        year = year.strip()
-        now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
-        if month is None or month == '':
-            month = str(now.month)
-        if year is None or year == '':
-            year = str(now.year)
-        if len(month) == 1:
-            month = f'0{month}'
-        where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}' AND id_mat_hang = '{id_mat_hang}'"
-        return self.nhap_hang_repo.report_detail_nhap_hang(sort_by, where)
+        try:
+            sort = sort.strip()
+            if sort not in self.get_report_nhap_hang_detail_sort_keys() or sort == '' or sort is None:
+                sort = 'Ngày bán mới - cũ'
+            sort_by = self.get_report_nhap_hang_detail_sort_by_key(sort)
+            month = month.strip()
+            year = year.strip()
+            now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')
+            if month is None or month == '':
+                month = str(now.month)
+            if year is None or year == '':
+                year = str(now.year)
+            if len(month) == 1:
+                month = f'0{month}'
+            where = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}' AND id_mat_hang = '{id_mat_hang}'"
+            return self.nhap_hang_repo.report_detail_nhap_hang(sort_by, where)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when report detail nhap hang %s', e)
+            return list()
         
     def get_by_id(self, nhap_hang_id) -> NhapHang:
         return self.nhap_hang_repo.get_by_id(nhap_hang_id)
@@ -91,7 +101,7 @@ class NhapHangService:
             self.nhap_hang_repo.create(nhap_hang)
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong += nhap_hang.so_luong
-            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
         except Exception as e:
             logging.error('Error when create nhap hang')
@@ -108,13 +118,11 @@ class NhapHangService:
                 self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             except (ConnectionError, TimeoutError, ValueError) as e:
                 logging.error('Error when create many ban hang %s', e)
-                return False
         try:
-            self.nhap_hang_repo.create_many(nhap_hang_list)
+            return self.nhap_hang_repo.create_many(nhap_hang_list)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error('Error when create many ban hang %s', e)
             return False
-        return True
 
     def update(self, nhap_hang_id, nhap_hang: NhapHang, so_luong_nhap_old: int) -> bool:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
@@ -124,7 +132,7 @@ class NhapHangService:
             self.nhap_hang_repo.update(nhap_hang_id, nhap_hang)
             mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
             mat_hang.so_luong = mat_hang.so_luong - so_luong_nhap_old + nhap_hang.so_luong
-            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang.so_luong)
             return True
         except Exception as e:
             logging.error('Error when update nhap hang')
@@ -133,12 +141,12 @@ class NhapHangService:
     def delete(self, nhap_hang_id) -> bool:
         if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
             return False
-        nhap_hang = self.nhap_hang_repo.get_by_id(nhap_hang_id)
-        mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
-        mat_hang.so_luong -= nhap_hang.so_luong
         try:
+            nhap_hang = self.nhap_hang_repo.get_by_id(nhap_hang_id)
             self.nhap_hang_repo.delete(nhap_hang_id)
-            self.mat_hang_service.update(mat_hang.id, mat_hang)
+            mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)
+            mat_hang.so_luong -= nhap_hang.so_luong
+            self.mat_hang_service.update_so_luong(mat_hang.id, mat_hang)
             return True
         except Exception as e:
             logging.error('Error when delete nhap hang')
@@ -212,15 +220,26 @@ class NhapHangService:
         return [nhap_hang.to_dict() for nhap_hang in nhap_hang_list]
     
     def export_data(self, data: list[NhapHang]) -> bool:
-        data = self.to_list_dict(data)
-        path = self.excel_util.select_folder_export()
-        if path is None:
+        from src.utils.Excel import Excel
+        excel_util = Excel()
+        try:
+            path = excel_util.select_folder_export()
+            if path is None:
+                return False
+            path = f'{path}/nhap_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
+            return excel_util.export_data(path, self.to_list_dict(data)) 
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when export data %s', e)
             return False
-        path = f'{path}/nhap_hang_{datetime.now().strftime("%Y-%m-%d_%H-%M-%S")}.xlsx'
-        return self.excel_util.export_data(path, data) 
     
     def import_nhap_hang(self) -> bool:
-        path = self.excel_util.select_file_import()
-        if path is None:
+        from src.utils.Excel import Excel
+        excel_util = Excel()
+        try:
+            path = excel_util.select_file_import()
+            if path is None:
+                return False
+            return excel_util.import_nhap_hang(path)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error('Error when import nhap hang %s', e)
             return False
-        return self.excel_util.import_nhap_hang(path)

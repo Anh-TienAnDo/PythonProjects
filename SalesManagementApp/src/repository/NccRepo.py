@@ -66,6 +66,18 @@ class NCCRepo:
         except sqlite3.IntegrityError as e:
             logging.error('Error creating ncc %s', e)
             return False
+        
+    def create_many(self, ncc_list: list[NCC]) -> bool:
+        logging.info('Creating ncc %s', ncc_list)
+        try:
+            self.cursor.executemany(f'''INSERT INTO {NCC_TABLE}
+                                (id, ten_ncc, dien_thoai, email, dia_chi, ghi_chu, ngay_tao, is_active) 
+                                VALUES (?, ?, ?, ?, ?, ?, ?, ?)''', [ncc.to_tuple() for ncc in ncc_list])
+            self.connection.commit()
+            return True
+        except sqlite3.IntegrityError as e:
+            logging.error('Error creating ncc %s', e)
+            return False
 
     def update(self, ncc_id, ncc: NCC) -> bool:
         logging.info('Updating ncc %s', ncc)
