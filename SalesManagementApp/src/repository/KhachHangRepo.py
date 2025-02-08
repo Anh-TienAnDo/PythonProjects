@@ -12,26 +12,39 @@ class KhachHangRepo:
         self.cursor = self.connection.cursor()
         logging.info('Connected to database %s', DATABASE_PATH)
 
-    def get_all(self, sort_by: str) -> list[KhachHang]:
+    def get_all(self, sort_by: str, limit: str, offset: str) -> list[KhachHang]:
         logging.info('Getting all khach hang')
         try:
-            self.cursor.execute(f'SELECT * FROM {KHACH_HANG_TABLE} ORDER BY {sort_by}')
+            self.cursor.execute(f'SELECT * FROM {KHACH_HANG_TABLE} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
             khach_hang_list = [KhachHang(*row) for row in data]
             return khach_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
-            return None
+            return []
         
-    def search(self, sort_by: str, where: str, params: list) -> list[KhachHang]:
+    def search(self, sort_by: str, where: str, params: list, limit: str, offset: str) -> list[KhachHang]:
         logging.info('Searching khachhang')
         try:
-            self.cursor.execute(f'SELECT * FROM {KHACH_HANG_TABLE} WHERE {where} ORDER BY {sort_by}', params)
+            self.cursor.execute(f'SELECT * FROM {KHACH_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}', params)
             data = self.cursor.fetchall()
             khach_hang_list = [KhachHang(*row) for row in data]
             return khach_hang_list
         except Exception as e:
             logging.error('Error searching khachhang %s', e)
+            return []
+        
+    def calculate_total(self, where=None, params=None):
+        logging.info('Calculating total khachhang')
+        try:
+            if where is None:
+                self.cursor.execute(f'SELECT COUNT(*) FROM {KHACH_HANG_TABLE}')
+            else:
+                self.cursor.execute(f'SELECT COUNT(*) FROM {KHACH_HANG_TABLE} WHERE {where}', params)
+            data = self.cursor.fetchone()
+            return data
+        except Exception as e:
+            logging.error('Error calculating total khachhang %s', e)
             return None
         
     def list(self) -> list[KhachHang]:
@@ -43,6 +56,7 @@ class KhachHangRepo:
             return khach_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
+            return []
 
     def get_by_id(self, khach_hang_id) -> KhachHang:
         logging.info('Getting khachhang by id %s', khach_hang_id)

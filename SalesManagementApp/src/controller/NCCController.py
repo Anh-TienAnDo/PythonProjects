@@ -157,6 +157,7 @@ class NCCController:
         
     def import_data(self):
         self.ncc_service.import_ncc()
+        self.refresh_ncc_list()
         
     def page_first(self):
         self.panigation['page'] = 1
@@ -191,7 +192,7 @@ class NCCController:
         data = self.get_all()
         ncc_list = data.get('ncc_list')
         self.total_item.set(TextNormalization.format_number(data.get('total_ncc')))
-        self.panigation['page_size'] = int(data['total_mat_hang']) // int(LIMIT) + 1
+        self.panigation['page_size'] = int(data.get('total_ncc')) // int(LIMIT) + 1
         print(self.panigation['page_size'])
         print(self.panigation['page'])
         # add title for table

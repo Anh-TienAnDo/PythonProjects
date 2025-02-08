@@ -1,174 +1,159 @@
-2025-02-08 15:07:57 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
-2025-02-08 15:07:57 - root - INFO - Logging initialized
-2025-02-08 15:07:57 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:07:57 - root - INFO - Initializing tables
-2025-02-08 15:07:57 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:07:57 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:07:57 - root - INFO - Getting all products
-2025-02-08 15:08:09 - root - INFO - Closing database connection
-2025-02-08 15:08:09 - root - INFO - ---NCCRepo initializing---
-2025-02-08 15:08:09 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:09 - root - INFO - Getting all ncc
-2025-02-08 15:08:09 - root - INFO - Closing database connection
-2025-02-08 15:08:09 - root - INFO - ---KhachHangRepo initializing---
-2025-02-08 15:08:09 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:09 - root - INFO - Getting all khach hang
-2025-02-08 15:08:10 - root - INFO - Closing database connection
-2025-02-08 15:08:11 - root - INFO - MatHang Controller
-2025-02-08 15:08:11 - root - INFO - ---MatHangService initializing---
-2025-02-08 15:08:11 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:08:11 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:11 - root - INFO - Get all MatHang
-2025-02-08 15:08:11 - root - INFO - Getting all products
-2025-02-08 15:08:11 - root - INFO - Calculating total products
-2025-02-08 15:08:11 - root - INFO - NhapHang Controller
-2025-02-08 15:08:11 - root - INFO - ---NhapHangService initializing---
-2025-02-08 15:08:11 - root - INFO - ---NhapHangRepo initializing---
-2025-02-08 15:08:11 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:11 - root - INFO - ---MatHangService initializing---
-2025-02-08 15:08:11 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:08:11 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:11 - root - INFO - Get all NhapHang
-2025-02-08 15:08:11 - root - INFO - Getting all nhaphang
-2025-02-08 15:08:11 - root - INFO - BanHang Controller
-2025-02-08 15:08:11 - root - INFO - ---BanHangService initializing---
-2025-02-08 15:08:11 - root - INFO - ---BanHangRepo initializing---
-2025-02-08 15:08:11 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:11 - root - INFO - ---MatHangService initializing---
-2025-02-08 15:08:11 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:08:11 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:11 - root - INFO - Get all BanHang
-2025-02-08 15:08:11 - root - INFO - Getting all banhang
-2025-02-08 15:08:12 - root - INFO - ChiPhi Controller
-2025-02-08 15:08:12 - root - INFO - ---ChiPhiService initializing---
-2025-02-08 15:08:12 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-08 15:08:12 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:12 - root - INFO - Get all ChiPhi
-2025-02-08 15:08:12 - root - INFO - Getting all chi phi
-2025-02-08 15:08:12 - root - INFO - KhachHang Controller
-2025-02-08 15:08:12 - root - INFO - ---KhachHangService initializing---
-2025-02-08 15:08:12 - root - INFO - ---KhachHangRepo initializing---
-2025-02-08 15:08:12 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:12 - root - INFO - Get all KhachHang
-2025-02-08 15:08:12 - root - INFO - Getting all khach hang
-2025-02-08 15:08:13 - root - INFO - NCC Controller
-2025-02-08 15:08:13 - root - INFO - ---NCCService initializing---
-2025-02-08 15:08:13 - root - INFO - ---NCCRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - Get all NCC
-2025-02-08 15:08:13 - root - INFO - Getting all ncc
-2025-02-08 15:08:13 - root - INFO - BaoCao Controller
-2025-02-08 15:08:13 - root - INFO - ---BaoCaoService initializing---
-2025-02-08 15:08:13 - root - INFO - ---BanHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - ---NhapHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - report BanHang
-2025-02-08 15:08:13 - root - INFO - BaoCaoBanHang Controller
-2025-02-08 15:08:13 - root - INFO - ---BanHangService initializing---
-2025-02-08 15:08:13 - root - INFO - ---BanHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - ---MatHangService initializing---
-2025-02-08 15:08:13 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - report BanHang
-2025-02-08 15:08:13 - root - INFO - BaoCaoNhapHang Controller
-2025-02-08 15:08:13 - root - INFO - ---NhapHangService initializing---
-2025-02-08 15:08:13 - root - INFO - ---NhapHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - ---MatHangService initializing---
-2025-02-08 15:08:13 - root - INFO - ---MatHangRepo initializing---
-2025-02-08 15:08:13 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-08 15:08:13 - root - INFO - report NhapHang
-2025-02-08 15:08:25 - root - INFO - Get all MatHang
-2025-02-08 15:08:25 - root - INFO - Getting all products
-2025-02-08 15:08:25 - root - INFO - Calculating total products
-2025-02-08 15:08:28 - root - INFO - Get all MatHang
-2025-02-08 15:08:28 - root - INFO - Getting all products
-2025-02-08 15:08:28 - root - INFO - Calculating total products
-2025-02-08 15:08:30 - root - INFO - Get all MatHang
-2025-02-08 15:08:30 - root - INFO - Getting all products
-2025-02-08 15:08:30 - root - INFO - Calculating total products
-2025-02-08 15:08:32 - root - INFO - Get all MatHang
-2025-02-08 15:08:32 - root - INFO - Getting all products
-2025-02-08 15:08:32 - root - INFO - Calculating total products
-2025-02-08 15:08:33 - root - INFO - Get all MatHang
-2025-02-08 15:08:33 - root - INFO - Getting all products
-2025-02-08 15:08:33 - root - INFO - Calculating total products
-2025-02-08 15:08:34 - root - INFO - Get all MatHang
-2025-02-08 15:08:34 - root - INFO - Getting all products
-2025-02-08 15:08:34 - root - INFO - Calculating total products
-2025-02-08 15:08:35 - root - INFO - Get all MatHang
-2025-02-08 15:08:35 - root - INFO - Getting all products
-2025-02-08 15:08:35 - root - INFO - Calculating total products
-2025-02-08 15:08:36 - root - INFO - Get all MatHang
-2025-02-08 15:08:36 - root - INFO - Getting all products
-2025-02-08 15:08:36 - root - INFO - Calculating total products
-2025-02-08 15:08:37 - root - INFO - Get all MatHang
-2025-02-08 15:08:37 - root - INFO - Getting all products
-2025-02-08 15:08:37 - root - INFO - Calculating total products
-2025-02-08 15:08:39 - root - INFO - Get all MatHang
-2025-02-08 15:08:39 - root - INFO - Getting all products
-2025-02-08 15:08:39 - root - INFO - Calculating total products
-2025-02-08 15:08:40 - root - INFO - Get all MatHang
-2025-02-08 15:08:40 - root - INFO - Getting all products
-2025-02-08 15:08:40 - root - INFO - Calculating total products
-2025-02-08 15:08:41 - root - INFO - Get all MatHang
-2025-02-08 15:08:41 - root - INFO - Getting all products
-2025-02-08 15:08:41 - root - INFO - Calculating total products
-2025-02-08 15:08:42 - root - INFO - Get all MatHang
-2025-02-08 15:08:42 - root - INFO - Getting all products
-2025-02-08 15:08:42 - root - INFO - Calculating total products
-2025-02-08 15:08:53 - root - INFO - Get all MatHang
-2025-02-08 15:08:53 - root - INFO - Searching products
-2025-02-08 15:08:53 - root - INFO - Calculating total products
-2025-02-08 15:09:09 - root - INFO - Get all MatHang
-2025-02-08 15:09:09 - root - INFO - Searching products
-2025-02-08 15:09:09 - root - INFO - Calculating total products
-2025-02-08 15:09:11 - root - INFO - Get all MatHang
-2025-02-08 15:09:11 - root - INFO - Searching products
-2025-02-08 15:09:11 - root - INFO - Calculating total products
-2025-02-08 15:09:13 - root - INFO - Get all MatHang
-2025-02-08 15:09:13 - root - INFO - Searching products
-2025-02-08 15:09:13 - root - INFO - Calculating total products
-2025-02-08 15:09:14 - root - INFO - Get all MatHang
-2025-02-08 15:09:14 - root - INFO - Searching products
-2025-02-08 15:09:14 - root - INFO - Calculating total products
-2025-02-08 15:09:15 - root - INFO - Get all MatHang
-2025-02-08 15:09:15 - root - INFO - Searching products
-2025-02-08 15:09:15 - root - INFO - Calculating total products
-2025-02-08 15:09:16 - root - INFO - Get all MatHang
-2025-02-08 15:09:16 - root - INFO - Searching products
-2025-02-08 15:09:16 - root - INFO - Calculating total products
-2025-02-08 15:09:17 - root - INFO - Get all MatHang
-2025-02-08 15:09:17 - root - INFO - Searching products
-2025-02-08 15:09:17 - root - INFO - Calculating total products
-2025-02-08 15:09:28 - root - INFO - Get all MatHang
-2025-02-08 15:09:28 - root - INFO - Getting all products
-2025-02-08 15:09:28 - root - INFO - Calculating total products
-2025-02-08 15:09:30 - root - INFO - Get all MatHang
-2025-02-08 15:09:30 - root - INFO - Getting all products
-2025-02-08 15:09:30 - root - INFO - Calculating total products
-2025-02-08 15:09:32 - root - INFO - Get all MatHang
-2025-02-08 15:09:32 - root - INFO - Getting all products
-2025-02-08 15:09:32 - root - INFO - Calculating total products
-2025-02-08 15:09:41 - root - INFO - Get all MatHang
-2025-02-08 15:09:41 - root - INFO - Getting all products
-2025-02-08 15:09:41 - root - INFO - Calculating total products
-2025-02-08 15:10:11 - root - INFO - Closing database connection
-2025-02-08 15:10:11 - root - INFO - Closing database connection
-2025-02-08 15:10:11 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
-2025-02-08 15:10:12 - root - INFO - Closing database connection
+2025-02-08 16:17:37 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
+2025-02-08 16:17:37 - root - INFO - Logging initialized
+2025-02-08 16:17:37 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:37 - root - INFO - Initializing tables
+2025-02-08 16:17:37 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:37 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:37 - root - INFO - Getting all products
+2025-02-08 16:17:50 - root - INFO - ---NCCRepo initializing---
+2025-02-08 16:17:50 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:50 - root - INFO - Getting all ncc
+2025-02-08 16:17:50 - root - INFO - Closing database connection
+2025-02-08 16:17:50 - root - INFO - ---KhachHangRepo initializing---
+2025-02-08 16:17:50 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:50 - root - INFO - Getting all khach hang
+2025-02-08 16:17:50 - root - INFO - Closing database connection
+2025-02-08 16:17:52 - root - INFO - MatHang Controller
+2025-02-08 16:17:52 - root - INFO - ---MatHangService initializing---
+2025-02-08 16:17:52 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:52 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:52 - root - INFO - Closing database connection
+2025-02-08 16:17:52 - root - INFO - Get all MatHang
+2025-02-08 16:17:52 - root - INFO - Getting all products
+2025-02-08 16:17:52 - root - INFO - Calculating total products
+2025-02-08 16:17:52 - root - INFO - NhapHang Controller
+2025-02-08 16:17:52 - root - INFO - ---NhapHangService initializing---
+2025-02-08 16:17:52 - root - INFO - ---NhapHangRepo initializing---
+2025-02-08 16:17:52 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:52 - root - INFO - ---MatHangService initializing---
+2025-02-08 16:17:52 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:52 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:52 - root - INFO - Get all NhapHang
+2025-02-08 16:17:52 - root - INFO - Getting all nhaphang
+2025-02-08 16:17:52 - root - INFO - BanHang Controller
+2025-02-08 16:17:52 - root - INFO - ---BanHangService initializing---
+2025-02-08 16:17:52 - root - INFO - ---BanHangRepo initializing---
+2025-02-08 16:17:52 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:52 - root - INFO - ---MatHangService initializing---
+2025-02-08 16:17:52 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:52 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:52 - root - INFO - Get all BanHang
+2025-02-08 16:17:52 - root - INFO - Getting all banhang
+2025-02-08 16:17:54 - root - INFO - ChiPhi Controller
+2025-02-08 16:17:54 - root - INFO - ---ChiPhiService initializing---
+2025-02-08 16:17:54 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - Get all ChiPhi
+2025-02-08 16:17:54 - root - INFO - Getting all chi phi
+2025-02-08 16:17:54 - root - INFO - KhachHang Controller
+2025-02-08 16:17:54 - root - INFO - ---KhachHangService initializing---
+2025-02-08 16:17:54 - root - INFO - ---KhachHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - Get all KhachHang
+2025-02-08 16:17:54 - root - INFO - Getting all khach hang
+2025-02-08 16:17:54 - root - INFO - Calculating total khachhang
+2025-02-08 16:17:54 - root - INFO - NCC Controller
+2025-02-08 16:17:54 - root - INFO - ---NCCService initializing---
+2025-02-08 16:17:54 - root - INFO - ---NCCRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - Get all NCC
+2025-02-08 16:17:54 - root - INFO - Getting all ncc
+2025-02-08 16:17:54 - root - INFO - Calculating total ncc
+2025-02-08 16:17:54 - root - INFO - BaoCao Controller
+2025-02-08 16:17:54 - root - INFO - ---BaoCaoService initializing---
+2025-02-08 16:17:54 - root - INFO - ---BanHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - ---NhapHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - report BanHang
+2025-02-08 16:17:54 - root - INFO - BaoCaoBanHang Controller
+2025-02-08 16:17:54 - root - INFO - ---BanHangService initializing---
+2025-02-08 16:17:54 - root - INFO - ---BanHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - ---MatHangService initializing---
+2025-02-08 16:17:54 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - report BanHang
+2025-02-08 16:17:54 - root - INFO - BaoCaoNhapHang Controller
+2025-02-08 16:17:54 - root - INFO - ---NhapHangService initializing---
+2025-02-08 16:17:54 - root - INFO - ---NhapHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - ---MatHangService initializing---
+2025-02-08 16:17:54 - root - INFO - ---MatHangRepo initializing---
+2025-02-08 16:17:54 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:17:54 - root - INFO - report NhapHang
+2025-02-08 16:18:06 - root - INFO - Get all MatHang
+2025-02-08 16:18:06 - root - INFO - Getting all products
+2025-02-08 16:18:06 - root - INFO - Calculating total products
+2025-02-08 16:18:08 - root - INFO - Get all MatHang
+2025-02-08 16:18:08 - root - INFO - Getting all products
+2025-02-08 16:18:08 - root - INFO - Calculating total products
+2025-02-08 16:18:16 - root - INFO - Get all KhachHang
+2025-02-08 16:18:16 - root - INFO - Getting all khach hang
+2025-02-08 16:18:16 - root - INFO - Calculating total khachhang
+2025-02-08 16:18:20 - root - INFO - Get all KhachHang
+2025-02-08 16:18:20 - root - INFO - Getting all khach hang
+2025-02-08 16:18:20 - root - INFO - Calculating total khachhang
+2025-02-08 16:18:22 - root - INFO - Get all KhachHang
+2025-02-08 16:18:22 - root - INFO - Getting all khach hang
+2025-02-08 16:18:22 - root - INFO - Calculating total khachhang
+2025-02-08 16:19:22 - root - INFO - Get all NCC
+2025-02-08 16:19:22 - root - INFO - Getting all ncc
+2025-02-08 16:19:22 - root - INFO - Calculating total ncc
+2025-02-08 16:19:24 - root - INFO - Get all NCC
+2025-02-08 16:19:24 - root - INFO - Getting all ncc
+2025-02-08 16:19:24 - root - INFO - Calculating total ncc
+2025-02-08 16:21:03 - root - INFO - ---NCCService initializing---
+2025-02-08 16:21:03 - root - INFO - ---NCCRepo initializing---
+2025-02-08 16:21:03 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-08 16:21:04 - root - INFO - Checking ncc exist by id NCC_KOsrkF
+2025-02-08 16:21:04 - root - INFO - Checking ncc exist by id NCC_e9Mj68
+2025-02-08 16:21:04 - root - INFO - Checking ncc exist by id NCC_zNcTIf
+2025-02-08 16:21:04 - root - INFO - Checking ncc exist by id NCC_ko0YfQ
+2025-02-08 16:21:04 - root - INFO - Checking ncc exist by id NCC_4rQHHN
+2025-02-08 16:21:04 - root - INFO - Creating ncc [NCC(id=NCC_KOsrkF, ten_ncc=Anh Le, dien_thoai=, email=, dia_chi=, ghi_chu=, ngay_tao=2025-02-01, is_active=0), NCC(id=NCC_e9Mj68, ten_ncc=Me Hanh, dien_thoai=, email=, dia_chi=, ghi_chu=, ngay_tao=2025-02-04, is_active=1), NCC(id=NCC_zNcTIf, ten_ncc=Nha Cung Cap1, dien_thoai=, email=, dia_chi=, ghi_chu=, ngay_tao=2025-02-01, is_active=1), NCC(id=NCC_ko0YfQ, ten_ncc=Phuong, dien_thoai=, email=as, dia_chi=s, ghi_chu=, ngay_tao=2025-02-04, is_active=1), NCC(id=NCC_4rQHHN, ten_ncc=Sun A B, dien_thoai=, email=, dia_chi=Ha noi, ghi_chu=, ngay_tao=2025-02-01, is_active=1)]
+2025-02-08 16:21:05 - root - INFO - Closing database connection
+2025-02-08 16:21:12 - root - INFO - Get all NCC
+2025-02-08 16:21:12 - root - INFO - Getting all ncc
+2025-02-08 16:21:12 - root - INFO - Calculating total ncc
+2025-02-08 16:22:39 - root - INFO - Get all NCC
+2025-02-08 16:22:39 - root - INFO - Getting all ncc
+2025-02-08 16:22:39 - root - INFO - Calculating total ncc
+2025-02-08 16:22:40 - root - INFO - Get all NCC
+2025-02-08 16:22:40 - root - INFO - Getting all ncc
+2025-02-08 16:22:40 - root - INFO - Calculating total ncc
+2025-02-08 16:22:41 - root - INFO - Get all NCC
+2025-02-08 16:22:41 - root - INFO - Getting all ncc
+2025-02-08 16:22:41 - root - INFO - Calculating total ncc
+2025-02-08 16:22:42 - root - INFO - Get all NCC
+2025-02-08 16:22:42 - root - INFO - Getting all ncc
+2025-02-08 16:22:42 - root - INFO - Calculating total ncc
+2025-02-08 16:22:43 - root - INFO - Get all NCC
+2025-02-08 16:22:43 - root - INFO - Getting all ncc
+2025-02-08 16:22:43 - root - INFO - Calculating total ncc
+2025-02-08 16:22:48 - root - INFO - Get all NCC
+2025-02-08 16:22:48 - root - INFO - Searching ncc
+2025-02-08 16:22:48 - root - INFO - Calculating total ncc
+2025-02-08 16:22:52 - root - INFO - Get all NCC
+2025-02-08 16:22:52 - root - INFO - Searching ncc
+2025-02-08 16:22:52 - root - INFO - Calculating total ncc
+2025-02-08 16:22:55 - root - INFO - Get all NCC
+2025-02-08 16:22:55 - root - INFO - Getting all ncc
+2025-02-08 16:22:55 - root - INFO - Calculating total ncc
+2025-02-08 16:22:58 - root - INFO - Closing database connection
+2025-02-08 16:22:58 - root - INFO - Closing database connection
+2025-02-08 16:22:58 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection
+2025-02-08 16:22:59 - root - INFO - Closing database connection

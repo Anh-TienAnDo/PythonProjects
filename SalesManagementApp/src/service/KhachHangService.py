@@ -5,7 +5,7 @@ from src.config.search_whoosh import SearchWhooshKhachHang
 from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
-from contants import KHACH_HANG_SORT_OPTIONS, KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH
+from contants import KHACH_HANG_SORT_OPTIONS, KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH, LIMIT
 
 class KhachHangService:
     def __init__(self):
@@ -13,24 +13,38 @@ class KhachHangService:
         self.khach_hang_repo = KhachHangRepo()
         self.search_whoosh = SearchWhooshKhachHang()
 
-    def get_all(self, sort: str, keyword: str) -> list[KhachHang]:
+    def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
-            if sort not in self.get_khach_hang_sort_keys() or sort == '' or sort is None:
+            if sort == '' or sort is None or sort not in self.get_khach_hang_sort_keys():
                 sort = 'Tên A-Z'
             sort_by = self.get_khach_hang_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                return self.khach_hang_repo.get_all(sort_by=sort_by)
+                khach_hang_list = self.khach_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                calculate_total = self.khach_hang_repo.calculate_total()
+                return {
+                    'khach_hang_list': khach_hang_list,
+                    'total_khach_hang': calculate_total[0]
+                }
             
             keyword = TextNormalization.remove_special_characters(keyword)
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            return self.khach_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
+            khach_hang_list = self.khach_hang_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
+            calculate_total = self.khach_hang_repo.calculate_total(where=where, params=id_list)
+            return {
+                'khach_hang_list': khach_hang_list,
+                'total_khach_hang': calculate_total[0]
+            }
         except Exception as e:
             logging.error("Error get_all: %s", e)
-            return list()
+            return {
+                'khach_hang_list': [],
+                'total_khach_hang': 0
+            }
 
     def get_by_id(self, khach_hang_id) -> KhachHang:
         return self.khach_hang_repo.get_by_id(khach_hang_id)

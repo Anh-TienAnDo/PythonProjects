@@ -22,6 +22,10 @@ class KhachHangController: # lấy data rồi đưa vào template
         self.khach_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.search_var = StringVar()
         self.suggestions = []
+        self.panigation = {
+            'page': 1,
+            'page_size': 1
+        }
         self.total_item = StringVar()
         self.column_title = list(KHACH_HANG_COLUMN_NAMES.values())
         if 'STT' not in self.column_title:
@@ -37,10 +41,14 @@ class KhachHangController: # lấy data rồi đưa vào template
         try:
             sort = self.sort_var.get()
             keyword = self.search_var.get()
-            return self.khach_hang_service.get_all(sort=sort, keyword=keyword)
+            page = str(self.panigation['page'])
+            return self.khach_hang_service.get_all(sort=sort, keyword=keyword, page=page)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
-            return []
+            return {
+                'khach_hang_list': [],
+                'total_khach_hang': 0
+            }
 
     def get_by_id(self, khach_hang_id):
         logging.info("Get KhachHang with id: %s", khach_hang_id)
@@ -134,12 +142,41 @@ class KhachHangController: # lấy data rồi đưa vào template
         sort_option = self.sort_var.get()
         self.refresh_khach_hang_list()
         
+    def get_all_export(self) -> list:
+        logging.info("Get all khachhang for export")
+        try:
+            limit=int(self.total_item.get())
+            data = self.khach_hang_service.get_all(sort='', keyword='', page='1', limit=limit)
+            return data.get('khach_hang_list')
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error("Error: %s", e)
+            return []
+        
     def export_data(self):
-        self.search_var.set("") # clear search
-        self.khach_hang_service.export_data(self.get_all())
+        self.khach_hang_service.export_data(self.get_all_export())
         
     def import_data(self):
         self.khach_hang_service.import_khach_hang()
+        self.refresh_khach_hang_list()
+        
+    def page_first(self):
+        self.panigation['page'] = 1
+        self.refresh_khach_hang_list()
+        
+    def page_previous(self):
+        self.panigation['page'] = self.panigation['page'] - 1
+        if self.panigation['page'] < 1:
+            self.panigation['page'] = 1
+        self.refresh_khach_hang_list()
+        
+    def page_next(self):
+        self.panigation['page'] = self.panigation['page'] + 1
+        if self.panigation['page'] > self.panigation['page_size']:
+            self.panigation['page'] = self.panigation['page_size']
+        self.refresh_khach_hang_list()
+        
+    def page_last(self):
+        self.panigation['page'] = self.panigation['page_size']
         self.refresh_khach_hang_list()
         
     # --- Các hàm giao diện  ---
@@ -152,8 +189,12 @@ class KhachHangController: # lấy data rồi đưa vào template
             self.destroy_table_data()
             self.init_table_data()
             
-        khach_hang_list = self.get_all()
-        total_item_temp = len(khach_hang_list)
+        data = self.get_all()
+        khach_hang_list = data.get('khach_hang_list')
+        self.total_item.set(TextNormalization.format_number(data.get('total_khach_hang')))
+        self.panigation['page_size'] = int(data.get('total_khach_hang')) // int(LIMIT) + 1
+        print(self.panigation['page_size'])
+        print(self.panigation['page'])
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
@@ -187,10 +228,11 @@ class KhachHangController: # lấy data rồi đưa vào template
             
             row += 1
             
+        page_number = LabelType.normal_blue_white(self.head_frame, text=f"Trang {self.panigation['page']} / {self.panigation['page_size']}")
+        page_number.grid(row=3, column=1, padx=5, pady=5)
+        
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
-
-        self.total_item.set(TextNormalization.format_number(total_item_temp))
         
     def view_edit_item(self, khach_hang: KhachHang):
         khach_hang = khach_hang.to_dict()
@@ -286,6 +328,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         self.head_frame.grid_rowconfigure(0, weight=1)
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
+        self.head_frame.grid_rowconfigure(3, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -340,6 +383,19 @@ class KhachHangController: # lấy data rồi đưa vào template
         total_item_label.grid(row=2, column=3, sticky="e", padx=5, pady=5)
         total_item_view = EntryType.view(self.head_frame, text_var=self.total_item)
         total_item_view.grid(row=2, column=4, sticky="w", padx=5, pady=5)
+        
+        button_first = ButtonType.primary(self.head_frame, text="<<")
+        button_first.grid(row=3, column=0, padx=5, pady=5, sticky="E")
+        button_first.config(command=partial(self.page_first))
+        button_previous = ButtonType.primary(self.head_frame, text="<")
+        button_previous.grid(row=3, column=1, padx=5, pady=5, sticky="W")
+        button_previous.config(command=partial(self.page_previous))
+        button_next = ButtonType.primary(self.head_frame, text=">")
+        button_next.grid(row=3, column=1, padx=5, pady=5, sticky="E")
+        button_next.config(command=partial(self.page_next))
+        button_last = ButtonType.primary(self.head_frame, text=">>")
+        button_last.grid(row=3, column=2, padx=5, pady=5, sticky="W")
+        button_last.config(command=partial(self.page_last))
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)

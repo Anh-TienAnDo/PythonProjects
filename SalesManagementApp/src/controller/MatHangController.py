@@ -160,6 +160,7 @@ class MatHangController: # lấy data rồi đưa vào template
         
     def import_data(self):
         self.mat_hang_service.import_mat_hang()
+        self.refresh_mat_hang_list()
         
     def page_first(self):
         self.panigation['page'] = 1
