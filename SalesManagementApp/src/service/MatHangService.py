@@ -5,7 +5,7 @@ from src.config.search_whoosh import SearchWhooshMatHang
 from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
-from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH
+from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH, LIMIT
 
 class MatHangService:
     def __init__(self):
@@ -13,24 +13,41 @@ class MatHangService:
         self.mat_hang_repo = MatHangRepo()
         self.search_whoosh = SearchWhooshMatHang()
 
-    def get_all(self, sort: str, keyword: str) -> list[MatHang]:
+    def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
-            if sort not in self.get_mat_hang_sort_keys() or sort == '' or sort is None:
+            if sort == '' or sort is None or sort not in self.get_mat_hang_sort_keys():
                 sort = 'Tên A-Z'
             sort_by = self.get_mat_hang_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                return self.mat_hang_repo.get_all(sort_by=sort_by)
-            
+                mat_hang_list = self.mat_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                calculate_total = self.mat_hang_repo.calculate_total()
+                return {
+                    'mat_hang_list': mat_hang_list,
+                    'total_mat_hang': calculate_total[0],
+                    'total_so_luong': calculate_total[1]
+                }
             keyword = TextNormalization.remove_special_characters(keyword)
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            return self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list)
+            mat_hang_list = self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
+            calculate_total = self.mat_hang_repo.calculate_total(where=where, params=id_list)
+            return {
+                'mat_hang_list': mat_hang_list,
+                'total_mat_hang': calculate_total[0],
+                'total_so_luong': calculate_total[1],
+                
+            }
         except Exception as e:
             logging.error('Error when get all mat hang %s', e)
-            return list()
+            return {
+                'mat_hang_list': [],
+                'total_mat_hang': 0,
+                'total_so_luong': 0
+            }
 
     def get_by_id(self, mat_hang_id) -> MatHang:
         return self.mat_hang_repo.get_by_id(mat_hang_id)

@@ -12,26 +12,41 @@ class MatHangRepo:
         self.cursor = self.connection.cursor()
         logging.info('Connected to database %s', DATABASE_PATH)
 
-    def get_all(self, sort_by: str) -> list[MatHang]:
+    def get_all(self, sort_by: str, limit: str, offset: str) -> list[MatHang]:
         logging.info('Getting all products')
         try:
-            self.cursor.execute(f'SELECT * FROM {MAT_HANG_TABLE} ORDER BY {sort_by}')
+            self.cursor.execute(f'SELECT * FROM {MAT_HANG_TABLE} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}') 
             data = self.cursor.fetchall()
             mat_hang_list = [MatHang(*row) for row in data]
+            print(mat_hang_list)
+            print(limit, offset)
             return mat_hang_list
         except Exception as e:
             logging.error('Error getting all products %s', e)
-            return None
+            return []
             
-    def search(self, sort_by: str, where: str, params: list) -> list[MatHang]:
+    def search(self, sort_by: str, where: str, params: list, limit: str, offset: str) -> list[MatHang]:
         logging.info('Searching products')
         try:
-            self.cursor.execute(f'SELECT * FROM {MAT_HANG_TABLE} WHERE {where} ORDER BY {sort_by}', params)
+            self.cursor.execute(f'SELECT * FROM {MAT_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}', params)
             data = self.cursor.fetchall()
             mat_hang_list = [MatHang(*row) for row in data]
             return mat_hang_list
         except Exception as e:
             logging.error('Error searching products %s', e)
+            return []
+        
+    def calculate_total(self, where=None, params=None):
+        logging.info('Calculating total products')
+        try:
+            if where is None:
+                self.cursor.execute(f'SELECT COUNT(*), SUM(so_luong) FROM {MAT_HANG_TABLE}')
+            else:
+                self.cursor.execute(f'SELECT COUNT(*), SUM(so_luong) FROM {MAT_HANG_TABLE} WHERE {where}', params)
+            data = self.cursor.fetchone()
+            return data
+        except Exception as e:
+            logging.error('Error calculating total products %s', e)
             return None
         
     def list(self) -> list[MatHang]:
@@ -43,7 +58,7 @@ class MatHangRepo:
             return mat_hang_list
         except Exception as e:
             logging.error('Error getting all products %s', e)
-            return None
+            return []
 
     def get_by_id(self, mat_hang_id) -> MatHang:
         logging.info('Getting product by id %s', mat_hang_id)

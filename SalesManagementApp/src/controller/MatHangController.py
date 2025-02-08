@@ -24,6 +24,10 @@ class MatHangController: # lấy data rồi đưa vào template
         self.search_var = StringVar()
         self.sort_var = StringVar()
         self.suggestions = []
+        self.panigation = {
+            'page': 1,
+            'page_size': 1
+        }
         self.total_item = StringVar()
         self.total_quantity = StringVar()
         self.column_title = list(MAT_HANG_COLUMN_NAMES.values())
@@ -36,15 +40,20 @@ class MatHangController: # lấy data rồi đưa vào template
         self.refresh_mat_hang_list()
 
     # chech search, filter -> refresh data -> get data
-    def get_all(self) -> list[MatHang]:
+    def get_all(self) -> dict:
         logging.info("Get all MatHang")
         try:
             sort = self.sort_var.get()
             keyword = self.search_var.get()
-            return self.mat_hang_service.get_all(sort=sort, keyword=keyword)
+            page = str(self.panigation['page'])
+            return self.mat_hang_service.get_all(sort=sort, keyword=keyword, page=page)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
-            return []
+            return {
+                'mat_hang_list': [],
+                'total_mat_hang': 0,
+                'total_so_luong': 0
+            }
 
     def get_by_id(self, mat_hang_id: str):
         logging.info("Get MatHang with id: %s", mat_hang_id)
@@ -136,12 +145,40 @@ class MatHangController: # lấy data rồi đưa vào template
         self.suggestion_box.delete(0, END)
         self.refresh_mat_hang_list()
         
+    def get_all_export(self) -> list:
+        logging.info("Get all MatHang")
+        try:
+            limit=int(self.total_item.get())
+            data = self.mat_hang_service.get_all(sort='', keyword='', page='1', limit=limit)
+            return data.get('mat_hang_list')
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error("Error: %s", e)
+            return []
+            
     def export_data(self):
-        self.search_var.set("") # clear search
-        self.mat_hang_service.export_data(self.get_all())
+        self.mat_hang_service.export_data(self.get_all_export())
         
     def import_data(self):
         self.mat_hang_service.import_mat_hang()
+        
+    def page_first(self):
+        self.panigation['page'] = 1
+        self.refresh_mat_hang_list()
+        
+    def page_previous(self):
+        self.panigation['page'] = self.panigation['page'] - 1
+        if self.panigation['page'] < 1:
+            self.panigation['page'] = 1
+        self.refresh_mat_hang_list()
+        
+    def page_next(self):
+        self.panigation['page'] = self.panigation['page'] + 1
+        if self.panigation['page'] > self.panigation['page_size']:
+            self.panigation['page'] = self.panigation['page_size']
+        self.refresh_mat_hang_list()
+        
+    def page_last(self):
+        self.panigation['page'] = self.panigation['page_size']
         self.refresh_mat_hang_list()
         
     # --- các hàm giao diện ---
@@ -154,16 +191,21 @@ class MatHangController: # lấy data rồi đưa vào template
             self.destroy_table_data()
             self.init_table_data()
             
-        mat_hang_list = self.get_all()
-        total_item_temp = len(mat_hang_list)
-        total_quantity_temp = 0
+        data = self.get_all()
+        mat_hang_list = data['mat_hang_list']
+        # # Tạo Label hiển thị tổng số mặt hàng và tổng số lượng
+        self.total_item.set(TextNormalization.format_number(data['total_mat_hang']))
+        self.total_quantity.set(TextNormalization.format_number(data['total_so_luong']))
+        self.panigation['page_size'] = int(data['total_mat_hang']) // int(LIMIT) + 1
+        print(self.panigation['page_size'])
+        print(self.panigation['page'])
+        
         # add title for table
         self.show_column_title()
 
         # Thêm các Label và Button vào scrollable_frame
         row = 1
         for mat_hang in mat_hang_list:
-            total_quantity_temp += mat_hang.so_luong
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -194,12 +236,11 @@ class MatHangController: # lấy data rồi đưa vào template
             
             row += 1
             
+        page_number = LabelType.normal_blue_white(self.head_frame, text=f"Trang {self.panigation['page']} / {self.panigation['page_size']}")
+        page_number.grid(row=4, column=1, padx=5, pady=5)
+        
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
-        
-        # # Tạo Label hiển thị tổng số mặt hàng và tổng số lượng
-        self.total_item.set(TextNormalization.format_number(total_item_temp))
-        self.total_quantity.set(TextNormalization.format_number(total_quantity_temp))
             
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)
@@ -232,6 +273,7 @@ class MatHangController: # lấy data rồi đưa vào template
         self.head_frame.grid_rowconfigure(1, weight=1)
         self.head_frame.grid_rowconfigure(2, weight=1)
         self.head_frame.grid_rowconfigure(3, weight=1)
+        self.head_frame.grid_rowconfigure(4, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -289,6 +331,19 @@ class MatHangController: # lấy data rồi đưa vào template
         total_quantity_label.grid(row=3, column=2, sticky="e", padx=5, pady=5)
         total_quantity_view = EntryType.view(self.head_frame, text_var=self.total_quantity)
         total_quantity_view.grid(row=3, column=3, sticky="w", padx=5, pady=5)
+        
+        button_first = ButtonType.primary(self.head_frame, text="<<")
+        button_first.grid(row=4, column=0, padx=5, pady=5, sticky="E")
+        button_first.config(command=partial(self.page_first))
+        button_previous = ButtonType.primary(self.head_frame, text="<")
+        button_previous.grid(row=4, column=1, padx=5, pady=5, sticky="W")
+        button_previous.config(command=partial(self.page_previous))
+        button_next = ButtonType.primary(self.head_frame, text=">")
+        button_next.grid(row=4, column=1, padx=5, pady=5, sticky="E")
+        button_next.config(command=partial(self.page_next))
+        button_last = ButtonType.primary(self.head_frame, text=">>")
+        button_last.grid(row=4, column=2, padx=5, pady=5, sticky="W")
+        button_last.config(command=partial(self.page_last))
         
     def show_column_title(self):
         for j in self.column_title:

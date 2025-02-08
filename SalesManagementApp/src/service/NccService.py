@@ -5,7 +5,7 @@ from src.config.search_whoosh import SearchWhooshNCC
 from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
-from contants import NCC_SORT_OPTIONS, NCC_ID_PREFIX, NCC_ID_LENGTH
+from contants import NCC_SORT_OPTIONS, NCC_ID_PREFIX, NCC_ID_LENGTH, LIMIT
 
 class NCCService:
     def __init__(self):
@@ -13,24 +13,37 @@ class NCCService:
         self.ncc_repo = NCCRepo()
         self.search_whoosh = SearchWhooshNCC()
 
-    def get_all(self, sort: str, keyword: str) -> list[NCC]:
+    def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
-            if sort not in self.get_ncc_sort_keys() or sort == '' or sort is None:
+            if sort == '' or sort is None or sort not in self.get_ncc_sort_keys():
                 sort = 'Tên A-Z'
             sort_by = self.get_ncc_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                return self.ncc_repo.get_all(sort_by=sort_by)
-            
+                ncc_list = self.ncc_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                calculate_total = self.ncc_repo.calculate_total()
+                return {
+                    'ncc_list': ncc_list,
+                    'total_ncc': calculate_total[0]
+                }
             keyword = TextNormalization.remove_special_characters(keyword)
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            return self.ncc_repo.search(sort_by=sort_by, where=where, params=id_list)
+            ncc_list = self.ncc_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
+            calculate_total = self.ncc_repo.calculate_total(where=where, params=id_list)
+            return {
+                'ncc_list': ncc_list,
+                'total_ncc': calculate_total[0]
+            }
         except Exception as e:
             logging.error('Error when get all NCC %s', e)
-            return list()
+            return {
+                'ncc_list': [],
+                'total_ncc': 0
+            }
 
     def get_by_id(self, ncc_id) -> NCC:
         return self.ncc_repo.get_by_id(ncc_id)
