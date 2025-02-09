@@ -122,12 +122,14 @@ class KhachHangController: # lấy data rồi đưa vào template
         
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
+        self.panigation['page'] = 1
         self.refresh_khach_hang_list()
         
     # Làm mới danh sách khách hàng
     def refresh_entry_search(self):
         self.search_var.set("")
         self.suggestion_box.delete(0, END)
+        self.panigation['page'] = 1
         self.refresh_khach_hang_list()
         
     # Xử lý sự kiện khi người dùng chọn một gợi ý

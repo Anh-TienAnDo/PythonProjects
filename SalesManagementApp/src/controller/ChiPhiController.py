@@ -22,6 +22,10 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.chi_phi_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.total_chi_phi = StringVar()
         self.total_quantity = StringVar()
+        self.panigation = {
+            'page': 1,
+            'page_size': 1
+        }
         self.column_title = list(CHI_PHI_COLUMN_NAMES.values())
         if 'STT' not in self.column_title:
             self.column_title.insert(0, "STT")
@@ -37,18 +41,22 @@ class ChiPhiController: # lấy data rồi đưa vào template
         
         self.refresh_chi_phi_list()
 
-    def get_all(self):
+    def get_all(self) -> dict:
         logging.info("Get all ChiPhi")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            chi_phi_list = self.chi_phi_service.get_all(sort=sort, day=day, month=month, year=year)
-            return chi_phi_list
+            page = str(self.panigation['page'])
+            return self.chi_phi_service.get_all(sort=sort, day=day, month=month, year=year, page=page)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
-            return []
+            return {
+                'chi_phi_list': [],
+                'total_chi_phi': 0,
+                'total_gia_chi_phi': 0
+            }
 
     def get_by_id(self, chi_phi_id):
         logging.info("Get ChiPhi with id: %s", chi_phi_id)
@@ -112,6 +120,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
     # --- Các hàm xử lý sự kiện ---
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
+        self.panigation['page'] = 1
         self.refresh_chi_phi_list()
         
     # Làm mới thanh tìm kiếm
@@ -119,6 +128,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.search_var_dict['day'].set("")
         self.search_var_dict['month'].set(self.date.get('month'))
         self.search_var_dict['year'].set(self.date.get('year'))
+        self.panigation['page'] = 1
         self.refresh_chi_phi_list()
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
@@ -127,10 +137,31 @@ class ChiPhiController: # lấy data rồi đưa vào template
         
     def export_data(self):
         self.search_var_dict['day'].set("")
-        self.chi_phi_service.export_data(self.get_all())
+        data = self.get_all()
+        self.chi_phi_service.export_data(data.get('chi_phi_list'))
         
     def import_data(self):
         self.chi_phi_service.import_chi_phi()
+        self.refresh_chi_phi_list()
+        
+    def page_first(self):
+        self.panigation['page'] = 1
+        self.refresh_chi_phi_list()
+        
+    def page_previous(self):
+        self.panigation['page'] = self.panigation['page'] - 1
+        if self.panigation['page'] < 1:
+            self.panigation['page'] = 1
+        self.refresh_chi_phi_list()
+        
+    def page_next(self):
+        self.panigation['page'] = self.panigation['page'] + 1
+        if self.panigation['page'] > self.panigation['page_size']:
+            self.panigation['page'] = self.panigation['page_size']
+        self.refresh_chi_phi_list()
+        
+    def page_last(self):
+        self.panigation['page'] = self.panigation['page_size']
         self.refresh_chi_phi_list()
         
     # --- Các hàm giao diện  ---
@@ -143,15 +174,18 @@ class ChiPhiController: # lấy data rồi đưa vào template
             self.destroy_table_data()
             self.init_table_data()
             
-        chi_phi_list = self.get_all()
+        data = self.get_all()
+        chi_phi_list = data.get('chi_phi_list')
+        self.panigation['page_size'] = int(data.get('total_chi_phi')) // int(LIMIT) + 1
+        self.total_chi_phi.set(TextNormalization.format_number(data.get('total_gia_chi_phi')) + f" {MONEY_UNIT}")
+        self.total_quantity.set(TextNormalization.format_number(data.get('total_chi_phi')))
+        
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
         row = 1
-        total_chi_phi = 0
-        total_quantity = len(chi_phi_list)
+        
         for chi_phi in chi_phi_list:
-            total_chi_phi += chi_phi.gia_chi_phi
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -180,11 +214,11 @@ class ChiPhiController: # lấy data rồi đưa vào template
             
             row += 1
             
+        page_number = LabelType.normal_blue_white(self.head_frame, text=f"Trang {self.panigation['page']} / {self.panigation['page_size']}")
+        page_number.grid(row=6, column=1, padx=5, pady=5)
+        
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
-
-        self.total_chi_phi.set(TextNormalization.format_number(total_chi_phi) + f" {MONEY_UNIT}")
-        self.total_quantity.set(TextNormalization.format_number(total_quantity))
         
     def view_edit_item(self, chi_phi: ChiPhi):
         chi_phi = chi_phi.to_dict()
@@ -279,6 +313,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.head_frame.grid_rowconfigure(3, weight=1)
         self.head_frame.grid_rowconfigure(4, weight=1)
         self.head_frame.grid_rowconfigure(5, weight=1)
+        self.head_frame.grid_rowconfigure(6, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -316,6 +351,19 @@ class ChiPhiController: # lấy data rồi đưa vào template
         total_chi_phi.grid(row=5, column=2, sticky="e", padx=5, pady=5)
         total_chi_phi_value = EntryType.view(self.head_frame, text_var=self.total_chi_phi)
         total_chi_phi_value.grid(row=5, column=3, sticky="w", padx=5, pady=5)
+        
+        button_first = ButtonType.primary(self.head_frame, text="<<")
+        button_first.grid(row=6, column=0, padx=5, pady=5, sticky="E")
+        button_first.config(command=partial(self.page_first))
+        button_previous = ButtonType.primary(self.head_frame, text="<")
+        button_previous.grid(row=6, column=1, padx=5, pady=5, sticky="W")
+        button_previous.config(command=partial(self.page_previous))
+        button_next = ButtonType.primary(self.head_frame, text=">")
+        button_next.grid(row=6, column=1, padx=5, pady=5, sticky="E")
+        button_next.config(command=partial(self.page_next))
+        button_last = ButtonType.primary(self.head_frame, text=">>")
+        button_last.grid(row=6, column=2, padx=5, pady=5, sticky="W")
+        button_last.config(command=partial(self.page_last))
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)

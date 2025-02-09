@@ -18,8 +18,6 @@ class MatHangRepo:
             self.cursor.execute(f'SELECT * FROM {MAT_HANG_TABLE} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}') 
             data = self.cursor.fetchall()
             mat_hang_list = [MatHang(*row) for row in data]
-            print(mat_hang_list)
-            print(limit, offset)
             return mat_hang_list
         except Exception as e:
             logging.error('Error getting all products %s', e)

@@ -23,6 +23,10 @@ class BanHangController:
         self.total_ban_hang = StringVar()
         self.total_so_luong = StringVar()
         self.total_thanh_tien = StringVar()
+        self.panigation = {
+            'page': 1,
+            'page_size': 1
+        }
         self.column_title = list(BAN_HANG_COLUMN_NAMES.values())
         if 'STT' not in self.column_title:
             self.column_title.insert(0, "STT")
@@ -47,18 +51,24 @@ class BanHangController:
     #             print(widget)
     #     print(f"Number of Frames: {frame_count}")
         
-    def get_all(self):
+    def get_all(self) -> dict:
         logging.info("Get all BanHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            ban_hang_list = self.ban_hang_service.get_all(sort=sort, day=day, month=month, year=year)
+            page = str(self.panigation.get('page'))
+            ban_hang_list = self.ban_hang_service.get_all(sort=sort, day=day, month=month, year=year, page=page)
             return ban_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
-            return []
+            return {
+                'ban_hang_list': [],
+                'total_ban_hang': 0,
+                'total_so_luong': 0,
+                'total_thanh_tien': 0
+            }
         
     def get_by_id(self, ban_hang_id):
         logging.info("Get BanHang with id: %s", ban_hang_id)
@@ -105,6 +115,7 @@ class BanHangController:
     # --- Các hàm xử lý sự kiện ---
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
+        self.panigation['page'] = 1
         self.refresh_ban_hang_list()
         
     # Làm mới thanh tìm kiếm
@@ -112,6 +123,7 @@ class BanHangController:
         self.search_var_dict['day'].set("")
         self.search_var_dict['month'].set(self.date.get('month'))
         self.search_var_dict['year'].set(self.date.get('year'))
+        self.panigation['page'] = 1
         self.refresh_ban_hang_list()
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
@@ -120,10 +132,31 @@ class BanHangController:
         
     def export_data(self):
         self.search_var_dict['day'].set("")
-        self.ban_hang_service.export_data(self.get_all())
+        data = self.get_all()
+        self.ban_hang_service.export_data(data.get('ban_hang_list'))
         
     def import_data(self):
         self.ban_hang_service.import_ban_hang()
+        self.refresh_ban_hang_list()
+        
+    def page_first(self):
+        self.panigation['page'] = 1
+        self.refresh_ban_hang_list()
+        
+    def page_previous(self):
+        self.panigation['page'] = self.panigation['page'] - 1
+        if self.panigation['page'] < 1:
+            self.panigation['page'] = 1
+        self.refresh_ban_hang_list()
+        
+    def page_next(self):
+        self.panigation['page'] = self.panigation['page'] + 1
+        if self.panigation['page'] > self.panigation['page_size']:
+            self.panigation['page'] = self.panigation['page_size']
+        self.refresh_ban_hang_list()
+        
+    def page_last(self):
+        self.panigation['page'] = self.panigation['page_size']
         self.refresh_ban_hang_list()
         
     # --- Các hàm giao diện  ---
@@ -136,17 +169,18 @@ class BanHangController:
             self.destroy_table_data()
             self.init_table_data()
             
-        ban_hang_list = self.get_all()
+        data = self.get_all()
+        ban_hang_list = data.get('ban_hang_list')
+        self.total_ban_hang.set(TextNormalization.format_number(data.get('total_ban_hang')))
+        self.total_so_luong.set(TextNormalization.format_number(data.get('total_so_luong')))
+        self.total_thanh_tien.set(TextNormalization.format_number(data.get('total_thanh_tien')) + f" {MONEY_UNIT}")
+        self.panigation['page_size'] = int(data.get('total_ban_hang')) // int(LIMIT) + 1
+        
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame
         row = 1
-        total_ban_hang_temp = len(ban_hang_list)
-        total_so_luong_temp = 0
-        total_thanh_tien_temp = 0
         for ban_hang in ban_hang_list:
-            total_thanh_tien_temp += int(ban_hang.thanh_tien)
-            total_so_luong_temp += int(ban_hang.so_luong)
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
@@ -176,13 +210,12 @@ class BanHangController:
             delete_button.grid(row=row, column=column+1, padx=5, pady=5)
             
             row += 1
-            
+          
+        page_number = LabelType.normal_blue_white(self.head_frame, text=f"Trang {self.panigation['page']} / {self.panigation['page_size']}")
+        page_number.grid(row=6, column=1, padx=5, pady=5)
+          
         self.canvas.pack(side="left", fill="both", expand=True)
         self.scrollbar_y.pack(side="right", fill="y")
-
-        self.total_ban_hang.set(TextNormalization.format_number(total_ban_hang_temp))
-        self.total_so_luong.set(TextNormalization.format_number(total_so_luong_temp))
-        self.total_thanh_tien.set(TextNormalization.format_number(total_thanh_tien_temp) + f" {MONEY_UNIT}")
         
     def view_edit_item(self, ban_hang: BanHang):
         ban_hang = ban_hang.to_dict()
@@ -259,6 +292,7 @@ class BanHangController:
         self.head_frame.grid_rowconfigure(3, weight=1)
         self.head_frame.grid_rowconfigure(4, weight=1)
         self.head_frame.grid_rowconfigure(5, weight=1)
+        self.head_frame.grid_rowconfigure(6, weight=1)
         self.head_frame.grid_columnconfigure(0, weight=1)
         self.head_frame.grid_columnconfigure(1, weight=1)
         self.head_frame.grid_columnconfigure(2, weight=1)
@@ -301,6 +335,19 @@ class BanHangController:
         total_thanh_tien_label.grid(row=5, column=2, sticky="e", padx=5, pady=5)
         total_thanh_tien_value = EntryType.view(self.head_frame, text_var=self.total_thanh_tien)
         total_thanh_tien_value.grid(row=5, column=3, sticky='w', padx=5, pady=5)
+        
+        button_first = ButtonType.primary(self.head_frame, text="<<")
+        button_first.grid(row=6, column=0, padx=5, pady=5, sticky="E")
+        button_first.config(command=partial(self.page_first))
+        button_previous = ButtonType.primary(self.head_frame, text="<")
+        button_previous.grid(row=6, column=1, padx=5, pady=5, sticky="W")
+        button_previous.config(command=partial(self.page_previous))
+        button_next = ButtonType.primary(self.head_frame, text=">")
+        button_next.grid(row=6, column=1, padx=5, pady=5, sticky="E")
+        button_next.config(command=partial(self.page_next))
+        button_last = ButtonType.primary(self.head_frame, text=">>")
+        button_last.grid(row=6, column=2, padx=5, pady=5, sticky="W")
+        button_last.config(command=partial(self.page_last))
         
     def init_table_data(self):
         data_table = DataTableTemplate(self.content_frame)

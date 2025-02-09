@@ -4,7 +4,7 @@ from src.service.MatHangService import MatHangService
 from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshKhachHang
 from src.utils.GenerationId import GenerationId
 import logging
-from contants import BAN_HANG_SORT_OPTIONS, BAN_HANG_ID_PREFIX, BAN_HANG_ID_LENGTH, REPORT_BAN_HANG_SORT_OPTIONS, REPORT_BAN_HANG_DETAIL_SORT_OPTIONS
+from contants import BAN_HANG_SORT_OPTIONS, BAN_HANG_ID_PREFIX, BAN_HANG_ID_LENGTH, REPORT_BAN_HANG_SORT_OPTIONS, REPORT_BAN_HANG_DETAIL_SORT_OPTIONS, LIMIT
 from datetime import datetime
 
 class BanHangService:
@@ -15,8 +15,9 @@ class BanHangService:
         self.khach_hang_search = SearchWhooshKhachHang()
         self.mat_hang_service = MatHangService()
 
-    def get_all(self, sort: str, day: str, month: str, year: str) -> list[BanHang]:
+    def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
             if sort not in self.get_ban_hang_sort_keys() or sort == '' or sort is None:
                 sort = 'Tên A-Z'
@@ -37,10 +38,22 @@ class BanHangService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_ban) = '{day}-{month}-{year}'"
-            return self.ban_hang_repo.get_all(sort_by, where)
+            ban_hang_list = self.ban_hang_repo.get_all(sort_by, where, limit, offset)
+            calculate_total = self.ban_hang_repo.calculate_total(where)
+            return {
+                'ban_hang_list': ban_hang_list,
+                'total_ban_hang': calculate_total[0],
+                'total_so_luong': calculate_total[1],
+                'total_thanh_tien': calculate_total[2]
+            }
         except Exception as e:
             logging.error('Error when get all ban hang %s', e)
-            return []
+            return {
+                'ban_hang_list': [],
+                'total_ban_hang': 0,
+                'total_so_luong': 0,
+                'total_thanh_tien': 0
+            }
     
     def report(self, sort: str, day: str, month: str, year: str) -> list:
         try:

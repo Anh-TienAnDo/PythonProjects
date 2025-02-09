@@ -118,6 +118,7 @@ class MatHangController: # lấy data rồi đưa vào template
 
     # Hàm xử lý khi nhấn nút tìm kiếm
     def on_search_button_click(self):
+        self.panigation['page'] = 1
         self.refresh_mat_hang_list()
         
     # Cập nhật danh sách gợi ý khi người dùng nhập từ khóa
@@ -143,6 +144,7 @@ class MatHangController: # lấy data rồi đưa vào template
     def refresh_entry_search(self):
         self.search_var.set("")
         self.suggestion_box.delete(0, END)
+        self.panigation['page'] = 1
         self.refresh_mat_hang_list()
         
     def get_all_export(self) -> list:
@@ -195,9 +197,9 @@ class MatHangController: # lấy data rồi đưa vào template
         data = self.get_all()
         mat_hang_list = data['mat_hang_list']
         # # Tạo Label hiển thị tổng số mặt hàng và tổng số lượng
-        self.total_item.set(TextNormalization.format_number(data['total_mat_hang']))
-        self.total_quantity.set(TextNormalization.format_number(data['total_so_luong']))
-        self.panigation['page_size'] = int(data['total_mat_hang']) // int(LIMIT) + 1
+        self.total_item.set(TextNormalization.format_number(data.get('total_mat_hang')))
+        self.total_quantity.set(TextNormalization.format_number(data.get('total_so_luong')))
+        self.panigation['page_size'] = int(data.get('total_mat_hang')) // int(LIMIT) + 1
         print(self.panigation['page_size'])
         print(self.panigation['page'])
         

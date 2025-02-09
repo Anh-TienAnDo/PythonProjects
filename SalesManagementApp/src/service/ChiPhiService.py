@@ -2,7 +2,7 @@ from src.entity.ChiPhiEntity import ChiPhi
 from src.repository.ChiPhiRepo import ChiPhiRepo
 from src.utils.GenerationId import GenerationId
 import logging
-from contants import CHI_PHI_SORT_OPTIONS, CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH
+from contants import CHI_PHI_SORT_OPTIONS, CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH, LIMIT
 from datetime import datetime
 
 class ChiPhiService:
@@ -10,10 +10,11 @@ class ChiPhiService:
         logging.info('---ChiPhiService initializing---')
         self.chi_phi_repo = ChiPhiRepo()
 
-    def get_all(self, sort: str, day: str, month: str, year: str) -> list[ChiPhi]:
+    def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
-            if sort not in self.get_chi_phi_sort_keys() or sort == '' or sort is None:
+            if sort == '' or sort is None or sort not in self.get_chi_phi_sort_keys():
                 sort = 'Tên A-Z'
             sort_by = self.get_chi_phi_sort_by_key(sort)
             day = day.strip()
@@ -32,10 +33,20 @@ class ChiPhiService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_tao) = '{day}-{month}-{year}'"
-            return self.chi_phi_repo.get_all(sort_by, where)
+            chi_phi_list = self.chi_phi_repo.get_all(sort_by=sort_by, where=where, limit=limit, offset=offset)
+            calculate_total = self.chi_phi_repo.calculate_total(where=where)
+            return {
+                'chi_phi_list': chi_phi_list,
+                'total_chi_phi': calculate_total[0],
+                'total_gia_chi_phi': calculate_total[1]
+            }
         except Exception as e:
             logging.error("Error get_all: %s", e)
-            return list()
+            return {
+                'chi_phi_list': [],
+                'total_chi_phi': 0,
+                'total_gia_chi_phi': 0
+            }
         
     def get_by_id(self, chi_phi_id) -> ChiPhi:
         return self.chi_phi_repo.get_by_id(chi_phi_id)

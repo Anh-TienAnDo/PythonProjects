@@ -4,7 +4,7 @@ from src.service.MatHangService import MatHangService
 from src.config.search_whoosh import SearchWhooshMatHang, SearchWhooshNCC
 from src.utils.GenerationId import GenerationId
 import logging
-from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS, REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS
+from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS, REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS, LIMIT
 from datetime import datetime
 
 class NhapHangService:
@@ -15,10 +15,11 @@ class NhapHangService:
         self.ncc_search = SearchWhooshNCC()
         self.mat_hang_service = MatHangService()
 
-    def get_all(self, sort: str, day: str, month: str, year: str) -> list[NhapHang]:
+    def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
+            offset = str((int(page) - 1) * int(limit))
             sort = sort.strip()
-            if sort not in self.get_nhap_hang_sort_keys() or sort == '' or sort is None:
+            if sort == '' or sort is None or sort not in self.get_nhap_hang_sort_keys():
                 sort = 'Tên A-Z'
             sort_by = self.get_nhap_hang_sort_by_key(sort)
             day = day.strip()
@@ -37,10 +38,22 @@ class NhapHangService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
-            return self.nhap_hang_repo.get_all(sort_by, where)
+            nhap_hang_list = self.nhap_hang_repo.get_all(sort_by, where, limit, offset)
+            calculate_total = self.nhap_hang_repo.calculate_total(where)
+            return {
+                'nhap_hang_list': nhap_hang_list,
+                'total_nhap_hang': calculate_total[0],
+                'total_so_luong': calculate_total[1],
+                'total_thanh_tien': calculate_total[2]
+            }
         except Exception as e:
             logging.error('Error when get all nhap hang %s', e)
-            return list()
+            return {
+                'nhap_hang_list': [],
+                'total_nhap_hang': 0,
+                'total_so_luong': 0,
+                'total_thanh_tien': 0
+            }
     
     def report(self, sort: str, day: str, month: str, year: str) -> list:
         try:

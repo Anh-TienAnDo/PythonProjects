@@ -12,15 +12,25 @@ class ChiPhiRepo:
         self.cursor = self.connection.cursor()
         logging.info('Connected to database %s', DATABASE_PATH)
 
-    def get_all(self, sort_by: str, where: str) -> list[ChiPhi]:
+    def get_all(self, sort_by: str, where: str, limit: str, offset: str) -> list[ChiPhi]:
         logging.info('Getting all chi phi')
         try:
-            self.cursor.execute(f'SELECT * FROM {CHI_PHI_TABLE} WHERE {where} ORDER BY {sort_by}')
+            self.cursor.execute(f'SELECT * FROM {CHI_PHI_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
             chi_phi_list = [ChiPhi(*row) for row in data]
             return chi_phi_list
         except Exception as e:
             logging.error('Error getting all %s', e)
+            return []
+        
+    def calculate_total(self, where: str):
+        logging.info('Calculating total chi phi')
+        try:
+            self.cursor.execute(f'SELECT COUNT(*), SUM(gia_chi_phi) FROM {CHI_PHI_TABLE} WHERE {where}')
+            data = self.cursor.fetchone()
+            return data
+        except Exception as e:
+            logging.error('Error calculating total %s', e)
             return None
         
     def list(self) -> list[ChiPhi]:
@@ -32,6 +42,7 @@ class ChiPhiRepo:
             return chi_phi_list
         except Exception as e:
             logging.error('Error getting all %s', e)
+            return []
             
     def report_loi_nhuan(self, where: str) -> list:
         self.cursor.execute(f'SELECT sum(gia_chi_phi), ngay_tao FROM {CHI_PHI_TABLE} WHERE {where} GROUP BY ngay_tao')

@@ -286,7 +286,7 @@ ENTRY_BD = 3
 
 MONEY_UNIT = config.get('MONEY_UNIT', 'VNĐ')
 
-LIMIT = config.get('LIMIT', 25)
+LIMIT = config.get('LIMIT', '25')
 
 
 

@@ -12,15 +12,25 @@ class BanHangRepo:
         self.cursor = self.connection.cursor()
         logging.info('Connected to database %s', DATABASE_PATH)
 
-    def get_all(self, sort_by: str, where: str) -> list[BanHang]:
+    def get_all(self, sort_by: str, where: str, limit: str, offset:str) -> list[BanHang]:
         logging.info('Getting all banhang')
         try:
-            self.cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE} WHERE {where} ORDER BY {sort_by}')
+            self.cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
             ban_hang_list = [BanHang(*row) for row in data]
             return ban_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
+            return []
+        
+    def calculate_total(self, where: str):
+        logging.info('Calculating total ban hang')
+        try:
+            self.cursor.execute(f'SELECT COUNT(*), SUM(so_luong), SUM(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where}')
+            data = self.cursor.fetchone()
+            return data
+        except Exception as e:
+            logging.error('Error calculating total %s', e)
             return None
         
     def list(self) -> list[BanHang]:
@@ -32,6 +42,7 @@ class BanHangRepo:
             return ban_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
+            return []
             
     def report(self, sort_by: str, where: str) -> list:
         self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
