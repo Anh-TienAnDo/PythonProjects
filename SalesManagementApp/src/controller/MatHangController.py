@@ -138,6 +138,7 @@ class MatHangController: # lấy data rồi đưa vào template
         
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
+        self.panigation['page'] = 1
         self.refresh_mat_hang_list()
         
     # Làm mới thanh tìm kiếm
@@ -200,8 +201,6 @@ class MatHangController: # lấy data rồi đưa vào template
         self.total_item.set(TextNormalization.format_number(data.get('total_mat_hang')))
         self.total_quantity.set(TextNormalization.format_number(data.get('total_so_luong')))
         self.panigation['page_size'] = int(data.get('total_mat_hang')) // int(LIMIT) + 1
-        print(self.panigation['page_size'])
-        print(self.panigation['page'])
         
         # add title for table
         self.show_column_title()

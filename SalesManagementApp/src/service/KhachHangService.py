@@ -63,13 +63,12 @@ class KhachHangService:
         
     def create_many(self, khach_hang_list: list[KhachHang]) -> bool:
         try:
-            for khach_hang in khach_hang_list:
-                while self.khach_hang_repo.check_exist_id(khach_hang.id):
-                    khach_hang.id = GenerationId.generate_id(KHACH_HANG_ID_LENGTH, KHACH_HANG_ID_PREFIX)
+            for index, khach_hang in enumerate(khach_hang_list):
+                while self.khach_hang_repo.check_exist_id(khach_hang_list[index].id):
+                    khach_hang_list[index].id = GenerationId.generate_id(KHACH_HANG_ID_LENGTH, KHACH_HANG_ID_PREFIX)
+                self.search_whoosh.add_or_update_document_ix(khach_hang_list[index].id, khach_hang_list[index].ten_khach_hang)
             if not self.khach_hang_repo.create_many(khach_hang_list):
                 return False
-            for khach_hang in khach_hang_list:
-                self.search_whoosh.add_or_update_document_ix(khach_hang.id, khach_hang.ten_khach_hang)
             return True
         except Exception as e:
             logging.error("Error create_many: %s", e)

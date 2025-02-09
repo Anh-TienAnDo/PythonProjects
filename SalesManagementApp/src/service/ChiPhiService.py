@@ -62,9 +62,9 @@ class ChiPhiService:
         
     def create_many(self, chi_phi_list: list[ChiPhi]) -> bool:
         try:
-            for chi_phi in chi_phi_list:
-                while self.chi_phi_repo.check_exist_id(chi_phi.id):
-                    chi_phi.id = GenerationId.generate_id(CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
+            for index, chi_phi in enumerate(chi_phi_list):
+                while self.chi_phi_repo.check_exist_id(chi_phi_list[index].id):
+                    chi_phi_list[index].id = GenerationId.generate_id(CHI_PHI_ID_LENGTH, CHI_PHI_ID_PREFIX)
             return self.chi_phi_repo.create_many(chi_phi_list)
         except Exception as e:
             logging.error("Error create_many: %s", e)

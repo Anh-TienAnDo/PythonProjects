@@ -123,7 +123,7 @@ class NhapHangService:
     def create_many(self, nhap_hang_list: list[NhapHang]) -> bool:
         for index, nhap_hang in enumerate(nhap_hang_list):
             try:
-                while self.nhap_hang_repo.check_exist_id(nhap_hang.id):
+                while self.nhap_hang_repo.check_exist_id(nhap_hang_list[index].id):
                     nhap_hang_list[index].id = GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
                 nhap_hang_list[index].thanh_tien = nhap_hang.so_luong * nhap_hang.gia_nhap
                 mat_hang = self.mat_hang_service.get_by_id(nhap_hang.id_mat_hang)

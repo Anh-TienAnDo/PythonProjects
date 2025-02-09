@@ -62,13 +62,12 @@ class NCCService:
         
     def create_many(self, ncc_list: list[NCC]) -> bool:
         try:
-            for ncc in ncc_list:
-                while self.ncc_repo.check_exist_id(ncc.id):
-                    ncc.id = GenerationId.generate_id(NCC_ID_LENGTH, NCC_ID_PREFIX)
+            for index, ncc in enumerate(ncc_list):
+                while self.ncc_repo.check_exist_id(ncc_list[index].id):
+                    ncc_list[index].id = GenerationId.generate_id(NCC_ID_LENGTH, NCC_ID_PREFIX)
+                self.search_whoosh.add_or_update_document_ix(ncc_list[index].id, ncc[index].ten_ncc)
             if not self.ncc_repo.create_many(ncc_list):
                 return False
-            for ncc in ncc_list:
-                self.search_whoosh.add_or_update_document_ix(ncc.id, ncc.ten_ncc)
             return True
         except Exception as e:
             logging.error('Error when create many NCC %s', e)

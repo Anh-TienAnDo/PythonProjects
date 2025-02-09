@@ -66,13 +66,12 @@ class MatHangService:
         
     def create_many(self, mat_hang_list: list[MatHang]) -> bool:
         try:
-            for mat_hang in mat_hang_list:
-                while self.mat_hang_repo.check_exist_id(mat_hang.id):
-                    mat_hang.id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
+            for index, mat_hang in enumerate(mat_hang_list):
+                while self.mat_hang_repo.check_exist_id(mat_hang_list[index].id):
+                    mat_hang_list[index].id = GenerationId.generate_id(MAT_HANG_ID_LENGTH, MAT_HANG_ID_PREFIX)
+                self.search_whoosh.add_or_update_document_ix(mat_hang_list[index].id, mat_hang_list[index].ten_hang)
             if not self.mat_hang_repo.create_many(mat_hang_list):
                 return False
-            for mat_hang in mat_hang_list:
-                self.search_whoosh.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
             return True
         except Exception as e:
             logging.error('Error when create many mat hang %s', e)

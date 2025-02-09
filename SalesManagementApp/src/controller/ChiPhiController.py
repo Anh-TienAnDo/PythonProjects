@@ -133,11 +133,26 @@ class ChiPhiController: # lấy data rồi đưa vào template
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
+        self.panigation['page'] = 1
         self.refresh_chi_phi_list()
         
+    def get_all_export(self) -> dict:
+        logging.info("Get all for export ChiPhi")
+        try:
+            month = self.search_var_dict.get('month').get()
+            year = self.search_var_dict.get('year').get()
+            limit = self.total_quantity.get()
+            return self.chi_phi_service.get_all(sort='', day='', month=month, year=year, page='1', limit=limit)
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error("Error: %s", e)
+            return {
+                'chi_phi_list': [],
+                'total_chi_phi': 0,
+                'total_gia_chi_phi': 0
+            }
+            
     def export_data(self):
-        self.search_var_dict['day'].set("")
-        data = self.get_all()
+        data = self.get_all_export()
         self.chi_phi_service.export_data(data.get('chi_phi_list'))
         
     def import_data(self):

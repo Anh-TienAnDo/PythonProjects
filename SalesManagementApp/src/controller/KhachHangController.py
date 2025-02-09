@@ -141,7 +141,7 @@ class KhachHangController: # lấy data rồi đưa vào template
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
-        sort_option = self.sort_var.get()
+        self.panigation['page'] = 1
         self.refresh_khach_hang_list()
         
     def get_all_export(self) -> list:
@@ -195,8 +195,7 @@ class KhachHangController: # lấy data rồi đưa vào template
         khach_hang_list = data.get('khach_hang_list')
         self.total_item.set(TextNormalization.format_number(data.get('total_khach_hang')))
         self.panigation['page_size'] = int(data.get('total_khach_hang')) // int(LIMIT) + 1
-        print(self.panigation['page_size'])
-        print(self.panigation['page'])
+        
         # add title for table
         self.show_column_title()
         # Thêm các Label và Button vào scrollable_frame

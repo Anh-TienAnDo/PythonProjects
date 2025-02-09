@@ -47,7 +47,9 @@ class SearchWhooshMatHang(SearchWhoosh):
     def search(self, keyword, field='ten_mat_hang') -> list[dict]:
         with self.ix_mat_hang.searcher() as searcher:
             query = QueryParser(field, self.ix_mat_hang.schema).parse(keyword)
-            results = searcher.search(query)
+            results = searcher.search(query, limit=500)
+            # print(len(results))
+            # print(results)
             results_dict = [dict(result) for result in results]
             return results_dict
             
@@ -90,7 +92,7 @@ class SearchWhooshKhachHang(SearchWhoosh):
     def search(self, keyword, field='ten_khach_hang') -> list[dict]:
         with self.ix_khach_hang.searcher() as searcher:
             query = QueryParser(field, self.ix_khach_hang.schema).parse(keyword)
-            results = searcher.search(query)
+            results = searcher.search(query, limit=500)
             results_dict = [dict(result) for result in results]
             return results_dict
         
@@ -133,7 +135,7 @@ class SearchWhooshNCC(SearchWhoosh):
     def search(self, keyword, field='ten_ncc') -> list[dict]:
         with self.ix_ncc.searcher() as searcher:
             query = QueryParser(field, self.ix_ncc.schema).parse(keyword)
-            results = searcher.search(query)
+            results = searcher.search(query, limit=500)
             results_dict = [dict(result) for result in results]
             return results_dict
           

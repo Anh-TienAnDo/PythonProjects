@@ -123,7 +123,7 @@ class BanHangService:
     def create_many(self, ban_hang_list: list[BanHang]) -> bool:
         for index, ban_hang in enumerate(ban_hang_list):
             try:
-                while self.ban_hang_repo.check_exist_id(ban_hang.id):
+                while self.ban_hang_repo.check_exist_id(ban_hang_list[index].id):
                     ban_hang_list[index].id = GenerationId.generate_id(BAN_HANG_ID_LENGTH, BAN_HANG_ID_PREFIX)
                 ban_hang_list[index].thanh_tien = ban_hang.so_luong * ban_hang.gia_ban
                 mat_hang = self.mat_hang_service.get_by_id(ban_hang.id_mat_hang)

@@ -116,11 +116,28 @@ class NhapHangController:
             
     # Hàm xử lý khi chọn mục trong Combobox Sort
     def on_sort_selected(self, event):
+        self.panigation['page'] = 1
         self.refresh_nhap_hang_list()
         
+    def get_all_export(self) -> dict:
+        logging.info("Get all for export NhapHang")
+        try:
+            month = self.search_var_dict.get('month').get()
+            year = self.search_var_dict.get('year').get()
+            limit = self.total_nhap_hang.get()
+            nhap_hang_list = self.nhap_hang_service.get_all(sort='', day='', month=month, year=year, page='1', limit=limit)
+            return nhap_hang_list
+        except (ConnectionError, TimeoutError, ValueError) as e:
+            logging.error("Error: %s", e)
+            return {
+                'nhap_hang_list': [],
+                'total_nhap_hang': 0,
+                'total_so_luong': 0,
+                'total_thanh_tien': 0
+            }
+            
     def export_data(self):
-        self.search_var_dict['day'].set("")
-        data = self.get_all()
+        data = self.get_all_export()
         self.nhap_hang_service.export_data(data.get('nhap_hang_list'))
         
     def import_data(self):
