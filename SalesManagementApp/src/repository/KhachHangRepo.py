@@ -45,7 +45,7 @@ class KhachHangRepo:
             return data
         except Exception as e:
             logging.error('Error calculating total khachhang %s', e)
-            return None
+            return (0,)
         
     def list(self) -> list[KhachHang]:
         logging.info('Getting all khach hang')

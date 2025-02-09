@@ -26,8 +26,8 @@ class MatHangService:
                 calculate_total = self.mat_hang_repo.calculate_total()
                 return {
                     'mat_hang_list': mat_hang_list,
-                    'total_mat_hang': calculate_total[0],
-                    'total_so_luong': calculate_total[1]
+                    'total_mat_hang': calculate_total[0] if calculate_total[0] is not None else 0,
+                    'total_so_luong': calculate_total[1] if calculate_total[1] is not None else 0
                 }
             keyword = TextNormalization.remove_special_characters(keyword)
             results = self.search_whoosh.search(keyword)
@@ -37,9 +37,8 @@ class MatHangService:
             calculate_total = self.mat_hang_repo.calculate_total(where=where, params=id_list)
             return {
                 'mat_hang_list': mat_hang_list,
-                'total_mat_hang': calculate_total[0],
-                'total_so_luong': calculate_total[1],
-                
+                'total_mat_hang': calculate_total[0] if calculate_total[0] is not None else 0,
+                'total_so_luong': calculate_total[1] if calculate_total[1] is not None else 0
             }
         except Exception as e:
             logging.error('Error when get all mat hang %s', e)

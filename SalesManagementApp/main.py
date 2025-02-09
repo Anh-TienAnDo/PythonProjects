@@ -1,6 +1,6 @@
 from tkinter import Tk, Frame, Menu
-import os
-import logging
+# import os
+# import logging
 from contants import *
 from src.config.database import Database
 from src.config.log import LogConfig

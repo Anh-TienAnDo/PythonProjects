@@ -42,9 +42,9 @@ class NhapHangService:
             calculate_total = self.nhap_hang_repo.calculate_total(where)
             return {
                 'nhap_hang_list': nhap_hang_list,
-                'total_nhap_hang': calculate_total[0],
-                'total_so_luong': calculate_total[1],
-                'total_thanh_tien': calculate_total[2]
+                'total_nhap_hang': calculate_total[0] if calculate_total[0] is not None else 0,
+                'total_so_luong': calculate_total[1] if calculate_total[1] is not None else 0,
+                'total_thanh_tien': calculate_total[2] if calculate_total[2] is not None else 0
             }
         except Exception as e:
             logging.error('Error when get all nhap hang %s', e)

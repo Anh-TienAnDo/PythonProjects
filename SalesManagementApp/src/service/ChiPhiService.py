@@ -37,8 +37,8 @@ class ChiPhiService:
             calculate_total = self.chi_phi_repo.calculate_total(where=where)
             return {
                 'chi_phi_list': chi_phi_list,
-                'total_chi_phi': calculate_total[0],
-                'total_gia_chi_phi': calculate_total[1]
+                'total_chi_phi': calculate_total[0] if calculate_total[0] is not None else 0,
+                'total_gia_chi_phi': calculate_total[1] if calculate_total[1] is not None else 0
             }
         except Exception as e:
             logging.error("Error get_all: %s", e)

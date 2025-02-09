@@ -45,7 +45,7 @@ class NCCRepo:
             return data
         except Exception as e:
             logging.error('Error calculating total ncc %s', e)
-            return None
+            return (0,)
         
     def list(self) -> list[NCC]:
         logging.info('Getting all ncc')

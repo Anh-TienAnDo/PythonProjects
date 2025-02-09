@@ -31,7 +31,7 @@ class BanHangRepo:
             return data
         except Exception as e:
             logging.error('Error calculating total %s', e)
-            return None
+            return (0, 0, 0)
         
     def list(self) -> list[BanHang]:
         logging.info('Getting all banhang')

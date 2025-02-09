@@ -45,7 +45,7 @@ class MatHangRepo:
             return data
         except Exception as e:
             logging.error('Error calculating total products %s', e)
-            return None
+            return (0, 0)
         
     def list(self) -> list[MatHang]:
         logging.info('Getting all products')

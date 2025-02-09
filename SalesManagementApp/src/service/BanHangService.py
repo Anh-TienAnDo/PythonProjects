@@ -42,9 +42,9 @@ class BanHangService:
             calculate_total = self.ban_hang_repo.calculate_total(where)
             return {
                 'ban_hang_list': ban_hang_list,
-                'total_ban_hang': calculate_total[0],
-                'total_so_luong': calculate_total[1],
-                'total_thanh_tien': calculate_total[2]
+                'total_ban_hang': calculate_total[0] if calculate_total[0] is not None else 0,
+                'total_so_luong': calculate_total[1] if calculate_total[1] is not None else 0,
+                'total_thanh_tien': calculate_total[2] if calculate_total[2] is not None else 0
             }
         except Exception as e:
             logging.error('Error when get all ban hang %s', e)

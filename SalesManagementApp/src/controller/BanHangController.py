@@ -136,7 +136,7 @@ class BanHangController:
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            limit = self.total_ban_hang.get()
+            limit = '1000000'
             ban_hang_list = self.ban_hang_service.get_all(sort='', day='', month=month, year=year, page='1', limit=limit)
             return ban_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:

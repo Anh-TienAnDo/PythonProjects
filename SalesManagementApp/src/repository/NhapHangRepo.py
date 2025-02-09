@@ -31,7 +31,7 @@ class NhapHangRepo:
             return data
         except Exception as e:
             logging.error('Error calculating total %s', e)
-            return None
+            return (0, 0, 0)
         
     def list(self) -> list[NhapHang]:
         logging.info('Getting all nhaphang')

@@ -26,7 +26,7 @@ class KhachHangService:
                 calculate_total = self.khach_hang_repo.calculate_total()
                 return {
                     'khach_hang_list': khach_hang_list,
-                    'total_khach_hang': calculate_total[0]
+                    'total_khach_hang': calculate_total[0] if calculate_total[0] is not None else 0
                 }
             
             keyword = TextNormalization.remove_special_characters(keyword)
@@ -37,7 +37,7 @@ class KhachHangService:
             calculate_total = self.khach_hang_repo.calculate_total(where=where, params=id_list)
             return {
                 'khach_hang_list': khach_hang_list,
-                'total_khach_hang': calculate_total[0]
+                'total_khach_hang': calculate_total[0] if calculate_total[0] is not None else 0
             }
         except Exception as e:
             logging.error("Error get_all: %s", e)

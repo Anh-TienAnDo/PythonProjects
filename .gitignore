@@ -9,3 +9,5 @@ ManageGarden/server/ManageGarden/
 /SalesManagementApp/src/utils/__pycache__
 /SalesManagementApp/static/css/__pycache__
 /SalesManagementApp/templates/__pycache__
+*.log
+SalesManagementApp/app.log

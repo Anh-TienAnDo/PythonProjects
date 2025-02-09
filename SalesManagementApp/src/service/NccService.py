@@ -26,7 +26,7 @@ class NCCService:
                 calculate_total = self.ncc_repo.calculate_total()
                 return {
                     'ncc_list': ncc_list,
-                    'total_ncc': calculate_total[0]
+                    'total_ncc': calculate_total[0] if calculate_total[0] is not None else 0
                 }
             keyword = TextNormalization.remove_special_characters(keyword)
             results = self.search_whoosh.search(keyword)
@@ -36,7 +36,7 @@ class NCCService:
             calculate_total = self.ncc_repo.calculate_total(where=where, params=id_list)
             return {
                 'ncc_list': ncc_list,
-                'total_ncc': calculate_total[0]
+                'total_ncc': calculate_total[0] if calculate_total[0] is not None else 0
             }
         except Exception as e:
             logging.error('Error when get all NCC %s', e)
@@ -65,7 +65,7 @@ class NCCService:
             for index, ncc in enumerate(ncc_list):
                 while self.ncc_repo.check_exist_id(ncc_list[index].id):
                     ncc_list[index].id = GenerationId.generate_id(NCC_ID_LENGTH, NCC_ID_PREFIX)
-                self.search_whoosh.add_or_update_document_ix(ncc_list[index].id, ncc[index].ten_ncc)
+                self.search_whoosh.add_or_update_document_ix(ncc_list[index].id, ncc_list[index].ten_ncc)
             if not self.ncc_repo.create_many(ncc_list):
                 return False
             return True

@@ -141,7 +141,7 @@ class ChiPhiController: # lấy data rồi đưa vào template
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            limit = self.total_quantity.get()
+            limit = '10000'
             return self.chi_phi_service.get_all(sort='', day='', month=month, year=year, page='1', limit=limit)
         except (ConnectionError, TimeoutError, ValueError) as e:
             logging.error("Error: %s", e)
