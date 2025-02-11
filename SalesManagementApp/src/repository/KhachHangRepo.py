@@ -133,7 +133,7 @@ class KhachHangRepo:
             return False
 
     def __del__(self):
-        logging.info('Closing database connection')
+        logging.info('Closing database connection to khachhang')
         if self.cursor:
             self.cursor.close()
         if self.connection:

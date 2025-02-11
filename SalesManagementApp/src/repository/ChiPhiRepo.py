@@ -14,6 +14,7 @@ class ChiPhiRepo:
 
     def get_all(self, sort_by: str, where: str, limit: str, offset: str) -> list[ChiPhi]:
         logging.info('Getting all chi phi')
+        logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', CHI_PHI_TABLE, where, sort_by, limit, offset)
         try:
             self.cursor.execute(f'SELECT * FROM {CHI_PHI_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
@@ -24,7 +25,7 @@ class ChiPhiRepo:
             return []
         
     def calculate_total(self, where: str):
-        logging.info('Calculating total chi phi')
+        logging.info('Calculating total chi phi %s', where)
         try:
             self.cursor.execute(f'SELECT COUNT(*), SUM(gia_chi_phi) FROM {CHI_PHI_TABLE} WHERE {where}')
             data = self.cursor.fetchone()
@@ -121,7 +122,7 @@ class ChiPhiRepo:
             return False
 
     def __del__(self):
-        logging.info('Closing database connection')
+        logging.info('Closing database connection to chiphi')
         if self.cursor:
             self.cursor.close()
         if self.connection:

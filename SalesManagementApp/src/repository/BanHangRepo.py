@@ -14,6 +14,7 @@ class BanHangRepo:
 
     def get_all(self, sort_by: str, where: str, limit: str, offset:str) -> list[BanHang]:
         logging.info('Getting all banhang')
+        logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', BAN_HANG_TABLE, where, sort_by, limit, offset)
         try:
             self.cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
@@ -24,7 +25,7 @@ class BanHangRepo:
             return []
         
     def calculate_total(self, where: str):
-        logging.info('Calculating total ban hang')
+        logging.info('Calculating total ban hang %s', where)
         try:
             self.cursor.execute(f'SELECT COUNT(*), SUM(so_luong), SUM(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where}')
             data = self.cursor.fetchone()
@@ -137,7 +138,7 @@ class BanHangRepo:
             return False
 
     def __del__(self):
-        logging.info('Closing database connection')
+        logging.info('Closing database connection to banhang')
         if self.cursor:
             self.cursor.close()
         if self.connection:

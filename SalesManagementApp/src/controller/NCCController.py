@@ -147,7 +147,7 @@ class NCCController:
     def get_all_export(self) -> list:
         logging.info("Get all NCC for export")
         try:
-            limit=int(self.total_item.get())
+            limit='10000'
             data = self.ncc_service.get_all(sort='', keyword='', page='1', limit=limit)
             return data.get('ncc_list')
         except (ConnectionError, TimeoutError, ValueError) as e:

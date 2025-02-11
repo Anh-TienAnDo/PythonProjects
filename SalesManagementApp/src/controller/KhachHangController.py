@@ -147,7 +147,7 @@ class KhachHangController: # lấy data rồi đưa vào template
     def get_all_export(self) -> list:
         logging.info("Get all khachhang for export")
         try:
-            limit=int(self.total_item.get())
+            limit='10000'
             data = self.khach_hang_service.get_all(sort='', keyword='', page='1', limit=limit)
             return data.get('khach_hang_list')
         except (ConnectionError, TimeoutError, ValueError) as e:

@@ -151,7 +151,7 @@ class MatHangController: # lấy data rồi đưa vào template
     def get_all_export(self) -> list:
         logging.info("Get all MatHang")
         try:
-            limit=int(self.total_item.get())
+            limit='10000'
             data = self.mat_hang_service.get_all(sort='', keyword='', page='1', limit=limit)
             return data.get('mat_hang_list')
         except (ConnectionError, TimeoutError, ValueError) as e:

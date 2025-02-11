@@ -124,7 +124,7 @@ class NhapHangController:
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()
-            limit = '1000000'
+            limit = '10000'
             nhap_hang_list = self.nhap_hang_service.get_all(sort='', day='', month=month, year=year, page='1', limit=limit)
             return nhap_hang_list
         except (ConnectionError, TimeoutError, ValueError) as e:

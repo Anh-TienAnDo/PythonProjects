@@ -14,6 +14,7 @@ class NhapHangRepo:
 
     def get_all(self, sort_by: str, where: str, limit: str, offset: str) -> list[NhapHang]:
         logging.info('Getting all nhaphang')
+        logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', NHAP_HANG_TABLE, where, sort_by, limit, offset)
         try:
             self.cursor.execute(f'SELECT * FROM {NHAP_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
             data = self.cursor.fetchall()
@@ -136,7 +137,7 @@ class NhapHangRepo:
             return False
 
     def __del__(self):
-        logging.info('Closing database connection')
+        logging.info('Closing database connection to nhaphang')
         if self.cursor:
             self.cursor.close()
         if self.connection:
