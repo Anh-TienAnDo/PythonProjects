@@ -8,11 +8,19 @@ from src.entity.KhachHangEntity import KhachHang
 from src.entity.NccEntity import NCC
 from tkinter import filedialog, messagebox
 from datetime import datetime
+from tkinter import ttk
 
 class Excel:
     def __init__(self):
+        # self.parent = parent
+        # self.progress = ttk.Progressbar(self.parent, orient="horizontal", length=300, mode="determinate")
+        # self.progress.pack(padx=50, pady=50)
         pass
 
+    # def update_progress(self, value):
+    #     self.progress['value'] = value
+    #     self.parent.update_idletasks()
+        
     def export_data(self, path: str, data: list[dict]) -> bool:
         try:
             data_dict = {}

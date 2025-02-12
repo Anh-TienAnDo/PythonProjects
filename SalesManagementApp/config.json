@@ -6,5 +6,6 @@
   "MONEY_UNIT": "VNĐ",
   "SCALING_ACTIVE": 0,
   "SCALING_VALUE": 1.25,
-  "LIMIT": "25"
+  "LIMIT": "25",
+  "ADD_ALL_DATA_TO_WHOOSH": 0
 }

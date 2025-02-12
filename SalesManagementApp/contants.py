@@ -288,5 +288,5 @@ MONEY_UNIT = config.get('MONEY_UNIT', 'VNĐ')
 
 LIMIT = config.get('LIMIT', '25')
 
-
+ADD_ALL_DATA_TO_WHOOSH = config.get('ADD_ALL_DATA_TO_WHOOSH', 0)
 

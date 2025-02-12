@@ -30,11 +30,12 @@ def setup_logging():
 
 def setup_search_index():
     search_whoosh_mat_hang = SearchWhooshMatHang()
-    search_whoosh_mat_hang.create_document_ix()
     search_whoosh_ncc = SearchWhooshNCC()
-    search_whoosh_ncc.create_document_ix()
     search_whoosh_khach_hang = SearchWhooshKhachHang()
-    search_whoosh_khach_hang.create_document_ix()
+    if ADD_ALL_DATA_TO_WHOOSH != 0:
+        search_whoosh_mat_hang.create_document_ix()
+        search_whoosh_ncc.create_document_ix()
+        search_whoosh_khach_hang.create_document_ix()
 
 # Tkinter GUI Setup
 class SalesManagementApp:
