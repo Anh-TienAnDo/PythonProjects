@@ -122,6 +122,8 @@ class BaoCaoNhapHangController:
             total_nhap_hang_temp += int(nhap_hang[2])
             total_so_luong_temp += int(nhap_hang[3])
             total_thanh_tien_temp += int(nhap_hang[4])
+            if row > LIMIT_QUANTITY_BAO_CAO:
+                continue 
             label_stt = LabelType.normal(self.scrollable_frame, text=str(row))
             if row % 2 == 0:
                 label_stt.config(bg=BG_COLOR_LIGHT_BLUE)
