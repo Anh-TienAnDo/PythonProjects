@@ -1,97 +1,98 @@
-2025-02-13 14:03:01 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
-2025-02-13 14:03:01 - root - INFO - Logging initialized
-2025-02-13 14:03:01 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:01 - root - INFO - Initializing tables
-2025-02-13 14:03:01 - root - INFO - MatHang Controller
-2025-02-13 14:03:01 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:03:01 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:03:01 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:01 - root - INFO - Get all MatHang
-2025-02-13 14:03:01 - root - INFO - Getting all products
-2025-02-13 14:03:01 - root - INFO - Calculating total products
-2025-02-13 14:03:02 - root - INFO - NhapHang Controller
-2025-02-13 14:03:02 - root - INFO - ---NhapHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - Get all NhapHang
-2025-02-13 14:03:02 - root - INFO - Getting all nhaphang
-2025-02-13 14:03:02 - root - INFO - SELECT * FROM NhapHang WHERE strftime('%m-%Y', ngay_nhap) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
-2025-02-13 14:03:02 - root - INFO - Calculating total nhap hang
-2025-02-13 14:03:02 - root - INFO - BanHang Controller
-2025-02-13 14:03:02 - root - INFO - ---BanHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - Get all BanHang
-2025-02-13 14:03:02 - root - INFO - Getting all banhang
-2025-02-13 14:03:02 - root - INFO - SELECT * FROM BanHang WHERE strftime('%m-%Y', ngay_ban) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
-2025-02-13 14:03:02 - root - INFO - Calculating total ban hang strftime('%m-%Y', ngay_ban) = '02-2025'
-2025-02-13 14:03:02 - root - INFO - ChiPhi Controller
-2025-02-13 14:03:02 - root - INFO - ---ChiPhiService initializing---
-2025-02-13 14:03:02 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - Get all ChiPhi
-2025-02-13 14:03:02 - root - INFO - Getting all chi phi
-2025-02-13 14:03:02 - root - INFO - SELECT * FROM ChiPhi WHERE strftime('%m-%Y', ngay_tao) = '02-2025' ORDER BY ten_chi_phi asc LIMIT 25 OFFSET 0
-2025-02-13 14:03:02 - root - INFO - Calculating total chi phi strftime('%m-%Y', ngay_tao) = '02-2025'
-2025-02-13 14:03:02 - root - INFO - KhachHang Controller
-2025-02-13 14:03:02 - root - INFO - ---KhachHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---KhachHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - Get all KhachHang
-2025-02-13 14:03:02 - root - INFO - Getting all khach hang
-2025-02-13 14:03:02 - root - INFO - Calculating total khachhang
-2025-02-13 14:03:02 - root - INFO - NCC Controller
-2025-02-13 14:03:02 - root - INFO - ---NCCService initializing---
-2025-02-13 14:03:02 - root - INFO - ---NCCRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - Get all NCC
-2025-02-13 14:03:02 - root - INFO - Getting all ncc
-2025-02-13 14:03:02 - root - INFO - Calculating total ncc
-2025-02-13 14:03:02 - root - INFO - BaoCao Controller
-2025-02-13 14:03:02 - root - INFO - ---BaoCaoService initializing---
-2025-02-13 14:03:02 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - report BanHang
-2025-02-13 14:03:02 - root - INFO - BaoCaoBanHang Controller
-2025-02-13 14:03:02 - root - INFO - ---BanHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:02 - root - INFO - report BanHang
-2025-02-13 14:03:02 - root - INFO - BaoCaoNhapHang Controller
-2025-02-13 14:03:02 - root - INFO - ---NhapHangService initializing---
-2025-02-13 14:03:02 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:03:02 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:03 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:03:03 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:03:03 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:03:03 - root - INFO - report NhapHang
-2025-02-13 14:03:08 - root - INFO - report BanHang
-2025-02-13 14:03:16 - root - INFO - report NhapHang
-2025-02-13 14:03:41 - root - INFO - Closing database connection to mathang
-2025-02-13 14:03:41 - root - INFO - Closing database connection to nhaphang
-2025-02-13 14:03:41 - root - INFO - Closing database connection to mathang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to banhang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to mathang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to chiphi
-2025-02-13 14:03:42 - root - INFO - Closing database connection to khachhang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to ncc
-2025-02-13 14:03:42 - root - INFO - Closing database connection to banhang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to nhaphang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to chiphi
-2025-02-13 14:03:42 - root - INFO - Closing database connection to banhang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to mathang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to nhaphang
-2025-02-13 14:03:42 - root - INFO - Closing database connection to mathang
+2025-02-13 14:41:04 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
+2025-02-13 14:41:04 - root - INFO - Logging initialized
+2025-02-13 14:41:04 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:04 - root - INFO - Initializing tables
+2025-02-13 14:41:04 - root - INFO - MatHang Controller
+2025-02-13 14:41:04 - root - INFO - ---MatHangService initializing---
+2025-02-13 14:41:04 - root - INFO - ---MatHangRepo initializing---
+2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:04 - root - INFO - Get all MatHang
+2025-02-13 14:41:04 - root - INFO - Getting all products
+2025-02-13 14:41:04 - root - INFO - Calculating total products
+2025-02-13 14:41:04 - root - INFO - NhapHang Controller
+2025-02-13 14:41:04 - root - INFO - ---NhapHangService initializing---
+2025-02-13 14:41:04 - root - INFO - ---NhapHangRepo initializing---
+2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:04 - root - INFO - ---MatHangService initializing---
+2025-02-13 14:41:04 - root - INFO - ---MatHangRepo initializing---
+2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:04 - root - INFO - Get all NhapHang
+2025-02-13 14:41:04 - root - INFO - Getting all nhaphang
+2025-02-13 14:41:04 - root - INFO - SELECT * FROM NhapHang WHERE strftime('%m-%Y', ngay_nhap) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
+2025-02-13 14:41:04 - root - INFO - Calculating total nhap hang
+2025-02-13 14:41:05 - root - INFO - BanHang Controller
+2025-02-13 14:41:05 - root - INFO - ---BanHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - Get all BanHang
+2025-02-13 14:41:05 - root - INFO - Getting all banhang
+2025-02-13 14:41:05 - root - INFO - SELECT * FROM BanHang WHERE strftime('%m-%Y', ngay_ban) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
+2025-02-13 14:41:05 - root - INFO - Calculating total ban hang strftime('%m-%Y', ngay_ban) = '02-2025'
+2025-02-13 14:41:05 - root - INFO - ChiPhi Controller
+2025-02-13 14:41:05 - root - INFO - ---ChiPhiService initializing---
+2025-02-13 14:41:05 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - Get all ChiPhi
+2025-02-13 14:41:05 - root - INFO - Getting all chi phi
+2025-02-13 14:41:05 - root - INFO - SELECT * FROM ChiPhi WHERE strftime('%m-%Y', ngay_tao) = '02-2025' ORDER BY ten_chi_phi asc LIMIT 25 OFFSET 0
+2025-02-13 14:41:05 - root - INFO - Calculating total chi phi strftime('%m-%Y', ngay_tao) = '02-2025'
+2025-02-13 14:41:05 - root - INFO - KhachHang Controller
+2025-02-13 14:41:05 - root - INFO - ---KhachHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---KhachHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - Get all KhachHang
+2025-02-13 14:41:05 - root - INFO - Getting all khach hang
+2025-02-13 14:41:05 - root - INFO - Calculating total khachhang
+2025-02-13 14:41:05 - root - INFO - NCC Controller
+2025-02-13 14:41:05 - root - INFO - ---NCCService initializing---
+2025-02-13 14:41:05 - root - INFO - ---NCCRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - Get all NCC
+2025-02-13 14:41:05 - root - INFO - Getting all ncc
+2025-02-13 14:41:05 - root - INFO - Calculating total ncc
+2025-02-13 14:41:05 - root - INFO - BaoCao Controller
+2025-02-13 14:41:05 - root - INFO - ---BaoCaoService initializing---
+2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - ---NhapHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - report BanHang
+2025-02-13 14:41:05 - root - INFO - BaoCaoBanHang Controller
+2025-02-13 14:41:05 - root - INFO - ---BanHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - report BanHang
+2025-02-13 14:41:05 - root - INFO - BaoCaoNhapHang Controller
+2025-02-13 14:41:05 - root - INFO - ---NhapHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---NhapHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
+2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
+2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
+2025-02-13 14:41:05 - root - INFO - report NhapHang
+2025-02-13 15:07:20 - root - INFO - Get all MatHang
+2025-02-13 15:07:20 - root - INFO - Getting all products
+2025-02-13 15:07:20 - root - INFO - Calculating total products
+2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to chiphi
+2025-02-13 15:51:36 - root - INFO - Closing database connection to khachhang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to ncc
+2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to chiphi
+2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
+2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang

@@ -44,12 +44,9 @@ INSTALLED_APPS = [
     ## Custom App
     'core',
     'cart',
-    'catalog_media',
-    'media_social',
     'order',
     'product',
     'shipment',
-    'teacher_media',
     'user',
     'notification',
     'search',
