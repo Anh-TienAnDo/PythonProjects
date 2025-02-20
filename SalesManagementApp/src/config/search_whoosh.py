@@ -22,8 +22,6 @@ class SearchWhooshMatHang(SearchWhoosh):
         self.index_name_mat_hang = "mat_hang"
         self.create_index()
         
-    @logger('SearchWhooshMatHang')
-    @timer('SearchWhooshMatHang')
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -40,16 +38,12 @@ class SearchWhooshMatHang(SearchWhoosh):
         mat_hang_list = mat_hang_repository.list()
         for mat_hang in mat_hang_list:
             self.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
-        
-    @logger('SearchWhooshMatHang')
-    @timer('SearchWhooshMatHang')
+
     def delete_document_ix(self, doc_id):
         writer = self.ix_mat_hang.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
-      
-    @logger('SearchWhooshMatHang')
-    @timer('SearchWhooshMatHang')  
+       
     def add_or_update_document_ix(self, doc_id, ten_mat_hang):
         writer = self.ix_mat_hang.writer()
         writer.update_document(id=doc_id, ten_mat_hang=ten_mat_hang)
@@ -79,8 +73,6 @@ class SearchWhooshKhachHang(SearchWhoosh):
         self.index_name_khach_hang = "khach_hang"
         self.create_index()
         
-    @logger('SearchWhooshKhachHang')
-    @timer('SearchWhooshKhachHang')
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -98,15 +90,11 @@ class SearchWhooshKhachHang(SearchWhoosh):
         for khach_hang in khach_hang_list:
             self.add_or_update_document_ix(khach_hang.id, khach_hang.ten_khach_hang)
         
-    @logger('SearchWhooshKhachHang')
-    @timer('SearchWhooshKhachHang')
     def delete_document_ix(self, doc_id):
         writer = self.ix_khach_hang.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
         
-    @logger('SearchWhooshKhachHang')
-    @timer('SearchWhooshKhachHang')
     def add_or_update_document_ix(self, doc_id, ten_khach_hang):
         writer = self.ix_khach_hang.writer()
         writer.update_document(id=doc_id, ten_khach_hang=ten_khach_hang)
@@ -133,9 +121,7 @@ class SearchWhooshNCC(SearchWhoosh):
         self.ix_ncc = None
         self.index_name_ncc = "ncc"
         self.create_index()
-        
-    @logger('SearchWhooshNCC')
-    @timer('SearchWhooshNCC')
+
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -152,16 +138,12 @@ class SearchWhooshNCC(SearchWhoosh):
         ncc_list = ncc_repository.list()
         for ncc in ncc_list:
             self.add_or_update_document_ix(ncc.id, ncc.ten_ncc)
-        
-    @logger('SearchWhooshNCC')
-    @timer('SearchWhooshNCC')
+
     def delete_document_ix(self, doc_id):
         writer = self.ix_ncc.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
-        
-    @logger('SearchWhooshNCC')
-    @timer('SearchWhooshNCC')
+
     def add_or_update_document_ix(self, doc_id, ten_ncc):
         writer = self.ix_ncc.writer()
         writer.update_document(id=doc_id, ten_ncc=ten_ncc)

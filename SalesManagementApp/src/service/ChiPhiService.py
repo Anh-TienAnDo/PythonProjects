@@ -5,12 +5,14 @@ import logging
 from contants import CHI_PHI_SORT_OPTIONS, CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH, LIMIT
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class ChiPhiService:
     def __init__(self):
-        logging.info('---ChiPhiService initializing---')
         self.chi_phi_repo = ChiPhiRepo()
 
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -52,10 +54,14 @@ class ChiPhiService:
                 'total_chi_phi': 0,
                 'total_gia_chi_phi': 0
             }
-        
+       
+    @logger('ChiPhiService')
+    @timer('ChiPhiService') 
     def get_by_id(self, chi_phi_id) -> ChiPhi:
         return self.chi_phi_repo.get_by_id(chi_phi_id)
 
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def create(self, chi_phi: ChiPhi) -> bool:
         try:
             while self.chi_phi_repo.check_exist_id(chi_phi.id):
@@ -65,6 +71,8 @@ class ChiPhiService:
             logging.error("Error create: %s", e)
             return False
         
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def create_many(self, chi_phi_list: list[ChiPhi]) -> bool:
         try:
             for index, chi_phi in enumerate(chi_phi_list):
@@ -75,6 +83,8 @@ class ChiPhiService:
             logging.error("Error create_many: %s", e)
             return False
 
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def update(self, chi_phi_id, chi_phi: ChiPhi) -> bool:
         try:
             # if not self.chi_phi_repo.check_exist_id(chi_phi_id):
@@ -83,7 +93,9 @@ class ChiPhiService:
         except Exception as e:
             logging.error("Error update: %s", e)
             return False
-      
+    
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')  
     def delete(self, chi_phi_id) -> bool:
         try:
             # if not self.chi_phi_repo.check_exist_id(chi_phi_id):
@@ -117,6 +129,8 @@ class ChiPhiService:
     def to_list_dict(self, chi_phi_list: list[ChiPhi]) -> list[dict]:
         return [chi_phi.to_dict() for chi_phi in chi_phi_list]
     
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def export_data(self, data: list[ChiPhi]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -130,6 +144,8 @@ class ChiPhiService:
             logging.error(e)
             return False
     
+    @logger('ChiPhiService')
+    @timer('ChiPhiService')
     def import_chi_phi(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

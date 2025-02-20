@@ -10,14 +10,15 @@ from src.entity.NhapHangEntity import NhapHang
 from src.service.NhapHangService import NhapHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
-
+from src.utils.Decorator import logger, timer
 
 class NhapHangAddController:
+    @logger('NhapHangAddController')
+    @timer('NhapHangAddController')
     def __init__(self, parent: Frame):
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
-        logging.info("NhapHangAdd Controller")
         self.nhap_hang_service = NhapHangService() 
         self.nhap_hang_list_var = []
         self.search_mat_hang_var = StringVar()

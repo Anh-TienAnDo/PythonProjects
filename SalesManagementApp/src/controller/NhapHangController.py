@@ -11,13 +11,15 @@ from src.entity.NhapHangEntity import NhapHang
 from src.service.NhapHangService import NhapHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class NhapHangController:
+    @logger('NhapHangController')
+    @timer('NhapHangController')
     def __init__(self, parent: Frame):
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
-        logging.info("NhapHang Controller")
         self.nhap_hang_service = NhapHangService() 
         self.nhap_hang_vars = {}  # Lưu trữ các StringVar để lấy giá trị sau này
         self.total_nhap_hang = StringVar()
@@ -43,7 +45,6 @@ class NhapHangController:
         self.refresh_nhap_hang_list()
         
     def get_all(self) -> dict:
-        logging.info("Get all NhapHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -62,7 +63,6 @@ class NhapHangController:
             }
         
     def get_by_id(self, nhap_hang_id):
-        logging.info("Get NhapHang with id: %s", nhap_hang_id)
         try:
             nhap_hang = self.nhap_hang_service.get_by_id(nhap_hang_id)
             self.view_edit_item(nhap_hang)
@@ -72,7 +72,6 @@ class NhapHangController:
         
     def create(self):
         from src.controller.NhapHangAddController import NhapHangAddController
-        logging.info("Create NhapHang")
         try: 
             self.frame.destroy()
             NhapHangAddController(self.parent)
@@ -80,7 +79,6 @@ class NhapHangController:
             logging.error("Error: %s", e)
         
     def update(self, nhap_hang_id, so_luong_nhap_old: int):
-        logging.info("Update NhapHang with id: %s", nhap_hang_id)
         nhap_hang_data = {key: var.get() for key, var in self.nhap_hang_vars.items()}
         nhap_hang = NhapHang(**nhap_hang_data)
         try: 
@@ -92,7 +90,6 @@ class NhapHangController:
             logging.error("Error: %s", e)
         
     def delete(self, nhap_hang_id):
-        logging.info("Delete NhapHang with id: %s", nhap_hang_id)
         try:
             self.nhap_hang_service.delete(nhap_hang_id)
             self.view_new_top_window.destroy()
@@ -120,7 +117,6 @@ class NhapHangController:
         self.refresh_nhap_hang_list()
         
     def get_all_export(self) -> dict:
-        logging.info("Get all for export NhapHang")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()

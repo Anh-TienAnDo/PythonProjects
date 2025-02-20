@@ -7,13 +7,15 @@ from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import KHACH_HANG_SORT_OPTIONS, KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH, LIMIT
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class KhachHangService:
     def __init__(self):
-        logging.info('---KhachHangService initializing---')
         self.khach_hang_repo = KhachHangRepo()
         self.search_whoosh = SearchWhooshKhachHang()
 
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -53,9 +55,13 @@ class KhachHangService:
                 'total_khach_hang': 0
             }
 
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def get_by_id(self, khach_hang_id) -> KhachHang:
         return self.khach_hang_repo.get_by_id(khach_hang_id)
 
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def create(self, khach_hang: KhachHang) -> bool:
         try:
             while self.khach_hang_repo.check_exist_id(khach_hang.id):
@@ -68,6 +74,8 @@ class KhachHangService:
             logging.error("Error create: %s", e)
             return False
         
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def create_many(self, khach_hang_list: list[KhachHang]) -> bool:
         try:
             for index, khach_hang in enumerate(khach_hang_list):
@@ -81,6 +89,8 @@ class KhachHangService:
             logging.error("Error create_many: %s", e)
             return False
 
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def update(self, khach_hang_id, khach_hang: KhachHang) -> bool:
         try:
             # if not self.khach_hang_repo.check_exist_id(khach_hang_id):
@@ -92,6 +102,8 @@ class KhachHangService:
         except Exception as e:
             logging.error("Error update: %s", e)
       
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def delete(self, khach_hang_id) -> bool:
         try:
             # if not self.khach_hang_repo.check_exist_id(khach_hang_id):
@@ -117,6 +129,8 @@ class KhachHangService:
             return KHACH_HANG_SORT_OPTIONS.get('Tên A-Z')
         return value
     
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def get_suggestions(self, keyword):
         try:
             results = self.search_whoosh.search(keyword)
@@ -128,6 +142,8 @@ class KhachHangService:
     def to_list_dict(self, khach_hang_list: list[KhachHang]) -> list[dict]:
         return [khach_hang.to_dict() for khach_hang in khach_hang_list]
     
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def export_data(self, data: list[KhachHang]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -141,6 +157,8 @@ class KhachHangService:
             logging.error("Error export_data: %s", e)
             return False
     
+    @logger('KhachHangService')
+    @timer('KhachHangService')
     def import_khach_hang(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

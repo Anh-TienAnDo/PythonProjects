@@ -5,14 +5,16 @@ from src.repository.BanHangRepo import BanHangRepo
 from src.repository.NhapHangRepo import NhapHangRepo
 from src.repository.ChiPhiRepo import ChiPhiRepo
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class BaoCaoService:
     def __init__(self):
-        logging.info('---BaoCaoService initializing---')
         self.ban_hang_repo = BanHangRepo()
         self.nhap_hang_repo = NhapHangRepo()
         self.chi_phi_repo = ChiPhiRepo()
         
+    @logger('BaoCaoService')
+    @timer('BaoCaoService')
     def report_loi_nhuan(self, month: str, year: str) -> dict:
         try:
             now = datetime.strptime(datetime.now().strftime('%Y-%m-%d'), '%Y-%m-%d')

@@ -15,13 +15,15 @@ from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
+from src.utils.Decorator import logger, timer
 
 class BanHangAddController:
+    @logger('BanHangAddController')
+    @timer('BanHangAddController')
     def __init__(self, parent: Frame):
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
-        logging.info("BanHangAdd Controller")
         self.ban_hang_service = BanHangService() 
         self.ban_hang_list_var = []
         self.search_mat_hang_var = StringVar()

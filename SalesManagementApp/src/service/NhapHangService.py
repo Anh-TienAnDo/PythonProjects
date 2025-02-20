@@ -7,15 +7,17 @@ import logging
 from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS, REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS, LIMIT
 from datetime import datetime
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class NhapHangService:
     def __init__(self):
-        logging.info('---NhapHangService initializing---')
         self.nhap_hang_repo = NhapHangRepo()
         self.mat_hang_search = SearchWhooshMatHang()
         self.ncc_search = SearchWhooshNCC()
         self.mat_hang_service = MatHangService()
 
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -60,6 +62,8 @@ class NhapHangService:
                 'total_thanh_tien': 0
             }
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def report(self, sort: str, day: str, month: str, year: str) -> list:
         try:
             sort = sort.strip()
@@ -87,6 +91,8 @@ class NhapHangService:
             logging.error('Error when report nhap hang %s', e)
             return list()
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def report_detail_mat_hang(self, sort: str, month: str, year: str, id_mat_hang: str) -> list:
         try:
             sort = sort.strip()
@@ -108,9 +114,13 @@ class NhapHangService:
             logging.error('Error when report detail nhap hang %s', e)
             return list()
         
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def get_by_id(self, nhap_hang_id) -> NhapHang:
         return self.nhap_hang_repo.get_by_id(nhap_hang_id)
 
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def create(self, nhap_hang: NhapHang) -> bool:
         while self.nhap_hang_repo.check_exist_id(nhap_hang.id):
             nhap_hang.id = GenerationId.generate_id(NHAP_HANG_ID_LENGTH, NHAP_HANG_ID_PREFIX)
@@ -124,7 +134,9 @@ class NhapHangService:
         except Exception as e:
             logging.error('Error when create nhap hang')
             return False
-        
+      
+    @logger('NhapHangService')
+    @timer('NhapHangService')  
     def create_many(self, nhap_hang_list: list[NhapHang]) -> bool:
         for index, nhap_hang in enumerate(nhap_hang_list):
             try:
@@ -142,6 +154,8 @@ class NhapHangService:
             logging.error('Error when create many ban hang %s', e)
             return False
 
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def update(self, nhap_hang_id, nhap_hang: NhapHang, so_luong_nhap_old: int) -> bool:
         try: 
             if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
@@ -156,6 +170,8 @@ class NhapHangService:
             logging.error('Error when update nhap hang')
             return False
       
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def delete(self, nhap_hang_id) -> bool:
         try:
             if not self.nhap_hang_repo.check_exist_id(nhap_hang_id):
@@ -205,6 +221,8 @@ class NhapHangService:
             'year': str(now.year)
         }
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def search_mat_hang(self, keyword) -> list[dict]:
         try:
             results = self.mat_hang_search.search(keyword.strip())
@@ -222,6 +240,8 @@ class NhapHangService:
             logging.error('Error when search mat hang')
             return []
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def search_ncc(self, keyword) -> list[str]:
         try:
             results = self.ncc_search.search(keyword.strip())
@@ -237,6 +257,8 @@ class NhapHangService:
     def to_list_dict(self, nhap_hang_list: list[NhapHang]) -> list[dict]:
         return [nhap_hang.to_dict() for nhap_hang in nhap_hang_list]
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def export_data(self, data: list[NhapHang]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -250,6 +272,8 @@ class NhapHangService:
             logging.error('Error when export data %s', e)
             return False
     
+    @logger('NhapHangService')
+    @timer('NhapHangService')
     def import_nhap_hang(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

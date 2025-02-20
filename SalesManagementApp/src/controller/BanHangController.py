@@ -11,10 +11,12 @@ from src.entity.BanHangEntity import BanHang
 from src.service.BanHangService import BanHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class BanHangController:
+    @logger('BanHangController')
+    @timer('BanHangController')
     def __init__(self, parent: Frame):
-        logging.info("BanHang Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -52,7 +54,6 @@ class BanHangController:
     #     print(f"Number of Frames: {frame_count}")
         
     def get_all(self) -> dict:
-        logging.info("Get all BanHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -71,7 +72,6 @@ class BanHangController:
             }
         
     def get_by_id(self, ban_hang_id):
-        logging.info("Get BanHang with id: %s", ban_hang_id)
         try:
             ban_hang = self.ban_hang_service.get_by_id(ban_hang_id)
             self.view_edit_item(ban_hang)
@@ -81,7 +81,6 @@ class BanHangController:
         
     def create(self):
         from src.controller.BanHangAddController import BanHangAddController
-        logging.info("Create BanHang")
         try:
             self.frame.destroy()
             BanHangAddController(self.parent)
@@ -90,7 +89,6 @@ class BanHangController:
             return None
         
     def update(self, ban_hang_id, so_luong_ban_old: int):
-        logging.info("Update BanHang with id: %s", ban_hang_id)
         ban_hang_data = {key: var.get() for key, var in self.ban_hang_vars.items()}
         ban_hang = BanHang(**ban_hang_data)
         try: 
@@ -103,7 +101,6 @@ class BanHangController:
             return None
         
     def delete(self, ban_hang_id):
-        logging.info("Delete BanHang with id: %s", ban_hang_id)
         try:
             self.ban_hang_service.delete(ban_hang_id)
             self.view_new_top_window.destroy()
@@ -132,7 +129,6 @@ class BanHangController:
         self.refresh_ban_hang_list()
         
     def get_all_export(self) -> dict:
-        logging.info("Get all for export BanHang")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()

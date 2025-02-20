@@ -11,14 +11,10 @@ class BanHangRepo:
     def __init__(self):
         self.db_name = DATABASE_PATH
         self.convert_ban_hang = ConvertBanHang()
-        
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
+
     def get_connection(self):
         return sqlite3.connect(self.db_name)
 
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def get_all(self, sort_by: str, where: str, limit: str, offset:str) -> list[BanHang]:
         # logging.info('Getting all banhang')
         # logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', BAN_HANG_TABLE, where, sort_by, limit, offset)
@@ -36,8 +32,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
         
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def calculate_total(self, where: str):
         # logging.info('Calculating total ban hang %s', where)
         connection = self.get_connection()
@@ -69,8 +63,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
          
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')   
     def report(self, sort_by: str, where: str) -> list:
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -84,9 +76,7 @@ class BanHangRepo:
         finally:
             cursor.close()
             connection.close()
-    
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
+
     def report_detail_mat_hang(self, sort_by: str, where: str) -> list:
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -102,8 +92,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
     
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def report_loi_nhuan(self, where: str) -> list:
         connection = self.get_connection()
         cursor = connection.cursor()
@@ -117,9 +105,7 @@ class BanHangRepo:
         finally:
             cursor.close()
             connection.close()
-
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
+            
     def get_by_id(self, ban_hang_id) -> BanHang:
         # logging.info('Getting banhang by id %s', ban_hang_id)
         connection = self.get_connection()
@@ -136,8 +122,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
 
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def create(self, ban_hang: BanHang) -> bool:
         # logging.info('Creating banhang %s', ban_hang)
         connection = self.get_connection()
@@ -155,8 +139,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
     
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def create_many(self, ban_hang_list) -> bool:
         # logging.info('Creating multiple banhang records')
         connection = self.get_connection()
@@ -175,8 +157,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
 
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def update(self, ban_hang_id, ban_hang: BanHang) -> bool:
         # logging.info('Updating banhang %s', ban_hang)
         connection = self.get_connection()
@@ -200,8 +180,6 @@ class BanHangRepo:
             cursor.close()
             connection.close()
 
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')
     def delete(self, ban_hang_id) -> bool:
         # logging.info('Deleting banhang by id %s', ban_hang_id)
         connection = self.get_connection()
@@ -217,9 +195,7 @@ class BanHangRepo:
         finally:
             cursor.close()
             connection.close()
-        
-    @logger('BanHangRepo')
-    @timer('BanHangRepo')    
+            
     def check_exist_id(self, ban_hang_id) -> bool:
         # logging.info('Checking banhang exist by id %s', ban_hang_id)
         connection = self.get_connection()

@@ -18,7 +18,6 @@ class MatHangController: # lấy data rồi đưa vào template
     @logger("MatHangController")
     @timer("MatHangController")
     def __init__(self, parent: Frame):
-        logging.info("MatHang Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -44,7 +43,6 @@ class MatHangController: # lấy data rồi đưa vào template
 
     # chech search, filter -> refresh data -> get data
     def get_all(self) -> dict:
-        logging.info("Get all MatHang")
         try:
             sort = self.sort_var.get()
             keyword = self.search_var.get()
@@ -59,7 +57,6 @@ class MatHangController: # lấy data rồi đưa vào template
             }
 
     def get_by_id(self, mat_hang_id: str):
-        logging.info("Get MatHang with id: %s", mat_hang_id)
         try:
             mat_hang = self.mat_hang_service.get_by_id(mat_hang_id)
             self.view_edit_item(mat_hang)
@@ -68,7 +65,6 @@ class MatHangController: # lấy data rồi đưa vào template
             return None
 
     def create(self):
-        logging.info("Create MatHang")
         mat_hang_data = {key: var.get() for key, var in self.mat_hang_vars.items()}
         mat_hang = MatHang(**mat_hang_data)
         try: 
@@ -80,7 +76,6 @@ class MatHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
             
     def create_and_continue(self):
-        logging.info("Create and continue MatHang")
         mat_hang_data = {key: var.get() for key, var in self.mat_hang_vars.items()}
         mat_hang = MatHang(**mat_hang_data)
         try:
@@ -93,7 +88,6 @@ class MatHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
 
     def update(self, mat_hang_id):
-        logging.info("Update MatHang with id: %s", mat_hang_id)
         mat_hang_data = {key: var.get() for key, var in self.mat_hang_vars.items()}
         mat_hang = MatHang(**mat_hang_data)
         try: 
@@ -105,7 +99,6 @@ class MatHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
 
     def delete(self, mat_hang_id: str):
-        logging.info("Delete MatHang with id: %s", mat_hang_id)
         try:
             self.mat_hang_service.delete(mat_hang_id)
             self.view_new_top_window.destroy()
@@ -152,7 +145,6 @@ class MatHangController: # lấy data rồi đưa vào template
         self.refresh_mat_hang_list()
         
     def get_all_export(self) -> list:
-        logging.info("Get all MatHang")
         try:
             limit='10000'
             data = self.mat_hang_service.get_all(sort='', keyword='', page='1', limit=limit)

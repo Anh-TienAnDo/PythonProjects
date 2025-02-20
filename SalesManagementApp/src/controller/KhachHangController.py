@@ -11,10 +11,10 @@ from src.entity.KhachHangEntity import KhachHang
 from src.service.KhachHangService import KhachHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class KhachHangController: # lấy data rồi đưa vào template
     def __init__(self, parent: Frame):
-        logging.info("KhachHang Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -37,7 +37,6 @@ class KhachHangController: # lấy data rồi đưa vào template
         self.refresh_khach_hang_list()
 
     def get_all(self):
-        logging.info("Get all KhachHang")
         try:
             sort = self.sort_var.get()
             keyword = self.search_var.get()
@@ -51,7 +50,6 @@ class KhachHangController: # lấy data rồi đưa vào template
             }
 
     def get_by_id(self, khach_hang_id):
-        logging.info("Get KhachHang with id: %s", khach_hang_id)
         try:
             khach_hang = self.khach_hang_service.get_by_id(khach_hang_id)
             self.view_edit_item(khach_hang)
@@ -60,7 +58,6 @@ class KhachHangController: # lấy data rồi đưa vào template
             return None
 
     def create(self):
-        logging.info("Create KhachHang")
         khach_hang_data = {key: var.get() for key, var in self.khach_hang_vars.items()}
         khach_hang = KhachHang(**khach_hang_data)
         try: 
@@ -72,7 +69,6 @@ class KhachHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
         
     def create_and_continue(self):
-        logging.info("Create and continue KhachHang")
         khach_hang_data = {key: var.get() for key, var in self.khach_hang_vars.items()}
         khach_hang = KhachHang(**khach_hang_data)
         try:
@@ -85,7 +81,6 @@ class KhachHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
 
     def update(self, khach_hang_id):
-        logging.info("Update KhachHang with id: %s", khach_hang_id)
         khach_hang_data = {key: var.get() for key, var in self.khach_hang_vars.items()}
         khach_hang = KhachHang(**khach_hang_data)
         try: 
@@ -97,7 +92,6 @@ class KhachHangController: # lấy data rồi đưa vào template
             logging.error("Error: %s", e)
 
     def delete(self, khach_hang_id):
-        logging.info("Delete KhachHang with id: %s", id)
         try:
             self.khach_hang_service.delete(khach_hang_id)
             self.view_new_top_window.destroy()
@@ -145,7 +139,6 @@ class KhachHangController: # lấy data rồi đưa vào template
         self.refresh_khach_hang_list()
         
     def get_all_export(self) -> list:
-        logging.info("Get all khachhang for export")
         try:
             limit='10000'
             data = self.khach_hang_service.get_all(sort='', keyword='', page='1', limit=limit)

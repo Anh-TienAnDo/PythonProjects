@@ -11,10 +11,12 @@ from src.entity.ChiPhiEntity import ChiPhi
 from src.service.ChiPhiService import ChiPhiService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class ChiPhiController: # lấy data rồi đưa vào template
+    @logger('ChiPhiController')
+    @timer('ChiPhiController')
     def __init__(self, parent: Frame):
-        logging.info("ChiPhi Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -42,7 +44,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.refresh_chi_phi_list()
 
     def get_all(self) -> dict:
-        logging.info("Get all ChiPhi")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -59,7 +60,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
             }
 
     def get_by_id(self, chi_phi_id):
-        logging.info("Get ChiPhi with id: %s", chi_phi_id)
         try:
             chi_phi = self.chi_phi_service.get_by_id(chi_phi_id)
             self.view_edit_item(chi_phi)
@@ -68,7 +68,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
             return None
 
     def create(self):
-        logging.info("Create ChiPhi")
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
@@ -81,7 +80,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
             return None
             
     def create_and_continue(self):
-        logging.info("Create and continue ChiPhi")
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try:
@@ -95,7 +93,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
             return None
 
     def update(self, chi_phi_id):
-        logging.info("Update ChiPhi with id: %s", chi_phi_id)
         chi_phi_data = {key: var.get() for key, var in self.chi_phi_vars.items()}
         chi_phi = ChiPhi(**chi_phi_data)
         try: 
@@ -108,7 +105,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
             return None
 
     def delete(self, chi_phi_id):
-        logging.info("Delete ChiPhi with id: %s", chi_phi_id)
         try:
             self.chi_phi_service.delete(chi_phi_id)
             self.view_new_top_window.destroy()
@@ -137,7 +133,6 @@ class ChiPhiController: # lấy data rồi đưa vào template
         self.refresh_chi_phi_list()
         
     def get_all_export(self) -> dict:
-        logging.info("Get all for export ChiPhi")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()

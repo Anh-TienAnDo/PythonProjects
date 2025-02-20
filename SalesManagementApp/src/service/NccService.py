@@ -7,13 +7,15 @@ from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import NCC_SORT_OPTIONS, NCC_ID_PREFIX, NCC_ID_LENGTH, LIMIT
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class NCCService:
     def __init__(self):
-        logging.info('---NCCService initializing---')
         self.ncc_repo = NCCRepo()
         self.search_whoosh = SearchWhooshNCC()
 
+    @logger('NCCService')
+    @timer('NCCService')
     def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -54,9 +56,13 @@ class NCCService:
                 'total_ncc': 0
             }
 
+    @logger('NCCService')
+    @timer('NCCService')
     def get_by_id(self, ncc_id) -> NCC:
         return self.ncc_repo.get_by_id(ncc_id)
 
+    @logger('NCCService')
+    @timer('NCCService')
     def create(self, ncc: NCC) -> bool:
         try:
             while self.ncc_repo.check_exist_id(ncc.id):
@@ -69,6 +75,8 @@ class NCCService:
             logging.error('Error when create NCC %s', e)
             return False
         
+    @logger('NCCService')
+    @timer('NCCService')
     def create_many(self, ncc_list: list[NCC]) -> bool:
         try:
             for index, ncc in enumerate(ncc_list):
@@ -82,6 +90,8 @@ class NCCService:
             logging.error('Error when create many NCC %s', e)
             return False
 
+    @logger('NCCService')
+    @timer('NCCService')
     def update(self, ncc_id, ncc: NCC) -> bool:
         try:
             # if not self.ncc_repo.check_exist_id(ncc_id):
@@ -94,6 +104,8 @@ class NCCService:
             logging.error('Error when update NCC %s', e)
             return False
       
+    @logger('NCCService')
+    @timer('NCCService')
     def delete(self, ncc_id) -> bool:
         try:
             # if not self.ncc_repo.check_exist_id(ncc_id):
@@ -115,6 +127,8 @@ class NCCService:
             return NCC_SORT_OPTIONS.get('Tên A-Z')
         return value
     
+    @logger('NCCService')
+    @timer('NCCService')
     def get_suggestions(self, keyword):
         try:
             results = self.search_whoosh.search(keyword)
@@ -126,6 +140,8 @@ class NCCService:
     def to_list_dict(self, ncc_list: list[NCC]) -> list[dict]:
         return [ncc.to_dict() for ncc in ncc_list]
     
+    @logger('NCCService')
+    @timer('NCCService')
     def export_data(self, data: list[NCC]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -139,6 +155,8 @@ class NCCService:
             logging.error('Error when export NCC %s', e)
             return False
     
+    @logger('NCCService')
+    @timer('NCCService')
     def import_ncc(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

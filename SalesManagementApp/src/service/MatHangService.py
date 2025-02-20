@@ -7,13 +7,15 @@ from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH, LIMIT
 from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import logger, timer
 
 class MatHangService:
     def __init__(self):
-        logging.info('---MatHangService initializing---')
         self.mat_hang_repo = MatHangRepo()
         self.search_whoosh = SearchWhooshMatHang()
 
+    @logger('MatHangService')
+    @timer('MatHangService')
     def get_all(self, sort: str, keyword: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -57,9 +59,13 @@ class MatHangService:
                 'total_so_luong': 0
             }
 
+    @logger('MatHangService')
+    @timer('MatHangService')
     def get_by_id(self, mat_hang_id) -> MatHang:
         return self.mat_hang_repo.get_by_id(mat_hang_id)
 
+    @logger('MatHangService')
+    @timer('MatHangService')
     def create(self, mat_hang: MatHang) -> bool:
         try:
             while self.mat_hang_repo.check_exist_id(mat_hang.id):
@@ -72,6 +78,8 @@ class MatHangService:
             logging.error('Error when create mat hang %s', e)
             return False
         
+    @logger('MatHangService')
+    @timer('MatHangService')
     def create_many(self, mat_hang_list: list[MatHang]) -> bool:
         try:
             for index, mat_hang in enumerate(mat_hang_list):
@@ -85,6 +93,8 @@ class MatHangService:
             logging.error('Error when create many mat hang %s', e)
             return False
 
+    @logger('MatHangService')
+    @timer('MatHangService')
     def update(self, mat_hang_id, mat_hang: MatHang) -> bool:
         try:
             # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
@@ -97,6 +107,8 @@ class MatHangService:
             logging.error('Error when update mat hang %s', e)
             return False
     
+    @logger('MatHangService')
+    @timer('MatHangService')
     def update_so_luong(self, mat_hang_id, so_luong: int) -> bool:
         try:
             # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
@@ -108,6 +120,8 @@ class MatHangService:
             logging.error('Error when update so luong mat hang %s', e)
             return False
       
+    @logger('MatHangService')
+    @timer('MatHangService')
     def delete(self, mat_hang_id) -> bool:
         try:
             # if not self.mat_hang_repo.check_exist_id(mat_hang_id):
@@ -129,6 +143,8 @@ class MatHangService:
             return MAT_HANG_SORT_OPTIONS.get('Tên A-Z')
         return value
     
+    @logger('MatHangService')
+    @timer('MatHangService')
     def get_suggestions(self, keyword):
         try:
             results = self.search_whoosh.search(keyword)
@@ -140,6 +156,8 @@ class MatHangService:
     def to_list_dict(self, mat_hang_list: list[MatHang]) -> list[dict]:
         return [mat_hang.to_dict() for mat_hang in mat_hang_list]
     
+    @logger('MatHangService')
+    @timer('MatHangService')
     def export_data(self, data: list[MatHang]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -154,6 +172,8 @@ class MatHangService:
             logging.error('Error when export data %s', e)
             return False
     
+    @logger('MatHangService')
+    @timer('MatHangService')
     def import_mat_hang(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

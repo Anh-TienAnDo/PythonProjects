@@ -9,10 +9,12 @@ from static.css.LabelType import LabelType
 from src.service.BaoCaoService import BaoCaoService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class BaoCaoController:
+    @logger('BaoCaoController')
+    @timer('BaoCaoController')
     def __init__(self, parent: Frame):
-        logging.info("BaoCao Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -38,7 +40,6 @@ class BaoCaoController:
         self.refresh_bao_cao_list()
 
     def report(self) -> dict:
-        logging.info("report BanHang")
         try:
             month = self.search_var_dict.get('month').get()
             year = self.search_var_dict.get('year').get()

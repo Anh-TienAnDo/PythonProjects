@@ -10,11 +10,12 @@ from static.css.LabelType import LabelType
 from src.service.NhapHangService import NhapHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
-
+from src.utils.Decorator import logger, timer
 
 class BaoCaoNhapHangController:
+    @logger('BaoCaoNhapHangController')
+    @timer('BaoCaoNhapHangController')
     def __init__(self, parent: Frame):
-        logging.info("BaoCaoNhapHang Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -38,7 +39,6 @@ class BaoCaoNhapHangController:
         self.refresh_nhap_hang_list()
         
     def report(self):
-        logging.info("report NhapHang")
         try:
             sort = self.sort_var.get()
             day = self.search_var_dict.get('day').get()
@@ -67,7 +67,6 @@ class BaoCaoNhapHangController:
         self.refresh_nhap_hang_list()
         
     def view_detail(self, id_mat_hang):
-        logging.info("view detail")
         from src.controller.BaoCaoNhapHangDetailController import BaoCaoNhapHangDetailController
         try:
             self.frame.destroy()

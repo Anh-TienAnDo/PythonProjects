@@ -11,10 +11,12 @@ from src.entity.NccEntity import NCC
 from src.service.NccService import NCCService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 class NCCController:
+    @logger('NCCController')
+    @timer('NCCController')
     def __init__(self, parent: Frame):
-        logging.info("NCC Controller")
         self.parent = parent
         self.frame = Frame(self.parent)
         self.frame.pack(fill="both", expand=True)
@@ -37,7 +39,6 @@ class NCCController:
         self.refresh_ncc_list()
 
     def get_all(self) -> dict:
-        logging.info("Get all NCC")
         try:
             sort = self.sort_var.get()
             keyword = self.search_var.get()
@@ -51,7 +52,6 @@ class NCCController:
             }
 
     def get_by_id(self, ncc_id):
-        logging.info("Get NCC with id: %s", ncc_id)
         try:
             ncc = self.ncc_service.get_by_id(ncc_id)
             self.view_edit_item(ncc)
@@ -60,7 +60,6 @@ class NCCController:
             return None
 
     def create(self):
-        logging.info("Create NCC")
         ncc_data = {key: var.get() for key, var in self.ncc_vars.items()}
         ncc = NCC(**ncc_data)
         try: 
@@ -72,7 +71,6 @@ class NCCController:
             logging.error("Error: %s", e)
             
     def create_and_continue(self):
-        logging.info("Create and continue NCC")
         ncc_data = {key: var.get() for key, var in self.ncc_vars.items()}
         ncc = NCC(**ncc_data)
         try:
@@ -85,7 +83,6 @@ class NCCController:
             logging.error("Error: %s", e)
 
     def update(self, ncc_id):
-        logging.info("Update NCC with id: %s", ncc_id)
         ncc_data = {key: var.get() for key, var in self.ncc_vars.items()}
         ncc = NCC(**ncc_data)
         try: 
@@ -97,7 +94,6 @@ class NCCController:
             logging.error("Error: %s", e)
 
     def delete(self, ncc_id):
-        logging.info("Delete NCC with id: %s", ncc_id)
         try:
             self.ncc_service.delete(ncc_id)
             self.view_new_top_window.destroy()
@@ -145,7 +141,6 @@ class NCCController:
         self.refresh_ncc_list()
         
     def get_all_export(self) -> list:
-        logging.info("Get all NCC for export")
         try:
             limit='10000'
             data = self.ncc_service.get_all(sort='', keyword='', page='1', limit=limit)
