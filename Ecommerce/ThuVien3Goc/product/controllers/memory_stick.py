@@ -56,7 +56,7 @@ class MemoryStickSearchView(View):
     def get(self, request):
         memory_stick_search_service = MemoryStickSearchService(request)
         
-        query = str(request.GET.get('query', ''))
+        query = str(request.GET.get('query_memory', ''))
         producer = str(request.GET.get('producer', ''))
         type_memory = str(request.GET.get('type', ''))
         price = int(request.GET.get('price', 0))

@@ -26,9 +26,7 @@ def register(request):
             'fname': fname,
             'lname': lname,
         }
-        # print(content)
         result = create_user(data = content)
-        # print(result)
         if result['status']=='Success':
             if 'message' in request.session:
                 request.session['message'] = "Đăng ký thành công. Bạn có thể đăng nhập ngay bây giờ."
@@ -50,9 +48,7 @@ def login_user(request):
             'username': username,
             'password': password,
         }
-        # print(content)
         result = check_user_login(data=content)
-        # print(result)
         if result['status']=='Success':
             request.session['account'] = result['account']
             request.session['message'] = "Đăng nhập thành công."
@@ -158,9 +154,7 @@ def login_user_ordered(request):
             'username': username,
             'password': password,
         }
-        # print(content)
         result = check_user_login(data=content)
-        # print(result)
         if result['status']=='Success':
             request.session['account'] = result['account']
             request.session['message'] = "Đăng nhập thành công."

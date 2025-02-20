@@ -4,6 +4,7 @@ from datetime import datetime
 from src.repository.BanHangRepo import BanHangRepo
 from src.repository.NhapHangRepo import NhapHangRepo
 from src.repository.ChiPhiRepo import ChiPhiRepo
+from concurrent.futures import ThreadPoolExecutor
 
 class BaoCaoService:
     def __init__(self):
@@ -26,9 +27,11 @@ class BaoCaoService:
             where_ban_hang = f"strftime('%m-%Y', ngay_ban) = '{month}-{year}'"
             where_nhap_hang = f"strftime('%m-%Y', ngay_nhap) = '{month}-{year}'"
             where_chi_phi = f"strftime('%m-%Y', ngay_tao) = '{month}-{year}'"
-            ban_hang = self.ban_hang_repo.report_loi_nhuan(where_ban_hang)
-            nhap_hang = self.nhap_hang_repo.report_loi_nhuan(where_nhap_hang)
-            chi_phi = self.chi_phi_repo.report_loi_nhuan(where_chi_phi)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.ban_hang_repo.report_loi_nhuan, where_ban_hang),
+                            executor.submit(self.nhap_hang_repo.report_loi_nhuan, where_nhap_hang),
+                            executor.submit(self.chi_phi_repo.report_loi_nhuan, where_chi_phi)]
+            ban_hang, nhap_hang, chi_phi = [f.result() for f in futures]
             report = {}
             # Xác định số ngày trong tháng
             num_days = calendar.monthrange(int(year), int(month))[1]
@@ -45,6 +48,7 @@ class BaoCaoService:
                 report[str(item[1])]['nhap_hang'] = item[0] if item[0] is not None else 0
             for item in chi_phi:
                 report[str(item[1])]['chi_phi'] = item[0] if item[0] is not None else 0
+
             return report
         except Exception as e:
             logging.error(f'Error: {e}')
@@ -57,4 +61,6 @@ class BaoCaoService:
             'month': str(now.month),
             'year': str(now.year)
         }
+        
+    
         

@@ -17,6 +17,7 @@ from src.controller.BaoCaoBanHangController import BaoCaoBanHangController
 from src.controller.BaoCaoNhapHangController import BaoCaoNhapHangController
 from functools import partial
 import json
+from src.utils.Decorator import logger, timer
 
 # Database setup
 def setup_database():
@@ -39,6 +40,7 @@ def setup_search_index():
 
 # Tkinter GUI Setup
 class SalesManagementApp:
+    @logger("SalesManagementApp")
     def __init__(self, root):
         self.root = root
         self.root.title(TITLE_APP)

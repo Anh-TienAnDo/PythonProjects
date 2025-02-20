@@ -8,15 +8,9 @@ class ProductService():
     def check_and_get_data(self):
         try:
             response = self.response.json()
-            # print("-------------------Product----------------------")
-            # print(str(response))
-            if response.get('status') == 'Success':
-                return response.get('data')
-            else:
-                return None
+            return response.get("data")
         except json.decoder.JSONDecodeError:
-            print('Error: JSONDecodeError. Please check the response. The response is not JSON format.')
-            return response.text
+            return []
 
 class ProductTypeService():
     def __init__(self):

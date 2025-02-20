@@ -57,13 +57,12 @@ class LoudSpeakerSearchView(View):
     def get(self, request):
         loudspeaker_search_service = LoudspeakerSearchService(request)
         
-        query = str(request.GET.get('query'))
+        query = str(request.GET.get('query_loudspeaker', ''))
         producer = str(request.GET.get('producer', ''))
         type_loudspeaker = str(request.GET.get('type', ''))
         price = int(request.GET.get('price', 0))
         
         page = request.GET.get('page', 1)
-        # items_per_page = request.GET.get('items_per_page', ITEMS_PER_PAGE)
         items_per_page = ITEMS_PER_PAGE
         start = (int(page) - 1) * int(items_per_page)
         limit = int(items_per_page)

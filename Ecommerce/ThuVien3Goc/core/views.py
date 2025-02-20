@@ -25,13 +25,13 @@ def search(request):
     query = str(request.GET.get('query'))
     
     loudspeaker_search_service = LoudspeakerSearchService(request=request)
-    loudspeakers = loudspeaker_search_service.search_and_filter(query=query, start=0, limit=3).get('loudspeakers', [])
+    loudspeakers = dict(loudspeaker_search_service.search_and_filter(query=query)).get('loudspeakers', [])
     
     memory_stick_search_service = MemoryStickSearchService(request=request)
-    memory_sticks = memory_stick_search_service.search_and_filter(query=query, start=0, limit=12).get('memory_sticks', [])
+    memory_sticks = dict(memory_stick_search_service.search_and_filter(query=query)).get('memory_sticks', [])
     
     usb_search_service = USBSearchService(request=request)
-    usbs = usb_search_service.search_and_filter(query=query, start=0, limit=3).get('usbs', [])
+    usbs = dict(usb_search_service.search_and_filter(query=query)).get('usbs', [])
     content = {
         'usbs': usbs,
         'loudspeakers': loudspeakers,

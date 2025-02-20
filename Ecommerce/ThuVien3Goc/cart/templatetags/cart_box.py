@@ -1,5 +1,4 @@
 from django.template import Library
-from cart.models import CartItems
 from cart.service import CartServiceLogged, CartServiceNotLogged
 
 register = Library()

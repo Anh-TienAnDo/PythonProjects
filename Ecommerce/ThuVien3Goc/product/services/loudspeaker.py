@@ -24,7 +24,6 @@ class LoudspeakerService():
         return product_service.check_and_get_data()
 
     def get_loudspeaker_by_slug(self, slug):
-        print("get_loudspeaker_by_slug")
         # cache_data = cache.get('product_cache')
         # if cache_data:
         #     loudspeakers = cache_data.get('loudspeakers')
@@ -52,7 +51,6 @@ class LoudspeakerFilterService(LoudspeakerService):
         super().__init__(request)
         
     def filter(self, producer="", type_loudspeaker="", price=0, start=0, limit=12):
-        print("LoudspeakerFilterService")
         url = f"{self.url}filter/?producer={producer}&type_loudspeaker={type_loudspeaker}&price={price}&_start={start}&_limit={limit}"
         response = requests.get(url, headers=self.headers, timeout=5)
         product_service = ProductService(response)

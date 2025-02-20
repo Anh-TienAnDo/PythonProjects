@@ -56,7 +56,7 @@ class USBDetailView(View):
 class USBSearchView(View):
     def get(self, request):
         usb_search_service = USBSearchService(request)
-        query = str(request.GET.get('query'))
+        query = str(request.GET.get('query_usb'))
         producer = str(request.GET.get('producer', ''))
         type_usb = str(request.GET.get('type', ''))
         price = int(request.GET.get('price', 0))

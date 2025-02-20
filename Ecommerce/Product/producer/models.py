@@ -4,9 +4,8 @@ from Product.utils import slugify
 # Create your models here.
 class Producer(models.Model):
     name = models.CharField(max_length=255, null=True)
-    # type_product = models.CharField(max_length=255, default='loudspeaker') # loudspeaker, memory_stick, usb, book
-    email = models.EmailField(max_length=255, null=True)
     slug = models.SlugField(max_length=255, unique=True)
+    email = models.EmailField(max_length=255, null=True)
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

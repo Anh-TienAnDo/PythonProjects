@@ -11,9 +11,12 @@ from src.entity.MatHangEntity import MatHang
 from src.service.MatHangService import MatHangService
 from src.utils.TextNormalization import TextNormalization
 from functools import partial
+from src.utils.Decorator import logger, timer
 
 
 class MatHangController: # lấy data rồi đưa vào template
+    @logger("MatHangController")
+    @timer("MatHangController")
     def __init__(self, parent: Frame):
         logging.info("MatHang Controller")
         self.parent = parent

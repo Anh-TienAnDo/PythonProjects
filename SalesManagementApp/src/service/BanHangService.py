@@ -6,15 +6,21 @@ from src.utils.GenerationId import GenerationId
 import logging
 from contants import BAN_HANG_SORT_OPTIONS, BAN_HANG_ID_PREFIX, BAN_HANG_ID_LENGTH, REPORT_BAN_HANG_SORT_OPTIONS, REPORT_BAN_HANG_DETAIL_SORT_OPTIONS, LIMIT
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
+from src.utils.Decorator import timer, logger
 
 class BanHangService:
+    @logger('BanHangService')
+    @timer('BanHangService')
     def __init__(self):
-        logging.info('---BanHangService initializing---')
+        # logging.info('---BanHangService initializing---')
         self.ban_hang_repo = BanHangRepo()
         self.mat_hang_search = SearchWhooshMatHang()
         self.khach_hang_search = SearchWhooshKhachHang()
         self.mat_hang_service = MatHangService()
 
+    @logger('BanHangService')
+    @timer('BanHangService')
     def get_all(self, sort: str, day: str, month: str, year: str, page: str, limit=LIMIT) -> dict:
         try:
             offset = str((int(page) - 1) * int(limit))
@@ -38,8 +44,11 @@ class BanHangService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_ban) = '{day}-{month}-{year}'"
-            ban_hang_list = self.ban_hang_repo.get_all(sort_by, where, limit, offset)
-            calculate_total = self.ban_hang_repo.calculate_total(where)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.ban_hang_repo.get_all, sort_by, where, limit, offset), executor.submit(self.ban_hang_repo.calculate_total, where)]
+                ban_hang_list, calculate_total = [future.result() for future in futures]
+            # ban_hang_list = self.ban_hang_repo.get_all(sort_by, where, limit, offset)
+            # calculate_total = self.ban_hang_repo.calculate_total(where)
             return {
                 'ban_hang_list': ban_hang_list,
                 'total_ban_hang': calculate_total[0] if calculate_total[0] is not None else 0,
@@ -55,6 +64,8 @@ class BanHangService:
                 'total_thanh_tien': 0
             }
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def report(self, sort: str, day: str, month: str, year: str) -> list:
         try:
             sort = sort.strip()
@@ -82,6 +93,8 @@ class BanHangService:
             logging.error('Error when report ban hang %s', e)
             return []
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def report_detail_mat_hang(self, sort: str, month: str, year: str, id_mat_hang: str) -> list:
         try:
             sort = sort.strip()
@@ -102,10 +115,14 @@ class BanHangService:
         except Exception as e:
             logging.error('Error when report detail mat hang %s', e)
             return []
-        
+    
+    @logger('BanHangService')
+    @timer('BanHangService')    
     def get_by_id(self, ban_hang_id) -> BanHang:
         return self.ban_hang_repo.get_by_id(ban_hang_id)
 
+    @logger('BanHangService')
+    @timer('BanHangService')
     def create(self, ban_hang: BanHang) -> bool:
         while self.ban_hang_repo.check_exist_id(ban_hang.id):
             ban_hang.id = GenerationId.generate_id(BAN_HANG_ID_LENGTH, BAN_HANG_ID_PREFIX)
@@ -119,7 +136,9 @@ class BanHangService:
         except Exception as e:
             logging.error('Error when create ban hang %s', e)
             return False
-        
+     
+    @logger('BanHangService')
+    @timer('BanHangService')   
     def create_many(self, ban_hang_list: list[BanHang]) -> bool:
         for index, ban_hang in enumerate(ban_hang_list):
             try:
@@ -137,6 +156,8 @@ class BanHangService:
             logging.error('Error when create many ban hang %s', e)
             return False
 
+    @logger('BanHangService')
+    @timer('BanHangService')
     def update(self, ban_hang_id, ban_hang: BanHang, so_luong_ban_old: int) -> bool:
         try: 
             if not self.ban_hang_repo.check_exist_id(ban_hang_id):
@@ -151,6 +172,8 @@ class BanHangService:
             logging.error('Error when update ban hang %s', e)
             return False
       
+    @logger('BanHangService')
+    @timer('BanHangService')
     def delete(self, ban_hang_id) -> bool:
         try:
             if not self.ban_hang_repo.check_exist_id(ban_hang_id):
@@ -212,6 +235,8 @@ class BanHangService:
             'year': str(now.year)
         }
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def search_mat_hang(self, keyword) -> list[dict]:
         try:
             results = self.mat_hang_search.search(keyword.strip())
@@ -229,6 +254,8 @@ class BanHangService:
             logging.error('Error when search mat hang %s', e)
             return []
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def search_khach_hang(self, keyword) -> list[str]:
         try:
             results = self.khach_hang_search.search(keyword.strip())
@@ -244,6 +271,8 @@ class BanHangService:
     def to_list_dict(self, ban_hang_list: list[BanHang]) -> list[dict]:
         return [ban_hang.to_dict() for ban_hang in ban_hang_list]
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def export_data(self, data: list[BanHang]) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()
@@ -257,6 +286,8 @@ class BanHangService:
             logging.error('Error when export data %s', e)
             return False
     
+    @logger('BanHangService')
+    @timer('BanHangService')
     def import_ban_hang(self) -> bool:
         from src.utils.Excel import Excel
         excel_util = Excel()

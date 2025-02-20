@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from rest_framework.response import Response
 from rest_framework import status
 from django.views.generic import View
 from django.http import JsonResponse
@@ -8,15 +7,12 @@ from .models import MemoryStick
 from .serializers import MemoryStickSerializer
 from Product.decorators import authenticate_user, authenticate_staff, authenticate_admin
 from Product.utils import slugify
+from Product.response import ResponseGenerator
 
 # Create your views here.
 def check_data_exists(data):
     if not data:
-        return [False, {
-            'status': 'Failed',
-            'message': 'Data not found',
-            'data': None
-        }]
+        return [False, ResponseGenerator.error(message='Data not found')]
     return [True, None]
 
 def get_producer_name(memory_stick):
@@ -36,19 +32,18 @@ class MemoryStickView(View):
         memory_sticks = MemoryStick.objects.filter(is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(memory_sticks)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "memory_sticks": []
+            }, message='Data not found')
         
         total =  MemoryStick.objects.filter(is_active=True).count()
         memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
 
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'memory_sticks': memory_sticks_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'memory_sticks': memory_sticks_serializer
+        }, message='Data retrieved successfully')
         
     @authenticate_staff
     def post(self, request):
@@ -65,44 +60,35 @@ class MemoryStickDetailView(View):
         memory_stick = MemoryStick.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return check[1]
         memory_stick.view += 1
         memory_stick.save()
         memory_stick_serializer = MemoryStickSerializer(memory_stick).data
         memory_stick_serializer["producer"] = get_producer_name(memory_stick)
         memory_stick_serializer["type"] = get_type_name(memory_stick)
-        return JsonResponse({
-            'status': 'Success',
-            'message': 'Data retrieved successfully',
-            'data': memory_stick_serializer
-        }, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data=memory_stick_serializer, message='Data retrieved successfully')
 
     @authenticate_staff
     def put(self, request, id):
         memory_stick = MemoryStick.objects.filter(id=id, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
-            return Response(check[1])
+            return check[1]
         serializer = MemoryStickSerializer(memory_stick, data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return ResponseGenerator.success(data=serializer.data, message='Data updated successfully')
+        return ResponseGenerator.error(message=serializer.errors)
 
     @authenticate_staff
     def delete(self, request, id):
         memory_stick = MemoryStick.objects.filter(id=id, is_active=True).first()
         check = check_data_exists(memory_stick)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return check[1]
         memory_stick.is_active = False
         memory_stick.save()
-        return JsonResponse({
-            'status': 'Success',
-            'status_code': status.HTTP_200_OK,
-            'message': 'Data deleted successfully',
-            'data': None
-        })
+        return ResponseGenerator.deleted(message='Data deleted successfully')
         
 class MemoryStickSearchAndFilterView(View):
     # @authenticate_user
@@ -118,18 +104,17 @@ class MemoryStickSearchAndFilterView(View):
         memory_sticks = MemoryStick.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(memory_sticks)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "memory_sticks": []
+            }, message='Data not found')
         total = MemoryStick.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).count()
         memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
         
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'memory_sticks': memory_sticks_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'memory_sticks': memory_sticks_serializer
+        }, message='Data retrieved successfully')
         
   
 class MemoryStickFilterView(View):
@@ -145,16 +130,15 @@ class MemoryStickFilterView(View):
         memory_sticks = MemoryStick.objects.filter(producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(memory_sticks)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "memory_sticks": []
+            }, message='Data not found')
         total = MemoryStick.objects.filter(producer__slug__contains=producer, type__slug__contains=type_memory_stick, price_new__gte=price_new, is_active=True).count()
         memory_sticks_serializer = MemoryStickSerializer(memory_sticks, many=True).data
 
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'memory_sticks': memory_sticks_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'memory_sticks': memory_sticks_serializer
+        }, message='Data retrieved successfully')
    

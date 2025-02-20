@@ -6,6 +6,7 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import MAT_HANG_SORT_OPTIONS, MAT_HANG_ID_PREFIX, MAT_HANG_ID_LENGTH, LIMIT
+from concurrent.futures import ThreadPoolExecutor
 
 class MatHangService:
     def __init__(self):
@@ -22,8 +23,12 @@ class MatHangService:
             sort_by = self.get_mat_hang_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                mat_hang_list = self.mat_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
-                calculate_total = self.mat_hang_repo.calculate_total()
+                with ThreadPoolExecutor() as executor:
+                    futures = [executor.submit(self.mat_hang_repo.get_all, sort_by, limit, offset),
+                                executor.submit(self.mat_hang_repo.calculate_total)]
+                mat_hang_list, calculate_total = [f.result() for f in futures]
+                # mat_hang_list = self.mat_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                # calculate_total = self.mat_hang_repo.calculate_total()
                 return {
                     'mat_hang_list': mat_hang_list,
                     'total_mat_hang': calculate_total[0] if calculate_total[0] is not None else 0,
@@ -33,8 +38,12 @@ class MatHangService:
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            mat_hang_list = self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
-            calculate_total = self.mat_hang_repo.calculate_total(where=where, params=id_list)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.mat_hang_repo.search, sort_by, where, id_list, limit, offset),
+                            executor.submit(self.mat_hang_repo.calculate_total, where, id_list)]
+            mat_hang_list, calculate_total = [f.result() for f in futures]
+            # mat_hang_list = self.mat_hang_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
+            # calculate_total = self.mat_hang_repo.calculate_total(where=where, params=id_list)
             return {
                 'mat_hang_list': mat_hang_list,
                 'total_mat_hang': calculate_total[0] if calculate_total[0] is not None else 0,

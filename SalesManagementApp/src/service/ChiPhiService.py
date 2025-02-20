@@ -4,6 +4,7 @@ from src.utils.GenerationId import GenerationId
 import logging
 from contants import CHI_PHI_SORT_OPTIONS, CHI_PHI_ID_PREFIX, CHI_PHI_ID_LENGTH, LIMIT
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
 
 class ChiPhiService:
     def __init__(self):
@@ -33,8 +34,12 @@ class ChiPhiService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_tao) = '{day}-{month}-{year}'"
-            chi_phi_list = self.chi_phi_repo.get_all(sort_by=sort_by, where=where, limit=limit, offset=offset)
-            calculate_total = self.chi_phi_repo.calculate_total(where=where)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.chi_phi_repo.get_all, sort_by, where, limit, offset),
+                            executor.submit(self.chi_phi_repo.calculate_total, where)]
+            chi_phi_list, calculate_total = [f.result() for f in futures]
+            # chi_phi_list = self.chi_phi_repo.get_all(sort_by=sort_by, where=where, limit=limit, offset=offset)
+            # calculate_total = self.chi_phi_repo.calculate_total(where=where)
             return {
                 'chi_phi_list': chi_phi_list,
                 'total_chi_phi': calculate_total[0] if calculate_total[0] is not None else 0,

@@ -3,12 +3,15 @@ from whoosh.fields import Schema, TEXT, ID
 from whoosh.qparser import QueryParser
 from contants import WHOOSH_INDEX_DIR, WHOOSH_PATH, MAT_HANG_SORT_OPTIONS
 import os
+from src.utils.Decorator import logger, timer
 
 class SearchWhoosh:
     def __init__(self):
         self.index_dir = WHOOSH_INDEX_DIR
         
 class SearchWhooshMatHang(SearchWhoosh):
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')
     def __init__(self):
         super().__init__()
         self.schema_mat_hang = Schema(
@@ -19,6 +22,8 @@ class SearchWhooshMatHang(SearchWhoosh):
         self.index_name_mat_hang = "mat_hang"
         self.create_index()
         
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -27,6 +32,8 @@ class SearchWhooshMatHang(SearchWhoosh):
         else:
             self.ix_mat_hang = open_dir(WHOOSH_PATH, indexname=self.index_name_mat_hang)
             
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')
     def create_document_ix(self):
         from src.repository.MatHangRepo import MatHangRepo
         mat_hang_repository = MatHangRepo()
@@ -34,16 +41,22 @@ class SearchWhooshMatHang(SearchWhoosh):
         for mat_hang in mat_hang_list:
             self.add_or_update_document_ix(mat_hang.id, mat_hang.ten_hang)
         
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')
     def delete_document_ix(self, doc_id):
         writer = self.ix_mat_hang.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
-        
+      
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')  
     def add_or_update_document_ix(self, doc_id, ten_mat_hang):
         writer = self.ix_mat_hang.writer()
         writer.update_document(id=doc_id, ten_mat_hang=ten_mat_hang)
         writer.commit()
 
+    @logger('SearchWhooshMatHang')
+    @timer('SearchWhooshMatHang')
     def search(self, keyword, field='ten_mat_hang') -> list[dict]:
         with self.ix_mat_hang.searcher() as searcher:
             query = QueryParser(field, self.ix_mat_hang.schema).parse(keyword)
@@ -54,6 +67,8 @@ class SearchWhooshMatHang(SearchWhoosh):
             return results_dict
             
 class SearchWhooshKhachHang(SearchWhoosh):
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def __init__(self):
         super().__init__()
         self.schema_khach_hang = Schema(
@@ -64,6 +79,8 @@ class SearchWhooshKhachHang(SearchWhoosh):
         self.index_name_khach_hang = "khach_hang"
         self.create_index()
         
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -72,6 +89,8 @@ class SearchWhooshKhachHang(SearchWhoosh):
         else:
             self.ix_khach_hang = open_dir(WHOOSH_PATH, indexname=self.index_name_khach_hang)
             
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def create_document_ix(self):
         from src.repository.KhachHangRepo import KhachHangRepo
         khach_hang_repository = KhachHangRepo()
@@ -79,16 +98,22 @@ class SearchWhooshKhachHang(SearchWhoosh):
         for khach_hang in khach_hang_list:
             self.add_or_update_document_ix(khach_hang.id, khach_hang.ten_khach_hang)
         
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def delete_document_ix(self, doc_id):
         writer = self.ix_khach_hang.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
         
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def add_or_update_document_ix(self, doc_id, ten_khach_hang):
         writer = self.ix_khach_hang.writer()
         writer.update_document(id=doc_id, ten_khach_hang=ten_khach_hang)
         writer.commit()
 
+    @logger('SearchWhooshKhachHang')
+    @timer('SearchWhooshKhachHang')
     def search(self, keyword, field='ten_khach_hang') -> list[dict]:
         with self.ix_khach_hang.searcher() as searcher:
             query = QueryParser(field, self.ix_khach_hang.schema).parse(keyword)
@@ -97,6 +122,8 @@ class SearchWhooshKhachHang(SearchWhoosh):
             return results_dict
         
 class SearchWhooshNCC(SearchWhoosh):
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')
     def __init__(self):
         super().__init__()
         self.schema_ncc = Schema(
@@ -107,6 +134,8 @@ class SearchWhooshNCC(SearchWhoosh):
         self.index_name_ncc = "ncc"
         self.create_index()
         
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')
     def create_index(self):
         if not os.path.exists(WHOOSH_PATH):
             os.mkdir(WHOOSH_PATH)
@@ -114,7 +143,9 @@ class SearchWhooshNCC(SearchWhoosh):
             self.ix_ncc = create_in(WHOOSH_PATH, self.schema_ncc, indexname=self.index_name_ncc)
         else:
             self.ix_ncc = open_dir(WHOOSH_PATH, indexname=self.index_name_ncc)
-            
+        
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')    
     def create_document_ix(self):
         from src.repository.NccRepo import NCCRepo
         ncc_repository = NCCRepo()
@@ -122,16 +153,22 @@ class SearchWhooshNCC(SearchWhoosh):
         for ncc in ncc_list:
             self.add_or_update_document_ix(ncc.id, ncc.ten_ncc)
         
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')
     def delete_document_ix(self, doc_id):
         writer = self.ix_ncc.writer()
         writer.delete_by_term('id', doc_id)
         writer.commit()
         
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')
     def add_or_update_document_ix(self, doc_id, ten_ncc):
         writer = self.ix_ncc.writer()
         writer.update_document(id=doc_id, ten_ncc=ten_ncc)
         writer.commit()
 
+    @logger('SearchWhooshNCC')
+    @timer('SearchWhooshNCC')
     def search(self, keyword, field='ten_ncc') -> list[dict]:
         with self.ix_ncc.searcher() as searcher:
             query = QueryParser(field, self.ix_ncc.schema).parse(keyword)

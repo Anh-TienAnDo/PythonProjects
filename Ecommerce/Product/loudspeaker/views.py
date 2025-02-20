@@ -1,24 +1,18 @@
 from django.shortcuts import render
-from rest_framework.response import Response
 from rest_framework import status
-# from rest_framework.views import APIView
 from django.views.generic import View
 from django.http import JsonResponse
-import json
 from django.views.decorators.csrf import csrf_exempt
 from .models import LoudSpeaker
 from .serializers import LoudspeakerSerializer
 from Product.decorators import authenticate_user, authenticate_staff, authenticate_admin
 from Product.utils import slugify
+from Product.response import ResponseGenerator
 
 # Create your views here.
 def check_data_exists(data):
     if not data:
-        return [False, {
-            'status': 'Failed',
-            'message': 'Data not found',
-            'data': None
-        }]
+        return [False, ResponseGenerator.error(message='Data not found')]
     return [True, None]
 
 def get_producer_name(loudspeaker):
@@ -38,74 +32,61 @@ class LoudspeakerView(View):
         loudspeakers = LoudSpeaker.objects.filter(is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "loudspeakers": []
+            }, message='Data not found')
         
         total =  LoudSpeaker.objects.filter(is_active=True).count()
         loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
 
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'loudspeakers': loudspeakers_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'loudspeakers': loudspeakers_serializer
+        }, message='Data retrieved successfully')
         
     @authenticate_staff
     def post(self, request):
         serializer = LoudspeakerSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return ResponseGenerator.created(data=serializer.data, message='Loudspeaker created successfully')
+        return ResponseGenerator.error(message=serializer.errors)
+    
 class LoudspeakerDetailView(View):
-    # @authenticate_user
     def get(self, request, slug):
-        print("Getting loudspeaker by slug")
         loudspeaker = LoudSpeaker.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(loudspeaker)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return check[1]
         loudspeaker.view += 1
         loudspeaker.save()
-        loudspeaker_serializer = LoudspeakerSerializer(loudspeaker).data
-        loudspeaker_serializer["producer"] = get_producer_name(loudspeaker)
-        loudspeaker_serializer["type"] = get_type_name(loudspeaker)
-        return JsonResponse({
-            'status': 'Success',
-            'message': 'Data retrieved successfully',
-            'data': loudspeaker_serializer
-        }, status=status.HTTP_200_OK)
-
+        data = LoudspeakerSerializer(loudspeaker).data
+        data['producer'] = get_producer_name(loudspeaker)
+        data['type'] = get_type_name(loudspeaker)
+        return ResponseGenerator.success(data=data, message='Data retrieved successfully')
+    
     @authenticate_staff
-    def put(self, request, id):
-        loudspeaker = LoudSpeaker.objects.filter(id=id, is_active=True).first()
+    def put(self, request, slug):
+        loudspeaker = LoudSpeaker.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(loudspeaker)
         if check[0] is False:
-            return Response(check[1])
-        serializer = LoudspeakerSerializer(loudspeaker, data=request.data)
+            return check[1]
+        serializer = LoudspeakerSerializer(loudspeaker, data=request.data, partial=True)
         if serializer.is_valid():
             serializer.save()
-            return JsonResponse(serializer.data, status=status.HTTP_200_OK)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+            return ResponseGenerator.success(data=serializer.data, message='Loudspeaker updated successfully')
+        return ResponseGenerator.error(message=serializer.errors)
+    
     @authenticate_staff
-    def delete(self, request, id):
-        loudspeaker = LoudSpeaker.objects.filter(id=id, is_active=True).first()
+    def delete(self, request, slug):
+        loudspeaker = LoudSpeaker.objects.filter(slug=slug, is_active=True).first()
         check = check_data_exists(loudspeaker)
         if check[0] is False:
-            return JsonResponse(check[1])
-        loudspeaker.is_active = False
-        loudspeaker.save()
-        return JsonResponse({
-            'status': 'Success',
-            'status_code': status.HTTP_200_OK,
-            'message': 'Data deleted successfully',
-            'data': None
-        })
-        
+            return check[1]
+        loudspeaker.delete()
+        return ResponseGenerator.deleted(message='Loudspeaker deleted successfully')
+
 class LoudspeakerSearchAndFilterView(View):
     # @authenticate_user
     def get(self, request):
@@ -120,18 +101,17 @@ class LoudspeakerSearchAndFilterView(View):
         loudspeakers = LoudSpeaker.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "loudspeakers": []
+            }, message='Data not found')
         total = LoudSpeaker.objects.filter(slug__icontains=query, producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).count()
         loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
         
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'loudspeakers': loudspeakers_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'loudspeakers': loudspeakers_serializer
+        }, message='Data retrieved successfully')
         
   
 class LoudspeakerFilterView(View):
@@ -147,16 +127,15 @@ class LoudspeakerFilterView(View):
         loudspeakers = LoudSpeaker.objects.filter(producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).order_by('-updated_at')[start:start + limit]
         check = check_data_exists(loudspeakers)
         if check[0] is False:
-            return JsonResponse(check[1])
+            return ResponseGenerator.error(data={
+                "total": 0,
+                "loudspeakers": []
+            }, message='Data not found')
         total = LoudSpeaker.objects.filter(producer__slug__contains=producer, type__slug__contains=type_loudspeaker, price_new__gte=price_new, is_active=True).count()
         loudspeakers_serializer = LoudspeakerSerializer(loudspeakers, many=True).data
 
-        return JsonResponse({
-                'status': 'Success',
-                'message': 'Data retrieved successfully',
-                'data': {
-                    'total': total,
-                    'loudspeakers': loudspeakers_serializer
-                }
-            }, safe=False, status=status.HTTP_200_OK)
+        return ResponseGenerator.success(data={
+            'total': total,
+            'loudspeakers': loudspeakers_serializer
+        }, message='Data retrieved successfully')
    

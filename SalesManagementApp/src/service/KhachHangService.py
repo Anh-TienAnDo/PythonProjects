@@ -6,6 +6,7 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import KHACH_HANG_SORT_OPTIONS, KHACH_HANG_ID_PREFIX, KHACH_HANG_ID_LENGTH, LIMIT
+from concurrent.futures import ThreadPoolExecutor
 
 class KhachHangService:
     def __init__(self):
@@ -22,8 +23,12 @@ class KhachHangService:
             sort_by = self.get_khach_hang_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                khach_hang_list = self.khach_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
-                calculate_total = self.khach_hang_repo.calculate_total()
+                with ThreadPoolExecutor() as executor:
+                    futures = [executor.submit(self.khach_hang_repo.get_all, sort_by, limit, offset),
+                                executor.submit(self.khach_hang_repo.calculate_total)]
+                khach_hang_list, calculate_total = [f.result() for f in futures]
+                # khach_hang_list = self.khach_hang_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                # calculate_total = self.khach_hang_repo.calculate_total()
                 return {
                     'khach_hang_list': khach_hang_list,
                     'total_khach_hang': calculate_total[0] if calculate_total[0] is not None else 0
@@ -33,8 +38,10 @@ class KhachHangService:
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            khach_hang_list = self.khach_hang_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
-            calculate_total = self.khach_hang_repo.calculate_total(where=where, params=id_list)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.khach_hang_repo.search, sort_by, where, id_list, limit, offset),
+                            executor.submit(self.khach_hang_repo.calculate_total, where, id_list)]
+            khach_hang_list, calculate_total = [f.result() for f in futures]
             return {
                 'khach_hang_list': khach_hang_list,
                 'total_khach_hang': calculate_total[0] if calculate_total[0] is not None else 0

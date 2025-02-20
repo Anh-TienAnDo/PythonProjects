@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os.path
 from datetime import timedelta, datetime
-import logging
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -244,5 +243,5 @@ PAYPAL = {
 #     },
 # }
 
-ITEMS_PER_PAGE = 1
+ITEMS_PER_PAGE = 3
 ITEMS_LIMIT = 48

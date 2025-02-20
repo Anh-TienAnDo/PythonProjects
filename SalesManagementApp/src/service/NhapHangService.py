@@ -6,6 +6,7 @@ from src.utils.GenerationId import GenerationId
 import logging
 from contants import NHAP_HANG_SORT_OPTIONS, NHAP_HANG_ID_PREFIX, NHAP_HANG_ID_LENGTH, REPORT_NHAP_HANG_SORT_OPTIONS, REPORT_NHAP_HANG_DETAIL_SORT_OPTIONS, LIMIT
 from datetime import datetime
+from concurrent.futures import ThreadPoolExecutor
 
 class NhapHangService:
     def __init__(self):
@@ -38,8 +39,12 @@ class NhapHangService:
                 if len(day) == 1:
                     day = f'0{day}'
                 where = f"strftime('%d-%m-%Y', ngay_nhap) = '{day}-{month}-{year}'"
-            nhap_hang_list = self.nhap_hang_repo.get_all(sort_by, where, limit, offset)
-            calculate_total = self.nhap_hang_repo.calculate_total(where)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.nhap_hang_repo.get_all, sort_by, where, limit, offset),
+                            executor.submit(self.nhap_hang_repo.calculate_total, where)]
+            nhap_hang_list, calculate_total = [f.result() for f in futures]
+            # nhap_hang_list = self.nhap_hang_repo.get_all(sort_by, where, limit, offset)
+            # calculate_total = self.nhap_hang_repo.calculate_total(where)
             return {
                 'nhap_hang_list': nhap_hang_list,
                 'total_nhap_hang': calculate_total[0] if calculate_total[0] is not None else 0,

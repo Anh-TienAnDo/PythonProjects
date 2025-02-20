@@ -6,6 +6,7 @@ from src.utils.GenerationId import GenerationId
 from src.utils.TextNormalization import TextNormalization
 import logging
 from contants import NCC_SORT_OPTIONS, NCC_ID_PREFIX, NCC_ID_LENGTH, LIMIT
+from concurrent.futures import ThreadPoolExecutor
 
 class NCCService:
     def __init__(self):
@@ -22,8 +23,12 @@ class NCCService:
             sort_by = self.get_ncc_sort_by_key(sort)
             
             if keyword is None or keyword.strip() == '':
-                ncc_list = self.ncc_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
-                calculate_total = self.ncc_repo.calculate_total()
+                with ThreadPoolExecutor() as executor:
+                    futures = [executor.submit(self.ncc_repo.get_all, sort_by, limit, offset),
+                                executor.submit(self.ncc_repo.calculate_total)]
+                ncc_list, calculate_total = [f.result() for f in futures]
+                # ncc_list = self.ncc_repo.get_all(sort_by=sort_by, limit=limit, offset=offset)
+                # calculate_total = self.ncc_repo.calculate_total()
                 return {
                     'ncc_list': ncc_list,
                     'total_ncc': calculate_total[0] if calculate_total[0] is not None else 0
@@ -32,8 +37,12 @@ class NCCService:
             results = self.search_whoosh.search(keyword)
             id_list = [result['id'] for result in results]
             where = f'id IN ({",".join(["?"] * len(id_list))})'
-            ncc_list = self.ncc_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
-            calculate_total = self.ncc_repo.calculate_total(where=where, params=id_list)
+            with ThreadPoolExecutor() as executor:
+                futures = [executor.submit(self.ncc_repo.search, sort_by, where, id_list, limit, offset),
+                            executor.submit(self.ncc_repo.calculate_total, where, id_list)]
+            ncc_list, calculate_total = [f.result() for f in futures]
+            # ncc_list = self.ncc_repo.search(sort_by=sort_by, where=where, params=id_list, limit=limit, offset=offset)
+            # calculate_total = self.ncc_repo.calculate_total(where=where, params=id_list)
             return {
                 'ncc_list': ncc_list,
                 'total_ncc': calculate_total[0] if calculate_total[0] is not None else 0

@@ -1,98 +1,293 @@
-2025-02-13 14:41:04 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
-2025-02-13 14:41:04 - root - INFO - Logging initialized
-2025-02-13 14:41:04 - root - INFO - Connecting to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:04 - root - INFO - Initializing tables
-2025-02-13 14:41:04 - root - INFO - MatHang Controller
-2025-02-13 14:41:04 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:41:04 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:04 - root - INFO - Get all MatHang
-2025-02-13 14:41:04 - root - INFO - Getting all products
-2025-02-13 14:41:04 - root - INFO - Calculating total products
-2025-02-13 14:41:04 - root - INFO - NhapHang Controller
-2025-02-13 14:41:04 - root - INFO - ---NhapHangService initializing---
-2025-02-13 14:41:04 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:04 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:41:04 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:41:04 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:04 - root - INFO - Get all NhapHang
-2025-02-13 14:41:04 - root - INFO - Getting all nhaphang
-2025-02-13 14:41:04 - root - INFO - SELECT * FROM NhapHang WHERE strftime('%m-%Y', ngay_nhap) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
-2025-02-13 14:41:04 - root - INFO - Calculating total nhap hang
-2025-02-13 14:41:05 - root - INFO - BanHang Controller
-2025-02-13 14:41:05 - root - INFO - ---BanHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - Get all BanHang
-2025-02-13 14:41:05 - root - INFO - Getting all banhang
-2025-02-13 14:41:05 - root - INFO - SELECT * FROM BanHang WHERE strftime('%m-%Y', ngay_ban) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
-2025-02-13 14:41:05 - root - INFO - Calculating total ban hang strftime('%m-%Y', ngay_ban) = '02-2025'
-2025-02-13 14:41:05 - root - INFO - ChiPhi Controller
-2025-02-13 14:41:05 - root - INFO - ---ChiPhiService initializing---
-2025-02-13 14:41:05 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - Get all ChiPhi
-2025-02-13 14:41:05 - root - INFO - Getting all chi phi
-2025-02-13 14:41:05 - root - INFO - SELECT * FROM ChiPhi WHERE strftime('%m-%Y', ngay_tao) = '02-2025' ORDER BY ten_chi_phi asc LIMIT 25 OFFSET 0
-2025-02-13 14:41:05 - root - INFO - Calculating total chi phi strftime('%m-%Y', ngay_tao) = '02-2025'
-2025-02-13 14:41:05 - root - INFO - KhachHang Controller
-2025-02-13 14:41:05 - root - INFO - ---KhachHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---KhachHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - Get all KhachHang
-2025-02-13 14:41:05 - root - INFO - Getting all khach hang
-2025-02-13 14:41:05 - root - INFO - Calculating total khachhang
-2025-02-13 14:41:05 - root - INFO - NCC Controller
-2025-02-13 14:41:05 - root - INFO - ---NCCService initializing---
-2025-02-13 14:41:05 - root - INFO - ---NCCRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - Get all NCC
-2025-02-13 14:41:05 - root - INFO - Getting all ncc
-2025-02-13 14:41:05 - root - INFO - Calculating total ncc
-2025-02-13 14:41:05 - root - INFO - BaoCao Controller
-2025-02-13 14:41:05 - root - INFO - ---BaoCaoService initializing---
-2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - ---ChiPhiRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - report BanHang
-2025-02-13 14:41:05 - root - INFO - BaoCaoBanHang Controller
-2025-02-13 14:41:05 - root - INFO - ---BanHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---BanHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - report BanHang
-2025-02-13 14:41:05 - root - INFO - BaoCaoNhapHang Controller
-2025-02-13 14:41:05 - root - INFO - ---NhapHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---NhapHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - ---MatHangService initializing---
-2025-02-13 14:41:05 - root - INFO - ---MatHangRepo initializing---
-2025-02-13 14:41:05 - root - INFO - Connected to database D:\documents\PythonProjects\SalesManagementApp\database\sales_management.db
-2025-02-13 14:41:05 - root - INFO - report NhapHang
-2025-02-13 15:07:20 - root - INFO - Get all MatHang
-2025-02-13 15:07:20 - root - INFO - Getting all products
-2025-02-13 15:07:20 - root - INFO - Calculating total products
-2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to chiphi
-2025-02-13 15:51:36 - root - INFO - Closing database connection to khachhang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to ncc
-2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to chiphi
-2025-02-13 15:51:36 - root - INFO - Closing database connection to banhang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to nhaphang
-2025-02-13 15:51:36 - root - INFO - Closing database connection to mathang
+2025-02-20 16:14:54 - root - INFO - Phầm mềm của Developer: 'Lê Hồng Ánh - 2002 - phone: 0397786311'
+2025-02-20 16:14:54 - root - INFO - Logging initialized
+2025-02-20 16:14:54 - root - INFO - Class Database
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ với args: (<src.config.database.Database object at 0x0000018841A0F880>, 'D:\\documents\\PythonProjects\\SalesManagementApp\\database\\sales_management.db'), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class Database
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ chạy trong 0.0009925365447998047 giây
+2025-02-20 16:14:54 - root - INFO - Class Database
+2025-02-20 16:14:54 - root - INFO - Hàm init_tables với args: (<src.config.database.Database object at 0x0000018841A0F880>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class Database
+2025-02-20 16:14:54 - root - INFO - Hàm init_tables chạy trong 0.0020351409912109375 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841A0F880>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:54 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841A0F880>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:54 - root - INFO - Hàm create_index chạy trong 0.014862298965454102 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ chạy trong 0.014862298965454102 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018841A0EFB0>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:54 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018841A0EFB0>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:54 - root - INFO - Hàm create_index chạy trong 0.006066799163818359 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ chạy trong 0.007070302963256836 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x00000188419EA710>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:54 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x00000188419EA710>,), kwargs: {}
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:54 - root - INFO - Hàm create_index chạy trong 0.002035856246948242 giây
+2025-02-20 16:14:54 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:54 - root - INFO - Hàm __init__ chạy trong 0.002035856246948242 giây
+2025-02-20 16:14:55 - root - INFO - Class SalesManagementApp
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ với args: (<__main__.SalesManagementApp object at 0x0000018841A0EBC0>, <tkinter.Tk object .>), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - MatHang Controller
+2025-02-20 16:14:55 - root - INFO - ---MatHangService initializing---
+2025-02-20 16:14:55 - root - INFO - ---MatHangRepo initializing---
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841A0F2E0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841A0F2E0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index chạy trong 0.0010151863098144531 giây
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ chạy trong 0.0015337467193603516 giây
+2025-02-20 16:14:55 - root - INFO - Get all MatHang
+2025-02-20 16:14:55 - root - INFO - Getting all products
+2025-02-20 16:14:55 - root - INFO - Calculating total products
+2025-02-20 16:14:55 - root - INFO - NhapHang Controller
+2025-02-20 16:14:55 - root - INFO - ---NhapHangService initializing---
+2025-02-20 16:14:55 - root - INFO - ---NhapHangRepo initializing---
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841AA47F0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841AA47F0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index chạy trong 0.0011391639709472656 giây
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ chạy trong 0.0011391639709472656 giây
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018841ACA7A0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:55 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018841ACA7A0>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:55 - root - INFO - Hàm create_index chạy trong 0.0015437602996826172 giây
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ chạy trong 0.0015437602996826172 giây
+2025-02-20 16:14:55 - root - INFO - ---MatHangService initializing---
+2025-02-20 16:14:55 - root - INFO - ---MatHangRepo initializing---
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841ACAD70>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018841ACAD70>,), kwargs: {}
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm create_index chạy trong 0.0010335445404052734 giây
+2025-02-20 16:14:55 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:55 - root - INFO - Hàm __init__ chạy trong 0.0010335445404052734 giây
+2025-02-20 16:14:55 - root - INFO - Get all NhapHang
+2025-02-20 16:14:55 - root - INFO - Getting all nhaphang
+2025-02-20 16:14:55 - root - INFO - SELECT * FROM NhapHang WHERE strftime('%m-%Y', ngay_nhap) = '02-2025' ORDER BY ten_hang asc LIMIT 25 OFFSET 0
+2025-02-20 16:14:55 - root - INFO - Calculating total nhap hang
+2025-02-20 16:14:56 - root - INFO - BanHang Controller
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.service.BanHangService.BanHangService object at 0x0000018843525480>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x00000188435254B0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843525570>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843525570>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010035037994384766 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010035037994384766 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x000001884353FCD0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x000001884353FCD0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0009942054748535156 giây
+2025-02-20 16:14:56 - root - INFO - ---MatHangService initializing---
+2025-02-20 16:14:56 - root - INFO - ---MatHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884355C190>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884355C190>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0029976367950439453 giây
+2025-02-20 16:14:56 - root - INFO - Get all BanHang
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm get_all với args: (<src.service.BanHangService.BanHangService object at 0x0000018843525480>,), kwargs: {'sort': 'Tên A-Z', 'day': '', 'month': '2', 'year': '2025', 'page': '1'}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_all với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x00000188435254B0>, 'ten_hang asc', "strftime('%m-%Y', ngay_ban) = '02-2025'", '25', '0'), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x00000188435254B0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm calculate_total với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x00000188435254B0>, "strftime('%m-%Y', ngay_ban) = '02-2025'"), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x00000188435254B0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm calculate_total chạy trong 0.0014567375183105469 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_all chạy trong 0.0051727294921875 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm get_all chạy trong 0.006656646728515625 giây
+2025-02-20 16:14:56 - root - INFO - ChiPhi Controller
+2025-02-20 16:14:56 - root - INFO - ---ChiPhiService initializing---
+2025-02-20 16:14:56 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Get all ChiPhi
+2025-02-20 16:14:56 - root - INFO - Getting all chi phi
+2025-02-20 16:14:56 - root - INFO - SELECT * FROM ChiPhi WHERE strftime('%m-%Y', ngay_tao) = '02-2025' ORDER BY ten_chi_phi asc LIMIT 25 OFFSET 0
+2025-02-20 16:14:56 - root - INFO - Calculating total chi phi strftime('%m-%Y', ngay_tao) = '02-2025'
+2025-02-20 16:14:56 - root - INFO - KhachHang Controller
+2025-02-20 16:14:56 - root - INFO - ---KhachHangService initializing---
+2025-02-20 16:14:56 - root - INFO - ---KhachHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x0000018843596A40>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x0000018843596A40>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010614395141601562 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.002060413360595703 giây
+2025-02-20 16:14:56 - root - INFO - Get all KhachHang
+2025-02-20 16:14:56 - root - INFO - Getting all khach hang
+2025-02-20 16:14:56 - root - INFO - Calculating total khachhang
+2025-02-20 16:14:56 - root - INFO - NCC Controller
+2025-02-20 16:14:56 - root - INFO - ---NCCService initializing---
+2025-02-20 16:14:56 - root - INFO - ---NCCRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x00000188435D5390>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x00000188435D5390>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010006427764892578 giây
+2025-02-20 16:14:56 - root - INFO - Get all NCC
+2025-02-20 16:14:56 - root - INFO - Getting all ncc
+2025-02-20 16:14:56 - root - INFO - Calculating total ncc
+2025-02-20 16:14:56 - root - INFO - BaoCao Controller
+2025-02-20 16:14:56 - root - INFO - ---BaoCaoService initializing---
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - ---NhapHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - ---ChiPhiRepo initializing---
+2025-02-20 16:14:56 - root - INFO - report BanHang
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm report_loi_nhuan với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>, "strftime('%m-%Y', ngay_ban) = '02-2025'"), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm report_loi_nhuan chạy trong 0.0014395713806152344 giây
+2025-02-20 16:14:56 - root - INFO - BaoCaoBanHang Controller
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.service.BanHangService.BanHangService object at 0x000001884364E920>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x000001884364E950>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884364EA10>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884364EA10>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.00116729736328125 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.00116729736328125 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x000001884364EDD0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshKhachHang object at 0x000001884364EDD0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0012531280517578125 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshKhachHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0012531280517578125 giây
+2025-02-20 16:14:56 - root - INFO - ---MatHangService initializing---
+2025-02-20 16:14:56 - root - INFO - ---MatHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884364F2B0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x000001884364F2B0>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010521411895751953 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010521411895751953 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.003472566604614258 giây
+2025-02-20 16:14:56 - root - INFO - report BanHang
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm report với args: (<src.service.BanHangService.BanHangService object at 0x000001884364E920>,), kwargs: {'sort': 'Tổng tiền nhiều - ít', 'day': '', 'month': '2', 'year': '2025'}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm report với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x000001884364E950>, 'sum(thanh_tien) desc', "strftime('%m-%Y', ngay_ban) = '02-2025'"), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x000001884364E950>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangRepo
+2025-02-20 16:14:56 - root - INFO - Hàm report chạy trong 0.0009996891021728516 giây
+2025-02-20 16:14:56 - root - INFO - Class BanHangService
+2025-02-20 16:14:56 - root - INFO - Hàm report chạy trong 0.0009996891021728516 giây
+2025-02-20 16:14:56 - root - INFO - BaoCaoNhapHang Controller
+2025-02-20 16:14:56 - root - INFO - ---NhapHangService initializing---
+2025-02-20 16:14:56 - root - INFO - ---NhapHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843681F90>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843681F90>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010044574737548828 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010044574737548828 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018843682350>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshNCC object at 0x0000018843682350>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010001659393310547 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshNCC
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010001659393310547 giây
+2025-02-20 16:14:56 - root - INFO - ---MatHangService initializing---
+2025-02-20 16:14:56 - root - INFO - ---MatHangRepo initializing---
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843682920>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index với args: (<src.config.search_whoosh.SearchWhooshMatHang object at 0x0000018843682920>,), kwargs: {}
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm create_index chạy trong 0.0010001659393310547 giây
+2025-02-20 16:14:56 - root - INFO - Class SearchWhooshMatHang
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.0010001659393310547 giây
+2025-02-20 16:14:56 - root - INFO - report NhapHang
+2025-02-20 16:14:56 - root - INFO - Class SalesManagementApp
+2025-02-20 16:14:56 - root - INFO - Hàm __init__ chạy trong 0.538764476776123 giây
+2025-02-20 16:18:37 - root - INFO - Get all ChiPhi
+2025-02-20 16:18:37 - root - INFO - Getting all chi phi
+2025-02-20 16:18:37 - root - INFO - SELECT * FROM ChiPhi WHERE strftime('%m-%Y', ngay_tao) = '02-2025' ORDER BY ten_chi_phi asc LIMIT 25 OFFSET 50
+2025-02-20 16:18:37 - root - INFO - Calculating total chi phi strftime('%m-%Y', ngay_tao) = '02-2025'
+2025-02-20 16:18:50 - root - INFO - report BanHang
+2025-02-20 16:18:50 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:50 - root - INFO - Hàm report_loi_nhuan với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>, "strftime('%m-%Y', ngay_ban) = '02-2025'"), kwargs: {}
+2025-02-20 16:18:50 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:50 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>,), kwargs: {}
+2025-02-20 16:18:50 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:50 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:18:50 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:50 - root - INFO - Hàm report_loi_nhuan chạy trong 0.001001596450805664 giây
+2025-02-20 16:18:54 - root - INFO - report BanHang
+2025-02-20 16:18:54 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:54 - root - INFO - Hàm report_loi_nhuan với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>, "strftime('%m-%Y', ngay_ban) = '01-2025'"), kwargs: {}
+2025-02-20 16:18:54 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:54 - root - INFO - Hàm get_connection với args: (<src.repository.BanHangRepo.BanHangRepo object at 0x0000018843611180>,), kwargs: {}
+2025-02-20 16:18:54 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:54 - root - INFO - Hàm get_connection chạy trong 0.0 giây
+2025-02-20 16:18:54 - root - INFO - Class BanHangRepo
+2025-02-20 16:18:54 - root - INFO - Hàm report_loi_nhuan chạy trong 0.0010154247283935547 giây

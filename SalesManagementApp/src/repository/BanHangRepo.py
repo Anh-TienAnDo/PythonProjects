@@ -2,103 +2,185 @@ import sqlite3
 from contants import BAN_HANG_TABLE, DATABASE_PATH
 import logging
 from src.entity.BanHangEntity import BanHang
-
+from src.utils.ConvertEntity import ConvertBanHang
+from src.utils.Decorator import logger, timer
 
 class BanHangRepo:
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def __init__(self):
-        logging.info('---BanHangRepo initializing---')
         self.db_name = DATABASE_PATH
-        self.connection = sqlite3.connect(self.db_name)
-        self.cursor = self.connection.cursor()
-        logging.info('Connected to database %s', DATABASE_PATH)
+        self.convert_ban_hang = ConvertBanHang()
+        
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
+    def get_connection(self):
+        return sqlite3.connect(self.db_name)
 
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def get_all(self, sort_by: str, where: str, limit: str, offset:str) -> list[BanHang]:
-        logging.info('Getting all banhang')
-        logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', BAN_HANG_TABLE, where, sort_by, limit, offset)
+        # logging.info('Getting all banhang')
+        # logging.info('SELECT * FROM %s WHERE %s ORDER BY %s LIMIT %s OFFSET %s', BAN_HANG_TABLE, where, sort_by, limit, offset)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
-            data = self.cursor.fetchall()
-            ban_hang_list = [BanHang(*row) for row in data]
+            cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE} WHERE {where} ORDER BY {sort_by} LIMIT {limit} OFFSET {offset}')
+            data = cursor.fetchall()
+            ban_hang_list = self.convert_ban_hang.convert_to_entity_list(data)
             return ban_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
             return []
+        finally:
+            cursor.close()
+            connection.close()
         
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def calculate_total(self, where: str):
-        logging.info('Calculating total ban hang %s', where)
+        # logging.info('Calculating total ban hang %s', where)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(f'SELECT COUNT(*), SUM(so_luong), SUM(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where}')
-            data = self.cursor.fetchone()
+            cursor.execute(f'SELECT COUNT(*), SUM(so_luong), SUM(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where}')
+            data = cursor.fetchone()
             return data
         except Exception as e:
             logging.error('Error calculating total %s', e)
             return (0, 0, 0)
+        finally:
+            cursor.close()
+            connection.close()
         
     def list(self) -> list[BanHang]:
-        logging.info('Getting all banhang')
+        # logging.info('Getting all banhang')
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE}')
-            data = self.cursor.fetchall()
-            ban_hang_list = [BanHang(*row) for row in data]
+            cursor.execute(f'SELECT * FROM {BAN_HANG_TABLE}')
+            data = cursor.fetchall()
+            ban_hang_list = self.convert_ban_hang.convert_to_entity_list(data)
             return ban_hang_list
         except Exception as e:
             logging.error('Error getting all %s', e)
             return []
-            
+        finally:
+            cursor.close()
+            connection.close()
+         
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')   
     def report(self, sort_by: str, where: str) -> list:
-        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
-        data = self.cursor.fetchall()
-        return data
-    
-    def report_detail_mat_hang(self, sort_by: str, where: str) -> list:
-        # where: ngay_ban = '2021-09-01', id_mat_hang = 'MH0001'
-        self.cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban ORDER BY {sort_by}')
-        data = self.cursor.fetchall()
-        return data
-    
-    def report_loi_nhuan(self, where: str) -> list:
-        self.cursor.execute(f'SELECT sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban')
-        data = self.cursor.fetchall()
-        return data
-
-    def get_by_id(self, ban_hang_id) -> BanHang:
-        logging.info('Getting banhang by id %s', ban_hang_id)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(
+            cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien) FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY id_mat_hang ORDER BY {sort_by}')
+            data = cursor.fetchall()
+            return data
+        except Exception as e:
+            logging.error('Error calculating report %s', e)
+            return []
+        finally:
+            cursor.close()
+            connection.close()
+    
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
+    def report_detail_mat_hang(self, sort_by: str, where: str) -> list:
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        # where: ngay_ban = '2021-09-01', id_mat_hang = 'MH0001'
+        try:
+            cursor.execute(f'SELECT id_mat_hang, ten_hang, count(id_mat_hang), sum(so_luong), sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban ORDER BY {sort_by}')
+            data = cursor.fetchall()
+            return data
+        except Exception as e:
+            logging.error('Error calculating detail mat hang %s', e)
+            return []
+        finally:
+            cursor.close()
+            connection.close()
+    
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
+    def report_loi_nhuan(self, where: str) -> list:
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        try:
+            cursor.execute(f'SELECT sum(thanh_tien), ngay_ban FROM {BAN_HANG_TABLE} WHERE {where} GROUP BY ngay_ban')
+            data = cursor.fetchall()
+            return data
+        except Exception as e:
+            logging.error('Error calculating loi nhuan %s', e)
+            return []
+        finally:
+            cursor.close()
+            connection.close()
+
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
+    def get_by_id(self, ban_hang_id) -> BanHang:
+        # logging.info('Getting banhang by id %s', ban_hang_id)
+        connection = self.get_connection()
+        cursor = connection.cursor()
+        try:
+            cursor.execute(
                 f'SELECT * FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
-            data = self.cursor.fetchone()
+            data = cursor.fetchone()
             return BanHang(*data) if data else None
         except Exception as e:
             logging.error('Error getting banhang by id %s', e)
             return None
+        finally:
+            cursor.close()
+            connection.close()
 
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def create(self, ban_hang: BanHang) -> bool:
-        logging.info('Creating banhang %s', ban_hang)
+        # logging.info('Creating banhang %s', ban_hang)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(f'''INSERT INTO {BAN_HANG_TABLE}
+            cursor.execute(f'''INSERT INTO {BAN_HANG_TABLE}
                                 (id, id_mat_hang, ten_hang, don_vi, so_luong, gia_ban, khach_hang, thanh_tien, ghi_chu, ngay_ban) 
                                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', ban_hang.to_tuple())
-            self.connection.commit()
+            connection.commit()
             return True
         except Exception as e:
             logging.error('Error creating banhang %s', e)
             return False
+        finally:
+            cursor.close()
+            connection.close()
     
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def create_many(self, ban_hang_list) -> bool:
-        logging.info('Creating multiple banhang records')
+        # logging.info('Creating multiple banhang records')
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
             ban_hang_tuples = [ban_hang.to_tuple() for ban_hang in ban_hang_list]
-            self.cursor.executemany(f'''INSERT INTO {BAN_HANG_TABLE}
+            cursor.executemany(f'''INSERT INTO {BAN_HANG_TABLE}
                                     (id, id_mat_hang, ten_hang, don_vi, so_luong, gia_ban, khach_hang, thanh_tien, ghi_chu, ngay_ban) 
                                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''', ban_hang_tuples)
-            self.connection.commit()
+            connection.commit()
             return True
         except Exception as e:
             logging.error('Error creating multiple banhang records %s', e)
             return False
+        finally:
+            cursor.close()
+            connection.close()
 
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def update(self, ban_hang_id, ban_hang: BanHang) -> bool:
-        logging.info('Updating banhang %s', ban_hang)
+        # logging.info('Updating banhang %s', ban_hang)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         ten_hang = ban_hang.ten_hang
         don_vi = ban_hang.don_vi
         so_luong = ban_hang.so_luong
@@ -107,41 +189,58 @@ class BanHangRepo:
         thanh_tien = ban_hang.thanh_tien
         ghi_chu = ban_hang.ghi_chu
         try:
-            self.cursor.execute(f'UPDATE {BAN_HANG_TABLE} SET ten_hang = ?, don_vi = ?, so_luong = ?, gia_ban = ?, khach_hang = ?, thanh_tien = ?, ghi_chu = ? WHERE id = ?', (
+            cursor.execute(f'UPDATE {BAN_HANG_TABLE} SET ten_hang = ?, don_vi = ?, so_luong = ?, gia_ban = ?, khach_hang = ?, thanh_tien = ?, ghi_chu = ? WHERE id = ?', (
                 ten_hang, don_vi, so_luong, gia_ban, khach_hang, thanh_tien, ghi_chu, ban_hang_id))
-            self.connection.commit()
+            connection.commit()
             return True
         except Exception as e:
             logging.error('Error updating banhang %s', e)
             return False
+        finally:
+            cursor.close()
+            connection.close()
 
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')
     def delete(self, ban_hang_id) -> bool:
-        logging.info('Deleting banhang by id %s', ban_hang_id)
+        # logging.info('Deleting banhang by id %s', ban_hang_id)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(
+            cursor.execute(
                 f'DELETE FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
-            self.connection.commit()
+            connection.commit()
             return True
         except Exception as e:
             logging.error('Error deleting banhang %s', e)
             return False
-            
+        finally:
+            cursor.close()
+            connection.close()
+        
+    @logger('BanHangRepo')
+    @timer('BanHangRepo')    
     def check_exist_id(self, ban_hang_id) -> bool:
-        logging.info('Checking banhang exist by id %s', ban_hang_id)
+        # logging.info('Checking banhang exist by id %s', ban_hang_id)
+        connection = self.get_connection()
+        cursor = connection.cursor()
         try:
-            self.cursor.execute(
+            cursor.execute(
                 f'SELECT * FROM {BAN_HANG_TABLE} WHERE id = ?', (ban_hang_id,))
-            data = self.cursor.fetchone()
+            data = cursor.fetchone()
             return True if data else False
         except Exception as e:
             logging.error('Error checking banhang exist %s', e)
             return False
+        finally:
+            cursor.close()
+            connection.close()
 
-    def __del__(self):
-        logging.info('Closing database connection to banhang')
-        if self.cursor:
-            self.cursor.close()
-        if self.connection:
-            self.connection.close()
+    # def __del__(self):
+    #     logging.info('Closing database connection to banhang')
+    #     if cursor:
+    #         cursor.close()
+    #     if self.connection:
+    #         self.connection.close()
         
     

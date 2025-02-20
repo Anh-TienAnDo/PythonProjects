@@ -14,12 +14,10 @@ def banner_box(request):
 
     if cached_data:
         data = {
-            'loudspeakers': cached_data.get('loudspeakers')[0:6],
-            'usbs': cached_data.get('usbs')[0:6],
-            'memory_sticks': cached_data.get('memory_sticks')[0:6]
+            'loudspeakers': cached_data.get('loudspeakers'),
+            'usbs': cached_data.get('usbs'),
+            'memory_sticks': cached_data.get('memory_sticks')
         }
-        print("----------------------------")
-        print("banner_box, cached_data")
         return data
     
     loudspeaker_service = LoudspeakerService(request=request)
@@ -43,8 +41,8 @@ def banner_box(request):
     cache.set(cache_key, data, timeout=60*5)  # Cache trong 5 phút
 
     return {
-        'loudspeakers': loudspeakers[0:6],
-        'usbs': usbs[0:6],
-        'memory_sticks': memory_sticks[0:6]
+        'loudspeakers': loudspeakers,
+        'usbs': usbs,
+        'memory_sticks': memory_sticks
     }
 
